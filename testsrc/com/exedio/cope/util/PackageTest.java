@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(PropertiesTest.class);
+		suite.addTestSuite(SequenceCheckerTest.class);
 		return suite;
 	}
 }
