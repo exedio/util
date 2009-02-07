@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+
+<project name="cope util" default="build" basedir=".">
+
+	<property name="build.file.tag" value="unlabeled" />
+	
+	<target name="compile">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src"
+				destdir="build/classes"
+				includeAntRuntime="false"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<compilerarg value="-Xlint" />
+			<compilerarg value="-encoding" />
+			<compilerarg value="ascii" />
+		</javac>
+	</target>
+	
+	<target name="test.compile" depends="compile">
+		<mkdir dir="build/testclasses" />
+		<javac srcdir="testsrc"
+				destdir="build/testclasses"
+				deprecation="on"
+				debug="on"
+				optimize="off">
+			<classpath>
+				<pathelement location="build/classes" />
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+			<compilerarg value="-Xlint" />
+			<compilerarg value="-encoding" />
+			<compilerarg value="ascii" />
+		</javac>
+	</target>
+	
+	<target name="test.run" depends="test.compile">
+		<mkdir dir="build/testresults" />
+		<junit fork="yes"
+				 haltonerror="true" haltonfailure="true"
+				 showoutput="true" printsummary="true">
+			<formatter type="brief" usefile="false" />
+			<formatter type="xml" />
+			<classpath>
+				<pathelement location="build/classes" />
+				<pathelement location="build/testclasses" />
+				<pathelement location="lib/junit.jar" />
+			</classpath>
+			<test name="com.exedio.cope.util.PackageTest" todir="build/testresults" outfile="cope-util" />
+			<assertions><enable/></assertions>
+		</junit>
+	</target>
+	
+	<target name="test" depends="test.run" />
+	
+	<target name="jar" depends="compile">
+		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes" duplicate="fail">
+			<manifest>
+				<attribute name="Specification-Title" value="exedio cope util"/>
+				<attribute name="Specification-Version" value="${build.tag}"/>
+				<attribute name="Specification-Vendor" value="exedio GmbH"/>
+				<attribute name="Implementation-Title" value="exedio cope util"/>
+				<attribute name="Implementation-Version" value="${build.tag}"/>
+				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="jar.src">
+		<mkdir dir="build" />
+		<zip destfile="build/exedio-cope-util.jar-src.zip">
+			<zipfileset dir="${basedir}/src">
+				<include name="**/*.java" />
+			</zipfileset>
+		</zip>
+	</target>
+	
+	<target name="dist.tar">
+		<mkdir dir="build" />
+		<echo file="build/build.number" message="${build.tag}" />
+		<tar destfile="build/exedio-cope-util-src-${build.file.tag}.tar.gz"
+				compression="gzip">
+			<tarfileset file="${basedir}/build/build.number" />
+			<tarfileset dir="${basedir}">
+				<exclude name=".eclipse-output/**" />
+				<exclude name="build/**" />
+				<exclude name="api/**" />
+				<exclude name="cruise/**" />
+			</tarfileset>
+		</tar>
+	</target>
+	
+	<target name="dist.test" depends="dist.tar">
+		<delete dir="build/dist-test" />
+		<mkdir dir="build/dist-test" />
+		<untar src="build/exedio-cope-util-src-${build.file.tag}.tar.gz"
+				dest="build/dist-test"
+				compression="gzip" />
+		<ant dir="build/dist-test" target="build" />
+	</target>
+	
+	<target name="dist" depends="dist.tar, dist.test" />
+	
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<target name="api">
+
+		<property name="api.link.jdk"  value="http://java.sun.com/j2se/1.5.0/docs/api" />
+		<property name="api.link.j2ee" value="http://java.sun.com/j2ee/1.4/docs/api" />
+
+		<delete dir="api" />
+		<mkdir  dir="api" />
+
+		<javadoc
+				sourcepath="src"
+				destdir="api"
+				maxmemory="60m"
+				author="on"
+				use="on"
+				version="on"
+				windowtitle="exedio cope util"
+				splitindex="on"
+				failonerror="true"
+			>
+			<doctitle><![CDATA[COPE Utilities<br>API Specification]]></doctitle>
+			<header>exedio cope util</header>
+			<footer>exedio cope util</footer>
+			<bottom><![CDATA[<small>Copyright &copy; 2004-2008 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
+			<package name="com.*" />
+		</javadoc>
+	</target>
+	
+	<target name="build" depends="compile, test, jar, api" />
+	<target name="all" depends="build, jar.src, dist" />
+
+	<target name="cruise" depends="clean, all">
+		<copy todir="${basedir}/cruise">
+			<fileset file="${basedir}/getlib.properties" />
+			<fileset file="${basedir}/build/exedio-cope-util.jar" />
+			<fileset file="${basedir}/build/exedio-cope-util.jar-src.zip" />
+			<fileset file="${basedir}/build/exedio-cope-util-src-${build.file.tag}.tar.gz" />
+		</copy>
+		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope-util.jar-CHANGELOG" />
+	</target>
+	
+</project>
