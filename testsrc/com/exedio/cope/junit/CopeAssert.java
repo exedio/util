@@ -192,7 +192,7 @@ public abstract class CopeAssert extends TestCase
 			}
 			catch(UnsupportedOperationException e) {/*OK*/}
 
-			final Iterator iterator = c.iterator();
+			final Iterator<?> iterator = c.iterator();
 			try
 			{
 				iterator.next();
