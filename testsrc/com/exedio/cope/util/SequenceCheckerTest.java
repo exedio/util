@@ -43,34 +43,34 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(4);
+		assertEquals(false, sc.check(4));
 		assertIt(3, 4, 2, 0, 0, 0, 0);
 		
-		sc.check(5);
+		assertEquals(false, sc.check(5));
 		assertIt(3, 5, 3, 0, 0, 0, 0);
 		
-		sc.check(6);
+		assertEquals(false, sc.check(6));
 		assertIt(3, 6, 4, 0, 0, 0, 0);
 		
-		sc.check(7);
+		assertEquals(false, sc.check(7));
 		assertIt(3, 7, 5, 0, 0, 0, 0);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3, 8, 6, 0, 0, 0, 0);
 		
-		sc.check(9);
+		assertEquals(false, sc.check(9));
 		assertIt(3, 9, 7, 0, 0, 0, 0);
 		
-		sc.check(10);
+		assertEquals(false, sc.check(10));
 		assertIt(3,10, 8, 0, 0, 0, 0);
 		
-		sc.check(2);
+		assertEquals(false, sc.check(2));
 		assertIt(3,10, 8, 0, 0, 0, 0);
 		
-		sc.check(Integer.MIN_VALUE);
+		assertEquals(false, sc.check(Integer.MIN_VALUE));
 		assertIt(3,10, 8, 0, 0, 0, 0);
 	}
 	
@@ -79,28 +79,28 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(5);
+		assertEquals(false, sc.check(5));
 		assertIt(3, 5, 2, 0, 0, 0, 0);
 		
-		sc.check(4);
+		assertEquals(false, sc.check(4));
 		assertIt(3, 5, 2, 1, 0, 0, 0);
 		
-		sc.check(7);
+		assertEquals(false, sc.check(7));
 		assertIt(3, 7, 3, 1, 0, 0, 0);
 		
-		sc.check(6);
+		assertEquals(false, sc.check(6));
 		assertIt(3, 7, 3, 2, 0, 0, 0);
 		
-		sc.check(9);
+		assertEquals(false, sc.check(9));
 		assertIt(3, 9, 4, 2, 0, 0, 0);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3, 9, 4, 3, 0, 0, 0);
 		
-		sc.check(10);
+		assertEquals(false, sc.check(10));
 		assertIt(3,10, 5, 3, 0, 0, 0);
 	}
 	
@@ -109,22 +109,22 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(3);
+		assertEquals(true, sc.check(3));
 		assertIt(3, 3, 1, 0, 1, 0, 0);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3, 8, 2, 0, 1, 0, 0);
 		
-		sc.check(8);
+		assertEquals(true, sc.check(8));
 		assertIt(3, 8, 2, 0, 2, 0, 0);
 		
-		sc.check(15);
+		assertEquals(false, sc.check(15));
 		assertIt(3,15, 3, 0, 2, 6, 0);
 		
-		sc.check(15);
+		assertEquals(true, sc.check(15));
 		assertIt(3,15, 3, 0, 3, 6, 0);
 	}
 	
@@ -133,28 +133,28 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(5);
+		assertEquals(false, sc.check(5));
 		assertIt(3, 5, 2, 0, 0, 0, 0);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3, 8, 3, 0, 0, 0, 0);
 		
-		sc.check(9);
+		assertEquals(false, sc.check(9));
 		assertIt(3, 9, 4, 0, 0, 1, 0);
 		
-		sc.check(10);
+		assertEquals(false, sc.check(10));
 		assertIt(3,10, 5, 0, 0, 1, 0);
 		
-		sc.check(11);
+		assertEquals(false, sc.check(11));
 		assertIt(3,11, 6, 0, 0, 2, 0);
 		
-		sc.check(12);
+		assertEquals(false, sc.check(12));
 		assertIt(3,12, 7, 0, 0, 3, 0);
 		
-		sc.check(13);
+		assertEquals(false, sc.check(13));
 		assertIt(3,13, 8, 0, 0, 3, 0);
 	}
 	
@@ -163,16 +163,16 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(5);
+		assertEquals(false, sc.check(5));
 		assertIt(3, 5, 2, 0, 0, 0, 0);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3, 8, 3, 0, 0, 0, 0);
 		
-		sc.check(13);
+		assertEquals(false, sc.check(13));
 		assertIt(3,13, 4, 0, 0, 3, 0);
 	}
 	
@@ -181,16 +181,16 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(5);
+		assertEquals(false, sc.check(5));
 		assertIt(3, 5, 2, 0, 0, 0, 0);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3, 8, 3, 0, 0, 0, 0);
 		
-		sc.check(16);
+		assertEquals(false, sc.check(16));
 		assertIt(3,16, 4, 0, 0, 6, 0);
 	}
 	
@@ -199,22 +199,22 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals(5, sc.getLength());
 		assertIt();
 		
-		sc.check(3);
+		assertEquals(false, sc.check(3));
 		assertIt(3, 3, 1, 0, 0, 0, 0);
 		
-		sc.check(13);
+		assertEquals(false, sc.check(13));
 		assertIt(3,13, 2, 0, 0, 5, 0);
 		
-		sc.check(7);
+		assertEquals(false, sc.check(7));
 		assertIt(3,13, 2, 0, 0, 5, 1);
 		
-		sc.check(8);
+		assertEquals(false, sc.check(8));
 		assertIt(3,13, 2, 0, 0, 5, 2);
 		
-		sc.check(9);
+		assertEquals(false, sc.check(9));
 		assertIt(3,13, 2, 1, 0, 5, 2);
 		
-		sc.check(10);
+		assertEquals(false, sc.check(10));
 		assertIt(3,13, 2, 2, 0, 5, 2);
 	}
 	
