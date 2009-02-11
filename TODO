@@ -1,0 +1,11 @@
+
+TODO for cope util
+
+- implement Comparable
+	* Day
+	* Price
+- implement Serializable
+	* Day
+	* Price
+	* CharSet/CharacterSet
+	* PoolCounter
