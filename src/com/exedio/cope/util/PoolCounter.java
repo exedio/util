@@ -33,11 +33,11 @@ public final class PoolCounter
 {
 	private final Object lock = new Object();
 	
-	private final int[] idleLimit;
-	private final int[] idle;
-	private final int[] idleMax;
-	private final int[] create;
-	private final int[] destroy;
+	private final int[] idleLimitA;
+	private final int[] idleA;
+	private final int[] idleMaxA;
+	private final int[] createA;
+	private final int[] destroyA;
 	private int count;
 
 	int get = 0;
@@ -65,21 +65,21 @@ public final class PoolCounter
 				throw new IllegalArgumentException("idleLimits must be strictly monotonic increasing");
 		}
 		
-		this.idleLimit = copy(idleLimits);
-		this.idle    = new int[idleLimits.length];
-		this.idleMax = new int[idleLimits.length];
-		this.create  = new int[idleLimits.length];
-		this.destroy = new int[idleLimits.length];
+		this.idleLimitA = copy(idleLimits);
+		this.idleA    = new int[idleLimits.length];
+		this.idleMaxA = new int[idleLimits.length];
+		this.createA  = new int[idleLimits.length];
+		this.destroyA = new int[idleLimits.length];
 		this.count = 1;
 	}
 
 	public PoolCounter(final PoolCounter source)
 	{
-		this.idleLimit = source.idleLimit;
-		this.idle    = copy(source.idle);
-		this.idleMax = copy(source.idleMax);
-		this.create  = copy(source.create);
-		this.destroy = copy(source.destroy);
+		this.idleLimitA = source.idleLimitA;
+		this.idleA    = copy(source.idleA);
+		this.idleMaxA = copy(source.idleMaxA);
+		this.createA  = copy(source.createA);
+		this.destroyA = copy(source.destroyA);
 		this.get = source.get;
 		this.put = source.put;
 		this.count = source.count;
@@ -102,12 +102,12 @@ public final class PoolCounter
 			final int count = this.count;
 			for(int i = 0; i<count; i++)
 			{
-				final int idleI = idle[i];
+				final int idleI = idleA[i];
 				
 				if(idleI>0)
-					idle[i] = idleI-1;
+					idleA[i] = idleI-1;
 				else
-					create[i]++;
+					createA[i]++;
 			}
 		}
 	}
@@ -121,30 +121,30 @@ public final class PoolCounter
 			int count = this.count;
 			for(int i = 0; i<count; i++)
 			{
-				int idleI = idle[i];
+				int idleI = idleA[i];
 				
-				if(idleI<idleLimit[i])
+				if(idleI<idleLimitA[i])
 				{
-					idle[i] = ++idleI;
+					idleA[i] = ++idleI;
 
-					if(idleI>idleMax[i])
-						idleMax[i] = idleI;
+					if(idleI>idleMaxA[i])
+						idleMaxA[i] = idleI;
 				}
 				else
 				{
-					final int destroyI = destroy[i];
+					final int destroyI = destroyA[i];
 					
-					if(destroyI==0 && count<idleLimit.length)
+					if(destroyI==0 && count<idleLimitA.length)
 					{
 						assert i==(count-1);
-						idle   [count] = idleI;
-						idleMax[count] = idleMax[i];
-						create [count] = create[i];
-						destroy[count] = 0/*equals to destroy[i]*/;
+						idleA   [count] = idleI;
+						idleMaxA[count] = idleMaxA[i];
+						createA [count] = createA[i];
+						destroyA[count] = 0/*equals to destroy[i]*/;
 						count++; // causes another iteration
 						this.count = count;
 					}
-					destroy[i] = destroyI+1;
+					destroyA[i] = destroyI+1;
 				}
 			}
 		}
@@ -152,12 +152,12 @@ public final class PoolCounter
 	
 	public List<Pool> getPools()
 	{
-		final ArrayList<Pool> result = new ArrayList<Pool>(idleLimit.length);
+		final ArrayList<Pool> result = new ArrayList<Pool>(idleLimitA.length);
 		synchronized(lock)
 		{
 			final int count = this.count;
 			for(int i = 0; i<count; i++)
-				result.add(new Pool(idleLimit[i], idle[i], idleMax[i], create[i], destroy[i]));
+				result.add(new Pool(idleLimitA[i], idleA[i], idleMaxA[i], createA[i], destroyA[i]));
 		}
 		return Collections.unmodifiableList(result);
 	}
