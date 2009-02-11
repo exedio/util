@@ -29,9 +29,6 @@ import java.util.GregorianCalendar;
  * but with &quot;day precision&quot; instead of millisecond precision.
  * Like {@link java.util.Date} its immutable,
  * so you cannot change the value of an instance of this class.
- * <p>
- * This class is used within cope as a value class for
- * {@link com.exedio.cope.DayField}.
  *
  * @author Ralf Wiebicke
  */
