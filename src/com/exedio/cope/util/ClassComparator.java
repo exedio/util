@@ -18,20 +18,30 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.util.Comparator;
 
-public class PackageTest extends TestCase
+/**
+ * @deprecated This class is not used in the cope runtime library anymore.
+ */
+@Deprecated
+public final class ClassComparator implements Comparator<Class>
 {
-	public static Test suite()
+	/**
+	 * @deprecated This class is not used in the cope runtime library anymore.
+	 */
+	@Deprecated
+	public static final ClassComparator getInstance()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(CharSetTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		return suite;
+		return new ClassComparator();
+	}
+
+	private ClassComparator()
+	{
+		// do not allow instantiation, is a singleton
+	}
+
+	public int compare(final Class c1, final Class c2)
+	{
+		return c1.getName().compareTo(c2.getName());
 	}
 }
