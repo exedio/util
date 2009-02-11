@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,8 +35,10 @@ import java.util.GregorianCalendar;
  *
  * @author Ralf Wiebicke
  */
-public final class Day // TODO implement Comparable
+public final class Day implements Serializable // TODO Comparable
 {
+	private static final long serialVersionUID = 1l;
+	
 	private final int year;
 	private final int month;
 	private final int day;
