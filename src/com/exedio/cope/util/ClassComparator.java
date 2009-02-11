@@ -24,7 +24,7 @@ import java.util.Comparator;
  * @deprecated This class is not used in the cope runtime library anymore.
  */
 @Deprecated
-public final class ClassComparator implements Comparator<Class>
+public final class ClassComparator implements Comparator<Class<?>>
 {
 	/**
 	 * @deprecated This class is not used in the cope runtime library anymore.
@@ -40,7 +40,7 @@ public final class ClassComparator implements Comparator<Class>
 		// do not allow instantiation, is a singleton
 	}
 
-	public int compare(final Class c1, final Class c2)
+	public int compare(final Class<?> c1, final Class<?> c2)
 	{
 		return c1.getName().compareTo(c2.getName());
 	}

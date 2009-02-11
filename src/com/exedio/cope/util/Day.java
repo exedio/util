@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -62,7 +63,7 @@ public final class Day // TODO implement Comparable
 	
 	private Day(final GregorianCalendar c)
 	{
-		this(c.get(GregorianCalendar.YEAR), c.get(GregorianCalendar.MONTH)+1, c.get(GregorianCalendar.DAY_OF_MONTH));
+		this(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
 	}
 	
 	public Day(final int year, final int month, final int day)
@@ -77,9 +78,9 @@ public final class Day // TODO implement Comparable
 			throw new IllegalArgumentException("day must be in range 1..31, but was: " + day);
 		
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
-		this.year = c.get(GregorianCalendar.YEAR);
-		this.month = c.get(GregorianCalendar.MONTH)+1;
-		this.day = c.get(GregorianCalendar.DAY_OF_MONTH);
+		this.year = c.get(Calendar.YEAR);
+		this.month = c.get(Calendar.MONTH)+1;
+		this.day = c.get(Calendar.DAY_OF_MONTH);
 	}
 	
 	public int getYear()
@@ -105,7 +106,7 @@ public final class Day // TODO implement Comparable
 	public Day add(final int days)
 	{
 		final GregorianCalendar cal = calendar();
-		cal.add(cal.DATE, days);
+		cal.add(Calendar.DATE, days);
 		return new Day(cal);
 	}
 	

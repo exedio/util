@@ -29,7 +29,7 @@ public class PoolCounterTest extends CopeAssert
 	{
 		final PoolCounter c = new PoolCounter(1,2);
 		
-		final Iterator pi = c.getPools().iterator();
+		final Iterator<?> pi = c.getPools().iterator();
 		PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
 		PoolCounter.Pool p2 = null;
 		assertFalse(pi.hasNext());
@@ -73,7 +73,7 @@ public class PoolCounterTest extends CopeAssert
 		assertIt(c, 3, 3); assertIt(p1,1, 0, 1, 2, 2, 66); assertIt(p2,2, 1, 2, 2, 1,33);
 		
 		final PoolCounter c2 = new PoolCounter(c);
-		final Iterator p2i = c2.getPools().iterator();
+		final Iterator<?> p2i = c2.getPools().iterator();
 		final PoolCounter.Pool p21 = (PoolCounter.Pool)p2i.next();
 		final PoolCounter.Pool p22 = (PoolCounter.Pool)p2i.next();
 		assertFalse(p2i.hasNext());
