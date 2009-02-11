@@ -31,7 +31,6 @@ public class PoolCounterTest extends CopeAssert
 		
 		final Iterator<?> pi = c.getPools().iterator();
 		PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
-		PoolCounter.Pool p2 = null;
 		assertFalse(pi.hasNext());
 		assertIt(c, 0, 0);
 		assertIt(p1, 1, 0, 0, 0, 0, 0);
@@ -39,25 +38,22 @@ public class PoolCounterTest extends CopeAssert
 		c.incrementGet();
 		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = null;
 		assertIt(c, 1, 0); assertIt(p1,1, 0, 0, 1, 0,  0);
 		
 		c.incrementGet();
 		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = null;
 		assertIt(c, 2, 0); assertIt(p1,1, 0, 0, 2, 0,  0);
 		
 		c.incrementPut();
 		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = null;
 		assertIt(c, 2, 1); assertIt(p1,1, 1, 1, 2, 0,  0);
 		
 		c.incrementPut();
 		assertEquals(2, c.getPools().size());
 		p1 = c.getPools().get(0);
-		p2 = c.getPools().get(1);
+		PoolCounter.Pool p2 = c.getPools().get(1);
 		assertIt(c, 2, 2); assertIt(p1,1, 1, 1, 2, 1, 50); assertIt(p2,2, 2, 2, 2, 0, 0);
 		
 		c.incrementPut();
