@@ -8,3 +8,4 @@ TODO for cope util
 	* Price
 	* CharSet/CharacterSet
 	* PoolCounter
+- common Interrupter for cronjob, endmail and cope Dispatcher and Scheduler
