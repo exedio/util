@@ -153,27 +153,107 @@ public final class SequenceChecker
 		
 		return maxNumber;
 	}
+	
+	public Counter getCounter()
+	{
+		return new Counter(
+				countInOrder,
+				countOutOfOrder,
+				countDuplicate,
+				countLost,
+				countLate);
+	}
+	
+	public static final class Counter
+	{
+		private final int inOrder;
+		private final int outOfOrder;
+		private final int duplicate;
+		private final int lost;
+		private final int late;
+		
+		Counter(
+				final int inOrder,
+				final int outOfOrder,
+				final int duplicate,
+				final int lost,
+				final int late)
+		{
+			this.inOrder    = inOrder;
+			this.outOfOrder = outOfOrder;
+			this.duplicate  = duplicate;
+			this.lost       = lost;
+			this.late       = late;
+		}
+		
+		public int getInOrder()
+		{
+			return inOrder;
+		}
 
+		public int getOutOfOrder()
+		{
+			return outOfOrder;
+		}
+
+		public int getDuplicate()
+		{
+			return duplicate;
+		}
+
+		public int getLost()
+		{
+			return lost;
+		}
+
+		public int getLate()
+		{
+			return late;
+		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link Counters#getInOrder()} instead.
+	 */
+	@Deprecated
 	public int getCountInOrder()
 	{
 		return countInOrder;
 	}
 
+	/**
+	 * @deprecated Use {@link Counters#getOutOfOrder()} instead.
+	 */
+	@Deprecated
 	public int getCountOutOfOrder()
 	{
 		return countOutOfOrder;
 	}
 
+	/**
+	 * @deprecated Use {@link Counters#getDuplicate()} instead.
+	 */
+	@Deprecated
 	public int getCountDuplicate()
 	{
 		return countDuplicate;
 	}
 
+	/**
+	 * @deprecated Use {@link Counters#getLost()} instead.
+	 */
+	@Deprecated
 	public int getCountLost()
 	{
 		return countLost;
 	}
 
+	/**
+	 * @deprecated Use {@link Counters#getLate()} instead.
+	 */
+	@Deprecated
 	public int getCountLate()
 	{
 		return countLate;

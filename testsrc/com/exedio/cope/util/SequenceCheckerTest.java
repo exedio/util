@@ -220,6 +220,7 @@ public class SequenceCheckerTest extends CopeAssert
 	
 	private void assertIt()
 	{
+		final SequenceChecker.Counter c = sc.getCounter();
 		try
 		{
 			sc.getFirstNumber();
@@ -238,11 +239,11 @@ public class SequenceCheckerTest extends CopeAssert
 		{
 			assertEquals("did not yet check first number", e.getMessage());
 		}
-		assertEquals("countInOrder",    0, sc.getCountInOrder());
-		assertEquals("countOutOfOrder", 0, sc.getCountOutOfOrder());
-		assertEquals("countDuplicate",  0, sc.getCountDuplicate());
-		assertEquals("countLost",       0, sc.getCountLost());
-		assertEquals("countLate",       0, sc.getCountLate());
+		assertEquals("countInOrder",    0, c.getInOrder());
+		assertEquals("countOutOfOrder", 0, c.getOutOfOrder());
+		assertEquals("countDuplicate",  0, c.getDuplicate());
+		assertEquals("countLost",       0, c.getLost());
+		assertEquals("countLate",       0, c.getLate());
 	}
 	
 	private void assertIt(
@@ -254,12 +255,13 @@ public class SequenceCheckerTest extends CopeAssert
 			final int countLost,
 			final int countLate)
 	{
+		final SequenceChecker.Counter c = sc.getCounter();
 		assertEquals("firstNumber",     firstNumber,     sc.getFirstNumber());
 		assertEquals("maxNumber",       maxNumber,       sc.getMaxNumber());
-		assertEquals("countInOrder",    countInOrder,    sc.getCountInOrder());
-		assertEquals("countOutOfOrder", countOutOfOrder, sc.getCountOutOfOrder());
-		assertEquals("countDuplicate",  countDuplicate,  sc.getCountDuplicate());
-		assertEquals("countLost",       countLost,       sc.getCountLost());
-		assertEquals("countLate",       countLate,       sc.getCountLate());
+		assertEquals("countInOrder",    countInOrder,    c.getInOrder());
+		assertEquals("countOutOfOrder", countOutOfOrder, c.getOutOfOrder());
+		assertEquals("countDuplicate",  countDuplicate,  c.getDuplicate());
+		assertEquals("countLost",       countLost,       c.getLost());
+		assertEquals("countLate",       countLate,       c.getLate());
 	}
 }
