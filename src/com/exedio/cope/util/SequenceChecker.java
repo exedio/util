@@ -154,9 +154,9 @@ public final class SequenceChecker
 		return maxNumber;
 	}
 	
-	public Counter getCounter()
+	public Info getInfo()
 	{
-		return new Counter(
+		return new Info(
 				countInOrder,
 				countOutOfOrder,
 				countDuplicate,
@@ -164,7 +164,7 @@ public final class SequenceChecker
 				countLate);
 	}
 	
-	public static final class Counter
+	public static final class Info
 	{
 		private final int inOrder;
 		private final int outOfOrder;
@@ -172,7 +172,7 @@ public final class SequenceChecker
 		private final int lost;
 		private final int late;
 		
-		Counter(
+		Info(
 				final int inOrder,
 				final int outOfOrder,
 				final int duplicate,
@@ -213,6 +213,54 @@ public final class SequenceChecker
 	}
 
 	// ------------------- deprecated stuff -------------------
+	
+	/**
+	 * @deprecated Use {@link #getInfo()} instead.
+	 */
+	@Deprecated
+	public Counter getCounter()
+	{
+		return new Counter(getInfo());
+	}
+	
+	/**
+	 * @deprecated Use {@link Info} instead.
+	 */
+	@Deprecated
+	public static final class Counter
+	{
+		private final Info info;
+		
+		Counter(final Info info)
+		{
+			this.info = info;
+		}
+		
+		public int getInOrder()
+		{
+			return info.getInOrder();
+		}
+
+		public int getOutOfOrder()
+		{
+			return info.getOutOfOrder();
+		}
+
+		public int getDuplicate()
+		{
+			return info.getDuplicate();
+		}
+
+		public int getLost()
+		{
+			return info.getLost();
+		}
+
+		public int getLate()
+		{
+			return info.getLate();
+		}
+	}
 	
 	/**
 	 * @deprecated Use {@link Counters#getInOrder()} instead.

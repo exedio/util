@@ -220,7 +220,7 @@ public class SequenceCheckerTest extends CopeAssert
 	
 	private void assertIt()
 	{
-		final SequenceChecker.Counter c = sc.getCounter();
+		final SequenceChecker.Info c = sc.getInfo();
 		try
 		{
 			sc.getFirstNumber();
@@ -255,7 +255,7 @@ public class SequenceCheckerTest extends CopeAssert
 			final int countLost,
 			final int countLate)
 	{
-		final SequenceChecker.Counter c = sc.getCounter();
+		final SequenceChecker.Info c = sc.getInfo();
 		assertEquals("firstNumber",     firstNumber,     sc.getFirstNumber());
 		assertEquals("maxNumber",       maxNumber,       sc.getMaxNumber());
 		assertEquals("countInOrder",    countInOrder,    c.getInOrder());
