@@ -44,34 +44,34 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(4));
-		assertIt(3, 4, 2, 0, 0, 0, 0);
+		assertIt(3, 4, 2, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(5));
-		assertIt(3, 5, 3, 0, 0, 0, 0);
+		assertIt(3, 5, 3, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(6));
-		assertIt(3, 6, 4, 0, 0, 0, 0);
+		assertIt(3, 6, 4, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(7));
-		assertIt(3, 7, 5, 0, 0, 0, 0);
+		assertIt(3, 7, 5, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3, 8, 6, 0, 0, 0, 0);
+		assertIt(3, 8, 6, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(9));
-		assertIt(3, 9, 7, 0, 0, 0, 0);
+		assertIt(3, 9, 7, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(10));
-		assertIt(3,10, 8, 0, 0, 0, 0);
+		assertIt(3,10, 8, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(2));
-		assertIt(3,10, 8, 0, 0, 0, 0);
+		assertIt(3,10, 8, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(Integer.MIN_VALUE));
-		assertIt(3,10, 8, 0, 0, 0, 0);
+		assertIt(3,10, 8, 0, 0, 0, 0, 0);
 	}
 	
 	public void testOutOfOrder()
@@ -80,28 +80,28 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(5));
-		assertIt(3, 5, 2, 0, 0, 0, 0);
+		assertIt(3, 5, 2, 0, 0, 0, 0, 1);
 		
 		assertEquals(false, sc.check(4));
-		assertIt(3, 5, 2, 1, 0, 0, 0);
+		assertIt(3, 5, 2, 1, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(7));
-		assertIt(3, 7, 3, 1, 0, 0, 0);
+		assertIt(3, 7, 3, 1, 0, 0, 0, 1);
 		
 		assertEquals(false, sc.check(6));
-		assertIt(3, 7, 3, 2, 0, 0, 0);
+		assertIt(3, 7, 3, 2, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(9));
-		assertIt(3, 9, 4, 2, 0, 0, 0);
+		assertIt(3, 9, 4, 2, 0, 0, 0, 1);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3, 9, 4, 3, 0, 0, 0);
+		assertIt(3, 9, 4, 3, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(10));
-		assertIt(3,10, 5, 3, 0, 0, 0);
+		assertIt(3,10, 5, 3, 0, 0, 0, 0);
 	}
 	
 	public void testDuplicate()
@@ -110,22 +110,22 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(true, sc.check(3));
-		assertIt(3, 3, 1, 0, 1, 0, 0);
+		assertIt(3, 3, 1, 0, 1, 0, 0, 0);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3, 8, 2, 0, 1, 0, 0);
+		assertIt(3, 8, 2, 0, 1, 0, 0, 4);
 		
 		assertEquals(true, sc.check(8));
-		assertIt(3, 8, 2, 0, 2, 0, 0);
+		assertIt(3, 8, 2, 0, 2, 0, 0, 4);
 		
 		assertEquals(false, sc.check(15));
-		assertIt(3,15, 3, 0, 2, 6, 0);
+		assertIt(3,15, 3, 0, 2, 6, 0, 4);
 		
 		assertEquals(true, sc.check(15));
-		assertIt(3,15, 3, 0, 3, 6, 0);
+		assertIt(3,15, 3, 0, 3, 6, 0, 4);
 	}
 	
 	public void testLostStep()
@@ -134,28 +134,28 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(5));
-		assertIt(3, 5, 2, 0, 0, 0, 0);
+		assertIt(3, 5, 2, 0, 0, 0, 0, 1);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3, 8, 3, 0, 0, 0, 0);
+		assertIt(3, 8, 3, 0, 0, 0, 0, 3);
 		
 		assertEquals(false, sc.check(9));
-		assertIt(3, 9, 4, 0, 0, 1, 0);
+		assertIt(3, 9, 4, 0, 0, 1, 0, 2);
 		
 		assertEquals(false, sc.check(10));
-		assertIt(3,10, 5, 0, 0, 1, 0);
+		assertIt(3,10, 5, 0, 0, 1, 0, 2);
 		
 		assertEquals(false, sc.check(11));
-		assertIt(3,11, 6, 0, 0, 2, 0);
+		assertIt(3,11, 6, 0, 0, 2, 0, 1);
 		
 		assertEquals(false, sc.check(12));
-		assertIt(3,12, 7, 0, 0, 3, 0);
+		assertIt(3,12, 7, 0, 0, 3, 0, 0);
 		
 		assertEquals(false, sc.check(13));
-		assertIt(3,13, 8, 0, 0, 3, 0);
+		assertIt(3,13, 8, 0, 0, 3, 0, 0);
 	}
 	
 	public void testLostJump()
@@ -164,16 +164,16 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(5));
-		assertIt(3, 5, 2, 0, 0, 0, 0);
+		assertIt(3, 5, 2, 0, 0, 0, 0, 1);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3, 8, 3, 0, 0, 0, 0);
+		assertIt(3, 8, 3, 0, 0, 0, 0, 3);
 		
 		assertEquals(false, sc.check(13));
-		assertIt(3,13, 4, 0, 0, 3, 0);
+		assertIt(3,13, 4, 0, 0, 3, 0, 4);
 	}
 	
 	public void testLostJumpOver()
@@ -182,16 +182,16 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(5));
-		assertIt(3, 5, 2, 0, 0, 0, 0);
+		assertIt(3, 5, 2, 0, 0, 0, 0, 1);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3, 8, 3, 0, 0, 0, 0);
+		assertIt(3, 8, 3, 0, 0, 0, 0, 3);
 		
 		assertEquals(false, sc.check(16));
-		assertIt(3,16, 4, 0, 0, 6, 0);
+		assertIt(3,16, 4, 0, 0, 6, 0, 4);
 	}
 	
 	public void testLate()
@@ -200,22 +200,22 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt();
 		
 		assertEquals(false, sc.check(3));
-		assertIt(3, 3, 1, 0, 0, 0, 0);
+		assertIt(3, 3, 1, 0, 0, 0, 0, 0);
 		
 		assertEquals(false, sc.check(13));
-		assertIt(3,13, 2, 0, 0, 5, 0);
+		assertIt(3,13, 2, 0, 0, 5, 0, 4);
 		
 		assertEquals(false, sc.check(7));
-		assertIt(3,13, 2, 0, 0, 5, 1);
+		assertIt(3,13, 2, 0, 0, 5, 1, 4);
 		
 		assertEquals(false, sc.check(8));
-		assertIt(3,13, 2, 0, 0, 5, 2);
+		assertIt(3,13, 2, 0, 0, 5, 2, 4);
 		
 		assertEquals(false, sc.check(9));
-		assertIt(3,13, 2, 1, 0, 5, 2);
+		assertIt(3,13, 2, 1, 0, 5, 2, 3);
 		
 		assertEquals(false, sc.check(10));
-		assertIt(3,13, 2, 2, 0, 5, 2);
+		assertIt(3,13, 2, 2, 0, 5, 2, 2);
 	}
 	
 	private void assertIt()
@@ -244,6 +244,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals("countDuplicate",  0, sci.getDuplicate());
 		assertEquals("countLost",       0, sci.getLost());
 		assertEquals("countLate",       0, sci.getLate());
+		assertEquals("countPending",    0, sci.getPending());
 	}
 	
 	private void assertIt(
@@ -253,8 +254,10 @@ public class SequenceCheckerTest extends CopeAssert
 			final int countOutOfOrder,
 			final int countDuplicate,
 			final int countLost,
-			final int countLate)
+			final int countLate,
+			final int countPending)
 	{
+		assertTrue(String.valueOf(countPending), countPending<sc.getLength());
 		final SequenceChecker.Info sci = sc.getInfo();
 		assertEquals("firstNumber",     firstNumber,     sc.getFirstNumber());
 		assertEquals("maxNumber",       maxNumber,       sc.getMaxNumber());
@@ -263,5 +266,6 @@ public class SequenceCheckerTest extends CopeAssert
 		assertEquals("countDuplicate",  countDuplicate,  sci.getDuplicate());
 		assertEquals("countLost",       countLost,       sci.getLost());
 		assertEquals("countLate",       countLate,       sci.getLate());
+		assertEquals("countPending",    countPending,    sci.getPending());
 	}
 }

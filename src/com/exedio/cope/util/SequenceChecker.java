@@ -156,12 +156,18 @@ public final class SequenceChecker
 	
 	public Info getInfo()
 	{
+		int countPending = 0;
+		for(final boolean b : buffer)
+			if(!b)
+				countPending++;
+		
 		return new Info(
 				countInOrder,
 				countOutOfOrder,
 				countDuplicate,
 				countLost,
-				countLate);
+				countLate,
+				countPending);
 	}
 	
 	public static final class Info
@@ -171,19 +177,22 @@ public final class SequenceChecker
 		private final int duplicate;
 		private final int lost;
 		private final int late;
+		private final int pending;
 		
 		Info(
 				final int inOrder,
 				final int outOfOrder,
 				final int duplicate,
 				final int lost,
-				final int late)
+				final int late,
+				final int pending)
 		{
 			this.inOrder    = inOrder;
 			this.outOfOrder = outOfOrder;
 			this.duplicate  = duplicate;
 			this.lost       = lost;
 			this.late       = late;
+			this.pending    = pending;
 		}
 		
 		public int getInOrder()
@@ -209,6 +218,11 @@ public final class SequenceChecker
 		public int getLate()
 		{
 			return late;
+		}
+
+		public int getPending()
+		{
+			return pending;
 		}
 	}
 
