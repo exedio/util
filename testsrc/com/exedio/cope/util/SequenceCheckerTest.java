@@ -220,7 +220,7 @@ public class SequenceCheckerTest extends CopeAssert
 	
 	private void assertIt()
 	{
-		final SequenceChecker.Info c = sc.getInfo();
+		final SequenceChecker.Info sci = sc.getInfo();
 		try
 		{
 			sc.getFirstNumber();
@@ -239,11 +239,11 @@ public class SequenceCheckerTest extends CopeAssert
 		{
 			assertEquals("did not yet check first number", e.getMessage());
 		}
-		assertEquals("countInOrder",    0, c.getInOrder());
-		assertEquals("countOutOfOrder", 0, c.getOutOfOrder());
-		assertEquals("countDuplicate",  0, c.getDuplicate());
-		assertEquals("countLost",       0, c.getLost());
-		assertEquals("countLate",       0, c.getLate());
+		assertEquals("countInOrder",    0, sci.getInOrder());
+		assertEquals("countOutOfOrder", 0, sci.getOutOfOrder());
+		assertEquals("countDuplicate",  0, sci.getDuplicate());
+		assertEquals("countLost",       0, sci.getLost());
+		assertEquals("countLate",       0, sci.getLate());
 	}
 	
 	private void assertIt(
@@ -255,13 +255,13 @@ public class SequenceCheckerTest extends CopeAssert
 			final int countLost,
 			final int countLate)
 	{
-		final SequenceChecker.Info c = sc.getInfo();
+		final SequenceChecker.Info sci = sc.getInfo();
 		assertEquals("firstNumber",     firstNumber,     sc.getFirstNumber());
 		assertEquals("maxNumber",       maxNumber,       sc.getMaxNumber());
-		assertEquals("countInOrder",    countInOrder,    c.getInOrder());
-		assertEquals("countOutOfOrder", countOutOfOrder, c.getOutOfOrder());
-		assertEquals("countDuplicate",  countDuplicate,  c.getDuplicate());
-		assertEquals("countLost",       countLost,       c.getLost());
-		assertEquals("countLate",       countLate,       c.getLate());
+		assertEquals("countInOrder",    countInOrder,    sci.getInOrder());
+		assertEquals("countOutOfOrder", countOutOfOrder, sci.getOutOfOrder());
+		assertEquals("countDuplicate",  countDuplicate,  sci.getDuplicate());
+		assertEquals("countLost",       countLost,       sci.getLost());
+		assertEquals("countLate",       countLate,       sci.getLate());
 	}
 }
