@@ -277,7 +277,7 @@ public final class SequenceChecker
 	}
 	
 	/**
-	 * @deprecated Use {@link Counters#getInOrder()} instead.
+	 * @deprecated Use {@link Info#getInOrder()} instead.
 	 */
 	@Deprecated
 	public int getCountInOrder()
@@ -286,7 +286,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Counters#getOutOfOrder()} instead.
+	 * @deprecated Use {@link Info#getOutOfOrder()} instead.
 	 */
 	@Deprecated
 	public int getCountOutOfOrder()
@@ -295,7 +295,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Counters#getDuplicate()} instead.
+	 * @deprecated Use {@link Info#getDuplicate()} instead.
 	 */
 	@Deprecated
 	public int getCountDuplicate()
@@ -304,7 +304,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Counters#getLost()} instead.
+	 * @deprecated Use {@link Info#getLost()} instead.
 	 */
 	@Deprecated
 	public int getCountLost()
@@ -313,7 +313,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Counters#getLate()} instead.
+	 * @deprecated Use {@link Info#getLate()} instead.
 	 */
 	@Deprecated
 	public int getCountLate()
