@@ -351,7 +351,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory must not be null", e.getMessage());
 		}
-		final Factory f = new Factory(PoolTest.<Pooled>listg());
+		final Factory f = new Factory(CopeAssert.<Pooled>listg());
 		try
 		{
 			new Pool<Pooled>(f, -1, -1, null);
