@@ -126,7 +126,7 @@ public final class Pool<E>
 	/**
 	 * TODO: If we want to implement changing connection parameters on-the-fly
 	 * somewhere in the future, it's important, that client return connections
-	 * to exactly the same instance of ConnectionPool.
+	 * to exactly the same instance of Pool.
 	 */
 	public void put(final E e)
 	{
@@ -191,9 +191,9 @@ public final class Pool<E>
 				}
 				catch(Exception ex)
 				{
-					System.err.println("warning: exception on flushing connection pool");
+					System.err.println("warning: exception on flushing pool");
 					ex.printStackTrace();
-					System.err.println("/warning: exception on flushing connection pool");
+					System.err.println("/warning: exception on flushing pool");
 				}
 			}
 		}
