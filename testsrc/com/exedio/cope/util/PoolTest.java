@@ -349,7 +349,7 @@ public class PoolTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("factory must not be null", e.getMessage());
+			assertEquals("factory", e.getMessage());
 		}
 		final Factory f = new Factory(CopeAssert.<Pooled>listg());
 		try

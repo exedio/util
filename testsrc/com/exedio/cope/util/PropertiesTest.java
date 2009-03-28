@@ -572,7 +572,7 @@ public class PropertiesTest extends CopeAssert
 		}
 		catch(NullPointerException e)
 		{
-			assertEquals("key must not be null", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 		try
 		{

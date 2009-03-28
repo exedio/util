@@ -52,7 +52,7 @@ public final class Pool<E>
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
 	{
 		if(factory==null)
-			throw new NullPointerException("factory must not be null");
+			throw new NullPointerException("factory");
 		if(idleLimit<0)
 			throw new IllegalArgumentException("idleLimit must not be negative, but was " + idleLimit);
 		if(idleInitial<0)

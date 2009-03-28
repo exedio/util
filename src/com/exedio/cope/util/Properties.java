@@ -189,7 +189,7 @@ public class Properties
 			this.specified = source.get(key)!=null;
 
 			if(key==null)
-				throw new NullPointerException("key must not be null.");
+				throw new NullPointerException("key");
 			if(key.length()==0)
 				throw new RuntimeException("key must not be empty.");
 			if(!detectDuplicateKeys.add(key))
@@ -332,7 +332,7 @@ public class Properties
 			this(key, defaultValue, false);
 
 			if(defaultValue==null)
-				throw new NullPointerException("defaultValue must not be null.");
+				throw new NullPointerException("defaultValue");
 		}
 		
 		/**
@@ -601,7 +601,7 @@ public class Properties
 	public final String getContext(final String key)
 	{
 		if(key==null)
-			throw new NullPointerException("key must not be null");
+			throw new NullPointerException("key");
 		if(context==null)
 			throw new IllegalStateException("no context available");
 		
