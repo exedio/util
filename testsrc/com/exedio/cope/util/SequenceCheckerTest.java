@@ -218,6 +218,19 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,13, 2, 2, 0, 5, 2, 2);
 	}
 	
+	public void testException()
+	{
+		try
+		{
+			new SequenceChecker(0);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("length must be greater than zero, but was 0", e.getMessage());
+		}
+	}
+	
 	private void assertIt()
 	{
 		final SequenceChecker.Info sci = sc.getInfo();
