@@ -202,7 +202,7 @@ public abstract class CopeAssert extends TestCase
 			catch(UnsupportedOperationException e) {/*OK*/}
 		}
 		
-		if(c instanceof List)
+		if(c instanceof List<?>)
 		{
 			final List<T> l = (List<T>)c;
 			
