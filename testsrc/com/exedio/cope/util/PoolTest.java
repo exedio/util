@@ -33,7 +33,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
-		assertNotNull(cp.getInfo());
+		assertEquals(1, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		f.assertV(0);
 		
@@ -71,6 +72,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
+		assertEquals(1, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -108,6 +111,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 2, 0, null);
+		assertEquals(2, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -192,6 +197,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 1, null);
+		assertEquals(1, cp.getInfo().getIdleLimit());
+		assertEquals(1, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		f.assertV(1); // already created
 		
@@ -209,6 +216,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
+		assertEquals(1, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -249,6 +258,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
+		assertEquals(1, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -286,6 +297,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 0, 0, null);
+		assertEquals(0, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -317,6 +330,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
+		assertEquals(1, cp.getInfo().getIdleLimit());
+		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);

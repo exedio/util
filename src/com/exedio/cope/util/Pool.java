@@ -40,6 +40,8 @@ public final class Pool<E>
 	//       maybe then no ring buffer is needed.
 	
 	private final Factory<E> factory;
+	private final int idleLimit;
+	private final int idleInitial;
 
 	private final E[] idle;
 	private int idleCount, idleFrom, idleTo;
@@ -61,6 +63,8 @@ public final class Pool<E>
 			throw new IllegalArgumentException("idleInitial must not be greater than idleLimit, but was " + idleInitial + " and " + idleLimit);
 		
 		this.factory = factory;
+		this.idleLimit = idleLimit;
+		this.idleInitial = idleInitial;
 		
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
@@ -202,6 +206,8 @@ public final class Pool<E>
 	public Info getInfo()
 	{
 		return new Info(
+				idleLimit,
+				idleInitial,
 				idleCount,
 				invalidOnGet,
 				invalidOnPut,
@@ -210,21 +216,37 @@ public final class Pool<E>
 	
 	public static final class Info
 	{
+		private final int idleLimit;
+		private final int idleInitial;
 		private final int idleCount;
 		private final int invalidOnGet;
 		private final int invalidOnPut;
 		private final PoolCounter counter;
 		
 		public Info(
+				final int idleLimit,
+				final int idleInitial,
 				final int idleCount,
 				final int invalidOnGet,
 				final int invalidOnPut,
 				final PoolCounter counter)
 		{
+			this.idleLimit = idleLimit;
+			this.idleInitial = idleInitial;
 			this.idleCount = idleCount;
 			this.invalidOnGet = invalidOnGet;
 			this.invalidOnPut = invalidOnPut;
 			this.counter = counter;
+		}
+		
+		public int getIdleLimit()
+		{
+			return idleLimit;
+		}
+
+		public int getIdleInitial()
+		{
+			return idleInitial;
 		}
 		
 		public int getIdleCounter()
