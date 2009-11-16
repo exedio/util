@@ -201,7 +201,7 @@ public final class Pool<E>
 	
 	public Info getInfo()
 	{
-		return new Info(idleCount, invalidOnGet, invalidOnPut, counter!=null ? new PoolCounter(counter) : counter);
+		return new Info(idleCount, invalidOnGet, invalidOnPut, counter!=null ? new PoolCounter(counter) : null);
 	}
 	
 	public static final class Info
@@ -217,9 +217,6 @@ public final class Pool<E>
 				final int invalidOnPut,
 				final PoolCounter counter)
 		{
-			if(counter==null)
-				throw new NullPointerException();
-			
 			this.idleCount = idleCount;
 			this.invalidOnGet = invalidOnGet;
 			this.invalidOnPut = invalidOnPut;

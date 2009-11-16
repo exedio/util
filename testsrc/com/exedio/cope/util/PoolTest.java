@@ -33,6 +33,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(0);
 
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
+		assertNotNull(cp.getInfo());
 		c1.assertV(0, 0, 0);
 		f.assertV(0);
 		
