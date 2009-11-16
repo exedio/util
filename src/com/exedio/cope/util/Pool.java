@@ -44,7 +44,7 @@ public final class Pool<E>
 	private final int idleInitial;
 
 	private final E[] idle;
-	private int idleCount, idleFrom, idleTo;
+	private int idleLevel, idleFrom, idleTo;
 	private final Object lock = new Object();
 	
 	private final PoolCounter counter;
@@ -68,7 +68,7 @@ public final class Pool<E>
 		
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 		
-		this.idleCount = idleInitial;
+		this.idleLevel = idleInitial;
 		this.idleFrom = 0;
 		this.idleTo = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
@@ -100,11 +100,11 @@ public final class Pool<E>
 		{
 			synchronized(lock)
 			{
-				if(idle!=null && idleCount>0)
+				if(idle!=null && idleLevel>0)
 				{
 					result = idle[idleFrom];
 					idle[idleFrom] = null; // do not reference active connections
-					idleCount--;
+					idleLevel--;
 					idleFrom = inc(idleFrom);
 				}
 			}
@@ -150,10 +150,10 @@ public final class Pool<E>
 			
 		synchronized(lock)
 		{
-			if(idle!=null && idleCount<idle.length)
+			if(idle!=null && idleLevel<idle.length)
 			{
 				idle[idleTo] = e;
-				idleCount++;
+				idleLevel++;
 				idleTo = inc(idleTo);
 				return;
 			}
@@ -173,17 +173,17 @@ public final class Pool<E>
 	
 			synchronized(lock)
 			{
-				if(idleCount==0)
+				if(idleLevel==0)
 					return;
 	
 				int f = idleFrom;
-				for(int i = 0; i<idleCount; i++)
+				for(int i = 0; i<idleLevel; i++)
 				{
 					copyOfIdle.add(idle[f]);
 					idle[f] = null; // do not reference closed connections
 					f = inc(f);
 				}
-				idleCount = 0;
+				idleLevel = 0;
 				idleFrom = idleTo;
 			}
 			
@@ -208,7 +208,7 @@ public final class Pool<E>
 		return new Info(
 				idleLimit,
 				idleInitial,
-				idleCount,
+				idleLevel,
 				invalidOnGet,
 				invalidOnPut,
 				counter!=null ? new PoolCounter(counter) : null);
@@ -218,7 +218,7 @@ public final class Pool<E>
 	{
 		private final int idleLimit;
 		private final int idleInitial;
-		private final int idleCount;
+		private final int idleLevel;
 		private final int invalidOnGet;
 		private final int invalidOnPut;
 		private final PoolCounter counter;
@@ -226,14 +226,14 @@ public final class Pool<E>
 		public Info(
 				final int idleLimit,
 				final int idleInitial,
-				final int idleCount,
+				final int idleLevel,
 				final int invalidOnGet,
 				final int invalidOnPut,
 				final PoolCounter counter)
 		{
 			this.idleLimit = idleLimit;
 			this.idleInitial = idleInitial;
-			this.idleCount = idleCount;
+			this.idleLevel = idleLevel;
 			this.invalidOnGet = invalidOnGet;
 			this.invalidOnPut = invalidOnPut;
 			this.counter = counter;
@@ -249,9 +249,18 @@ public final class Pool<E>
 			return idleInitial;
 		}
 		
+		/**
+		 * @deprecated Use {@link #getIdleLevel()} instead
+		 */
+		@Deprecated
 		public int getIdleCounter()
 		{
-			return idleCount;
+			return getIdleLevel();
+		}
+
+		public int getIdleLevel()
+		{
+			return idleLevel;
 		}
 		
 		public int getInvalidOnGet()
