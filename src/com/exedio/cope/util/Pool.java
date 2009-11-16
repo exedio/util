@@ -201,7 +201,11 @@ public final class Pool<E>
 	
 	public Info getInfo()
 	{
-		return new Info(idleCount, invalidOnGet, invalidOnPut, counter!=null ? new PoolCounter(counter) : null);
+		return new Info(
+				idleCount,
+				invalidOnGet,
+				invalidOnPut,
+				counter!=null ? new PoolCounter(counter) : null);
 	}
 	
 	public static final class Info
