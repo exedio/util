@@ -27,7 +27,7 @@ import java.util.GregorianCalendar;
  * The class <tt>Day</tt> represents a specific day.
  * It is similar to {@link java.util.Date},
  * but with &quot;day precision&quot; instead of millisecond precision.
- * Like {@link java.util.Date} its immutable,
+ * Unlike {@link java.util.Date} its immutable,
  * so you cannot change the value of an instance of this class.
  *
  * @author Ralf Wiebicke
