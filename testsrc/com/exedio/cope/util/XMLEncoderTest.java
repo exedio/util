@@ -39,5 +39,7 @@ public class XMLEncoderTest extends TestCase
 		assertIt("&amp;", "&");
 		assertIt("&apos;tralla&quot;", "'tralla\"");
 		assertIt("&gt;kno&amp;llo&lt;", ">kno&llo<");
+		assertIt("&amp;&amp;&amp;&amp;&amp;", "&&&&&");
+		assertIt("&amp;x&amp;x&amp;x&amp;x&amp;", "&x&x&x&x&");
 	}
 }
