@@ -28,6 +28,12 @@ public class XMLEncoderTest extends TestCase
 		final StringBuilder bf = new StringBuilder();
 		XMLEncoder.append(bf, actual);
 		assertEquals(expected, bf.toString());
+		if(actual.length()==1)
+		{
+			bf.setLength(0);
+			XMLEncoder.append(bf, actual.charAt(0));
+			assertEquals(expected, bf.toString());
+		}
 	}
 	
 	public void testEncode()
@@ -67,6 +73,24 @@ public class XMLEncoderTest extends TestCase
 		try
 		{
 			XMLEncoder.append(new StringBuilder(), null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			XMLEncoder.append(null, 'x');
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			XMLEncoder.append(null, '&');
 			fail();
 		}
 		catch(NullPointerException e)

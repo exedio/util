@@ -87,4 +87,21 @@ public final class XMLEncoder
 		if(lastPos<length)
 			bf.append(st.substring(lastPos, length));
 	}
+	
+	public static final void append(final StringBuilder bf, final char c)
+	{
+		final String replacement;
+		switch(c)
+		{
+			case '&': replacement = "&amp;" ; break;
+			case '<': replacement = "&lt;"  ; break;
+			case '>': replacement = "&gt;"  ; break;
+			case '"': replacement = "&quot;"; break;
+			case '\'':replacement = "&apos;"; break;
+			default:
+				bf.append(c);
+				return;
+		}
+		bf.append(replacement);
+	}
 }
