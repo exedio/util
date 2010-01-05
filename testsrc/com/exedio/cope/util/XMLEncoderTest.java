@@ -25,11 +25,14 @@ public class XMLEncoderTest extends TestCase
 	private static final void assertIt(final String expected, final String actual)
 	{
 		assertEquals(expected, XMLEncoder.encode(actual));
+		final StringBuilder bf = new StringBuilder();
+		XMLEncoder.append(bf, actual);
+		assertEquals(expected, bf.toString());
 	}
 	
 	public void testEncode()
 	{
-		assertIt(null, null);
+		assertEquals(null, XMLEncoder.encode(null));
 		assertIt("", "");
 		assertIt("x", "x");
 		assertIt("&lt;", "<");
@@ -41,5 +44,34 @@ public class XMLEncoderTest extends TestCase
 		assertIt("&gt;kno&amp;llo&lt;", ">kno&llo<");
 		assertIt("&amp;&amp;&amp;&amp;&amp;", "&&&&&");
 		assertIt("&amp;x&amp;x&amp;x&amp;x&amp;", "&x&x&x&x&");
+		
+		try
+		{
+			XMLEncoder.append(null, null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		XMLEncoder.append(null, ""); // TODO should throw a NullPointerException
+		try
+		{
+			XMLEncoder.append(null, "x");
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			XMLEncoder.append(new StringBuilder(), null);
+			fail();
+		}
+		catch(NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 }
