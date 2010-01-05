@@ -22,17 +22,22 @@ import junit.framework.TestCase;
 
 public class XMLEncoderTest extends TestCase
 {
+	private static final void assertIt(final String expected, final String actual)
+	{
+		assertEquals(expected, XMLEncoder.encode(actual));
+	}
+	
 	public void testEncode()
 	{
-		assertEquals(null, XMLEncoder.encode(null));
-		assertEquals("", XMLEncoder.encode(""));
-		assertEquals("x", XMLEncoder.encode("x"));
-		assertEquals("&lt;", XMLEncoder.encode("<"));
-		assertEquals("&gt;", XMLEncoder.encode(">"));
-		assertEquals("&quot;", XMLEncoder.encode("\""));
-		assertEquals("&apos;", XMLEncoder.encode("'"));
-		assertEquals("&amp;", XMLEncoder.encode("&"));
-		assertEquals("&apos;tralla&quot;", XMLEncoder.encode("'tralla\""));
-		assertEquals("&gt;kno&amp;llo&lt;", XMLEncoder.encode(">kno&llo<"));
+		assertIt(null, null);
+		assertIt("", "");
+		assertIt("x", "x");
+		assertIt("&lt;", "<");
+		assertIt("&gt;", ">");
+		assertIt("&quot;", "\"");
+		assertIt("&apos;", "'");
+		assertIt("&amp;", "&");
+		assertIt("&apos;tralla&quot;", "'tralla\"");
+		assertIt("&gt;kno&amp;llo&lt;", ">kno&llo<");
 	}
 }
