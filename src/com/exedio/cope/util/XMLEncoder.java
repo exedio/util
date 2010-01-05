@@ -25,7 +25,7 @@ public final class XMLEncoder
 		// forbid instantiation
 	}
 	
-	public static final String encode(final String st)
+	public static String encode(final String st)
 	{
 		if(st==null)
 			return null;
@@ -61,7 +61,7 @@ public final class XMLEncoder
 		return bf.toString();
 	}
 	
-	public static final void append(final StringBuilder bf, final String st)
+	public static void append(final StringBuilder bf, final String st)
 	{
 		final int length = st.length();
 		int lastPos = 0;
@@ -88,7 +88,7 @@ public final class XMLEncoder
 			bf.append(st.substring(lastPos, length));
 	}
 	
-	public static final void append(final StringBuilder bf, final char c)
+	public static void append(final StringBuilder bf, final char c)
 	{
 		final String replacement;
 		switch(c)
