@@ -18,24 +18,23 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-public class PackageTest extends TestCase
+public final class XMLEncoder
 {
-	public static Test suite()
+	private XMLEncoder()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(CastTest.class);
-		suite.addTestSuite(CharSetTest.class);
-		//suite.addTestSuite(CounterTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(PoolTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		suite.addTestSuite(XMLEncoderTest.class);
-		return suite;
+		// forbid instantiation
+	}
+	
+	public static final String encode(final String st)
+	{
+		if(st==null)
+			return null;
+		
+		return
+			st.replaceAll("&",  "&amp;").
+				replaceAll("<",  "&lt;").
+				replaceAll(">",  "&gt;").
+				replaceAll("\"", "&quot;").
+				replaceAll("'",  "&apos;");
 	}
 }
