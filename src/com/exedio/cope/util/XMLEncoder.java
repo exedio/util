@@ -30,12 +30,35 @@ public final class XMLEncoder
 		if(st==null)
 			return null;
 		
-		return
-			st.replaceAll("&",  "&amp;").
-				replaceAll("<",  "&lt;").
-				replaceAll(">",  "&gt;").
-				replaceAll("\"", "&quot;").
-				replaceAll("'",  "&apos;");
+		StringBuilder bf = null;
+		final int length = st.length();
+		int lastPos = 0;
+		for(int pos = 0; pos<length; pos++)
+		{
+			final char c = st.charAt(pos);
+			final String replacement;
+			switch(c)
+			{
+				case '&': replacement = "&amp;" ; break;
+				case '<': replacement = "&lt;"  ; break;
+				case '>': replacement = "&gt;"  ; break;
+				case '"': replacement = "&quot;"; break;
+				case '\'':replacement = "&apos;"; break;
+				default:
+					continue;
+			}
+			if(bf==null)
+				bf = new StringBuilder();
+			if(lastPos<pos)
+				bf.append(st.substring(lastPos, pos));
+			bf.append(replacement);
+			lastPos = pos + 1;
+		}
+		if(bf==null)
+			return st;
+		if(lastPos<length)
+			bf.append(st.substring(lastPos, length));
+		return bf.toString();
 	}
 	
 	public static final void append(final StringBuilder bf, final String st)
