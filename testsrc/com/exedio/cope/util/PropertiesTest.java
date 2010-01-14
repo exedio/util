@@ -105,8 +105,10 @@ public class PropertiesTest extends CopeAssert
 	@Override
 	protected void tearDown() throws Exception
 	{
-		file1.delete();
-		file2.delete();
+		if(!file1.delete())
+			System.err.println("could not delete " + file1);
+		if(!file2.delete())
+			System.err.println("could not delete " + file2);
 
 		super.tearDown();
 	}

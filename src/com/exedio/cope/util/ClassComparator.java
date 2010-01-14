@@ -18,14 +18,17 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * @deprecated This class is not used in the cope runtime library anymore.
  */
 @Deprecated
-public final class ClassComparator implements Comparator<Class<?>>
+public final class ClassComparator implements Comparator<Class<?>>, Serializable
 {
+	private static final long serialVersionUID = 1l;
+	
 	/**
 	 * @deprecated This class is not used in the cope runtime library anymore.
 	 */

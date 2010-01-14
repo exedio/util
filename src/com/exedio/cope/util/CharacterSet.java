@@ -79,7 +79,7 @@ public final class CharacterSet
 	@Override
 	public boolean equals(final Object o)
 	{
-		if(!(o instanceof CharSet))
+		if(!(o instanceof CharacterSet))
 			return false;
 		
 		return set.equals(((CharacterSet)o).set);

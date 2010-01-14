@@ -137,8 +137,37 @@
 		</javadoc>
 	</target>
 	
+	<target name="findbugs" depends="compile, test.compile">
+		<untar
+				compression="gzip"
+				src="${basedir}/lib/findbugs-1.3.9.tar.gz"
+				dest="${basedir}/build/findbugs-home" />
+		<taskdef
+				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
+				classpath="build/findbugs-home/findbugs-1.3.9/lib/findbugs-ant.jar" />
+		<mkdir dir="${basedir}/cruise" />
+		<findbugs
+					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
+					jvmargs="-Xmx250M"
+					failOnError="true"
+					warningsProperty="findbugs.warnings"
+					output="html"
+					outputFile="${basedir}/cruise/findbugs.html"
+					excludeFilter="findbugs-exclude.xml"
+					effort="max"
+					reportlevel="low">
+			<class location="${basedir}/build/classes" />
+			<class location="${basedir}/build/testclasses" />
+			<auxclasspath>
+				<pathelement location="${basedir}/lib/junit.jar" />
+			</auxclasspath>
+		</findbugs>
+		<fail if="findbugs.warnings" message="findbugs warnings" />
+	</target>
+	
+	
 	<target name="build" depends="compile, test, jar, api" />
-	<target name="all" depends="build, jar.src, dist" />
+	<target name="all" depends="build, jar.src, findbugs, dist" />
 
 	<target name="cruise" depends="clean, all">
 		<copy todir="${basedir}/cruise">

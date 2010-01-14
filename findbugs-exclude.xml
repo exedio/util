@@ -1,0 +1,18 @@
+<FindBugsFilter>
+	<Match>
+		<!-- Unread field -->
+		<Bug pattern="URF_UNREAD_FIELD" />
+		<!-- Is read by reflection -->
+		<Class name="com.exedio.cope.util.PropertiesTest$DuplicateProperties" />
+	</Match>
+	<Match>
+		<!-- Could be refactored into a named static inner class -->
+		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
+		<!-- Is more compact to write in tests -->
+		<Or>
+			<Class name="com.exedio.cope.util.PropertiesTest$1" />
+			<Class name="com.exedio.cope.util.PropertiesTest$2" />
+			<Class name="com.exedio.cope.util.PropertiesTest$3" />
+		</Or>
+	</Match>
+</FindBugsFilter>
