@@ -121,8 +121,8 @@ public final class Day implements Serializable // TODO Comparable
 		if(!(other instanceof Day))
 			return false;
 
-		final Day d = (Day)other;
-		return day==d.day && month==d.month && year==d.year;
+		final Day o = (Day)other;
+		return day==o.day && month==o.month && year==o.year;
 	}
 	
 	@Override
