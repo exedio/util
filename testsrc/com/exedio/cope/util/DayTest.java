@@ -103,6 +103,16 @@ public class DayTest extends CopeAssert
 		assertTrue(!d.equals("hallo"));
 		assertTrue(!d.equals(Integer.valueOf(22)));
 		
+		assertEquals(-1, new Day(2004,  9, 23).compareTo(d));
+		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
+		assertEquals( 1, new Day(2006,  9, 23).compareTo(d));
+		assertEquals(-1, new Day(2005,  8, 23).compareTo(d));
+		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
+		assertEquals( 1, new Day(2005, 10, 23).compareTo(d));
+		assertEquals(-1, new Day(2005,  9, 22).compareTo(d));
+		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
+		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
+		
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000")));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999")));
 
@@ -121,6 +131,8 @@ public class DayTest extends CopeAssert
 		assertEquals((Object)expected, (Object)actual);
 		assertEquals((Object)actual, (Object)expected);
 		assertEquals(expected.hashCode(), actual.hashCode());
+		assertEquals(0, expected.compareTo(actual));
+		assertEquals(0, actual.compareTo(expected));
 	}
 	
 	static final void assertNotEquals(final Day expected, final Day actual)
@@ -128,6 +140,7 @@ public class DayTest extends CopeAssert
 		assertTrue(!expected.equals(actual));
 		assertTrue(!actual.equals(expected));
 		assertTrue(expected.hashCode()!=actual.hashCode());
+		assertTrue(expected.compareTo(actual)!=0);
+		assertTrue(actual.compareTo(expected)!=0);
 	}
-	
 }

@@ -32,7 +32,7 @@ import java.util.GregorianCalendar;
  *
  * @author Ralf Wiebicke
  */
-public final class Day implements Serializable // TODO Comparable
+public final class Day implements Serializable, Comparable<Day>
 {
 	private static final long serialVersionUID = 1l;
 	
@@ -129,6 +129,26 @@ public final class Day implements Serializable // TODO Comparable
 	public int hashCode()
 	{
 		return day ^ month ^ year;
+	}
+
+	public int compareTo(final Day other)
+	{
+		if(year<other.year)
+			return -1;
+		else if(year>other.year)
+			return 1;
+		
+		if(month<other.month)
+			return -1;
+		else if(month>other.month)
+			return 1;
+		
+		if(day<other.day)
+			return -1;
+		else if(day>other.day)
+			return 1;
+		
+		return 0;
 	}
 	
 	@Override

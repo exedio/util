@@ -2,7 +2,6 @@
 TODO for cope util
 
 - implement Comparable
-	* Day
 	* Price
 - implement Serializable
 	* Price
