@@ -1,9 +1,6 @@
 
 TODO for cope util
 
-- implement Comparable
-	* Price
 - implement Serializable
-	* Price
 	* CharSet/CharacterSet
 	* PoolCounter
