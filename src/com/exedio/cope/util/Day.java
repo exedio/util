@@ -116,12 +116,12 @@ public final class Day implements Serializable // TODO Comparable
 	}
 	
 	@Override
-	public boolean equals(final Object o)
+	public boolean equals(final Object other)
 	{
-		if(!(o instanceof Day))
+		if(!(other instanceof Day))
 			return false;
 
-		final Day d = (Day)o;
+		final Day d = (Day)other;
 		return day==d.day && month==d.month && year==d.year;
 	}
 	
