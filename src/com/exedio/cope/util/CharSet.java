@@ -95,12 +95,12 @@ public final class CharSet
 	}
 	
 	@Override
-	public boolean equals(final Object o)
+	public boolean equals(final Object other)
 	{
-		if(!(o instanceof CharSet))
+		if(!(other instanceof CharSet))
 			return false;
 		
-		return Arrays.equals(set, ((CharSet)o).set);
+		return Arrays.equals(set, ((CharSet)other).set);
 	}
 	
 	@Override
