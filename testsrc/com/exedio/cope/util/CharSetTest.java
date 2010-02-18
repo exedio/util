@@ -67,6 +67,19 @@ public class CharSetTest extends CopeAssert
 			assertFalse(cs.contains('A'));
 			assertTrue(cs.contains('C'));
 			assertFalse(cs.contains('D'));
+			
+			assertEquals( 0, cs.indexOfNotContains("AC"));
+			assertEquals( 1, cs.indexOfNotContains("CA"));
+			assertEquals(-1, cs.indexOfNotContains("CC"));
+			try
+			{
+				cs.indexOfNotContains(null);
+				fail();
+			}
+			catch(NullPointerException e)
+			{
+				assertEquals(null, e.getMessage());
+			}
 		}
 		{
 			CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');

@@ -94,6 +94,20 @@ public final class CharSet
 		return false;
 	}
 	
+	/**
+	 * Returns the index of the character in s,
+	 * which this CharSet does not contain.
+	 * Return -1, if this CharSet contains all characters in s.
+	 */
+	public int indexOfNotContains(final String s)
+	{
+		final int l = s.length();
+		for(int i = 0; i<l; i++)
+			if(!contains(s.charAt(i)))
+				return i;
+		return -1;
+	}
+	
 	@Override
 	public boolean equals(final Object other)
 	{
