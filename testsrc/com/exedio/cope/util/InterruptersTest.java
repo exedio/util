@@ -18,25 +18,12 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.junit.CopeAssert;
 
-public class PackageTest extends TestCase
+public class InterruptersTest extends CopeAssert
 {
-	public static Test suite()
+	public void test()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(InterruptersTest.class);
-		suite.addTestSuite(CastTest.class);
-		suite.addTestSuite(CharSetTest.class);
-		//suite.addTestSuite(CounterTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(PoolTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		suite.addTestSuite(XMLEncoderTest.class);
-		return suite;
+		assertFalse(Interrupters.VAIN_INTERRUPTER.isRequested());
 	}
 }

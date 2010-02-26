@@ -18,25 +18,25 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-public class PackageTest extends TestCase
+public final class Interrupters
 {
-	public static Test suite()
+	public static final Interrupter VAIN_INTERRUPTER = new VainInterrupter();
+	
+	private static final class VainInterrupter implements Interrupter
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(InterruptersTest.class);
-		suite.addTestSuite(CastTest.class);
-		suite.addTestSuite(CharSetTest.class);
-		//suite.addTestSuite(CounterTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(PoolTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		suite.addTestSuite(XMLEncoderTest.class);
-		return suite;
+		public boolean isRequested()
+		{
+			return false;
+		}
+		
+		VainInterrupter()
+		{
+			// make constructor non-private
+		}
+	}
+	
+	private Interrupters()
+	{
+		// prevent instantiation
 	}
 }
