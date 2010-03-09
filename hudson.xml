@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<project name="cops hudson" default="hudson" basedir=".">
+	
+	<!-- whole file is to be removed, once migration to hudson is complete -->
+	<target name="hudson">
+		<property name="build.tag" value="svn.${SVN_REVISION} hudson.${BUILD_NUMBER} ${BUILD_ID}" />
+		<property name="build.file.tag" value="${BUILD_NUMBER}" />
+		<ant antfile="build.xml" target="hudson" />
+	</target>
+
+</project>
