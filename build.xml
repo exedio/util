@@ -171,7 +171,6 @@
 
 	<target name="cruise" depends="clean, all">
 		<copy todir="${basedir}/cruise">
-			<fileset file="${basedir}/getlib.properties" />
 			<fileset file="${basedir}/build/exedio-cope-util.jar" />
 			<fileset file="${basedir}/build/exedio-cope-util.jar-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-util-src-${build.file.tag}.tar.gz" />
