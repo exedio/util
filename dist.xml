@@ -11,7 +11,6 @@
 		<echo file="svn-revision.txt" message="${svn.revision}" />
 		<tar destfile="dist/exedio-cope-util-src-${build.number}.tar.gz"
 				compression="gzip">
-			<tarfileset file="${basedir}/build/build.number" />
 			<tarfileset dir="${basedir}">
 				<exclude name="getlib/**" />
 				<exclude name="getlib.xml" />
