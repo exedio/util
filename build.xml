@@ -113,14 +113,14 @@
 		<taskdef
 				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
 				classpath="build/findbugs-home/findbugs-1.3.9/lib/findbugs-ant.jar" />
-		<mkdir dir="${basedir}/cruise" />
+		<mkdir dir="${basedir}/build" />
 		<findbugs
 					home="${basedir}/build/findbugs-home/findbugs-1.3.9"
 					jvmargs="-Xmx250M"
 					failOnError="true"
 					warningsProperty="findbugs.warnings"
 					output="html"
-					outputFile="${basedir}/cruise/findbugs.html"
+					outputFile="${basedir}/build/findbugs.html"
 					excludeFilter="findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
@@ -136,14 +136,6 @@
 	
 	<target name="build" depends="compile, test, jar, api" />
 	<target name="all" depends="build, jar.src, findbugs" />
-
-	<target name="cruise" depends="clean, all">
-		<copy todir="${basedir}/cruise">
-			<fileset file="${basedir}/build/exedio-cope-util.jar" />
-			<fileset file="${basedir}/build/exedio-cope-util.jar-src.zip" />
-		</copy>
-		<copy file="CHANGELOG" tofile="${basedir}/cruise/exedio-cope-util.jar-CHANGELOG" />
-	</target>
 
 	<target name="hudson" depends="all">
 		<copy todir="${basedir}/build/success">
