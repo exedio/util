@@ -53,7 +53,7 @@
 	<target name="test" depends="test.run" />
 	
 	<target name="jar" depends="compile">
-		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes" filesonly="true" duplicate="fail" level="9">
+		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes" filesonly="true" duplicate="fail" strict="fail" level="9">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope util"/>
 				<attribute name="Specification-Version" value="${build.tag}"/>
