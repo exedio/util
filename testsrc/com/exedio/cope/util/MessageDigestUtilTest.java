@@ -18,27 +18,24 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.security.NoSuchAlgorithmException;
 
-public class PackageTest extends TestCase
+import com.exedio.cope.junit.CopeAssert;
+
+public class MessageDigestUtilTest extends CopeAssert
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(InterruptersTest.class);
-		suite.addTestSuite(CastTest.class);
-		suite.addTestSuite(CharSetTest.class);
-		//suite.addTestSuite(CounterTest.class);
-		suite.addTestSuite(HexTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(MessageDigestUtilTest.class);
-		suite.addTestSuite(PoolTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		suite.addTestSuite(XMLEncoderTest.class);
-		return suite;
+		assertEquals("MD5", MessageDigestUtil.getInstance("MD5").getAlgorithm());
+		try
+		{
+			MessageDigestUtil.getInstance("NIXUS");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
+			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
+		}
 	}
 }
