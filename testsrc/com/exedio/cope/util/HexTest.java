@@ -26,6 +26,8 @@ public class HexTest extends CopeAssert
 {
 	public void testIt()
 	{
+		assertIt("000ff0aa", new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa});
+		assertIt("0123456789abcdef", new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef});
 		assertIt("000102030405060708090a0b0c0d0e0f", new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf});
 		assertIt("001020304050", new byte[]{0, 0x10, 0x20, 0x30, 0x40, 0x50});
 		assertIt("000102", new byte[]{0, 1, 2});
