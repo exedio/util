@@ -18,26 +18,25 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.util.Locale;
 
-public class PackageTest extends TestCase
+import com.exedio.cope.junit.CopeAssert;
+
+public class HexTest extends CopeAssert
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(InterruptersTest.class);
-		suite.addTestSuite(CastTest.class);
-		suite.addTestSuite(CharSetTest.class);
-		//suite.addTestSuite(CounterTest.class);
-		suite.addTestSuite(HexTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(PoolTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		suite.addTestSuite(XMLEncoderTest.class);
-		return suite;
+		assertIt("000102030405060708090a0b0c0d0e0f", new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf});
+		assertIt("001020304050", new byte[]{0, 0x10, 0x20, 0x30, 0x40, 0x50});
+		assertIt("000102", new byte[]{0, 1, 2});
+		assertIt("0a", new byte[]{0x0a});
+		assertIt("", new byte[]{});
+		assertEquals(null, Hex.encodeLower(null));
+	}
+	
+	private void assertIt(final String expected, final byte[] actual)
+	{
+		assertEquals(expected, Hex.encodeLower(actual));
+		assertEquals(expected.toUpperCase(Locale.UK), Hex.encodeUpper(actual));
 	}
 }
