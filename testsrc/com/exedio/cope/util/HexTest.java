@@ -40,5 +40,8 @@ public class HexTest extends CopeAssert
 	{
 		assertEquals(expected, Hex.encodeLower(actual));
 		assertEquals(expected.toUpperCase(Locale.UK), Hex.encodeUpper(actual));
+		final StringBuilder bf = new StringBuilder();
+		Hex.append(bf, actual, actual.length);
+		assertEquals(expected, bf.toString());
 	}
 }

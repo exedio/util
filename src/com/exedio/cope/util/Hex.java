@@ -48,6 +48,19 @@ public final class Hex
 		return new String(result);
 	}
 	
+	public static final void append(final StringBuilder out, final byte[] bytes, final int len)
+	{
+		if(bytes==null)
+			return;
+		
+		for(int i = 0; i<len; i++)
+		{
+			final byte b = bytes[i];
+			out.append(DICTIONARY_LOWER[(b & 0xF0)>>4]);
+			out.append(DICTIONARY_LOWER[b & 0x0F]);
+		}
+	}
+	
 	private static final char[] DICTIONARY_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 	private static final char[] DICTIONARY_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 	
