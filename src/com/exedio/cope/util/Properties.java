@@ -253,7 +253,16 @@ public class Properties
 			return Boolean.valueOf(value);
 		}
 		
+		/**
+		 * @deprecated Use {@link #booleanValue()} instead
+		 */
+		@Deprecated
 		public boolean getBooleanValue()
+		{
+			return booleanValue();
+		}
+		
+		public boolean booleanValue()
 		{
 			return value;
 		}
@@ -307,7 +316,16 @@ public class Properties
 			return Integer.valueOf(value);
 		}
 		
+		/**
+		 * @deprecated Use {@link #intValue()} instead
+		 */
+		@Deprecated
 		public int getIntValue()
+		{
+			return intValue();
+		}
+		
+		public int intValue()
 		{
 			return value;
 		}
@@ -375,7 +393,16 @@ public class Properties
 			return value;
 		}
 		
+		/**
+		 * @deprecated Use {@link #stringValue()} instead
+		 */
+		@Deprecated
 		public String getStringValue()
+		{
+			return stringValue();
+		}
+		
+		public String stringValue()
 		{
 			return value;
 		}
@@ -411,7 +438,16 @@ public class Properties
 			return value;
 		}
 		
+		/**
+		 * @deprecated Use {@link #fileValue()} instead
+		 */
+		@Deprecated
 		public File getFileValue()
+		{
+			return fileValue();
+		}
+		
+		public File fileValue()
 		{
 			return value;
 		}
@@ -459,7 +495,16 @@ public class Properties
 			return value;
 		}
 		
+		/**
+		 * @deprecated Use {@link #mapValue()} instead
+		 */
+		@Deprecated
 		public java.util.Properties getMapValue()
+		{
+			return mapValue();
+		}
+		
+		public java.util.Properties mapValue()
 		{
 			return value;
 		}
