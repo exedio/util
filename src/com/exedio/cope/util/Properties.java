@@ -46,6 +46,17 @@ public class Properties
 		
 		// TODO check, that no other property key do occur
 	}
+	
+	/**
+	 * Test this properties.
+	 * This is the right place for checking services for availability,
+	 * files, whether they exist etc. 
+	 * The default implementation ist empty.
+	 */
+	public void test() throws Exception
+	{
+		// empty default implementation
+	}
 
 	public final List<Field> getFields()
 	{

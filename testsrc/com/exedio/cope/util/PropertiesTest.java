@@ -113,7 +113,7 @@ public class PropertiesTest extends CopeAssert
 		super.tearDown();
 	}
 	
-	public void testIt()
+	public void testIt() throws Exception
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -122,6 +122,7 @@ public class PropertiesTest extends CopeAssert
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
 		assertEquals("minimal", minimal.getSource());
+		minimal.test();
 		
 		assertEquals(false, minimal.boolFalse.booleanValue());
 		assertEquals(true, minimal.boolTrue.booleanValue());
