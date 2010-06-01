@@ -29,6 +29,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class Properties
 {
@@ -45,6 +46,11 @@ public class Properties
 		this.context = context;
 		
 		// TODO check, that no other property key do occur
+	}
+	
+	public List<? extends Callable<?>> getTests()
+	{
+		return Collections.emptyList();
 	}
 
 	public final List<Field> getFields()

@@ -50,6 +50,7 @@ public class PropertiesTest extends CopeAssert
 		
 		void assertIt()
 		{
+			assertEquals(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					boolFalse,
 					boolTrue,
