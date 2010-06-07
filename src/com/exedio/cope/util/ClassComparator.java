@@ -33,7 +33,7 @@ public final class ClassComparator implements Comparator<Class<?>>, Serializable
 	 * @deprecated This class is not used in the cope runtime library anymore.
 	 */
 	@Deprecated
-	public static final ClassComparator getInstance()
+	public static ClassComparator getInstance()
 	{
 		return new ClassComparator();
 	}

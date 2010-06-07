@@ -33,7 +33,7 @@ public final class Cast
 	 * but throws a ClassCastException
 	 * with a more verbose message.
 	 */
-	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
+	public static <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
 		// NOTE:
 		// This code is redundant to the following call to Class#cast(Object),
@@ -44,7 +44,7 @@ public final class Cast
 		return clazz.cast(o);
 	}
 	
-	public static final <E> Collection<E> castElements(final Class<E> clazz, final Collection<?> c)
+	public static <E> Collection<E> castElements(final Class<E> clazz, final Collection<?> c)
 	{
 		if(c==null)
 			return null;

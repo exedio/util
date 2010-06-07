@@ -20,17 +20,17 @@ package com.exedio.cope.util;
 
 public final class Hex
 {
-	public static final String encodeUpper(final byte[] bytes)
+	public static String encodeUpper(final byte[] bytes)
 	{
 		return encode(bytes, DICTIONARY_UPPER);
 	}
 	
-	public static final String encodeLower(final byte[] bytes)
+	public static String encodeLower(final byte[] bytes)
 	{
 		return encode(bytes, DICTIONARY_LOWER);
 	}
 	
-	private static final String encode(final byte[] bytes, final char[] dictionary)
+	private static String encode(final byte[] bytes, final char[] dictionary)
 	{
 		if(bytes==null)
 			return null;
@@ -48,7 +48,7 @@ public final class Hex
 		return new String(result);
 	}
 	
-	public static final void append(final StringBuilder out, final byte[] bytes, final int len)
+	public static void append(final StringBuilder out, final byte[] bytes, final int len)
 	{
 		if(bytes==null)
 			return;

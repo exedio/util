@@ -54,7 +54,7 @@ public final class Day implements Serializable, Comparable<Day>
 		this(makeCalendar(date.getTime()));
 	}
 	
-	private static final GregorianCalendar makeCalendar(final long time)
+	private static GregorianCalendar makeCalendar(final long time)
 	{
 		final GregorianCalendar result = new GregorianCalendar();
 		result.setTimeInMillis(time);

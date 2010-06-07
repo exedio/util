@@ -69,7 +69,7 @@ public final class SequenceChecker
 	/**
 	 * @return whether the given number is a duplicate
 	 */
-	public final boolean check(final int number)
+	public boolean check(final int number)
 	{
 		//System.out.println("-----------" + number + "----" + toStringInternal());
 		if(afterFirst)

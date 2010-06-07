@@ -85,7 +85,7 @@ public final class PoolCounter
 		this.count = source.count;
 	}
 	
-	private static final int[] copy(final int[] array)
+	private static int[] copy(final int[] array)
 	{
 		final int[] result = new int[array.length];
 		for(int i = 0; i<array.length; i++)
@@ -93,7 +93,7 @@ public final class PoolCounter
 		return result;
 	}
 
-	public final void incrementGet()
+	public void incrementGet()
 	{
 		synchronized(lock)
 		{
@@ -112,7 +112,7 @@ public final class PoolCounter
 		}
 	}
 
-	public final void incrementPut()
+	public void incrementPut()
 	{
 		synchronized(lock)
 		{
@@ -162,12 +162,12 @@ public final class PoolCounter
 		return Collections.unmodifiableList(result);
 	}
 	
-	public final int getGetCounter()
+	public int getGetCounter()
 	{
 		return get;
 	}
 	
-	public final int getPutCounter()
+	public int getPutCounter()
 	{
 		return put;
 	}
@@ -202,42 +202,42 @@ public final class PoolCounter
 		 * @deprecated renamed to {@link #getIdleLimit()}.
 		 */
 		@Deprecated
-		public final int getSize()
+		public int getSize()
 		{
 			return getIdleLimit();
 		}
 		
-		public final int getIdleLimit()
+		public int getIdleLimit()
 		{
 			return idleLimit;
 		}
 		
-		public final int getIdleCount()
+		public int getIdleCount()
 		{
 			return idle;
 		}
 		
-		public final int getIdleCountMax()
+		public int getIdleCountMax()
 		{
 			return idleMax;
 		}
 		
-		public final int getCreateCounter()
+		public int getCreateCounter()
 		{
 			return create;
 		}
 		
-		public final int getDestroyCounter()
+		public int getDestroyCounter()
 		{
 			return destroy;
 		}
 		
-		public final boolean isConsistent()
+		public boolean isConsistent()
 		{
 			return (get - put) == (create - destroy - idle);
 		}
 
-		public final int getLoss()
+		public int getLoss()
 		{
 			final int getCounter = PoolCounter.this.get;
 			return (getCounter==0) ? 0 : ((100*destroy)/getCounter);
