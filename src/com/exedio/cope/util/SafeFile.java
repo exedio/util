@@ -18,28 +18,43 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.io.File;
 
-public class PackageTest extends TestCase
+public final class SafeFile
 {
-	public static Test suite()
+	public static void delete(final File file)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(InterruptersTest.class);
-		suite.addTestSuite(CastTest.class);
-		suite.addTestSuite(CharSetTest.class);
-		//suite.addTestSuite(CounterTest.class);
-		suite.addTestSuite(HexTest.class);
-		suite.addTestSuite(DayTest.class);
-		suite.addTestSuite(MessageDigestUtilTest.class);
-		suite.addTestSuite(PoolTest.class);
-		suite.addTestSuite(PoolCounterTest.class);
-		suite.addTestSuite(PropertiesTest.class);
-		suite.addTestSuite(SequenceCheckerTest.class);
-		suite.addTestSuite(XMLEncoderTest.class);
-		suite.addTestSuite(SafeFileTest.class);
-		return suite;
+		if(!file.delete())
+			throw failure(file);
+	}
+	
+	public static void mkdir(final File file)
+	{
+		if(!file.mkdir())
+			throw failure(file);
+	}
+	
+	public static void mkdirs(final File file)
+	{
+		if(!file.mkdirs())
+			throw failure(file);
+	}
+	
+	public static void renameTo(final File file, final File dest)
+	{
+		if(!file.renameTo(dest))
+			throw failure(file);
+	}
+	
+	// TODO add all methods boolean File.setXXX
+	
+	private static IllegalStateException failure(final File file)
+	{
+		return new IllegalStateException(file.getAbsolutePath());
+	}
+	
+	private SafeFile()
+	{
+		// prevent instantiation
 	}
 }
