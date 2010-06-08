@@ -41,7 +41,9 @@ public class SafeFileTest extends CopeAssert
 	@Override
 	protected void tearDown() throws Exception
 	{
-		f.delete();
+		if(f.exists())
+			delete(f);
+			
 		super.tearDown();
 	}
 	
