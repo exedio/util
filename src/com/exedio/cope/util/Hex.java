@@ -64,6 +64,37 @@ public final class Hex
 	private static final char[] DICTIONARY_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 	private static final char[] DICTIONARY_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 	
+	
+	public static byte[] decodeLower(final String string)
+	{
+		if(string==null)
+			return null;
+		if((string.length()&1)!=0)
+			throw new IllegalArgumentException("odd length: " + string);
+		
+		final int length = string.length()>>1;
+		final byte[] result = new byte[length];
+		
+		int i2 = 0;
+		for(int i = 0; i<length; i++)
+		{
+			result[i] = (byte)( // don't know, why I need this cast
+				(decodeLower(string.charAt(i2++))<<4) |
+				(decodeLower(string.charAt(i2++))   )   );
+		}
+		return result;
+	}
+	
+	static byte decodeLower(final char c)
+	{
+		if('0'<=c&&c<='9')
+			return ((byte)(c-'0'));
+		else if('a'<=c&&c<='f')
+			return ((byte)(c-('a'-10)));
+		else
+			throw new IllegalArgumentException(String.valueOf(c));
+	}
+	
 	private Hex()
 	{
 		// prevent instantiation

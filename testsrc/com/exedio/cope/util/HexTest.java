@@ -18,12 +18,40 @@
 
 package com.exedio.cope.util;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class HexTest extends CopeAssert
 {
+	public void testDecodeHelper()
+	{
+		assertEquals(0x00, Hex.decodeLower('0'));
+		assertEquals(0x09, Hex.decodeLower('9'));
+		assertEquals(0x0a, Hex.decodeLower('a'));
+		assertEquals(0x0f, Hex.decodeLower('f'));
+		assertDecodeHelperFails((char)('0'-1));
+		assertDecodeHelperFails((char)('9'+1));
+		assertDecodeHelperFails((char)('a'-1));
+		assertDecodeHelperFails((char)('g'+1));
+		assertDecodeHelperFails('A');
+		assertDecodeHelperFails('F');
+	}
+	
+	private static void assertDecodeHelperFails(final char c)
+	{
+		try
+		{
+			Hex.decodeLower(c);
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals(String.valueOf(c), e.getMessage());
+		}
+	}
+	
 	public void testIt()
 	{
 		assertIt("000ff0aa", new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa});
@@ -33,7 +61,18 @@ public class HexTest extends CopeAssert
 		assertIt("000102", new byte[]{0, 1, 2});
 		assertIt("0a", new byte[]{0x0a});
 		assertIt("", new byte[]{});
+		
 		assertEquals(null, Hex.encodeLower(null));
+		assertEquals(null, Hex.decodeLower(null));
+		try
+		{
+			Hex.decodeLower("a");
+			fail();
+		}
+		catch(IllegalArgumentException e)
+		{
+			assertEquals("odd length: a", e.getMessage());
+		}
 	}
 	
 	private void assertIt(final String expected, final byte[] actual)
@@ -43,5 +82,7 @@ public class HexTest extends CopeAssert
 		final StringBuilder bf = new StringBuilder();
 		Hex.append(bf, actual, actual.length);
 		assertEquals(expected, bf.toString());
+		
+		assertTrue(Arrays.equals(actual, Hex.decodeLower(expected)));
 	}
 }
