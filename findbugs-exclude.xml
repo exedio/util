@@ -15,4 +15,11 @@
 			<Class name="com.exedio.cope.util.PropertiesTest$3" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Consider returning a zero length array rather than null -->
+		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
+		<Or>
+			<Class name="com.exedio.cope.util.Hex" />
+		</Or>
+	</Match>
 </FindBugsFilter>
