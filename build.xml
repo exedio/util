@@ -3,7 +3,6 @@
 <project name="cope util" default="build" basedir=".">
 
 	<target name="compile">
-		<fail message="test" />
 		<mkdir dir="build/classes" />
 		<javac srcdir="src"
 				destdir="build/classes"
