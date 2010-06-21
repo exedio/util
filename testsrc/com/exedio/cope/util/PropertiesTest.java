@@ -37,17 +37,17 @@ public class PropertiesTest extends CopeAssert
 		final StringField stringHidden = new StringField("stringHidden", true);
 		final FileField file = new FileField("file");
 		final MapField map = new MapField("map");
-		
+
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
 			super(getSource(source, sourceDescription), null);
 		}
-		
+
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
 			super(getSource(source, sourceDescription), context);
 		}
-		
+
 		void assertIt()
 		{
 			assertEquals(list(), getTests());
@@ -61,7 +61,7 @@ public class PropertiesTest extends CopeAssert
 					file,
 					map,
 			}), getFields());
-			
+
 			assertEquals("boolFalse", boolFalse.getKey());
 			assertEquals("boolTrue", boolTrue.getKey());
 			assertEquals("int10", int10.getKey());
@@ -70,7 +70,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringHidden", stringHidden.getKey());
 			assertEquals("file", file.getKey());
 			assertEquals("map", map.getKey());
-			
+
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
 			assertEquals(Integer.valueOf(10), int10.getDefaultValue());
@@ -90,7 +90,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(false, map.hasHiddenValue());
 		}
 	}
-	
+
 	File file1;
 	File file2;
 
@@ -102,7 +102,7 @@ public class PropertiesTest extends CopeAssert
 		file1 = File.createTempFile("exedio-cope-PropertiesTest-", ".tmp");
 		file2 = File.createTempFile("exedio-cope-PropertiesTest-", ".tmp");
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception
 	{
@@ -113,17 +113,17 @@ public class PropertiesTest extends CopeAssert
 
 		super.tearDown();
 	}
-	
+
 	public void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
-		
+
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
 		assertEquals("minimal", minimal.getSource());
-		
+
 		assertEquals(false, minimal.boolFalse.booleanValue());
 		assertEquals(true, minimal.boolTrue.booleanValue());
 		assertEquals(Boolean.FALSE, minimal.boolFalse.getValue());
@@ -141,7 +141,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(new java.util.Properties(), minimal.map.mapValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
-		
+
 		assertEquals(false, minimal.boolFalse.isSpecified());
 		assertEquals(false, minimal.boolTrue.isSpecified());
 		assertEquals(false, minimal.int10.isSpecified());
@@ -150,9 +150,9 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(true, minimal.stringHidden.isSpecified());
 		assertEquals(false, minimal.file.isSpecified());
 		assertEquals(false, minimal.map.isSpecified());
-		
+
 		minimal.ensureEquality(minimal);
-		
+
 		{
 			final TestProperties minimal1 = new TestProperties(pminimal, "minimal2");
 			assertEquals("minimal2", minimal1.getSource());
@@ -172,7 +172,7 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("map.explicitKey2", "map.explicitValue2");
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
-			
+
 			assertEquals(true, tp.boolFalse.booleanValue());
 			assertEquals(false, tp.boolTrue.booleanValue());
 			assertEquals(Boolean.TRUE, tp.boolFalse.getValue());
@@ -230,7 +230,7 @@ public class PropertiesTest extends CopeAssert
 						"or one starting with [map.].", e.getMessage());
 			}
 		}
-		
+
 		// boolean
 		assertWrong(pminimal,
 				"wrong.bool.true",
@@ -249,7 +249,7 @@ public class PropertiesTest extends CopeAssert
 					" expected false but got true.",
 				"inconsistent initialization for boolFalse between inconsistent.bool and minimal," +
 					" expected true but got false.");
-		
+
 		// int
 		{
 			// test lowest value
@@ -305,7 +305,7 @@ public class PropertiesTest extends CopeAssert
 				"stringHidden", "stringHidden.inconsistentValue",
 				"inconsistent initialization for stringHidden between minimal and inconsistent.stringHidden.",
 				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
-		
+
 		// File
 		assertInconsistent(pminimal,
 				"inconsistent.file",
@@ -314,7 +314,7 @@ public class PropertiesTest extends CopeAssert
 					" expected null but got " + file2.getPath() + ".",
 				"inconsistent initialization for file between inconsistent.file and minimal," +
 					" expected " + file2.getPath() + " but got null.");
-		
+
 		final java.util.Properties fileInconsistency = copy(pminimal);
 		fileInconsistency.setProperty("file", file1.getPath());
 		assertInconsistent(fileInconsistency,
@@ -324,7 +324,7 @@ public class PropertiesTest extends CopeAssert
 					" expected " + file1.getPath() + " but got " + file2.getPath() + ".",
 				"inconsistent initialization for file between inconsistent.file and minimal," +
 					" expected " + file2.getPath() + " but got " + file1.getPath() + ".");
-		
+
 		// Map
 		assertInconsistent(pminimal,
 				"inconsistent.map",
@@ -334,7 +334,7 @@ public class PropertiesTest extends CopeAssert
 				"inconsistent initialization for map between inconsistent.map and minimal," +
 					" expected {inconsistentKey=map.inconsistentValue} but got {}.");
 	}
-	
+
 	private void assertWrong(
 			final java.util.Properties template,
 			final String sourceDescription,
@@ -347,7 +347,7 @@ public class PropertiesTest extends CopeAssert
 			wrongProps.setProperty(key, value);
 		else
 			wrongProps.remove(key);
-		
+
 		try
 		{
 			new TestProperties(wrongProps, sourceDescription);
@@ -358,7 +358,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(message, e.getMessage());
 		}
 	}
-	
+
 	private void assertInconsistent(
 			final java.util.Properties template,
 			final String sourceDescription,
@@ -368,7 +368,7 @@ public class PropertiesTest extends CopeAssert
 	{
 		final TestProperties templateProps = new TestProperties(template, "minimal");
 		templateProps.assertIt();
-		
+
 		final java.util.Properties p = copy(template);
 		p.setProperty(key, value);
 		final TestProperties inconsistentProps = new TestProperties(p, sourceDescription);
@@ -391,12 +391,12 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(message2, 	e.getMessage());
 		}
 	}
-	
+
 	private static final java.util.Properties copy(final java.util.Properties source)
 	{
 		return (java.util.Properties)source.clone();
 	}
-	
+
 	public void testContext()
 	{
 		assertContext("y", "${x}");
@@ -438,7 +438,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("missing '}' in x${kkk", e.getMessage());
 		}
 	}
-	
+
 	private static final TestProperties getContext(final String raw)
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
@@ -459,55 +459,55 @@ public class PropertiesTest extends CopeAssert
 				else
 					throw new RuntimeException(key);
 			}
-			
+
 			public Collection<String> keySet()
 			{
 				return Collections.unmodifiableList(Arrays.asList("x", "eimer", "wasser"));
 			}
-			
+
 			public String getDescription()
 			{
 				return "TestContextDescription";
 			}
-			
+
 			@Override
 			public String toString()
 			{
 				return "TestContextToString";
 			}
 		});
-		
+
 		return minimal;
 	}
-	
+
 	private static final void assertContext(final String replaced, final String raw)
 	{
 		assertEquals(replaced, getContext(raw).stringMandatory.stringValue());
 	}
-	
+
 	public void testGetContext()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
-		
+
 		final Properties.Source context = new Properties.Source(){
 
 			public String get(final String key)
 			{
 				throw new RuntimeException(key);
 			}
-			
+
 			public Collection<String> keySet()
 			{
 				throw new RuntimeException();
 			}
-			
+
 			public String getDescription()
 			{
 				throw new RuntimeException();
 			}
-			
+
 			@Override
 			public String toString()
 			{
@@ -516,7 +516,7 @@ public class PropertiesTest extends CopeAssert
 		};
 		final TestProperties properties = new TestProperties(pcontext, "context", context);
 		assertSame(context, properties.getContext());
-		
+
 		final TestProperties none = new TestProperties(pcontext, "none", null);
 		try
 		{
@@ -528,7 +528,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("no context available", e.getMessage());
 		}
 	}
-	
+
 	@Deprecated
 	public void testGetContextDeprecated()
 	{
@@ -548,17 +548,17 @@ public class PropertiesTest extends CopeAssert
 				else
 					throw new RuntimeException(key);
 			}
-			
+
 			public Collection<String> keySet()
 			{
 				return Collections.unmodifiableList(Arrays.asList("a", "a1"));
 			}
-			
+
 			public String getDescription()
 			{
 				return "TestGetContextDescription";
 			}
-			
+
 			@Override
 			public String toString()
 			{
@@ -567,7 +567,7 @@ public class PropertiesTest extends CopeAssert
 		});
 		assertEquals("b", context.getContext("a"));
 		assertEquals("b1", context.getContext("a1"));
-		
+
 		try
 		{
 			context.getContext(null);
@@ -598,18 +598,18 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("no context available", e.getMessage());
 		}
 	}
-	
+
 	static class DuplicateProperties extends Properties
 	{
 		final BooleanField duplicate1 = new BooleanField("duplicate", false);
 		final BooleanField duplicate2 = new BooleanField("duplicate", true);
-		
+
 		DuplicateProperties()
 		{
 			super(getSource(new java.util.Properties(), "duplicateDescriptin"), null);
 		}
 	}
-	
+
 	public void testDuplicate()
 	{
 		try

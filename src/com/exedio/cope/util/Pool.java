@@ -38,7 +38,7 @@ public final class Pool<E>
 	//       running into some idle timeout implemented by the
 	//       jdbc driver or the database itself.
 	//       maybe then no ring buffer is needed.
-	
+
 	private final Factory<E> factory;
 	private final int idleLimit;
 	private final int idleInitial;
@@ -46,11 +46,11 @@ public final class Pool<E>
 	private final E[] idle;
 	private int idleLevel, idleFrom, idleTo;
 	private final Object lock = new Object();
-	
+
 	private final PoolCounter counter;
 	private volatile int invalidOnGet = 0;
 	private volatile int invalidOnPut = 0;
-	
+
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
 	{
 		if(factory==null)
@@ -61,34 +61,34 @@ public final class Pool<E>
 			throw new IllegalArgumentException("idleInitial must not be negative, but was " + idleInitial);
 		if(idleInitial>idleLimit)
 			throw new IllegalArgumentException("idleInitial must not be greater than idleLimit, but was " + idleInitial + " and " + idleLimit);
-		
+
 		this.factory = factory;
 		this.idleLimit = idleLimit;
 		this.idleInitial = idleInitial;
-		
+
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
-		
+
 		this.idleLevel = idleInitial;
 		this.idleFrom = 0;
 		this.idleTo = idleInitial;
 		for(int i = 0; i<idleInitial; i++)
 			idle[i] = factory.create();
-		
+
 		this.counter = counter;
 	}
-	
+
 	@SuppressWarnings("unchecked") // OK: no generic arrays
 	private E[] cast(final Object[] o)
 	{
 		return (E[])o;
 	}
-	
+
 	private int inc(int pos)
 	{
 		pos++;
 		return (pos==idle.length) ? 0 : pos;
 	}
-	
+
 	public E get()
 	{
 		if(counter!=null)
@@ -110,13 +110,13 @@ public final class Pool<E>
 			}
 			if(result==null)
 				break;
-			
+
 			// Important to do this outside the synchronized block!
 			if(factory.isValidOnGet(result))
 				break;
-			
+
 			invalidOnGet++;
-			
+
 			result = null;
 		}
 		while(true);
@@ -126,7 +126,7 @@ public final class Pool<E>
 			result = factory.create();
 		return result;
 	}
-	
+
 	/**
 	 * TODO: If we want to implement changing connection parameters on-the-fly
 	 * somewhere in the future, it's important, that client return connections
@@ -136,7 +136,7 @@ public final class Pool<E>
 	{
 		if(e==null)
 			throw new NullPointerException();
-		
+
 		if(counter!=null)
 			counter.incrementPut();
 
@@ -147,7 +147,7 @@ public final class Pool<E>
 			invalidOnPut++;
 			throw new IllegalArgumentException("invalid on put");
 		}
-			
+
 		synchronized(lock)
 		{
 			if(idle!=null && idleLevel<idle.length)
@@ -158,11 +158,11 @@ public final class Pool<E>
 				return;
 			}
 		}
-		
+
 		// Important to do this outside the synchronized block!
 		factory.dispose(e);
 	}
-	
+
 	public void flush()
 	{
 		if(idle!=null)
@@ -170,12 +170,12 @@ public final class Pool<E>
 			// make a copy of idle to avoid closing idle connections
 			// inside the synchronized block
 			final ArrayList<E> copyOfIdle = new ArrayList<E>(idle.length);
-	
+
 			synchronized(lock)
 			{
 				if(idleLevel==0)
 					return;
-	
+
 				int f = idleFrom;
 				for(int i = 0; i<idleLevel; i++)
 				{
@@ -186,7 +186,7 @@ public final class Pool<E>
 				idleLevel = 0;
 				idleFrom = idleTo;
 			}
-			
+
 			for(final E e : copyOfIdle)
 			{
 				try
@@ -202,7 +202,7 @@ public final class Pool<E>
 			}
 		}
 	}
-	
+
 	public Info getInfo()
 	{
 		return new Info(
@@ -213,7 +213,7 @@ public final class Pool<E>
 				invalidOnPut,
 				counter!=null ? new PoolCounter(counter) : null);
 	}
-	
+
 	public static final class Info
 	{
 		private final int idleLimit;
@@ -222,7 +222,7 @@ public final class Pool<E>
 		private final int invalidOnGet;
 		private final int invalidOnPut;
 		private final PoolCounter counter;
-		
+
 		public Info(
 				final int idleLimit,
 				final int idleInitial,
@@ -238,7 +238,7 @@ public final class Pool<E>
 			this.invalidOnPut = invalidOnPut;
 			this.counter = counter;
 		}
-		
+
 		public int getIdleLimit()
 		{
 			return idleLimit;
@@ -248,7 +248,7 @@ public final class Pool<E>
 		{
 			return idleInitial;
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #getIdleLevel()} instead
 		 */
@@ -262,17 +262,17 @@ public final class Pool<E>
 		{
 			return idleLevel;
 		}
-		
+
 		public int getInvalidOnGet()
 		{
 			return invalidOnGet;
 		}
-		
+
 		public int getInvalidOnPut()
 		{
 			return invalidOnPut;
 		}
-		
+
 		public PoolCounter getCounter()
 		{
 			return counter;

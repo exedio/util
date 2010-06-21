@@ -24,17 +24,17 @@ public final class Hex
 	{
 		return encode(bytes, DICTIONARY_UPPER);
 	}
-	
+
 	public static String encodeLower(final byte[] bytes)
 	{
 		return encode(bytes, DICTIONARY_LOWER);
 	}
-	
+
 	private static String encode(final byte[] bytes, final char[] dictionary)
 	{
 		if(bytes==null)
 			return null;
-		
+
 		final int length = bytes.length;
 		final char[] result = new char[length*2];
 
@@ -47,12 +47,12 @@ public final class Hex
 		}
 		return new String(result);
 	}
-	
+
 	public static void append(final StringBuilder out, final byte[] bytes, final int len)
 	{
 		if(bytes==null)
 			return;
-		
+
 		for(int i = 0; i<len; i++)
 		{
 			final byte b = bytes[i];
@@ -60,21 +60,21 @@ public final class Hex
 			out.append(DICTIONARY_LOWER[b & 0x0F]);
 		}
 	}
-	
+
 	private static final char[] DICTIONARY_UPPER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 	private static final char[] DICTIONARY_LOWER = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-	
-	
+
+
 	public static byte[] decodeLower(final String string)
 	{
 		if(string==null)
 			return null;
 		if((string.length()&1)!=0)
 			throw new IllegalArgumentException("odd length: " + string);
-		
+
 		final int length = string.length()>>1;
 		final byte[] result = new byte[length];
-		
+
 		int i2 = 0;
 		for(int i = 0; i<length; i++)
 		{
@@ -84,7 +84,7 @@ public final class Hex
 		}
 		return result;
 	}
-	
+
 	static byte decodeLower(final char c)
 	{
 		if('0'<=c&&c<='9')
@@ -94,7 +94,7 @@ public final class Hex
 		else
 			throw new IllegalArgumentException(String.valueOf(c));
 	}
-	
+
 	private Hex()
 	{
 		// prevent instantiation

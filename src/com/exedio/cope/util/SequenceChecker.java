@@ -23,36 +23,36 @@ import java.util.Arrays;
 public final class SequenceChecker
 {
 	private final int length;
-	
+
 	private final boolean[] buffer;
 	private int bufferNext = 0;
-	
+
 	private boolean afterFirst = false;
 	private int firstNumber;
 	private int maxNumber;
-	
+
 	private volatile int countInOrder = 0;
 	private volatile int countOutOfOrder = 0;
 	private volatile int countDuplicate = 0;
 	private volatile int countLost = 0;
 	private volatile int countLate = 0;
-	
+
 	public SequenceChecker(final int length)
 	{
 		if(length<1)
 			throw new IllegalArgumentException("length must be greater than zero, but was " + length);
-		
+
 		this.length = length;
 		buffer = new boolean[length];
 		Arrays.fill(buffer, true);
 		//System.out.println("----------------");
 	}
-	
+
 	public int getLength()
 	{
 		return length;
 	}
-	
+
 	/*private String toStringInternal()
 	{
 		final StringBuilder result = new StringBuilder();
@@ -65,7 +65,7 @@ public final class SequenceChecker
 		result.append(']');
 		return result.toString();
 	}*/
-	
+
 	/**
 	 * @return whether the given number is a duplicate
 	 */
@@ -83,13 +83,13 @@ public final class SequenceChecker
 					if(!buffer[bufferNext])
 						countLost++;
 					buffer[bufferNext] = (i==(todo-1));
-					
+
 					bufferNext++;
 					if(bufferNext>=length)
 						bufferNext = 0;
 				}
 				maxNumber = number;
-				
+
 				countInOrder++;
 				return false;
 			}
@@ -104,7 +104,7 @@ public final class SequenceChecker
 				int pos = bufferNext - (maxNumber-number) - 1;
 				if(pos<0)
 					pos += length;
-				
+
 				//System.out.println("-----------" + number + "----outOfOrder or duplicate ---- on " + pos);
 				if(buffer[pos])
 				{
@@ -116,7 +116,7 @@ public final class SequenceChecker
 				{
 					//System.out.println("-----------" + number + "----outOfOrder");
 					buffer[pos] = true;
-					
+
 					countOutOfOrder++;
 					return false;
 				}
@@ -132,7 +132,7 @@ public final class SequenceChecker
 			afterFirst = true;
 			firstNumber = number;
 			maxNumber = number;
-			
+
 			countInOrder++;
 			return false;
 		}
@@ -142,7 +142,7 @@ public final class SequenceChecker
 	{
 		if(!afterFirst)
 			throw new IllegalStateException("did not yet check first number");
-		
+
 		return firstNumber;
 	}
 
@@ -150,17 +150,17 @@ public final class SequenceChecker
 	{
 		if(!afterFirst)
 			throw new IllegalStateException("did not yet check first number");
-		
+
 		return maxNumber;
 	}
-	
+
 	public Info getInfo()
 	{
 		int countPending = 0;
 		for(final boolean b : buffer)
 			if(!b)
 				countPending++;
-		
+
 		return new Info(
 				countInOrder,
 				countOutOfOrder,
@@ -169,7 +169,7 @@ public final class SequenceChecker
 				countLate,
 				countPending);
 	}
-	
+
 	public static final class Info
 	{
 		private final int inOrder;
@@ -178,7 +178,7 @@ public final class SequenceChecker
 		private final int lost;
 		private final int late;
 		private final int pending;
-		
+
 		Info(
 				final int inOrder,
 				final int outOfOrder,
@@ -194,7 +194,7 @@ public final class SequenceChecker
 			this.late       = late;
 			this.pending    = pending;
 		}
-		
+
 		public int getInOrder()
 		{
 			return inOrder;
@@ -227,7 +227,7 @@ public final class SequenceChecker
 	}
 
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #getInfo()} instead.
 	 */
@@ -236,7 +236,7 @@ public final class SequenceChecker
 	{
 		return new Counter(getInfo());
 	}
-	
+
 	/**
 	 * @deprecated Use {@link Info} instead.
 	 */
@@ -244,12 +244,12 @@ public final class SequenceChecker
 	public static final class Counter
 	{
 		private final Info info;
-		
+
 		Counter(final Info info)
 		{
 			this.info = info;
 		}
-		
+
 		public int getInOrder()
 		{
 			return info.getInOrder();
@@ -275,7 +275,7 @@ public final class SequenceChecker
 			return info.getLate();
 		}
 	}
-	
+
 	/**
 	 * @deprecated Use {@link Info#getInOrder()} instead.
 	 */

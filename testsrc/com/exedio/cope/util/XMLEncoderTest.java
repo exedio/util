@@ -35,7 +35,7 @@ public class XMLEncoderTest extends TestCase
 			assertEquals(expected, bf.toString());
 		}
 	}
-	
+
 	public void testEncode()
 	{
 		assertEquals(null, XMLEncoder.encode(null));
@@ -50,7 +50,7 @@ public class XMLEncoderTest extends TestCase
 		assertIt("&gt;kno&amp;llo&lt;", ">kno&llo<");
 		assertIt("&amp;&amp;&amp;&amp;&amp;", "&&&&&");
 		assertIt("&amp;x&amp;x&amp;x&amp;x&amp;", "&x&x&x&x&");
-		
+
 		try
 		{
 			XMLEncoder.append(null, null);

@@ -27,7 +27,7 @@ public final class Cast
 	{
 		// prevent instantiation
 	}
-	
+
 	/**
 	 * Does the same as {@link Class#cast(Object)},
 	 * but throws a ClassCastException
@@ -40,15 +40,15 @@ public final class Cast
 		// but creates an exception with a much more verbose message.
 		if(o!=null && !clazz.isInstance(o))
 			throw new ClassCastException("expected a " + clazz.getName() + ", but was a " + o.getClass().getName());
-		
+
 		return clazz.cast(o);
 	}
-	
+
 	public static <E> Collection<E> castElements(final Class<E> clazz, final Collection<?> c)
 	{
 		if(c==null)
 			return null;
-		
+
 		final ArrayList<E> result = new ArrayList<E>(c.size());
 		for(final Object o : c)
 			result.add(verboseCast(clazz, o));

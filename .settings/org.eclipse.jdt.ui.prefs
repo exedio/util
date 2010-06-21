@@ -1,4 +1,4 @@
-#Mon Jun 21 12:08:23 CEST 2010
+#Mon Jun 21 12:10:20 CEST 2010
 eclipse.preferences.version=1
 editor_save_participant_org.eclipse.jdt.ui.postsavelistener.cleanup=true
 sp_cleanup.add_default_serial_version_id=true
@@ -33,8 +33,8 @@ sp_cleanup.qualify_static_member_accesses_with_declaring_class=false
 sp_cleanup.qualify_static_method_accesses_with_declaring_class=false
 sp_cleanup.remove_private_constructors=false
 sp_cleanup.remove_trailing_whitespaces=true
-sp_cleanup.remove_trailing_whitespaces_all=false
-sp_cleanup.remove_trailing_whitespaces_ignore_empty=true
+sp_cleanup.remove_trailing_whitespaces_all=true
+sp_cleanup.remove_trailing_whitespaces_ignore_empty=false
 sp_cleanup.remove_unnecessary_casts=false
 sp_cleanup.remove_unnecessary_nls_tags=false
 sp_cleanup.remove_unused_imports=false

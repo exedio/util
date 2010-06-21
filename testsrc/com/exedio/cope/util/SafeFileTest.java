@@ -30,23 +30,23 @@ import com.exedio.cope.junit.CopeAssert;
 public class SafeFileTest extends CopeAssert
 {
 	File f;
-	
+
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		f = File.createTempFile(getClass().getSimpleName(), "tmp");
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception
 	{
 		if(f.exists())
 			delete(f);
-			
+
 		super.tearDown();
 	}
-	
+
 	public void testDelete()
 	{
 		delete(f);
@@ -60,7 +60,7 @@ public class SafeFileTest extends CopeAssert
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
 	}
-	
+
 	public void testMkdir()
 	{
 		delete(f);
@@ -75,7 +75,7 @@ public class SafeFileTest extends CopeAssert
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
 	}
-	
+
 	public void testMkdirs()
 	{
 		delete(f);
@@ -90,7 +90,7 @@ public class SafeFileTest extends CopeAssert
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
 	}
-	
+
 	public void testRenameTo()
 	{
 		final File f2 = new File(f.getAbsolutePath()+"-rename");

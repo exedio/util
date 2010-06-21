@@ -67,7 +67,7 @@ public class CharSetTest extends CopeAssert
 			assertFalse(cs.contains('A'));
 			assertTrue(cs.contains('C'));
 			assertFalse(cs.contains('D'));
-			
+
 			assertEquals( 0, cs.indexOfNotContains("AC"));
 			assertEquals( 1, cs.indexOfNotContains("CA"));
 			assertEquals(-1, cs.indexOfNotContains("CC"));
@@ -109,26 +109,26 @@ public class CharSetTest extends CopeAssert
 		assertNotEquals(
 				new CharSet('A', 'X', 'a', 'x'),
 				new CharSet('A', 'X', 'a', 'y'));
-		
+
 		assertRegexp("^[-,a-z]*$", new CharSet('-', '-', 'a', 'z'));
 		assertRegexp("^[-,(-)]*$", new CharSet('(', ')', '-', '-'));
 		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
 	}
-	
+
 	private static void assertEquals(final CharSet cs1, final CharSet cs2)
 	{
 		assertEquals((Object)cs1, (Object)cs2);
 		assertEquals((Object)cs2, (Object)cs1);
 		assertEquals(cs1.hashCode(), cs2.hashCode());
 	}
-	
+
 	private static void assertNotEquals(final CharSet cs1, final CharSet cs2)
 	{
 		assertTrue(!cs1.equals(cs2));
 		assertTrue(!cs2.equals(cs1));
 		assertTrue(cs1.hashCode()!=cs2.hashCode());
 	}
-	
+
 	private static void assertRegexp(final String regularExpression, final CharSet cs)
 	{
 		final String actual = cs.getRegularExpression();

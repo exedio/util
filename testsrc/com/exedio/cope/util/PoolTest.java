@@ -37,12 +37,12 @@ public class PoolTest extends CopeAssert
 		assertEquals(0, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// put into idle
 		cp.put(c1);
 		c1.assertV(0, 1, 0);
@@ -52,7 +52,7 @@ public class PoolTest extends CopeAssert
 		assertSame(c1, cp.get());
 		c1.assertV(1, 1, 0);
 		f.assertV(1);
-		
+
 		// put into idle
 		cp.put(c1);
 		c1.assertV(1, 2, 0);
@@ -63,7 +63,7 @@ public class PoolTest extends CopeAssert
 		c1.assertV(2, 2, 0);
 		f.assertV(1);
 	}
-	
+
 	public void testOverflow()
 	{
 		final Pooled c1 = new Pooled();
@@ -77,32 +77,32 @@ public class PoolTest extends CopeAssert
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// get and create (2)
 		assertSame(c2, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
-		
+
 		// put into idle
 		cp.put(c1);
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
-		
+
 		// put and close
 		cp.put(c2);
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 1, 1);
 		f.assertV(2);
 	}
-	
+
 	public void testPrecendence()
 	{
 		final Pooled c1 = new Pooled();
@@ -116,25 +116,25 @@ public class PoolTest extends CopeAssert
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// get and create (2)
 		assertSame(c2, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
-		
+
 		// put into idle
 		cp.put(c1);
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
-		
+
 		// put into idle (2)
 		cp.put(c2);
 		c1.assertV(0, 1, 0);
@@ -189,7 +189,7 @@ public class PoolTest extends CopeAssert
 		c2.assertV(3, 3, 0);
 		f.assertV(2);
 	}
-	
+
 	public void testIdleInitial()
 	{
 		final Pooled c1 = new Pooled();
@@ -201,13 +201,13 @@ public class PoolTest extends CopeAssert
 		assertEquals(1, cp.getInfo().getIdleInitial());
 		c1.assertV(0, 0, 0);
 		f.assertV(1); // already created
-		
+
 		// get from idle
 		assertSame(c1, cp.get());
 		c1.assertV(1, 0, 0);
 		f.assertV(1);
 	}
-	
+
 	public void testIsValidOnPut()
 	{
 		final Pooled c1 = new Pooled();
@@ -221,13 +221,13 @@ public class PoolTest extends CopeAssert
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// dont put into idle, because its closed
 		c1.isValidOnPut = false;
 		try
@@ -249,7 +249,7 @@ public class PoolTest extends CopeAssert
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
 	}
-	
+
 	public void testFlush()
 	{
 		final Pooled c1 = new Pooled();
@@ -263,13 +263,13 @@ public class PoolTest extends CopeAssert
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// put into idle
 		cp.put(c1);
 		c1.assertV(0, 1, 0);
@@ -288,7 +288,7 @@ public class PoolTest extends CopeAssert
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
 	}
-	
+
 	public void testNoPool()
 	{
 		final Pooled c1 = new Pooled();
@@ -302,13 +302,13 @@ public class PoolTest extends CopeAssert
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// put and close because no idle
 		cp.put(c1);
 		c1.assertV(0, 1, 1);
@@ -321,7 +321,7 @@ public class PoolTest extends CopeAssert
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
 	}
-	
+
 	public void testValidOnGet()
 	{
 		final Pooled c1 = new Pooled();
@@ -335,13 +335,13 @@ public class PoolTest extends CopeAssert
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
-		
+
 		// get and create
 		assertSame(c1, cp.get());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
-		
+
 		// put into idle
 		cp.put(c1);
 		c1.assertV(0, 1, 0);
@@ -355,7 +355,7 @@ public class PoolTest extends CopeAssert
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
 	}
-	
+
 	public void testError()
 	{
 		try
@@ -397,12 +397,12 @@ public class PoolTest extends CopeAssert
 		}
 		new Pool<Pooled>(f, 0, 0, null);
 	}
-	
+
 	static class Factory implements Pool.Factory<Pooled>
 	{
 		final Iterator<Pooled> connections;
 		int createCount = 0;
-		
+
 		Factory(final List<Pooled> connections)
 		{
 			this.connections = connections.iterator();
@@ -412,29 +412,29 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals(createCount, this.createCount);
 		}
-		
+
 		public Pooled create()
 		{
 			createCount++;
 			return connections.next();
 		}
-		
+
 		public boolean isValidOnGet(final Pooled e)
 		{
 			return e.isValidOnGet();
 		}
-		
+
 		public boolean isValidOnPut(final Pooled e)
 		{
 			return e.isValidOnPut();
 		}
-		
+
 		public void dispose(final Pooled e)
 		{
 			e.dispose();
 		}
 	}
-	
+
 	static class Pooled
 	{
 		boolean validOnGet = true;
@@ -442,14 +442,14 @@ public class PoolTest extends CopeAssert
 		boolean isValidOnPut = true;
 		int isValidOnPutCount = 0;
 		int disposeCount = 0;
-		
+
 		void assertV(final int isValidOnGetCount, final int isValidOnPutCount, final int disposeCount)
 		{
 			assertEquals(isValidOnGetCount, this.isValidOnGetCount);
 			assertEquals(isValidOnPutCount, this.isValidOnPutCount);
 			assertEquals(disposeCount, this.disposeCount);
 		}
-		
+
 		boolean isValidOnGet()
 		{
 			isValidOnGetCount++;

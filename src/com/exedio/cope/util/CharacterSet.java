@@ -33,75 +33,75 @@ public final class CharacterSet
 	public static final CharacterSet NUMERIC = new CharacterSet(CharSet.NUMERIC);
 	public static final CharacterSet DOMAIN = new CharacterSet(CharSet.DOMAIN);
 	public static final CharacterSet EMAIL  = new CharacterSet(CharSet.EMAIL);
-	
+
 	private final CharSet set;
-	
+
 	public CharacterSet(final char from, final char to)
 	{
 		this(new CharSet(from, to));
 	}
-	
+
 	public CharacterSet(final char from1, final char to1, final char from2, final char to2)
 	{
 		this(new CharSet(from1, to1, from2, to2));
 	}
-	
+
 	public CharacterSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3)
 	{
 		this(new CharSet(from1, to1, from2, to2, from3, to3));
 	}
-	
+
 	public CharacterSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3, final char from4, final char to4)
 	{
 		this(new CharSet(from1, to1, from2, to2, from3, to3, from4, to4));
 	}
-	
+
 	public CharacterSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3, final char from4, final char to4, final char from5, final char to5)
 	{
 		this(new CharSet(from1, to1, from2, to2, from3, to3, from4, to4, from5, to5));
 	}
-	
+
 	public CharacterSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3, final char from4, final char to4, final char from5, final char to5, final char from6, final char to6)
 	{
 		this(new CharSet(from1, to1, from2, to2, from3, to3, from4, to4, from5, to5, from6, to6));
 	}
-	
+
 	public CharacterSet(final CharSet set)
 	{
 		this.set = set;
 	}
-	
+
 	public boolean contains(final char c)
 	{
 		return set.contains(c);
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CharacterSet))
 			return false;
-		
+
 		return set.equals(((CharacterSet)other).set);
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
 		return set.hashCode() ^ 71246512;
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return set.toString();
 	}
-	
+
 	public String getRegularExpression()
 	{
 		return set.getRegularExpression();
 	}
-	
+
 	public CharSet getCharSet()
 	{
 		return set;

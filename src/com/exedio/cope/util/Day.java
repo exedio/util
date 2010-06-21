@@ -35,11 +35,11 @@ import java.util.GregorianCalendar;
 public final class Day implements Serializable, Comparable<Day>
 {
 	private static final long serialVersionUID = 1l;
-	
+
 	private final int year;
 	private final int month;
 	private final int day;
-	
+
    /**
     * Creates a new <tt>Day</tt> object,
     * that represents today.
@@ -48,24 +48,24 @@ public final class Day implements Serializable, Comparable<Day>
 	{
 		this(makeCalendar(System.currentTimeMillis()));
 	}
-	
+
 	public Day(final Date date)
 	{
 		this(makeCalendar(date.getTime()));
 	}
-	
+
 	private static GregorianCalendar makeCalendar(final long time)
 	{
 		final GregorianCalendar result = new GregorianCalendar();
 		result.setTimeInMillis(time);
 		return result;
 	}
-	
+
 	private Day(final GregorianCalendar c)
 	{
 		this(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
 	}
-	
+
 	public Day(final int year, final int month, final int day)
 	{
 		// mysql supports 1000/01/01 to 9999/12/31
@@ -76,45 +76,45 @@ public final class Day implements Serializable, Comparable<Day>
 			throw new IllegalArgumentException("month must be in range 1..12, but was: " + month);
 		if(day<1 || day>31)
 			throw new IllegalArgumentException("day must be in range 1..31, but was: " + day);
-		
+
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
 		this.year = c.get(Calendar.YEAR);
 		this.month = c.get(Calendar.MONTH)+1;
 		this.day = c.get(Calendar.DAY_OF_MONTH);
 	}
-	
+
 	public int getYear()
 	{
 		return year;
 	}
-	
+
 	public int getMonth()
 	{
 		return month;
 	}
-	
+
 	public int getDay()
 	{
 		return day;
 	}
-	
+
 	public long getTimeInMillis()
 	{
 		return calendar().getTimeInMillis();
 	}
-	
+
 	public Day add(final int days)
 	{
 		final GregorianCalendar cal = calendar();
 		cal.add(Calendar.DATE, days);
 		return new Day(cal);
 	}
-	
+
 	private GregorianCalendar calendar()
 	{
 		return new GregorianCalendar(year, month-1, day);
 	}
-	
+
 	@Override
 	public boolean equals(final Object other)
 	{
@@ -124,7 +124,7 @@ public final class Day implements Serializable, Comparable<Day>
 		final Day o = (Day)other;
 		return day==o.day && month==o.month && year==o.year;
 	}
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -137,20 +137,20 @@ public final class Day implements Serializable, Comparable<Day>
 			return -1;
 		else if(year>other.year)
 			return 1;
-		
+
 		if(month<other.month)
 			return -1;
 		else if(month>other.month)
 			return 1;
-		
+
 		if(day<other.day)
 			return -1;
 		else if(day>other.day)
 			return 1;
-		
+
 		return 0;
 	}
-	
+
 	@Override
 	public String toString()
 	{

@@ -38,7 +38,7 @@ public class HexTest extends CopeAssert
 		assertDecodeHelperFails('A');
 		assertDecodeHelperFails('F');
 	}
-	
+
 	private static void assertDecodeHelperFails(final char c)
 	{
 		try
@@ -51,7 +51,7 @@ public class HexTest extends CopeAssert
 			assertEquals(String.valueOf(c), e.getMessage());
 		}
 	}
-	
+
 	public void testIt()
 	{
 		assertIt("000ff0aa", new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa});
@@ -61,7 +61,7 @@ public class HexTest extends CopeAssert
 		assertIt("000102", new byte[]{0, 1, 2});
 		assertIt("0a", new byte[]{0x0a});
 		assertIt("", new byte[]{});
-		
+
 		assertEquals(null, Hex.encodeLower(null));
 		assertEquals(null, Hex.decodeLower(null));
 		try
@@ -74,7 +74,7 @@ public class HexTest extends CopeAssert
 			assertEquals("odd length: a", e.getMessage());
 		}
 	}
-	
+
 	private void assertIt(final String expected, final byte[] actual)
 	{
 		assertEquals(expected, Hex.encodeLower(actual));
@@ -82,7 +82,7 @@ public class HexTest extends CopeAssert
 		final StringBuilder bf = new StringBuilder();
 		Hex.append(bf, actual, actual.length);
 		assertEquals(expected, bf.toString());
-		
+
 		assertTrue(Arrays.equals(actual, Hex.decodeLower(expected)));
 	}
 }

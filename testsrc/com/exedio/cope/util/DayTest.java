@@ -94,7 +94,7 @@ public class DayTest extends CopeAssert
 		assertEquals(23, d.getDay());
 		assertEquals(df.parse("2005-09-23 00:00:00.000").getTime(), d.getTimeInMillis());
 		assertEquals("2005/9/23", d.toString());
-		
+
 		assertFalse(d.equals(null));
 		assertEquals(d, new Day(2005, 9, 23));
 		assertNotEquals(d, new Day(2004, 9, 23));
@@ -102,7 +102,7 @@ public class DayTest extends CopeAssert
 		assertNotEquals(d, new Day(2005, 9, 22));
 		assertTrue(!d.equals("hallo"));
 		assertTrue(!d.equals(Integer.valueOf(22)));
-		
+
 		assertEquals(-1, new Day(2004,  9, 23).compareTo(d));
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
 		assertEquals( 1, new Day(2006,  9, 23).compareTo(d));
@@ -112,20 +112,20 @@ public class DayTest extends CopeAssert
 		assertEquals(-1, new Day(2005,  9, 22).compareTo(d));
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
 		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
-		
+
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000")));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999")));
 
 		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
 		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
 		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
-		
+
 		assertEquals(  new Day(2005, 2, 23),
 			reserialize(new Day(2005, 2, 23), 80));
 		assertEquals(  list(new Day(2007, 2, 23), new Day(2009, 8, 25)),
 			reserialize(list(new Day(2007, 2, 23), new Day(2009, 8, 25)), 210));
 	}
-	
+
 	static final void assertEquals(final Day expected, final Day actual)
 	{
 		assertEquals((Object)expected, (Object)actual);
@@ -134,7 +134,7 @@ public class DayTest extends CopeAssert
 		assertEquals(0, expected.compareTo(actual));
 		assertEquals(0, actual.compareTo(expected));
 	}
-	
+
 	static final void assertNotEquals(final Day expected, final Day actual)
 	{
 		assertTrue(!expected.equals(actual));

@@ -21,20 +21,20 @@ package com.exedio.cope.util;
 public final class Interrupters
 {
 	public static final Interrupter VAIN_INTERRUPTER = new VainInterrupter();
-	
+
 	private static final class VainInterrupter implements Interrupter
 	{
 		public boolean isRequested()
 		{
 			return false;
 		}
-		
+
 		VainInterrupter()
 		{
 			// make constructor non-private
 		}
 	}
-	
+
 	private Interrupters()
 	{
 		// prevent instantiation

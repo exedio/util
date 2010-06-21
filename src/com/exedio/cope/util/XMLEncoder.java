@@ -24,12 +24,12 @@ public final class XMLEncoder
 	{
 		// forbid instantiation
 	}
-	
+
 	public static String encode(final String st)
 	{
 		if(st==null)
 			return null;
-		
+
 		StringBuilder bf = null;
 		final int length = st.length();
 		int lastPos = 0;
@@ -60,7 +60,7 @@ public final class XMLEncoder
 			bf.append(st.substring(lastPos, length));
 		return bf.toString();
 	}
-	
+
 	public static void append(final StringBuilder bf, final String st)
 	{
 		final int length = st.length();
@@ -87,7 +87,7 @@ public final class XMLEncoder
 		if(lastPos<length)
 			bf.append(st.substring(lastPos, length));
 	}
-	
+
 	public static void append(final StringBuilder bf, final char c)
 	{
 		final String replacement;

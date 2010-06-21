@@ -28,7 +28,7 @@ public class CounterTest extends CopeAssert
 	private volatile long countVolatile;
 	private final Object lock = new Object();
 	private final AtomicLong atomic = new AtomicLong();
-	
+
 	public void testCount()
 	{
 		final int N = 10000000;

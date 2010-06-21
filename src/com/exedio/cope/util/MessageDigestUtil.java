@@ -36,7 +36,7 @@ public final class MessageDigestUtil
 			final StringBuilder bf = new StringBuilder("no such MessageDigest ");
 			bf.append(algorithm);
 			bf.append(", choose one of: ");
-			
+
 			boolean first = true;
 			Provider lastProvider = null;
 			for(final Provider provider : Security.getProviders())
@@ -54,17 +54,17 @@ public final class MessageDigestUtil
 							lastProvider = provider;
 							first = true;
 						}
-						
+
 						if(first)
 							first = false;
 						else
 							bf.append(',');
-						
+
 						bf.append(service.getAlgorithm());
 					}
 				}
 			}
-			
+
 			throw new IllegalArgumentException(bf.toString(), e);
 		}
 	}

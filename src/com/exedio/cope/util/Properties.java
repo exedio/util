@@ -38,16 +38,16 @@ public class Properties
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
-	
+
 	public Properties(final Source source, final Source context)
 	{
 		this.source = source;
 		this.sourceDescription = source.getDescription();
 		this.context = context;
-		
+
 		// TODO check, that no other property key do occur
 	}
-	
+
 	public List<? extends Callable<?>> getTests()
 	{
 		return Collections.emptyList();
@@ -57,12 +57,12 @@ public class Properties
 	{
 		return Collections.unmodifiableList(fields);
 	}
-	
+
 	public final Source getSourceObject()
 	{
 		return source;
 	}
-	
+
 	public final String getSource()
 	{
 		return sourceDescription;
@@ -75,10 +75,10 @@ public class Properties
 	{
 		if(context==null)
 			throw new IllegalStateException("no context available");
-		
+
 		return context;
 	}
-	
+
 	final String resolve(final String key)
 	{
 		final String raw = source.get(key);
@@ -106,7 +106,7 @@ public class Properties
 		bf.append(raw.substring(previous));
 		return bf.toString();
 	}
-	
+
 	public interface Source
 	{
 		String get(String key);
@@ -120,7 +120,7 @@ public class Properties
 		 * The result is always unmodifiable.
 		 */
 		Collection<String> keySet();
-		
+
 		String getDescription();
 	}
 
@@ -131,7 +131,7 @@ public class Properties
 			{
 				return System.getProperty(key);
 			}
-			
+
 			public Collection<String> keySet()
 			{
 				return null;
@@ -157,7 +157,7 @@ public class Properties
 			{
 				return properties.getProperty(key);
 			}
-			
+
 			public Collection<String> keySet()
 			{
 				final ArrayList<String> result = new ArrayList<String>();
@@ -178,17 +178,17 @@ public class Properties
 			}
 		};
 	}
-	
+
 	public static final Source getSource(final File file)
 	{
 		return getSource(loadProperties(file), file.getAbsolutePath());
 	}
-	
+
 	public abstract class Field
 	{
 		final String key;
 		private final boolean specified;
-		
+
 		Field(final String key)
 		{
 			this.key = key;
@@ -200,15 +200,15 @@ public class Properties
 				throw new RuntimeException("key must not be empty.");
 			if(!detectDuplicateKeys.add(key))
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
-			
+
 			fields.add(this);
 		}
-		
+
 		public final String getKey()
 		{
 			return key;
 		}
-		
+
 		public abstract Object getDefaultValue();
 		public abstract Object getValue();
 
@@ -216,23 +216,23 @@ public class Properties
 		{
 			return specified;
 		}
-		
+
 		public boolean hasHiddenValue()
 		{
 			return false;
 		}
 	}
-	
+
 	public final class BooleanField extends Field
 	{
 		private final boolean defaultValue;
 		private final boolean value;
-		
+
 		public BooleanField(final String key, final boolean defaultValue)
 		{
 			super(key);
 			this.defaultValue = defaultValue;
-			
+
 			final String s = resolve(key);
 			if(s==null)
 				this.value = defaultValue;
@@ -246,19 +246,19 @@ public class Properties
 					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " has invalid value, expected >true< or >false<, but got >" + s + "<.");
 			}
 		}
-		
+
 		@Override
 		public Object getDefaultValue()
 		{
 			return Boolean.valueOf(defaultValue);
 		}
-		
+
 		@Override
 		public Object getValue()
 		{
 			return Boolean.valueOf(value);
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #booleanValue()} instead
 		 */
@@ -267,7 +267,7 @@ public class Properties
 		{
 			return booleanValue();
 		}
-		
+
 		public boolean booleanValue()
 		{
 			return value;
@@ -278,15 +278,15 @@ public class Properties
 	{
 		private final int defaultValue;
 		private final int value;
-		
+
 		public IntField(final String key, final int defaultValue, final int minimumValue)
 		{
 			super(key);
 			this.defaultValue = defaultValue;
-			
+
 			if(defaultValue<minimumValue)
 				throw new RuntimeException(key+defaultValue+','+minimumValue);
-			
+
 			final String s = resolve(key);
 			if(s==null)
 				value = defaultValue;
@@ -309,19 +309,19 @@ public class Properties
 							"expected an integer greater or equal " + minimumValue + ", but got " + value + '.');
 			}
 		}
-		
+
 		@Override
 		public Object getDefaultValue()
 		{
 			return Integer.valueOf(defaultValue);
 		}
-		
+
 		@Override
 		public Object getValue()
 		{
 			return Integer.valueOf(value);
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #intValue()} instead
 		 */
@@ -330,7 +330,7 @@ public class Properties
 		{
 			return intValue();
 		}
-		
+
 		public int intValue()
 		{
 			return value;
@@ -342,7 +342,7 @@ public class Properties
 		private final String defaultValue;
 		private final boolean hideValue;
 		private final String value;
-		
+
 		/**
 		 * Creates a mandatory string field.
 		 */
@@ -350,7 +350,7 @@ public class Properties
 		{
 			this(key, null, false);
 		}
-		
+
 		public StringField(final String key, final String defaultValue)
 		{
 			this(key, defaultValue, false);
@@ -358,7 +358,7 @@ public class Properties
 			if(defaultValue==null)
 				throw new NullPointerException("defaultValue");
 		}
-		
+
 		/**
 		 * Creates a mandatory string field.
 		 */
@@ -366,15 +366,15 @@ public class Properties
 		{
 			this(key, null, hideValue);
 		}
-		
+
 		private StringField(final String key, final String defaultValue, final boolean hideValue)
 		{
 			super(key);
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
-			
+
 			assert !(defaultValue!=null && hideValue);
-			
+
 			final String s = resolve(key);
 			if(s==null)
 			{
@@ -386,19 +386,19 @@ public class Properties
 			else
 				this.value = s;
 		}
-		
+
 		@Override
 		public Object getDefaultValue()
 		{
 			return defaultValue;
 		}
-		
+
 		@Override
 		public Object getValue()
 		{
 			return value;
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #stringValue()} instead
 		 */
@@ -407,12 +407,12 @@ public class Properties
 		{
 			return stringValue();
 		}
-		
+
 		public String stringValue()
 		{
 			return value;
 		}
-		
+
 		@Override
 		public boolean hasHiddenValue()
 		{
@@ -423,7 +423,7 @@ public class Properties
 	public final class FileField extends Field
 	{
 		private final File value;
-		
+
 		public FileField(final String key)
 		{
 			super(key);
@@ -431,19 +431,19 @@ public class Properties
 			final String valueString = resolve(key);
 			this.value = (valueString==null) ? null : new File(valueString);
 		}
-		
+
 		@Override
 		public Object getDefaultValue()
 		{
 			return null;
 		}
-		
+
 		@Override
 		public Object getValue()
 		{
 			return value;
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #fileValue()} instead
 		 */
@@ -452,12 +452,12 @@ public class Properties
 		{
 			return fileValue();
 		}
-		
+
 		public File fileValue()
 		{
 			return value;
 		}
-		
+
 		@Override
 		public boolean hasHiddenValue()
 		{
@@ -468,17 +468,17 @@ public class Properties
 	public final class MapField extends Field
 	{
 		private final java.util.Properties value;
-		
+
 		public MapField(final String key)
 		{
 			super(key);
 
 			value = new java.util.Properties();
-			
+
 			final Collection<String> keySet = source.keySet();
 			if(keySet==null)
 				return;
-			
+
 			final String prefix = key + '.';
 			final int prefixLength = prefix.length();
 			for(final Iterator<?> i = keySet.iterator(); i.hasNext(); )
@@ -488,19 +488,19 @@ public class Properties
 					value.put(currentKey.substring(prefixLength), resolve(currentKey));
 			}
 		}
-		
+
 		@Override
 		public Object getDefaultValue()
 		{
 			return null;
 		}
-		
+
 		@Override
 		public Object getValue()
 		{
 			return value;
 		}
-		
+
 		/**
 		 * @deprecated Use {@link #mapValue()} instead
 		 */
@@ -509,12 +509,12 @@ public class Properties
 		{
 			return mapValue();
 		}
-		
+
 		public java.util.Properties mapValue()
 		{
 			return value;
 		}
-		
+
 		public String getValue(final String key)
 		{
 			return value.getProperty(key);
@@ -526,10 +526,10 @@ public class Properties
 		final Collection<String> keySet = source.keySet();
 		if(keySet==null)
 			return;
-		
+
 		final HashSet<String> allowedValues = new HashSet<String>();
 		final ArrayList<String> allowedPrefixes = new ArrayList<String>();
-		
+
 		for(final Field field : fields)
 		{
 			if(field instanceof MapField)
@@ -537,10 +537,10 @@ public class Properties
 			else
 				allowedValues.add(field.key);
 		}
-		
+
 		if(prefixes!=null)
 			allowedPrefixes.addAll(Arrays.asList(prefixes));
-		
+
 		for(final Object keyObject : source.keySet())
 		{
 			final String key = (String)keyObject;
@@ -562,13 +562,13 @@ public class Properties
 					for(final Field field : fields)
 						if(!(field instanceof MapField))
 							allowedValueList.add(field.key);
-					
+
 					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " is not allowed, but only one of " + allowedValueList + " or one starting with " + allowedPrefixes + '.');
 				}
 			}
 		}
 	}
-	
+
 	public final void ensureEquality(final Properties other)
 	{
 		final Iterator<Field> j = other.fields.iterator();
@@ -578,15 +578,15 @@ public class Properties
 			final Field otherField = j.next();
 			final boolean thisHideValue = thisField.hasHiddenValue();
 			final boolean otherHideValue = otherField.hasHiddenValue();
-			
+
 			if(!thisField.key.equals(otherField.key))
 				throw new RuntimeException("inconsistent fields");
 			if(thisHideValue!=otherHideValue)
 				throw new RuntimeException("inconsistent fields with hide value");
-			
+
 			final Object thisValue = thisField.getValue();
 			final Object otherValue = otherField.getValue();
-			
+
 			if((thisValue!=null && !thisValue.equals(otherValue)) ||
 				(thisValue==null && otherValue!=null))
 				throw new IllegalArgumentException(
@@ -595,7 +595,7 @@ public class Properties
 						(thisHideValue ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 		}
 	}
-	
+
 	public static final java.util.Properties loadProperties(final File file)
 	{
 		final java.util.Properties result = new java.util.Properties();
@@ -622,9 +622,9 @@ public class Properties
 			}
 		}
 	}
-	
+
 	// ------------------- deprecated stuff -------------------
-	
+
 	/**
 	 * @deprecated Use {@link #Properties(Source, Source)} instead.
 	 */
@@ -633,7 +633,7 @@ public class Properties
 	{
 		this(source, sourceDescription, null);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #Properties(Source, Source)} instead.
 	 */
@@ -655,14 +655,14 @@ public class Properties
 			throw new NullPointerException("key");
 		if(context==null)
 			throw new IllegalStateException("no context available");
-		
+
 		final String result = context.get(key);
 		if(result==null)
 			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context.getDescription());
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getSystemPropertySource()} instead
 	 */
@@ -671,7 +671,7 @@ public class Properties
 	{
 		return getSystemPropertySource();
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getSource(java.util.Properties,String)} instead
 	 */

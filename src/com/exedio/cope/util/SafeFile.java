@@ -27,32 +27,32 @@ public final class SafeFile
 		if(!file.delete())
 			throw failure(file);
 	}
-	
+
 	public static void mkdir(final File file)
 	{
 		if(!file.mkdir())
 			throw failure(file);
 	}
-	
+
 	public static void mkdirs(final File file)
 	{
 		if(!file.mkdirs())
 			throw failure(file);
 	}
-	
+
 	public static void renameTo(final File file, final File dest)
 	{
 		if(!file.renameTo(dest))
 			throw failure(file);
 	}
-	
+
 	// TODO add all methods boolean File.setXXX
-	
+
 	private static IllegalStateException failure(final File file)
 	{
 		return new IllegalStateException(file.getAbsolutePath());
 	}
-	
+
 	private SafeFile()
 	{
 		// prevent instantiation

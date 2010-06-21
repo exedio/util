@@ -28,46 +28,46 @@ public class PoolCounterTest extends CopeAssert
 	public void testIt()
 	{
 		final PoolCounter c = new PoolCounter(1,2);
-		
+
 		final Iterator<?> pi = c.getPools().iterator();
 		PoolCounter.Pool p1 = (PoolCounter.Pool)pi.next();
 		assertFalse(pi.hasNext());
 		assertIt(c, 0, 0);
 		assertIt(p1, 1, 0, 0, 0, 0, 0);
-		
+
 		c.incrementGet();
 		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
 		assertIt(c, 1, 0); assertIt(p1,1, 0, 0, 1, 0,  0);
-		
+
 		c.incrementGet();
 		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
 		assertIt(c, 2, 0); assertIt(p1,1, 0, 0, 2, 0,  0);
-		
+
 		c.incrementPut();
 		assertEquals(1, c.getPools().size());
 		p1 = c.getPools().get(0);
 		assertIt(c, 2, 1); assertIt(p1,1, 1, 1, 2, 0,  0);
-		
+
 		c.incrementPut();
 		assertEquals(2, c.getPools().size());
 		p1 = c.getPools().get(0);
 		PoolCounter.Pool p2 = c.getPools().get(1);
 		assertIt(c, 2, 2); assertIt(p1,1, 1, 1, 2, 1, 50); assertIt(p2,2, 2, 2, 2, 0, 0);
-		
+
 		c.incrementPut();
 		assertEquals(2, c.getPools().size());
 		p1 = c.getPools().get(0);
 		p2 = c.getPools().get(1);
 		assertIt(c, 2, 3); assertIt(p1,1, 1, 1, 2, 2,100); assertIt(p2,2, 2, 2, 2, 1,50);
-		
+
 		c.incrementGet();
 		assertEquals(2, c.getPools().size());
 		p1 = c.getPools().get(0);
 		p2 = c.getPools().get(1);
 		assertIt(c, 3, 3); assertIt(p1,1, 0, 1, 2, 2, 66); assertIt(p2,2, 1, 2, 2, 1,33);
-		
+
 		final PoolCounter c2 = new PoolCounter(c);
 		final Iterator<?> p2i = c2.getPools().iterator();
 		final PoolCounter.Pool p21 = (PoolCounter.Pool)p2i.next();
@@ -75,7 +75,7 @@ public class PoolCounterTest extends CopeAssert
 		assertFalse(p2i.hasNext());
 		assertIt(c2, 3, 3); assertIt(p21,1, 0, 1, 2, 2, 66); assertIt(p22,2, 1, 2, 2, 1,33);
 	}
-	
+
 	public void testExtend()
 	{
 		final PoolCounter c = new PoolCounter(1,2,4,6);
@@ -204,7 +204,7 @@ public class PoolCounterTest extends CopeAssert
 		assertEquals("loss", loss, p.getLoss());
 		assertTrue("isConsistent", p.isConsistent());
 	}
-	
+
 	public void testFail()
 	{
 		try

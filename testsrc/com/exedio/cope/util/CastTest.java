@@ -30,12 +30,12 @@ public class CastTest extends CopeAssert
 {
 	private static final String string1 = "string1";
 	private static final Object string1Object = string1;
-	
+
 	public void testVerboseCast()
 	{
 		assertNull(verboseCast(String.class, null));
 		assertSame(string1, verboseCast(String.class, string1Object));
-		
+
 		try
 		{
 			verboseCast(null, string1);
@@ -54,7 +54,7 @@ public class CastTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
-		
+
 		try
 		{
 			verboseCast(Integer.class, string1);
@@ -65,18 +65,18 @@ public class CastTest extends CopeAssert
 			assertEquals("expected a java.lang.Integer, but was a java.lang.String", e.getMessage());
 		}
 	}
-	
+
 	public void testCastElements()
 	{
 		final List<String> strings = Arrays.asList(string1);
 		final List<String> strings2 = Arrays.asList(string1, string1);
 		final List<String> nulls = Arrays.asList(string1, null);
-		
+
 		assertNull(castElements(String.class, null));
 		assertEquals(strings, castElements(String.class, strings)); // TODO should be same
 		assertEquals(strings2, castElements(String.class, strings2)); // TODO should be same
 		assertEquals(nulls, castElements(String.class, nulls)); // TODO should be same
-		
+
 		try
 		{
 			castElements(null, strings);
@@ -87,7 +87,7 @@ public class CastTest extends CopeAssert
 			assertEquals(null, e.getMessage());
 		}
 		assertNull(castElements(null, null));
-		
+
 		try
 		{
 			castElements(Integer.class, strings);
