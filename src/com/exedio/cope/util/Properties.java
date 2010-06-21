@@ -481,9 +481,8 @@ public class Properties
 
 			final String prefix = key + '.';
 			final int prefixLength = prefix.length();
-			for(final Iterator<?> i = keySet.iterator(); i.hasNext(); )
+			for(final String currentKey : keySet)
 			{
-				final String currentKey = (String)i.next();
 				if(currentKey.startsWith(prefix))
 					value.put(currentKey.substring(prefixLength), resolve(currentKey));
 			}
