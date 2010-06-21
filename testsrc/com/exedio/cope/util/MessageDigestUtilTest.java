@@ -32,7 +32,7 @@ public class MessageDigestUtilTest extends CopeAssert
 			MessageDigestUtil.getInstance("NIXUS");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());

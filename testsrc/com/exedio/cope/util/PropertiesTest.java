@@ -187,7 +187,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringHidden.explicitValue", tp.stringHidden.getValue());
 			assertEquals(file1, tp.file.fileValue());
 			assertEquals(file1, tp.file.getValue());
-			java.util.Properties mapExpected = new java.util.Properties();
+			final java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
 			assertEquals(mapExpected, tp.map.mapValue());
@@ -216,7 +216,7 @@ public class PropertiesTest extends CopeAssert
 				tp.ensureValidity();
 				fail();
 			}
-			catch(IllegalArgumentException e)
+			catch(final IllegalArgumentException e)
 			{
 				assertEquals(
 						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
@@ -353,7 +353,7 @@ public class PropertiesTest extends CopeAssert
 			new TestProperties(wrongProps, sourceDescription);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
@@ -377,7 +377,7 @@ public class PropertiesTest extends CopeAssert
 			templateProps.ensureEquality(inconsistentProps);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(message1, 	e.getMessage());
 		}
@@ -386,7 +386,7 @@ public class PropertiesTest extends CopeAssert
 			inconsistentProps.ensureEquality(templateProps);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(message2, 	e.getMessage());
 		}
@@ -415,7 +415,7 @@ public class PropertiesTest extends CopeAssert
 			getContext("${nixus}");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key 'nixus' not defined by context TestContextDescription", e.getMessage());
 		}
@@ -424,7 +424,7 @@ public class PropertiesTest extends CopeAssert
 			getContext("x${}y");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("${} not allowed in x${}y", e.getMessage());
 		}
@@ -433,7 +433,7 @@ public class PropertiesTest extends CopeAssert
 			getContext("x${kkk");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("missing '}' in x${kkk", e.getMessage());
 		}
@@ -523,7 +523,7 @@ public class PropertiesTest extends CopeAssert
 			none.getContext();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("no context available", e.getMessage());
 		}
@@ -573,7 +573,7 @@ public class PropertiesTest extends CopeAssert
 			context.getContext(null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
 		}
@@ -582,7 +582,7 @@ public class PropertiesTest extends CopeAssert
 			context.getContext("n");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("no value available for key >n< in context TestGetContextDescription", e.getMessage());
 		}
@@ -593,7 +593,7 @@ public class PropertiesTest extends CopeAssert
 			none.getContext("c");
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("no context available", e.getMessage());
 		}
@@ -617,7 +617,7 @@ public class PropertiesTest extends CopeAssert
 			new DuplicateProperties();
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("duplicate key 'duplicate'", e.getMessage());
 		}

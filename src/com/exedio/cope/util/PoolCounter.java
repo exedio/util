@@ -53,7 +53,7 @@ public final class PoolCounter
 		if(idleLimits.length<1)
 			throw new IllegalArgumentException("number of idleLimits must be at least 1");
 
-		for(int s : idleLimits)
+		for(final int s : idleLimits)
 		{
 			if(s<=0)
 				throw new IllegalArgumentException("idleLimits must be greater than zero");

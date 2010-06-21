@@ -46,7 +46,7 @@ public class HexTest extends CopeAssert
 			Hex.decodeLower(c);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(String.valueOf(c), e.getMessage());
 		}
@@ -69,7 +69,7 @@ public class HexTest extends CopeAssert
 			Hex.decodeLower("a");
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("odd length: a", e.getMessage());
 		}

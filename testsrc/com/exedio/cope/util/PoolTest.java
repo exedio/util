@@ -235,7 +235,7 @@ public class PoolTest extends CopeAssert
 			cp.put(c1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("invalid on put", e.getMessage());
 		}
@@ -363,7 +363,7 @@ public class PoolTest extends CopeAssert
 			new Pool<Pooled>((Factory)null, -1, -1, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals("factory", e.getMessage());
 		}
@@ -373,7 +373,7 @@ public class PoolTest extends CopeAssert
 			new Pool<Pooled>(f, -1, -1, null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("idleLimit must not be negative, but was -1", e.getMessage());
 		}
@@ -382,7 +382,7 @@ public class PoolTest extends CopeAssert
 			new Pool<Pooled>(f, 0, -1, null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("idleInitial must not be negative, but was -1", e.getMessage());
 		}
@@ -391,7 +391,7 @@ public class PoolTest extends CopeAssert
 			new Pool<Pooled>(f, 0, 1, null);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("idleInitial must not be greater than idleLimit, but was 1 and 0", e.getMessage());
 		}

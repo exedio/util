@@ -29,7 +29,7 @@ public class CharSetTest extends CopeAssert
 			new CharSet('Z', 'A');
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent character set, character 'A' on position 1 is less character 'Z' on position 0", e.getMessage());
 		}
@@ -38,7 +38,7 @@ public class CharSetTest extends CopeAssert
 			new CharSet('B', 'A');
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent character set, character 'A' on position 1 is less character 'B' on position 0", e.getMessage());
 		}
@@ -47,7 +47,7 @@ public class CharSetTest extends CopeAssert
 			new CharSet('A', 'C', 'B', 'A');
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent character set, character 'B' on position 2 is less character 'C' on position 1", e.getMessage());
 		}
@@ -56,12 +56,12 @@ public class CharSetTest extends CopeAssert
 			new CharSet('A', 'C', 'N', 'M');
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("inconsistent character set, character 'M' on position 3 is less character 'N' on position 2", e.getMessage());
 		}
 		{
-			CharSet cs = new CharSet('C', 'C');
+			final CharSet cs = new CharSet('C', 'C');
 			assertRegexp("^[C]*$", cs);
 			assertEquals(cs.toString(), "[C-C]", cs.toString());
 			assertFalse(cs.contains('A'));
@@ -76,13 +76,13 @@ public class CharSetTest extends CopeAssert
 				cs.indexOfNotContains(null);
 				fail();
 			}
-			catch(NullPointerException e)
+			catch(final NullPointerException e)
 			{
 				assertEquals(null, e.getMessage());
 			}
 		}
 		{
-			CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
+			final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
 			assertRegexp("^[C,M-O,m-o]*$", cs);
 			assertEquals(cs.toString(), "[C-C,M-O,m-o]", cs.toString());
 			assertFalse(cs.contains('A'));

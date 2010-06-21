@@ -296,7 +296,7 @@ public class Properties
 				{
 					value = Integer.parseInt(s);
 				}
-				catch(NumberFormatException e)
+				catch(final NumberFormatException e)
 				{
 					throw new IllegalArgumentException(
 							"property " + key + " in " + sourceDescription + " has invalid value, " +
@@ -547,7 +547,7 @@ public class Properties
 			if(!allowedValues.contains(key))
 			{
 				boolean error = true;
-				for(String allowedPrefix : allowedPrefixes)
+				for(final String allowedPrefix : allowedPrefixes)
 				{
 					if(key.startsWith(allowedPrefix))
 					{
@@ -572,7 +572,7 @@ public class Properties
 	public final void ensureEquality(final Properties other)
 	{
 		final Iterator<Field> j = other.fields.iterator();
-		for(Iterator<Field> i = fields.iterator(); i.hasNext()&&j.hasNext(); )
+		for(final Iterator<Field> i = fields.iterator(); i.hasNext()&&j.hasNext(); )
 		{
 			final Field thisField = i.next();
 			final Field otherField = j.next();
@@ -606,7 +606,7 @@ public class Properties
 			result.load(stream);
 			return result;
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException("property file "+file.getAbsolutePath()+" not found.", e);
 		}
@@ -618,7 +618,7 @@ public class Properties
 				{
 					stream.close();
 				}
-				catch(IOException e) {/*IGNORE*/}
+				catch(final IOException e) {/*IGNORE*/}
 			}
 		}
 	}

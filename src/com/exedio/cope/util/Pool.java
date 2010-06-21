@@ -193,7 +193,7 @@ public final class Pool<E>
 				{
 					factory.dispose(e);
 				}
-				catch(Exception ex)
+				catch(final Exception ex)
 				{
 					System.err.println("warning: exception on flushing pool");
 					ex.printStackTrace();

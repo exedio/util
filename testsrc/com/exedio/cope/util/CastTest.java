@@ -41,7 +41,7 @@ public class CastTest extends CopeAssert
 			verboseCast(null, string1);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -50,7 +50,7 @@ public class CastTest extends CopeAssert
 			verboseCast(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -60,7 +60,7 @@ public class CastTest extends CopeAssert
 			verboseCast(Integer.class, string1);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a java.lang.Integer, but was a java.lang.String", e.getMessage());
 		}
@@ -82,7 +82,7 @@ public class CastTest extends CopeAssert
 			castElements(null, strings);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -93,7 +93,7 @@ public class CastTest extends CopeAssert
 			castElements(Integer.class, strings);
 			fail();
 		}
-		catch(ClassCastException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals("expected a java.lang.Integer, but was a java.lang.String", e.getMessage());
 		}

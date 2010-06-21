@@ -56,7 +56,7 @@ public class XMLEncoderTest extends TestCase
 			XMLEncoder.append(null, null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -66,7 +66,7 @@ public class XMLEncoderTest extends TestCase
 			XMLEncoder.append(null, "x");
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -75,7 +75,7 @@ public class XMLEncoderTest extends TestCase
 			XMLEncoder.append(new StringBuilder(), null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -84,7 +84,7 @@ public class XMLEncoderTest extends TestCase
 			XMLEncoder.append(null, 'x');
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -93,7 +93,7 @@ public class XMLEncoderTest extends TestCase
 			XMLEncoder.append(null, '&');
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}

@@ -31,7 +31,7 @@ public final class MessageDigestUtil
 		{
 			return MessageDigest.getInstance(algorithm);
 		}
-		catch(NoSuchAlgorithmException e)
+		catch(final NoSuchAlgorithmException e)
 		{
 			final StringBuilder bf = new StringBuilder("no such MessageDigest ");
 			bf.append(algorithm);

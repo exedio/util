@@ -225,7 +225,7 @@ public class SequenceCheckerTest extends CopeAssert
 			new SequenceChecker(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("length must be greater than zero, but was 0", e.getMessage());
 		}
@@ -239,7 +239,7 @@ public class SequenceCheckerTest extends CopeAssert
 			sc.getFirstNumber();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("did not yet check first number", e.getMessage());
 		}
@@ -248,7 +248,7 @@ public class SequenceCheckerTest extends CopeAssert
 			sc.getMaxNumber();
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("did not yet check first number", e.getMessage());
 		}

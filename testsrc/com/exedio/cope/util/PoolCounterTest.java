@@ -212,7 +212,7 @@ public class PoolCounterTest extends CopeAssert
 			new PoolCounter((int[])null);
 			fail();
 		}
-		catch(NullPointerException e)
+		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
 		}
@@ -221,7 +221,7 @@ public class PoolCounterTest extends CopeAssert
 			new PoolCounter(new int[0]);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("number of idleLimits must be at least 1", e.getMessage());
 		}
@@ -230,7 +230,7 @@ public class PoolCounterTest extends CopeAssert
 			new PoolCounter(0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("idleLimits must be greater than zero", e.getMessage());
 		}
@@ -239,7 +239,7 @@ public class PoolCounterTest extends CopeAssert
 			new PoolCounter(1,1);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("idleLimits must be strictly monotonic increasing", e.getMessage());
 		}

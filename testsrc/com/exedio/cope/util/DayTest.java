@@ -33,7 +33,7 @@ public class DayTest extends CopeAssert
 			new Day(999, 31, 12);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("year must be in range 1000..9999, but was: 999", e.getMessage());
 		}
@@ -42,7 +42,7 @@ public class DayTest extends CopeAssert
 			new Day(10000, 31, 12);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("year must be in range 1000..9999, but was: 10000", e.getMessage());
 		}
@@ -51,7 +51,7 @@ public class DayTest extends CopeAssert
 			new Day(2005, 0, 12);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("month must be in range 1..12, but was: 0", e.getMessage());
 		}
@@ -60,7 +60,7 @@ public class DayTest extends CopeAssert
 			new Day(2005, 32, 12);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("month must be in range 1..12, but was: 32", e.getMessage());
 		}
@@ -69,7 +69,7 @@ public class DayTest extends CopeAssert
 			new Day(2005, 9, 0);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("day must be in range 1..31, but was: 0", e.getMessage());
 		}
@@ -78,7 +78,7 @@ public class DayTest extends CopeAssert
 			new Day(2005, 9, 32);
 			fail();
 		}
-		catch(IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
 		}

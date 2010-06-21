@@ -55,7 +55,7 @@ public class SafeFileTest extends CopeAssert
 			delete(f);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
@@ -70,7 +70,7 @@ public class SafeFileTest extends CopeAssert
 			mkdir(f);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
@@ -85,7 +85,7 @@ public class SafeFileTest extends CopeAssert
 			mkdirs(f);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
@@ -100,7 +100,7 @@ public class SafeFileTest extends CopeAssert
 			renameTo(f, f2);
 			fail();
 		}
-		catch(IllegalStateException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
