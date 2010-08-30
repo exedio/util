@@ -75,17 +75,20 @@ public final class Day implements Serializable, Comparable<Day>
 	{
 		// mysql supports 1000/01/01 to 9999/12/31
 		// oracle supports 4712/01/01 BC to 9999/12/31
-		if(year<1000 || year>9999)
-			throw new IllegalArgumentException("year must be in range 1000..9999, but was: " + year);
-		if(month<1 || month>12)
-			throw new IllegalArgumentException("month must be in range 1..12, but was: " + month);
-		if(day<1 || day>31)
-			throw new IllegalArgumentException("day must be in range 1..31, but was: " + day);
+		check(1000, 9999, year,  "year" );
+		check(   1,   12, month, "month");
+		check(   1,   31, day,   "day"  );
 
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
 		this.year = c.get(YEAR);
 		this.month = c.get(MONTH)+1;
 		this.day = c.get(DAY_OF_MONTH);
+	}
+
+	private static void check(final int from, final int to, final int value, final String name)
+	{
+		if(value<from || value>to)
+			throw new IllegalArgumentException(name + " must be in range " + from + ".." + to + ", but was: " + value);
 	}
 
 	public int getYear()
