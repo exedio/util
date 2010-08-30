@@ -103,15 +103,6 @@ public final class Day implements Serializable, Comparable<Day>
 		return day;
 	}
 
-	/**
-	 * @deprecated Use {@link #getTimeInMillisFrom()} instead
-	 */
-	@Deprecated
-	public long getTimeInMillis()
-	{
-		return getTimeInMillisFrom();
-	}
-
 	public long getTimeInMillisFrom()
 	{
 		return newCalendar().getTimeInMillis();
@@ -177,5 +168,16 @@ public final class Day implements Serializable, Comparable<Day>
 	public String toString()
 	{
 		return String.valueOf(year) + '/' + month + '/' + day;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getTimeInMillisFrom()} instead
+	 */
+	@Deprecated
+	public long getTimeInMillis()
+	{
+		return getTimeInMillisFrom();
 	}
 }
