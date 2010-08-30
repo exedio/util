@@ -109,12 +109,12 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public long getTimeInMillisFrom()
 	{
-		return calendar().getTimeInMillis();
+		return newCalendar().getTimeInMillis();
 	}
 
 	public long getTimeInMillisTo()
 	{
-		final GregorianCalendar c = calendar();
+		final GregorianCalendar c = newCalendar();
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		c.add(Calendar.MILLISECOND, -1);
 		return c.getTimeInMillis();
@@ -122,12 +122,12 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public Day add(final int days)
 	{
-		final GregorianCalendar cal = calendar();
+		final GregorianCalendar cal = newCalendar();
 		cal.add(Calendar.DATE, days);
 		return new Day(cal);
 	}
 
-	private GregorianCalendar calendar()
+	private GregorianCalendar newCalendar()
 	{
 		return new GregorianCalendar(year, month-1, day);
 	}
