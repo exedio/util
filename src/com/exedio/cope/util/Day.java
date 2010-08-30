@@ -103,6 +103,16 @@ public final class Day implements Serializable, Comparable<Day>
 		return day;
 	}
 
+	public Date getTimeFrom()
+	{
+		return new Date(getTimeInMillisFrom());
+	}
+
+	public Date getTimeTo()
+	{
+		return new Date(getTimeInMillisTo());
+	}
+
 	public long getTimeInMillisFrom()
 	{
 		return newCalendar().getTimeInMillis();
