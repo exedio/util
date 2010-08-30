@@ -98,7 +98,16 @@ public final class Day implements Serializable, Comparable<Day>
 		return day;
 	}
 
+	/**
+	 * @deprecated Use {@link #getTimeInMillisFrom()} instead
+	 */
+	@Deprecated
 	public long getTimeInMillis()
+	{
+		return getTimeInMillisFrom();
+	}
+
+	public long getTimeInMillisFrom()
 	{
 		return calendar().getTimeInMillis();
 	}
