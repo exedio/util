@@ -22,4 +22,19 @@
 			<Class name="com.exedio.cope.util.Hex" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Redundant nullcheck of sourceResult, which is known to be non-null -->
+		<!-- happens in code generated for plus operator -->
+		<Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+		<Or>
+			<And><Class name="com.exedio.cope.util.PrefixSource" /><Method name="toString" /></And>
+		</Or>
+	</Match>
+	<Match>
+		<!-- toString() may return null -->
+		<Bug pattern="NP_TOSTRING_COULD_RETURN_NULL" />
+		<Or>
+			<Class name="com.exedio.cope.util.PrefixSourceTest$MockSource" />
+		</Or>
+	</Match>
 </FindBugsFilter>
