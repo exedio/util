@@ -57,7 +57,7 @@ public class PrefixSourceTest extends CopeAssert
 		{
 			return description;
 		}
-	};
+	}
 
 	public void testIt()
 	{
