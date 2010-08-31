@@ -75,4 +75,14 @@ public final class PrefixSource implements Source
 			? (sourceDescription + " (prefix " + prefix + ')')
 			: ("unknown prefix " + prefix);
 	}
+
+	@Override
+	public String toString()
+	{
+		final String sourceResult = source.toString();
+		return
+			sourceResult!=null
+			? (sourceResult + " (prefix " + prefix + ')')
+			: null;
+	}
 }

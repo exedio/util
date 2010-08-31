@@ -57,6 +57,12 @@ public class PrefixSourceTest extends CopeAssert
 		{
 			return description;
 		}
+
+		@Override
+		public String toString()
+		{
+			return description!=null ? ("toString(" + description + ")") : null;
+		}
 	}
 
 	public void testIt()
@@ -71,6 +77,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals(null, ps.get(null));
 		assertEqualsUnmodifiable(list("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
+		assertEquals("toString(description) (prefix prefix.)", ps.toString());
 
 		assertSame(ms, PrefixSource.wrap(ms, null));
 		assertSame(ms, PrefixSource.wrap(ms, ""));
@@ -88,6 +95,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals(null, ps.get(null));
 		assertEquals(null, ps.keySet());
 		assertEquals("unknown prefix prefix.", ps.getDescription());
+		assertEquals(null, ps.toString());
 
 		assertNull(PrefixSource.wrap(null, null));
 		assertNull(PrefixSource.wrap(null, ""));
