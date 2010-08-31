@@ -62,7 +62,7 @@ public class PrefixSourceTest extends CopeAssert
 	public void testIt()
 	{
 		final MockSource ms = new MockSource(false, "description");
-		final PrefixSource ps = new PrefixSource(ms, "prefix.");
+		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
@@ -71,12 +71,14 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals(null, ps.get(null));
 		assertEqualsUnmodifiable(list("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
+
+		assertSame(ms, PrefixSource.wrap(ms, null));
 	}
 
 	public void testNull()
 	{
 		final MockSource ms = new MockSource(true, null);
-		final PrefixSource ps = new PrefixSource(ms, "prefix.");
+		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
@@ -85,6 +87,8 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals(null, ps.get(null));
 		assertEquals(null, ps.keySet());
 		assertEquals("unknown prefix prefix.", ps.getDescription());
+
+		assertNull(PrefixSource.wrap(null, null));
 	}
 
 	public void testFail()
@@ -92,6 +96,15 @@ public class PrefixSourceTest extends CopeAssert
 		try
 		{
 			new PrefixSource(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("source", e.getMessage());
+		}
+		try
+		{
+			PrefixSource.wrap(null, "prefix.");
 			fail();
 		}
 		catch(final NullPointerException e)

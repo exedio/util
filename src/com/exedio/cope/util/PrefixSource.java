@@ -26,6 +26,14 @@ import com.exedio.cope.util.Properties.Source;
 
 public final class PrefixSource implements Source
 {
+	public static Source wrap(final Source source, final String prefix)
+	{
+		return
+			prefix!=null
+			? new PrefixSource(source, prefix)
+			: source;
+	}
+
 	private final Source source;
 	private final String prefix;
 
