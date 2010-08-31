@@ -29,7 +29,7 @@ public final class PrefixSource implements Source
 	public static Source wrap(final Source source, final String prefix)
 	{
 		return
-			prefix!=null
+			(prefix!=null && prefix.length()>0)
 			? new PrefixSource(source, prefix)
 			: source;
 	}
@@ -43,6 +43,8 @@ public final class PrefixSource implements Source
 			throw new NullPointerException("source");
 		if(prefix==null)
 			throw new NullPointerException("prefix");
+		if(prefix.length()==0)
+			throw new IllegalArgumentException("prefix");
 		this.source = source;
 		this.prefix = prefix;
 	}

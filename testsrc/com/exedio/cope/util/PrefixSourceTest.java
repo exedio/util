@@ -73,6 +73,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 
 		assertSame(ms, PrefixSource.wrap(ms, null));
+		assertSame(ms, PrefixSource.wrap(ms, ""));
 	}
 
 	public void testNull()
@@ -89,6 +90,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 
 		assertNull(PrefixSource.wrap(null, null));
+		assertNull(PrefixSource.wrap(null, ""));
 	}
 
 	public void testFail()
@@ -119,6 +121,15 @@ public class PrefixSourceTest extends CopeAssert
 			fail();
 		}
 		catch(final NullPointerException e)
+		{
+			assertEquals("prefix", e.getMessage());
+		}
+		try
+		{
+			new PrefixSource(ms, "");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("prefix", e.getMessage());
 		}
