@@ -162,7 +162,7 @@ public final class Day implements Serializable, Comparable<Day>
 		return new Day(cal);
 	}
 
-	private GregorianCalendar getGregorianCalendar()
+	public GregorianCalendar getGregorianCalendar()
 	{
 		return new GregorianCalendar(year, month-1, day);
 	}

@@ -22,6 +22,8 @@ import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -102,6 +104,7 @@ public class DayTest extends CopeAssert
 		assertEquals(df.parse("2005-09-23 23:59:59.999").getTime(), d.getTimeInMillisTo());
 		assertEquals(df.parse("2005-09-23 00:00:00.000"), d.getTimeFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999"), d.getTimeTo());
+		assertGregorianCalendar(2005, 8, 23, d);
 		assertXMLGregorianCalendar(2005, 9, 23, d);
 		assertEquals("2005/9/23", d.toString());
 
@@ -152,6 +155,19 @@ public class DayTest extends CopeAssert
 		assertTrue(expected.hashCode()!=actual.hashCode());
 		assertTrue(expected.compareTo(actual)!=0);
 		assertTrue(actual.compareTo(expected)!=0);
+	}
+
+	static final void assertGregorianCalendar(final int year, final int month, final int day, final Day actual)
+	{
+		final GregorianCalendar xmlcal = actual.getGregorianCalendar();
+		assertEquals(0, xmlcal.get(Calendar.MILLISECOND));
+		assertEquals(0, xmlcal.get(Calendar.SECOND));
+		assertEquals(0, xmlcal.get(Calendar.MINUTE));
+		assertEquals(0, xmlcal.get(Calendar.HOUR));
+		assertEquals(day, xmlcal.get(Calendar.DAY_OF_MONTH));
+		assertEquals(month, xmlcal.get(Calendar.MONDAY));
+		assertEquals(year, xmlcal.get(Calendar.YEAR));
+		assertEquals(1, xmlcal.get(Calendar.ERA));
 	}
 
 	static final void assertXMLGregorianCalendar(final int year, final int month, final int day, final Day actual) throws DatatypeConfigurationException
