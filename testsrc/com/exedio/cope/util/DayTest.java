@@ -104,7 +104,7 @@ public class DayTest extends CopeAssert
 		assertEquals(df.parse("2005-09-23 23:59:59.999").getTime(), d.getTimeInMillisTo());
 		assertEquals(df.parse("2005-09-23 00:00:00.000"), d.getTimeFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999"), d.getTimeTo());
-		assertGregorianCalendar(2005, 8, 23, d);
+		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d);
 		assertXMLGregorianCalendar(2005, 9, 23, d);
 		assertEquals("2005/9/23", d.toString());
 
