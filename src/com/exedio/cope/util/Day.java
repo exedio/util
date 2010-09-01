@@ -133,6 +133,11 @@ public final class Day implements Serializable, Comparable<Day>
 		return cal.getTimeInMillis();
 	}
 
+	public GregorianCalendar getGregorianCalendar()
+	{
+		return new GregorianCalendar(year, month-1, day);
+	}
+
 	public XMLGregorianCalendar getXMLGregorianCalendar()
 	{
 		try
@@ -160,11 +165,6 @@ public final class Day implements Serializable, Comparable<Day>
 		final GregorianCalendar cal = getGregorianCalendar();
 		cal.add(DATE, days);
 		return new Day(cal);
-	}
-
-	public GregorianCalendar getGregorianCalendar()
-	{
-		return new GregorianCalendar(year, month-1, day);
 	}
 
 	@Override
