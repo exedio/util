@@ -170,6 +170,7 @@ public class DayTest extends CopeAssert
 		assertEquals(month, xmlcal.get(Calendar.MONDAY));
 		assertEquals(year, xmlcal.get(Calendar.YEAR));
 		assertEquals(1, xmlcal.get(Calendar.ERA));
+		assertEquals(actual, new Day(xmlcal));
 	}
 
 	static final void assertXMLGregorianCalendar(final int year, final int month, final int day, final Day actual) throws DatatypeConfigurationException
@@ -184,5 +185,6 @@ public class DayTest extends CopeAssert
 		assertEquals(month, xmlcal.getMonth());
 		assertEquals(year, xmlcal.getYear());
 		assertEquals(null, xmlcal.getEon());
+		assertEquals(actual, new Day(xmlcal));
 	}
 }
