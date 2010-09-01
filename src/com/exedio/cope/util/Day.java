@@ -55,12 +55,17 @@ public final class Day implements Serializable, Comparable<Day>
     */
 	public Day()
 	{
-		this(makeCalendar(System.currentTimeMillis()));
+		this(System.currentTimeMillis());
 	}
 
 	public Day(final Date date)
 	{
-		this(makeCalendar(date.getTime()));
+		this(date.getTime());
+	}
+
+	public Day(final long date)
+	{
+		this(makeCalendar(date));
 	}
 
 	private static GregorianCalendar makeCalendar(final long time)
