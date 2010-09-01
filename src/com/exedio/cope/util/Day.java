@@ -127,10 +127,10 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public long getTimeInMillisTo()
 	{
-		final GregorianCalendar c = getGregorianCalendar();
-		c.add(DAY_OF_MONTH, 1);
-		c.add(MILLISECOND, -1);
-		return c.getTimeInMillis();
+		final GregorianCalendar cal = getGregorianCalendar();
+		cal.add(DAY_OF_MONTH, 1);
+		cal.add(MILLISECOND, -1);
+		return cal.getTimeInMillis();
 	}
 
 	public XMLGregorianCalendar getXMLGregorianCalendar()
