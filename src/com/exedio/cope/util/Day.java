@@ -28,6 +28,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 /**
  * The class <tt>Day</tt> represents a specific day.
  * It is similar to {@link java.util.Date},
@@ -127,6 +131,28 @@ public final class Day implements Serializable, Comparable<Day>
 		c.add(DAY_OF_MONTH, 1);
 		c.add(MILLISECOND, -1);
 		return c.getTimeInMillis();
+	}
+
+	public XMLGregorianCalendar getXMLGregorianCalendar()
+	{
+		try
+		{
+			return getXMLGregorianCalendar(DatatypeFactory.newInstance());
+		}
+		catch(final DatatypeConfigurationException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	public XMLGregorianCalendar getXMLGregorianCalendar(final DatatypeFactory factory)
+	{
+		final XMLGregorianCalendar result =
+			factory.newXMLGregorianCalendar();
+		result.setYear(year);
+		result.setMonth(month);
+		result.setDay(day);
+		return result;
 	}
 
 	public Day add(final int days)
