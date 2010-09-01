@@ -70,14 +70,14 @@ public final class Day implements Serializable, Comparable<Day>
 		return result;
 	}
 
-	public Day(final GregorianCalendar c)
+	public Day(final GregorianCalendar cal)
 	{
-		this(c.get(YEAR), c.get(MONTH)+1, c.get(DAY_OF_MONTH));
+		this(cal.get(YEAR), cal.get(MONTH)+1, cal.get(DAY_OF_MONTH));
 	}
 
-	public Day(final XMLGregorianCalendar c)
+	public Day(final XMLGregorianCalendar cal)
 	{
-		this(c.getYear(), c.getMonth(), c.getDay());
+		this(cal.getYear(), cal.getMonth(), cal.getDay());
 	}
 
 	public Day(final int year, final int month, final int day)

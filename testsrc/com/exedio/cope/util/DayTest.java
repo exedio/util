@@ -159,32 +159,32 @@ public class DayTest extends CopeAssert
 
 	static final void assertGregorianCalendar(final int year, final int month, final int day, final Day actual)
 	{
-		final GregorianCalendar xmlcal = actual.getGregorianCalendar();
-		assertEquals(0, xmlcal.get(Calendar.MILLISECOND));
-		assertEquals(0, xmlcal.get(Calendar.SECOND));
-		assertEquals(0, xmlcal.get(Calendar.MINUTE));
-		assertEquals(0, xmlcal.get(Calendar.HOUR));
-		assertEquals(0, xmlcal.get(Calendar.HOUR_OF_DAY));
-		assertEquals(0, xmlcal.get(Calendar.AM_PM));
-		assertEquals(day, xmlcal.get(Calendar.DAY_OF_MONTH));
-		assertEquals(month, xmlcal.get(Calendar.MONDAY));
-		assertEquals(year, xmlcal.get(Calendar.YEAR));
-		assertEquals(1, xmlcal.get(Calendar.ERA));
-		assertEquals(actual, new Day(xmlcal));
+		final GregorianCalendar cal = actual.getGregorianCalendar();
+		assertEquals(0, cal.get(Calendar.MILLISECOND));
+		assertEquals(0, cal.get(Calendar.SECOND));
+		assertEquals(0, cal.get(Calendar.MINUTE));
+		assertEquals(0, cal.get(Calendar.HOUR));
+		assertEquals(0, cal.get(Calendar.HOUR_OF_DAY));
+		assertEquals(0, cal.get(Calendar.AM_PM));
+		assertEquals(day, cal.get(Calendar.DAY_OF_MONTH));
+		assertEquals(month, cal.get(Calendar.MONDAY));
+		assertEquals(year, cal.get(Calendar.YEAR));
+		assertEquals(1, cal.get(Calendar.ERA));
+		assertEquals(actual, new Day(cal));
 	}
 
 	static final void assertXMLGregorianCalendar(final int year, final int month, final int day, final Day actual) throws DatatypeConfigurationException
 	{
 		final DatatypeFactory factory = DatatypeFactory.newInstance();
-		final XMLGregorianCalendar xmlcal = actual.getXMLGregorianCalendar(factory);
-		assertEquals(FIELD_UNDEFINED, xmlcal.getMillisecond());
-		assertEquals(FIELD_UNDEFINED, xmlcal.getSecond());
-		assertEquals(FIELD_UNDEFINED, xmlcal.getMinute());
-		assertEquals(FIELD_UNDEFINED, xmlcal.getHour());
-		assertEquals(day, xmlcal.getDay());
-		assertEquals(month, xmlcal.getMonth());
-		assertEquals(year, xmlcal.getYear());
-		assertEquals(null, xmlcal.getEon());
-		assertEquals(actual, new Day(xmlcal));
+		final XMLGregorianCalendar cal = actual.getXMLGregorianCalendar(factory);
+		assertEquals(FIELD_UNDEFINED, cal.getMillisecond());
+		assertEquals(FIELD_UNDEFINED, cal.getSecond());
+		assertEquals(FIELD_UNDEFINED, cal.getMinute());
+		assertEquals(FIELD_UNDEFINED, cal.getHour());
+		assertEquals(day, cal.getDay());
+		assertEquals(month, cal.getMonth());
+		assertEquals(year, cal.getYear());
+		assertEquals(null, cal.getEon());
+		assertEquals(actual, new Day(cal));
 	}
 }
