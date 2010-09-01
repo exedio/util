@@ -164,6 +164,8 @@ public class DayTest extends CopeAssert
 		assertEquals(0, xmlcal.get(Calendar.SECOND));
 		assertEquals(0, xmlcal.get(Calendar.MINUTE));
 		assertEquals(0, xmlcal.get(Calendar.HOUR));
+		assertEquals(0, xmlcal.get(Calendar.HOUR_OF_DAY));
+		assertEquals(0, xmlcal.get(Calendar.AM_PM));
 		assertEquals(day, xmlcal.get(Calendar.DAY_OF_MONTH));
 		assertEquals(month, xmlcal.get(Calendar.MONDAY));
 		assertEquals(year, xmlcal.get(Calendar.YEAR));
