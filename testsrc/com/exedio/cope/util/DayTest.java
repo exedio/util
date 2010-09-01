@@ -18,11 +18,13 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Day.valueOf;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -126,14 +128,18 @@ public class DayTest extends CopeAssert
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
 		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
 
-		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000")));
-		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999")));
+		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000")));
+		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999")));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000").getTime()));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999").getTime()));
 
 		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
 		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
 		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
+
+		assertNull(valueOf((Date)null));
+		assertNull(valueOf((GregorianCalendar)null));
+		assertNull(valueOf((XMLGregorianCalendar)null));
 
 		assertEquals(  new Day(2005, 2, 23),
 			reserialize(new Day(2005, 2, 23), 80));
@@ -172,7 +178,7 @@ public class DayTest extends CopeAssert
 		assertEquals(month, cal.get(Calendar.MONDAY));
 		assertEquals(year, cal.get(Calendar.YEAR));
 		assertEquals(1, cal.get(Calendar.ERA));
-		assertEquals(actual, new Day(cal));
+		assertEquals(actual, valueOf(cal));
 	}
 
 	static final void assertXMLGregorianCalendar(final int year, final int month, final int day, final Day actual) throws DatatypeConfigurationException
@@ -187,6 +193,6 @@ public class DayTest extends CopeAssert
 		assertEquals(month, cal.getMonth());
 		assertEquals(year, cal.getYear());
 		assertEquals(null, cal.getEon());
-		assertEquals(actual, new Day(cal));
+		assertEquals(actual, valueOf(cal));
 	}
 }

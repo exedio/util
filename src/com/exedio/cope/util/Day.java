@@ -43,6 +43,21 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public final class Day implements Serializable, Comparable<Day>
 {
+	public static Day valueOf(final Date value)
+	{
+		return value!=null ? new Day(value) : null;
+	}
+
+	public static Day valueOf(final GregorianCalendar value)
+	{
+		return value!=null ? new Day(value) : null;
+	}
+
+	public static Day valueOf(final XMLGregorianCalendar value)
+	{
+		return value!=null ? new Day(value) : null;
+	}
+
 	private static final long serialVersionUID = 1l;
 
 	private final int year;
