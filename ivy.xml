@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+	<info organisation="exedio" module="cope-util"/>
+	<publications>
+		<artifact name="exedio-cope-util.jar" />
+		<artifact name="exedio-cope-util.jar-src.zip" type="source" ext="zip" />
+	</publications>
+</ivy-module>
