@@ -95,7 +95,7 @@ public final class CharSet
 	}
 
 	/**
-	 * Returns the index of the character in s,
+	 * Returns the index of the first character in s,
 	 * which this CharSet does not contain.
 	 * Return -1, if this CharSet contains all characters in s.
 	 */
