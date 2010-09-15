@@ -32,7 +32,7 @@ public final class CharSet
 	public static final CharSet HEX_LOWER = new CharSet('0', '9', 'a', 'f');
 	public static final CharSet NUMERIC = new CharSet('0', '9');
 	public static final CharSet DOMAIN = new CharSet('-', '.', '0', '9', 'a', 'z');
-	public static final CharSet EMAIL  = new CharSet('-', '.', '0', '9', '@', 'Z', 'a', 'z');
+	public static final CharSet EMAIL  = new CharSet('-', '.', '0', '9', '@', 'Z', '_', '_', 'a', 'z');
 
 	private final char[] set;
 
