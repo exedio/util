@@ -97,7 +97,7 @@ public final class CharSet
 	/**
 	 * Returns the index of the first character in s,
 	 * which this CharSet does not contain.
-	 * Return -1, if this CharSet contains all characters in s.
+	 * Returns -1, if this CharSet contains all characters in s.
 	 * <p>
 	 * This method is provided for binary backwards compatibility.
 	 * It is equivalent to {@link #indexOfNotContains(CharSequence)}.
@@ -110,7 +110,7 @@ public final class CharSet
 	/**
 	 * Returns the index of the first character in s,
 	 * which this CharSet does not contain.
-	 * Return -1, if this CharSet contains all characters in s.
+	 * Returns -1, if this CharSet contains all characters in s.
 	 */
 	public int indexOfNotContains(final CharSequence s)
 	{
