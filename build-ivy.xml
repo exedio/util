@@ -197,6 +197,6 @@
           target: clean-build              
          ================================= -->
     <target name="clean-build" description="--> clean the project built files">
-        <delete includeemptydirs="true" dir="${build.dir}"/>
+        <delete file="${build.dir}/ivy.xml"/>
     </target>
 </project>
