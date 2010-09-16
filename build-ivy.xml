@@ -47,11 +47,11 @@
     
 	<!-- setup ivy default configuration with some custom info -->
 	<property name="ivy.local.default.root" value="${repository.dir}/local"/>
-	<property name="ivy.shared.default.root" value="${repository.dir}/shared"/>
+	<!--property name="ivy.shared.default.root" value="${repository.dir}/shared"/-->
 
-   	<!-- here is how we would have configured ivy if we had our own ivysettings file
-    <ivy:settings file="${common.dir}/ivysettings.xml" />
-    -->
+
+    <ivy:settings file="${basedir}/ivysettings.xml" />
+
 
 	
     <!-- ================================= 
