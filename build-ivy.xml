@@ -61,7 +61,7 @@
         <mkdir dir="${lib.dir}"/> <!-- not usually necessary, ivy creates the directory IF there are dependencies -->
     	
     	<!-- the call to resolve is not mandatory, retrieve makes an implicit call if we don't -->
-    	<ivy:resolve file="${ivy.file}"/>
+    	<ivy:resolve file="${basedir}/ivy.xml"/>
     	<ivy:retrieve pattern="${lib.dir}/[artifact].[ext]" />
     </target>
     
@@ -92,8 +92,8 @@
 		<property name="module.version.prefix" value="${module.version.target}-dev-b" />
 		
     	<!-- asks to ivy an available version number -->
-		<echo message="ivy.file ${ivy.file}" />
-		<ivy:info file="${ivy.file}" />
+		
+		<ivy:info file="${basedir}/ivy.xml" />
     	<ivy:buildnumber 
     		organisation="${ivy.organisation}" module="${ivy.module}" 
     		revision="${module.version.prefix}" defaultBuildNumber="1" revSep=""/>
