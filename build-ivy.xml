@@ -36,28 +36,6 @@
 	
 	<property file="${basedir}/build-ivy.properties"/>
 	
-	<property name="ivy.jar.dir" value="${user.home}/.ivy2/jars" />
-	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
-
-	<!-- ================================= 
-          target: load-ivy         
-            this target is not necessary if you put ivy.jar in your ant lib directory
-            if you already have ivy 2.0 in your ant lib, you can simply remove this
-            target
-         ================================= -->
-    <target name="load-ivy">
-    	<!-- try to load ivy here from home ivy dir, in case the user has not already dropped
-    	      it into ant's lib dir (note that the latter copy will always take precedence).
-    	      We will not fail as long as ivy home lib dir exists (it may be empty) and
-    	      ivy is in at least one of ant's lib dir or the ivy home lib dir. -->
-    	<mkdir dir="${ivy.jar.dir}" />
-    	<path id="ivy.lib.path">
-    	    <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
-    	</path>
-    	<taskdef resource="org/apache/ivy/ant/antlib.xml"
-    	          uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
-    </target>    
-
     <path id="lib.path.id">
         <fileset dir="${lib.dir}" />
     </path>
@@ -79,7 +57,7 @@
     <!-- ================================= 
           target: resolve              
          ================================= -->
-    <target name="resolve" depends="load-ivy" description="--> resolve and retrieve dependencies with ivy">
+    <target name="resolve" description="--> resolve and retrieve dependencies with ivy">
         <mkdir dir="${lib.dir}"/> <!-- not usually necessary, ivy creates the directory IF there are dependencies -->
     	
     	<!-- the call to resolve is not mandatory, retrieve makes an implicit call if we don't -->
@@ -109,7 +87,7 @@
         <java classpathref="run.path.id" classname="${main.class.name}"/>
     </target>
 
-	<target name="ivy-new-version" depends="load-ivy" unless="ivy.new.revision">
+	<target name="ivy-new-version" unless="ivy.new.revision">
     	<!-- default module version prefix value -->
 		<property name="module.version.prefix" value="${module.version.target}-dev-b" />
 		
