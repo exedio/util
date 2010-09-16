@@ -199,9 +199,4 @@
     <target name="clean-build" description="--> clean the project built files">
         <delete includeemptydirs="true" dir="${build.dir}"/>
     </target>
-
-    <!-- ================================= 
-          target: clean              
-         ================================= -->
-    <target name="clean" depends="clean-build, clean-lib" description="--> clean the project" />
 </project>
