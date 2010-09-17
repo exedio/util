@@ -145,7 +145,7 @@
 		<delete file="build/ivy.xml"/>
 	</target>
 	
-	<target name="publish" depends="resolve, clean-build, jar">
+	<target name="publish" depends="resolve, clean-build, jar, jar.src">
 		<ivy:publish artifactspattern="build/[artifact].[ext]" 
 							resolver="shared"
 							pubrevision="${build.revision}" 
