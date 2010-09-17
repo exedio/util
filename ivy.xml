@@ -7,4 +7,7 @@
 		<artifact name="exedio-cope-util" />
 		<artifact name="exedio-cope-util.jar-src" type="source" ext="zip" />
 	</publications>
+	<dependencies>
+		<dependency org="junit" name="junit" rev="3.8" />
+	</dependencies>
 </ivy-module>
