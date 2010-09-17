@@ -1,0 +1,11 @@
+Admin ->
+	Configuration -> Repositories ->
+	<repository> -> Edit ->
+	Handle Releases -> enable
+Admin ->
+	Security -> Users -> New
+	user hudson
+	disable Admin
+Admin ->
+	Permissions
+		for user hudson and Repository
