@@ -9,5 +9,6 @@
 	</publications>
 	<dependencies>
 		<dependency org="junit" name="junit" rev="4.0" />
+		<dependency org="commons-pool" name="commons-pool" rev="1.5" />
 	</dependencies>
 </ivy-module>
