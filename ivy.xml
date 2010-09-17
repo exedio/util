@@ -2,7 +2,7 @@
 	<info 
 		organisation="com.exedio"
 		module="exedio-cope-util"
-		status="integration"/>
+		/>
 	<publications>
 		<artifact name="exedio-cope-util" />
 		<artifact name="exedio-cope-util.jar-src" type="source" ext="zip" />
