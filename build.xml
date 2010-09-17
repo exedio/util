@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
 
-<project name="cope util" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="cope util" default="build" basedir=".">
 
 	<property file="local.properties" />
 	<property file="project.properties" />
-	<property name="build.revision" value="unlabled" />
 	
 	<import file="macros/findbugs.xml" />
-	<ivy:settings file="${basedir}/ivysettings.xml" />
 	
 	<target name="compile">
 		<mkdir dir="build/classes" />
@@ -134,27 +132,8 @@
 	
 	<target name="build" depends="compile, test, jar, api" />
 	<target name="all" depends="build, jar.src, findbugs" />
-	
-	<target name="resolve">
-		<mkdir dir="${basedir}/build/lib-ivy"/> <!-- not usually necessary, ivy creates the directory IF there are dependencies -->
-		<ivy:resolve file="${basedir}/ivy.xml"/>
-		<ivy:retrieve pattern="${basedir}/build/lib-ivy/[artifact].[ext]" />
-	</target>
-	
-	<target name="clean-build">
-		<delete file="build/ivy.xml"/>
-	</target>
-	
-	<target name="publish" depends="resolve, clean-build, jar, jar.src">
-		<ivy:publish artifactspattern="build/[artifact].[ext]" 
-							resolver="shared"
-							pubrevision="${build.revision}" 
-							status="release"
-							/>
-		<echo message="project ${ant.project.name} released with version ${build.revision}" />
-	</target>
 
-	<target name="hudson" depends="all, publish">
+	<target name="hudson" depends="all">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope-util.jar" />
 			<fileset file="${basedir}/build/exedio-cope-util.jar-src.zip" />
