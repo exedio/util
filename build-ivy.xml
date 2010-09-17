@@ -93,13 +93,6 @@
     		revision="${module.version.prefix}" defaultBuildNumber="1" revSep=""/>
 	</target>
 
-    <target name="local-version">
-		<tstamp>
-			<format property="now" pattern="yyyyMMddHHmmss"/>
-		</tstamp>
-        <property name="ivy.new.revision" value="${module.version.target}-local-${now}"/>
-    </target>
-	
 	<target name="version" depends="ivy-new-version">
     	<!-- create version file in classpath for later inclusion in jar -->
         <mkdir dir="${classes.dir}"/>
