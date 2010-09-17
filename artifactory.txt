@@ -1,4 +1,8 @@
 Admin ->
+	General
+		-> Upload Logo
+		-> Additional Footer Text
+Admin ->
 	Configuration -> Repositories ->
 	<repository> -> Edit ->
 	Handle Releases -> enable
