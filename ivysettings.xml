@@ -3,7 +3,7 @@
 	<credentials host="10.20.20.160" realm="Artifactory Realm" username="hudson" passwd="hudson1234"/>
 	<resolvers>
 		<url name="shared"><!-- You can use  m2compatible="true" instead of specifying your own pattern -->
-			<ivy pattern="http://10.20.20.160:8666/artifactory/libs-snapshots-local/[organization]/[module]/[revision]/ivy-[revision].xml" />
+			<ivy      pattern="http://10.20.20.160:8666/artifactory/libs-snapshots-local/[organization]/[module]/[revision]/ivy-[revision].xml" />
 			<artifact pattern="http://10.20.20.160:8666/artifactory/libs-snapshots-local/[organization]/[module]/[revision]/[artifact]-[revision].[ext]"/>
 		</url>
 	</resolvers>
