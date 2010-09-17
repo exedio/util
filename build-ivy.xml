@@ -81,22 +81,10 @@
         <java classpathref="run.path.id" classname="${main.class.name}"/>
     </target>
 
-	<target name="ivy-new-version" unless="ivy.new.revision">
-    	<!-- default module version prefix value -->
-		<property name="module.version.prefix" value="${module.version.target}-dev-b" />
-		
-    	<!-- asks to ivy an available version number -->
-		
-		<ivy:info file="${basedir}/ivy.xml" />
-    	<ivy:buildnumber 
-    		organisation="${ivy.organisation}" module="${ivy.module}" 
-    		revision="${module.version.prefix}" defaultBuildNumber="1" revSep=""/>
-	</target>
-
-	<target name="version" depends="ivy-new-version">
+	<target name="version">
     	<!-- create version file in classpath for later inclusion in jar -->
         <mkdir dir="${classes.dir}"/>
-		<echo message="version=${ivy.new.revision}" file="${classes.dir}/${ant.project.name}.properties" append="false" />
+		<echo message="version=1.${build.revision}" file="${classes.dir}/${ant.project.name}.properties" append="false" />
 
 		<!-- load generated version properties file -->
         <property file="${classes.dir}/${ant.project.name}.properties" />
