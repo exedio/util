@@ -1,7 +1,7 @@
 <ivy-module version="2.0">
 	<info 
 		organisation="com.exedio"
-		module="exedio-cope-util"
+		module="copeutil"
 		/>
 	<publications>
 		<artifact name="exedio-cope-util" />
