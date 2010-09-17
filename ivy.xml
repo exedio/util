@@ -4,7 +4,7 @@
 		module="exedio-cope-util"
 		status="integration"/>
 	<publications>
-		<artifact name="exedio-cope-util.jar" />
-		<artifact name="exedio-cope-util.jar-src.zip" type="source" ext="zip" />
+		<artifact name="exedio-cope-util" />
+		<artifact name="exedio-cope-util.jar-src" type="source" ext="zip" />
 	</publications>
 </ivy-module>
