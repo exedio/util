@@ -7,13 +7,17 @@
 				name="GNU Lesser General Public License, Version 2.1 (test @BUILD_REVISION@)"
 				url="http://opensource.org/licenses/lgpl-license.html" />
 	</info>
+	<configurations>
+		<conf name="runtime" />
+		<conf name="build" extends="runtime" visibility="private" />
+	</configurations>
 	<publications>
 		<artifact name="exedio-cope-util" />
 		<artifact name="exedio-cope-util.jar-src" type="source" ext="zip" />
 	</publications>
 	<dependencies>
-		<dependency org="junit" name="junit" rev="4.0" transitive="false" />
+		<dependency org="junit" name="junit" rev="4.0" conf="build->default" />
 		<dependency org="commons-pool" name="commons-pool" rev="1.5" />
-		<dependency org="commons-cli" name="commons-cli" rev="1.1" transitive="false" />
+		<dependency org="commons-cli" name="commons-cli" rev="1.1" conf="build->default" />
 	</dependencies>
 </ivy-module>
