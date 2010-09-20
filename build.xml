@@ -133,7 +133,15 @@
 	<target name="build" depends="compile, test, jar, api" />
 	<target name="all" depends="build, jar.src, findbugs" />
 
-	<target name="hudson" depends="all">
+	<target name="ivy">
+		<copy file="ivy.xml" tofile="build/ivy.xml" overwrite="true">
+			<filterset>
+				<filter token="BUILD_REVISION" value="${build.revision}" />
+			</filterset>
+		</copy>
+	</target>
+	
+	<target name="hudson" depends="all, ivy">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope-util.jar" />
 			<fileset file="${basedir}/build/exedio-cope-util.jar-src.zip" />

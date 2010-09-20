@@ -2,6 +2,7 @@
 	<info 
 		organisation="com.exedio"
 		module="copeutil"
+		revision="@BUILD_REVISION@"
 		/>
 	<publications>
 		<artifact name="exedio-cope-util" />
