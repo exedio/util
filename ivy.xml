@@ -2,8 +2,11 @@
 	<info 
 		organisation="com.exedio"
 		module="copeutil"
-		revision="@BUILD_REVISION@"
-		/>
+			revision="@BUILD_REVISION@">
+		<license
+				name="GNU Lesser General Public License, Version 2.1 (test @BUILD_REVISION@)"
+				url="http://opensource.org/licenses/lgpl-license.html" />
+	</info>
 	<publications>
 		<artifact name="exedio-cope-util" />
 		<artifact name="exedio-cope-util.jar-src" type="source" ext="zip" />
