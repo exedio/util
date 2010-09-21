@@ -146,8 +146,6 @@
 			<fileset file="${basedir}/build/exedio-cope-util.jar" />
 			<fileset file="${basedir}/build/exedio-cope-util-source.zip" />
 		</copy>
-		<copy tofile="${basedir}/build/success/exedio-cope-util-log.txt"
-				file="CHANGELOG" />
 	</target>
 	
 </project>
