@@ -13,7 +13,7 @@
 	</configurations>
 	<publications>
 		<artifact name="exedio-cope-util" />
-		<artifact name="exedio-cope-util.jar-src" type="source" ext="zip" />
+		<artifact name="exedio-cope-util" type="source" ext="zip" />
 	</publications>
 	<dependencies>
 		<dependency org="junit" name="junit" rev="4.0" conf="build->default" />
