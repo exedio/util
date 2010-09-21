@@ -4,7 +4,7 @@
 			module="copeutil"
 			revision="@BUILD_REVISION@">
 		<license
-				name="GNU Lesser General Public License, Version 2.1 (test @BUILD_REVISION@)"
+				name="GNU Lesser General Public License, Version 2.1"
 				url="http://opensource.org/licenses/lgpl-license.html" />
 	</info>
 	<configurations>
