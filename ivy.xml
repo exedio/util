@@ -17,6 +17,6 @@
 		<artifact name="exedio-cope-util" type="log" ext="txt" />
 	</publications>
 	<dependencies>
-		<dependency org="junit" name="junit" rev="4.0" conf="build->default" />
+		<dependency org="junit" name="junit" rev="4.4" conf="build->default" />
 	</dependencies>
 </ivy-module>
