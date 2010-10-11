@@ -22,24 +22,37 @@ public final class Hex
 {
 	public static String encodeUpper(final byte[] bytes)
 	{
-		return encode(bytes, DICTIONARY_UPPER);
+		if(bytes==null)
+			return null;
+
+		return encode(bytes, 0, bytes.length, DICTIONARY_UPPER);
 	}
 
 	public static String encodeLower(final byte[] bytes)
 	{
-		return encode(bytes, DICTIONARY_LOWER);
-	}
-
-	private static String encode(final byte[] bytes, final char[] dictionary)
-	{
 		if(bytes==null)
 			return null;
 
-		final int length = bytes.length;
+		return encode(bytes, 0, bytes.length, DICTIONARY_LOWER);
+	}
+
+	public static String encodeUpper(final byte[] bytes, final int offset, final int length)
+	{
+		return encode(bytes, offset, length, DICTIONARY_UPPER);
+	}
+
+	public static String encodeLower(final byte[] bytes, final int offset, final int length)
+	{
+		return encode(bytes, offset, length, DICTIONARY_LOWER);
+	}
+
+	private static String encode(final byte bytes[], final int offset, final int length, final char[] dictionary)
+	{
 		final char[] result = new char[length*2];
 
+		final int toIndex = length + offset;
 		int i2 = 0;
-		for(int i = 0; i<length; i++)
+		for(int i = offset; i<toIndex; i++)
 		{
 			final byte b = bytes[i];
 			result[i2++] = dictionary[(b & 0xf0)>>4];
