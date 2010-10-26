@@ -20,7 +20,7 @@ package com.exedio.cope.util;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class InterruptersTest extends CopeAssert
+public class InterruptersVainTest extends CopeAssert
 {
 	public void test()
 	{
