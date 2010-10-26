@@ -18,8 +18,12 @@
 
 package com.exedio.cope.util;
 
+import java.util.NoSuchElementException;
+
 public final class Interrupters
 {
+	// vain -------------------
+
 	public static final Interrupter VAIN_INTERRUPTER = new VainInterrupter();
 
 	private static final class VainInterrupter implements Interrupter
@@ -34,6 +38,75 @@ public final class Interrupters
 			// make constructor non-private
 		}
 	}
+
+
+	// iterator ---------------
+
+	public static <E> java.util.Iterator<E> iterator(
+			final java.util.Iterator<E> iterator,
+			final Interrupter interrupter)
+	{
+		return
+			(iterator!=null && interrupter!=null)
+			? new Iterator<E>(iterator, interrupter)
+			: iterator;
+	}
+
+	private static final class Iterator<E> implements java.util.Iterator<E>
+	{
+		private final java.util.Iterator<E> iterator;
+		private final Interrupter interrupter;
+		private boolean interrupted = false;
+
+		Iterator(
+				final java.util.Iterator<E> iterator,
+				final Interrupter interrupter)
+		{
+			assert iterator!=null;
+			assert interrupter!=null;
+
+			this.iterator = iterator;
+			this.interrupter = interrupter;
+		}
+
+		public boolean hasNext()
+		{
+			if(interrupter.isRequested())
+			{
+				interrupted = true;
+				return false;
+			}
+
+			return iterator.hasNext();
+		}
+
+		/**
+		 * Must not check {@link Interrupter#isRequested()} here,
+		 * because {@link #hasNext()} may already have promised
+		 * to have one more element.
+		 */
+		public E next()
+		{
+			if(interrupted)
+				throw new NoSuchElementException("interrupted");
+
+			return iterator.next();
+		}
+
+		/**
+		 * Must not check {@link Interrupter#isRequested()} here,
+		 * because {@link #hasNext()} may already have promised
+		 * to have one more element.
+		 */
+		public void remove()
+		{
+			if(interrupted)
+				throw new NoSuchElementException("interrupted");
+
+			iterator.remove();
+		}
+	}
+
 
 	private Interrupters()
 	{

@@ -3,5 +3,7 @@
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
 		<copy overwrite="true" file="artifacts/junit-jar.jar" tofile="../lib/junit.jar" />
+		<copy overwrite="true" file="artifacts/easymock-jar.jar" tofile="../lib/easymock.jar" />
+		<copy overwrite="true" file="artifacts/cglib-nodep-jar.jar" tofile="../lib/cglib-nodep.jar" />
 	</target>
 </project>

@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(InterruptersTest.class);
+		suite.addTestSuite(InterruptersIteratorTest.class);
 		suite.addTestSuite(CastTest.class);
 		suite.addTestSuite(CharSetTest.class);
 		//suite.addTestSuite(CounterTest.class);
