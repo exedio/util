@@ -16,8 +16,8 @@
 			</fileset>
 		</move>
 		
-		<copy overwrite="true" file="artifacts/junit.jar" todir="../lib" />
-		<copy overwrite="true" file="artifacts/easymock.jar" todir="../lib" />
-		<copy overwrite="true" file="artifacts/cglib-nodep.jar" todir="../lib" />
+		<copy overwrite="true" todir="../lib" file="artifacts/junit.jar" />
+		<copy overwrite="true" todir="../lib" file="artifacts/easymock.jar" />
+		<copy overwrite="true" todir="../lib" file="artifacts/cglib-nodep.jar" />
 	</target>
 </project>
