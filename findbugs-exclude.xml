@@ -37,4 +37,11 @@
 			<Class name="com.exedio.cope.util.PrefixSourceTest$MockSource" />
 		</Or>
 	</Match>
+	<Match>
+		<!-- Method ignores return value -->
+		<Bug pattern="RV_RETURN_VALUE_IGNORED" />
+		<Or>
+			<Class name="com.exedio.cope.util.InterruptersIteratorTest" />
+		</Or>
+	</Match>
 </FindBugsFilter>
