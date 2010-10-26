@@ -24,16 +24,16 @@ public final class Interrupters
 {
 	// vain -------------------
 
-	public static final Interrupter VAIN_INTERRUPTER = new VainInterrupter();
+	public static final Interrupter VAIN_INTERRUPTER = new Vain();
 
-	private static final class VainInterrupter implements Interrupter
+	private static final class Vain implements Interrupter
 	{
 		public boolean isRequested()
 		{
 			return false;
 		}
 
-		VainInterrupter()
+		Vain()
 		{
 			// make constructor non-private
 		}
