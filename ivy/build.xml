@@ -3,9 +3,21 @@
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
 		
+		<move todir="artifacts">
+			<globmapper from="*-jar.jar" to="*.jar" />
+			<fileset dir="artifacts">
+				<include name="*-jar.jar" />
+			</fileset>
+		</move>
+		<move todir="artifacts">
+			<globmapper from="*-dist.tar.gz" to="*.tar.gz" />
+			<fileset dir="artifacts">
+				<include name="*-dist.tar.gz" />
+			</fileset>
+		</move>
 		
-		<copy overwrite="true" file="artifacts/junit-jar.jar" tofile="../lib/junit.jar" />
-		<copy overwrite="true" file="artifacts/easymock-jar.jar" tofile="../lib/easymock.jar" />
-		<copy overwrite="true" file="artifacts/cglib-nodep-jar.jar" tofile="../lib/cglib-nodep.jar" />
+		<copy overwrite="true" file="artifacts/junit.jar" todir="../lib" />
+		<copy overwrite="true" file="artifacts/easymock.jar" todir="../lib" />
+		<copy overwrite="true" file="artifacts/cglib-nodep.jar" todir="../lib" />
 	</target>
 </project>
