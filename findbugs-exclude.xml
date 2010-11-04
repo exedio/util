@@ -13,6 +13,14 @@
 			<Class name="com.exedio.cope.util.PropertiesTest$1" />
 			<Class name="com.exedio.cope.util.PropertiesTest$2" />
 			<Class name="com.exedio.cope.util.PropertiesTest$3" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$1" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$2" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$3" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$4" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$5" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$6" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$7" />
+			<Class name="com.exedio.cope.util.InterrupterJobContextAdapterTest$8" />
 		</Or>
 	</Match>
 	<Match>
