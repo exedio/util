@@ -68,4 +68,10 @@ public final class MessageDigestUtil
 			throw new IllegalArgumentException(bf.toString(), e);
 		}
 	}
+
+
+	private MessageDigestUtil()
+	{
+		// prevent instantiation
+	}
 }
