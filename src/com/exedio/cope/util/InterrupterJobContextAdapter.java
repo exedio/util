@@ -29,7 +29,7 @@ public final class InterrupterJobContextAdapter
 		return ctx.getProgressAndClose();
 	}
 
-	interface Body
+	public interface Body
 	{
 		void run(JobContext ctx);
 	}
