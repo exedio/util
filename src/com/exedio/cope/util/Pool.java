@@ -32,11 +32,11 @@ public final class Pool<E>
 
 	// TODO: allow changing pool size
 	// TODO: implement idle timeout
-	//       ensure, that idle connections in the pool do
+	//       ensure, that idle items in the pool do
 	//       not stay idle for a indefinite time,
-	//       but are closed after a certain time to avoid
+	//       but are disposed after a certain time to avoid
 	//       running into some idle timeout implemented by the
-	//       jdbc driver or the database itself.
+	//       item itself.
 	//       maybe then no ring buffer is needed.
 
 	private final Factory<E> factory;
@@ -103,7 +103,7 @@ public final class Pool<E>
 				if(idle!=null && idleLevel>0)
 				{
 					result = idle[idleFrom];
-					idle[idleFrom] = null; // do not reference active connections
+					idle[idleFrom] = null; // do not reference active items
 					idleLevel--;
 					idleFrom = inc(idleFrom);
 				}
@@ -128,8 +128,8 @@ public final class Pool<E>
 	}
 
 	/**
-	 * TODO: If we want to implement changing connection parameters on-the-fly
-	 * somewhere in the future, it's important, that client return connections
+	 * TODO: If we want to implement changing item parameters on-the-fly
+	 * somewhere in the future, it's important, that client return items
 	 * to exactly the same instance of Pool.
 	 */
 	public void put(final E e)
@@ -140,8 +140,6 @@ public final class Pool<E>
 		if(counter!=null)
 			counter.incrementPut();
 
-		// IMPORTANT:
-		// Do not let a closed connection be put back into the pool.
 		if(!factory.isValidOnPut(e))
 		{
 			invalidOnPut++;
@@ -167,7 +165,7 @@ public final class Pool<E>
 	{
 		if(idle!=null)
 		{
-			// make a copy of idle to avoid closing idle connections
+			// make a copy of idle to avoid disposing idle items
 			// inside the synchronized block
 			final ArrayList<E> copyOfIdle = new ArrayList<E>(idle.length);
 
@@ -180,7 +178,7 @@ public final class Pool<E>
 				for(int i = 0; i<idleLevel; i++)
 				{
 					copyOfIdle.add(idle[f]);
-					idle[f] = null; // do not reference closed connections
+					idle[f] = null; // do not reference disposed items
 					f = inc(f);
 				}
 				idleLevel = 0;
