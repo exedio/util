@@ -43,6 +43,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PrefixSourceTest.class);
 		suite.addTestSuite(SequenceCheckerTest.class);
 		suite.addTestSuite(XMLEncoderTest.class);
+		suite.addTestSuite(StrictFileTest.class);
 		suite.addTestSuite(SafeFileTest.class);
 		return suite;
 	}

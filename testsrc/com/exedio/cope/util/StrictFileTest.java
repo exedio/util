@@ -18,11 +18,16 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.StrictFile.delete;
+import static com.exedio.cope.util.StrictFile.mkdir;
+import static com.exedio.cope.util.StrictFile.mkdirs;
+import static com.exedio.cope.util.StrictFile.renameTo;
+
 import java.io.File;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class SafeFileTest extends CopeAssert
+public class StrictFileTest extends CopeAssert
 {
 	File f;
 
@@ -33,23 +38,21 @@ public class SafeFileTest extends CopeAssert
 		f = File.createTempFile(getClass().getSimpleName(), "tmp");
 	}
 
-	@Deprecated
 	@Override
 	protected void tearDown() throws Exception
 	{
 		if(f.exists())
-			SafeFile.delete(f);
+			delete(f);
 
 		super.tearDown();
 	}
 
-	@Deprecated
 	public void testDelete()
 	{
-		SafeFile.delete(f);
+		delete(f);
 		try
 		{
-			SafeFile.delete(f);
+			delete(f);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -58,14 +61,13 @@ public class SafeFileTest extends CopeAssert
 		}
 	}
 
-	@Deprecated
 	public void testMkdir()
 	{
-		SafeFile.delete(f);
-		SafeFile.mkdir(f);
+		delete(f);
+		mkdir(f);
 		try
 		{
-			SafeFile.mkdir(f);
+			mkdir(f);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -74,14 +76,13 @@ public class SafeFileTest extends CopeAssert
 		}
 	}
 
-	@Deprecated
 	public void testMkdirs()
 	{
-		SafeFile.delete(f);
-		SafeFile.mkdirs(f);
+		delete(f);
+		mkdirs(f);
 		try
 		{
-			SafeFile.mkdirs(f);
+			mkdirs(f);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -90,20 +91,19 @@ public class SafeFileTest extends CopeAssert
 		}
 	}
 
-	@Deprecated
 	public void testRenameTo()
 	{
 		final File f2 = new File(f.getAbsolutePath()+"-rename");
-		SafeFile.renameTo(f, f2);
+		renameTo(f, f2);
 		try
 		{
-			SafeFile.renameTo(f, f2);
+			renameTo(f, f2);
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
-		SafeFile.delete(f2);
+		delete(f2);
 	}
 }

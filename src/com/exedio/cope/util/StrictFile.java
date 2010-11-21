@@ -20,33 +20,40 @@ package com.exedio.cope.util;
 
 import java.io.File;
 
-/**
- * @deprecated Use {@link StrictFile} instead.
- */
-@Deprecated
-public final class SafeFile
+public final class StrictFile
 {
 	public static void delete(final File file)
 	{
-		StrictFile.delete(file);
+		if(!file.delete())
+			throw failure(file);
 	}
 
 	public static void mkdir(final File file)
 	{
-		StrictFile.mkdir(file);
+		if(!file.mkdir())
+			throw failure(file);
 	}
 
 	public static void mkdirs(final File file)
 	{
-		StrictFile.mkdirs(file);
+		if(!file.mkdirs())
+			throw failure(file);
 	}
 
 	public static void renameTo(final File file, final File dest)
 	{
-		StrictFile.renameTo(file, dest);
+		if(!file.renameTo(dest))
+			throw failure(file);
 	}
 
-	private SafeFile()
+	// TODO add all methods boolean File.setXXX
+
+	private static IllegalStateException failure(final File file)
+	{
+		return new IllegalStateException(file.getAbsolutePath());
+	}
+
+	private StrictFile()
 	{
 		// prevent instantiation
 	}
