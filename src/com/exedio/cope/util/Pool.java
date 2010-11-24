@@ -197,6 +197,12 @@ public final class Pool<E>
 					ex.printStackTrace();
 					System.err.println("/warning: exception on flushing pool");
 				}
+				catch(final AssertionError ex)
+				{
+					System.err.println("warning: assertion error on flushing pool");
+					ex.printStackTrace();
+					System.err.println("/warning: assertion error on flushing pool");
+				}
 			}
 		}
 	}
