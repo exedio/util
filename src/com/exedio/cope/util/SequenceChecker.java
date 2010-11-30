@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 public final class SequenceChecker
 {
-	private final int length;
+	private final int capacity;
 
 	private final boolean[] buffer;
 	private int bufferNext = 0;
@@ -37,20 +37,20 @@ public final class SequenceChecker
 	private volatile int countLost = 0;
 	private volatile int countLate = 0;
 
-	public SequenceChecker(final int length)
+	public SequenceChecker(final int capacity)
 	{
-		if(length<1)
-			throw new IllegalArgumentException("length must be greater than zero, but was " + length);
+		if(capacity<1)
+			throw new IllegalArgumentException("capacity must be greater than zero, but was " + capacity);
 
-		this.length = length;
-		buffer = new boolean[length];
+		this.capacity = capacity;
+		buffer = new boolean[capacity];
 		Arrays.fill(buffer, true);
 		//System.out.println("----------------");
 	}
 
-	public int getLength()
+	public int getCapacity()
 	{
-		return length;
+		return capacity;
 	}
 
 	/*private String toStringInternal()
@@ -85,7 +85,7 @@ public final class SequenceChecker
 					buffer[bufferNext] = (i==(todo-1));
 
 					bufferNext++;
-					if(bufferNext>=length)
+					if(bufferNext>=capacity)
 						bufferNext = 0;
 				}
 				maxNumber = number;
@@ -99,11 +99,11 @@ public final class SequenceChecker
 				// forget, since I don't know anything about numbers before firstNumber
 				return false;
 			}
-			else if(number>(maxNumber-length))
+			else if(number>(maxNumber-capacity))
 			{
 				int pos = bufferNext - (maxNumber-number) - 1;
 				if(pos<0)
-					pos += length;
+					pos += capacity;
 
 				//System.out.println("-----------" + number + "----outOfOrder or duplicate ---- on " + pos);
 				if(buffer[pos])
@@ -319,5 +319,14 @@ public final class SequenceChecker
 	public int getCountLate()
 	{
 		return countLate;
+	}
+
+	/**
+	 * @deprecated Use {@link #getCapacity()} instead
+	 */
+	@Deprecated
+	public int getLength()
+	{
+		return getCapacity();
 	}
 }

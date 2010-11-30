@@ -40,7 +40,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testInOrder()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -76,7 +76,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testOutOfOrder()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -106,7 +106,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testDuplicate()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -130,7 +130,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testLostStep()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -160,7 +160,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testLostJump()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -178,7 +178,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testLostJumpOver()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -196,7 +196,7 @@ public class SequenceCheckerTest extends CopeAssert
 
 	public void testLate()
 	{
-		assertEquals(5, sc.getLength());
+		assertEquals(5, sc.getCapacity());
 		assertIt();
 
 		assertEquals(false, sc.check(3));
@@ -227,7 +227,7 @@ public class SequenceCheckerTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("length must be greater than zero, but was 0", e.getMessage());
+			assertEquals("capacity must be greater than zero, but was 0", e.getMessage());
 		}
 	}
 
@@ -270,7 +270,7 @@ public class SequenceCheckerTest extends CopeAssert
 			final int countLate,
 			final int countPending)
 	{
-		assertTrue(String.valueOf(countPending), countPending<sc.getLength());
+		assertTrue(String.valueOf(countPending), countPending<sc.getCapacity());
 		final SequenceChecker.Info sci = sc.getInfo();
 		assertEquals("firstNumber",     firstNumber,     sc.getFirstNumber());
 		assertEquals("maxNumber",       maxNumber,       sc.getMaxNumber());
