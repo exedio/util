@@ -115,7 +115,7 @@ public class Properties
 		 * Returns all keys, for which {@link #get(String)}
 		 * does not return null.
 		 * This operation is optional -
-		 * if this context does not support this operation,
+		 * if this source does not support this operation,
 		 * it returns null.
 		 * The result is always unmodifiable.
 		 */
