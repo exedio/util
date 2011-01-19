@@ -72,6 +72,7 @@ public class PrefixSourceTest extends CopeAssert
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
+		assertEquals(null, ps.get("none"));
 		try
 		{
 			ps.get("");
@@ -81,7 +82,6 @@ public class PrefixSourceTest extends CopeAssert
 		{
 			assertEquals("key must not be empty", e.getMessage());
 		}
-		assertEquals(null, ps.get("none"));
 		try
 		{
 			ps.get(null);
@@ -106,6 +106,7 @@ public class PrefixSourceTest extends CopeAssert
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
+		assertEquals(null, ps.get("none"));
 		try
 		{
 			ps.get("");
@@ -115,7 +116,6 @@ public class PrefixSourceTest extends CopeAssert
 		{
 			assertEquals("key must not be empty", e.getMessage());
 		}
-		assertEquals(null, ps.get("none"));
 		try
 		{
 			ps.get(null);
