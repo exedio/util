@@ -165,6 +165,8 @@ public class Properties
 	}
 
 
+	public static final Source SYSTEM_PROPERTY_SOURCE = new SystemPropertySource();
+
 	private static final class SystemPropertySource implements Source
 	{
 		SystemPropertySource()
@@ -194,9 +196,13 @@ public class Properties
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #SYSTEM_PROPERTY_SOURCE} instead.
+	 */
+	@Deprecated
 	public static final Source getSystemPropertySource()
 	{
-		return new SystemPropertySource();
+		return SYSTEM_PROPERTY_SOURCE;
 	}
 
 

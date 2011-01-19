@@ -18,13 +18,14 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class SystemPropertySourceTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final Properties.Source SYSTEM_PROPERTY_SOURCE = Properties.getSystemPropertySource();
 		try
 		{
 			SYSTEM_PROPERTY_SOURCE.get(null);
@@ -47,5 +48,11 @@ public class SystemPropertySourceTest extends CopeAssert
 		assertNull(SYSTEM_PROPERTY_SOURCE.keySet());
 		assertEquals("java.lang.System.getProperty", SYSTEM_PROPERTY_SOURCE.getDescription());
 		assertEquals("SystemPropertySource", SYSTEM_PROPERTY_SOURCE.toString());
+	}
+
+	@Deprecated // OK: testing deprecated api
+	public void testDeprecated()
+	{
+		assertSame(SYSTEM_PROPERTY_SOURCE, Properties.getSystemPropertySource());
 	}
 }
