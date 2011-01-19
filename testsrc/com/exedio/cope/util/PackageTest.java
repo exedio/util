@@ -40,6 +40,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PoolTest.class);
 		suite.addTestSuite(PoolCounterTest.class);
 		suite.addTestSuite(PropertiesTest.class);
+		suite.addTestSuite(EmptySourceTest.class);
 		suite.addTestSuite(SystemPropertySourceTest.class);
 		suite.addTestSuite(PropertiesSourceTest.class);
 		suite.addTestSuite(PrefixSourceTest.class);

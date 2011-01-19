@@ -127,6 +127,38 @@ public class Properties
 		String getDescription();
 	}
 
+
+	public static final Source EMPTY_SOURCE = new EmptySource();
+
+	private static final class EmptySource implements Source
+	{
+		EmptySource()
+		{
+			// empty
+		}
+
+		public String get(final String key)
+		{
+			if(key==null)
+				throw new NullPointerException("key");
+			if(key.length()==0)
+				throw new IllegalArgumentException("key must not be empty");
+
+			return null;
+		}
+
+		public Collection<String> keySet()
+		{
+			return Collections.<String>emptyList();
+		}
+
+		public String getDescription()
+		{
+			return "empty";
+		}
+	}
+
+
 	public static final Source getSystemPropertySource()
 	{
 		return new Source(){
