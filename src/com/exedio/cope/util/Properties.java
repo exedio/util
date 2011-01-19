@@ -165,31 +165,40 @@ public class Properties
 	}
 
 
+	private static final class SystemPropertySource implements Source
+	{
+		SystemPropertySource()
+		{
+			// empty
+		}
+
+		public String get(final String key)
+		{
+			return System.getProperty(key);
+		}
+
+		public Collection<String> keySet()
+		{
+			return null;
+		}
+
+		public String getDescription()
+		{
+			return "java.lang.System.getProperty";
+		}
+
+		@Override
+		public String toString()
+		{
+			return "java.lang.System.getProperty";
+		}
+	}
+
 	public static final Source getSystemPropertySource()
 	{
-		return new Source(){
-			public String get(final String key)
-			{
-				return System.getProperty(key);
-			}
-
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-
-			public String getDescription()
-			{
-				return "java.lang.System.getProperty";
-			}
-
-			@Override
-			public String toString()
-			{
-				return "java.lang.System.getProperty";
-			}
-		};
+		return new SystemPropertySource();
 	}
+
 
 	public static final Source getSource(final java.util.Properties properties, final String description)
 	{
