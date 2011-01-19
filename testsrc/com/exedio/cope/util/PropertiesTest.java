@@ -333,6 +333,16 @@ public class PropertiesTest extends CopeAssert
 					" expected {} but got {inconsistentKey=map.inconsistentValue}.",
 				"inconsistent initialization for map between inconsistent.map and minimal," +
 					" expected {inconsistentKey=map.inconsistentValue} but got {}.");
+
+		try
+		{
+			new Properties((Properties.Source)null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	private void assertWrong(
