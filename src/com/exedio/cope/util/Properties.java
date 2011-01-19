@@ -109,6 +109,9 @@ public class Properties
 
 	public interface Source
 	{
+		/**
+		 * @throws RuntimeException if key is null or empty.
+		 */
 		String get(String key);
 
 		/**
