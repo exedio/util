@@ -156,6 +156,12 @@ public class Properties
 		{
 			return "empty";
 		}
+
+		@Override
+		public String toString()
+		{
+			return getClass().getSimpleName();
+		}
 	}
 
 

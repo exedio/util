@@ -50,5 +50,6 @@ public class PropertiesSourceTest extends CopeAssert
 		assertEquals(list("testKey"), s.keySet());
 		assertUnmodifiable(s.keySet());
 		assertEquals("testDescription", s.getDescription());
+		assertEquals("testDescription", s.toString());
 	}
 }

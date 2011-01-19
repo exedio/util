@@ -46,5 +46,6 @@ public class SystemPropertySourceTest extends CopeAssert
 		assertEquals(null, SYSTEM_PROPERTY_SOURCE.get("xxx"));
 		assertNull(SYSTEM_PROPERTY_SOURCE.keySet());
 		assertEquals("java.lang.System.getProperty", SYSTEM_PROPERTY_SOURCE.getDescription());
+		assertEquals("java.lang.System.getProperty", SYSTEM_PROPERTY_SOURCE.toString());
 	}
 }

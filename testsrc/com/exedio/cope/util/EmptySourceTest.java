@@ -48,5 +48,6 @@ public class EmptySourceTest extends CopeAssert
 		assertUnmodifiable(EMPTY_SOURCE.keySet());
 		assertEquals(list(), EMPTY_SOURCE.keySet());
 		assertEquals("empty", EMPTY_SOURCE.getDescription());
+		assertEquals("EmptySource", EMPTY_SOURCE.toString());
 	}
 }
