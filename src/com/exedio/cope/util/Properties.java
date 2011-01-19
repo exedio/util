@@ -190,7 +190,7 @@ public class Properties
 		@Override
 		public String toString()
 		{
-			return "java.lang.System.getProperty";
+			return getClass().getSimpleName();
 		}
 	}
 
