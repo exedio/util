@@ -158,6 +158,11 @@ public class Properties
 		return new Source(){
 			public String get(final String key)
 			{
+				if(key==null)
+					throw new NullPointerException("key");
+				if(key.length()==0)
+					throw new IllegalArgumentException("key must not be empty");
+
 				return properties.getProperty(key);
 			}
 
