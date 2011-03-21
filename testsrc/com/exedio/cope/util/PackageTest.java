@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(EmptyJobContextTest.class);
+		suite.addTestSuite(ProxyJobContextTest.class);
 		suite.addTestSuite(InterruptersVainTest.class);
 		suite.addTestSuite(InterruptersIteratorTest.class);
 		suite.addTestSuite(InterrupterJobContextAdapterTest.class);
