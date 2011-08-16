@@ -84,6 +84,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testLaterInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -122,6 +123,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testNoInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);

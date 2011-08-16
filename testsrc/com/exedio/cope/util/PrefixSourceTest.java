@@ -58,6 +58,7 @@ public class PrefixSourceTest extends CopeAssert
 			return description;
 		}
 
+		@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_TOSTRING_COULD_RETURN_NULL")
 		@Override
 		public String toString()
 		{

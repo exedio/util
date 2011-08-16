@@ -25,6 +25,7 @@ import java.util.Collections;
 
 import com.exedio.cope.junit.CopeAssert;
 
+@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesTest extends CopeAssert
 {
 	static class TestProperties extends Properties
@@ -609,6 +610,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class DuplicateProperties extends Properties
 	{
 		final BooleanField duplicate1 = new BooleanField("duplicate", false);

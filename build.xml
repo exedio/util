@@ -15,6 +15,9 @@
 				deprecation="on"
 				debug="on"
 				optimize="off">
+			<classpath>
+				<pathelement location="lib/findbugs-annotations.jar" />
+			</classpath>
 			<compilerarg value="-Xlint" />
 			<compilerarg value="-encoding" />
 			<compilerarg value="ascii" />
@@ -122,7 +125,6 @@
 					warningsProperty="findbugs.warnings"
 					output="${findbugs.output}"
 					outputFile="${basedir}/build/findbugs.${findbugs.output}"
-					excludeFilter="findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
 			<class location="${basedir}/build/classes" />

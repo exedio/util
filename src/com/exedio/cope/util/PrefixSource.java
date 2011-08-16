@@ -81,6 +81,7 @@ public final class PrefixSource implements Source
 			: ("unknown prefix " + prefix);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE") // happens in code generated for plus operator
 	@Override
 	public String toString()
 	{
