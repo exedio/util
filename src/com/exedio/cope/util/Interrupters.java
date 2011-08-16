@@ -31,6 +31,7 @@ public final class Interrupters
 	@Deprecated
 	private static final class Vain implements Interrupter
 	{
+		@Deprecated // needed for jdk 1.5
 		public boolean isRequested()
 		{
 			return false;
@@ -57,6 +58,7 @@ public final class Interrupters
 				iterator,
 				interrupter!=null
 				? new AssertionErrorJobContext() {
+					@Deprecated // needed for jdk 1.5
 					@Override public boolean requestedToStop()
 					{
 						return interrupter.isRequested();

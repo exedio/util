@@ -58,6 +58,7 @@ public final class InterrupterJobContextAdapter
 			return progress;
 		}
 
+		@Deprecated // needed for jdk 1.5
 		public boolean requestedToStop()
 		{
 			assertNotClosed();
