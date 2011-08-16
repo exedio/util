@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
+@SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterrupterJobContextAdapterTest extends CopeAssert
 {
 	private static final class MockInterrupter implements Interrupter

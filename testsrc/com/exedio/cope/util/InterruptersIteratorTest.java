@@ -29,6 +29,7 @@ import java.util.NoSuchElementException;
 
 import com.exedio.cope.junit.CopeAssert;
 
+@SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersIteratorTest extends CopeAssert
 {
 	private static final Iterator<String> ITERATOR_FAIL = new Iterator<String>()

@@ -18,10 +18,9 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.util.Interrupter;
-
 public final class InterrupterJobContextAdapter
 {
+	@Deprecated
 	public static final int run(final Interrupter interrupter, final Body body)
 	{
 		final Adapter ctx = new Adapter(interrupter);
@@ -34,6 +33,7 @@ public final class InterrupterJobContextAdapter
 		void run(JobContext ctx);
 	}
 
+	@Deprecated
 	private static final class Adapter implements JobContext
 	{
 		private final Interrupter interrupter;

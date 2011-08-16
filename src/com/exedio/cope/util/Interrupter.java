@@ -20,5 +20,9 @@ package com.exedio.cope.util;
 
 public interface Interrupter
 {
+	/**
+	 * @deprecated Use {@link JobContext#requestedToStop()} instead.
+	 */
+	@Deprecated
 	boolean isRequested();
 }

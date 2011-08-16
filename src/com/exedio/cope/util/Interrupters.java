@@ -22,8 +22,13 @@ public final class Interrupters
 {
 	// vain -------------------
 
+	/**
+	 * @deprecated Use {@link JobContexts#EMPTY} instead.
+	 */
+	@Deprecated
 	public static final Interrupter VAIN_INTERRUPTER = new Vain();
 
+	@Deprecated
 	private static final class Vain implements Interrupter
 	{
 		public boolean isRequested()
@@ -40,6 +45,10 @@ public final class Interrupters
 
 	// iterator ---------------
 
+	/**
+	 * @deprecated Use {@link JobContexts#iterator(java.util.Iterator, JobContext)} instead.
+	 */
+	@Deprecated
 	public static <E> java.util.Iterator<E> iterator(
 			final java.util.Iterator<E> iterator,
 			final Interrupter interrupter)

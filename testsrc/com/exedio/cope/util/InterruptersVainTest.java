@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import com.exedio.cope.junit.CopeAssert;
 
+@SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersVainTest extends CopeAssert
 {
 	public void test()
