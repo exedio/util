@@ -33,7 +33,7 @@ public interface JobContext
 	 * Checks, whether the job has been requested to stop.
 	 * The developer should call this method in reasonably short
 	 * intervals.
-	 * It <i>true</i> is returned, the job should stop
+	 * If <i>true</i> is returned, the job should stop
 	 * gracefully as soon as possible,
 	 * but all resources held should be closed/disposed carefully.
 	 */
