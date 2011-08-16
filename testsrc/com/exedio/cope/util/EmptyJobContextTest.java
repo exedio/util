@@ -26,6 +26,7 @@ public class EmptyJobContextTest extends CopeAssert
 	{
 		final EmptyJobContext c = new EmptyJobContext();
 
+		c.stopIfRequested();
 		assertEquals(false, c.requestedToStop());
 		assertEquals(false, c.supportsMessage());
 		assertEquals(false, c.supportsProgress());
@@ -35,5 +36,26 @@ public class EmptyJobContextTest extends CopeAssert
 		c.incrementProgress();
 		c.incrementProgress(5);
 		c.setCompleteness(0.5);
+	}
+
+	public void testStop()
+	{
+		final EmptyJobContext c = new EmptyJobContext(){
+			@Override public boolean requestedToStop()
+			{
+				return true;
+			}
+		};
+
+		assertEquals(true, c.requestedToStop());
+		try
+		{
+			c.stopIfRequested();
+			fail();
+		}
+		catch(final JobStop js)
+		{
+			assertEquals(null, js.getMessage());
+		}
 	}
 }

@@ -30,6 +30,11 @@ package com.exedio.cope.util;
  */
 public class AssertionErrorJobContext implements JobContext
 {
+	public void stopIfRequested()
+	{
+		throw new AssertionError();
+	}
+
 	public boolean requestedToStop()
 	{
 		throw new AssertionError();

@@ -41,6 +41,11 @@ public class ProxyJobContext implements JobContext
 			throw new NullPointerException("target");
 	}
 
+	public void stopIfRequested() throws JobStop
+	{
+		target.stopIfRequested();
+	}
+
 	public boolean requestedToStop()
 	{
 		return target.requestedToStop();

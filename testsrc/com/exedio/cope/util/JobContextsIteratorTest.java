@@ -51,6 +51,11 @@ public class JobContextsIteratorTest extends CopeAssert
 
 	private static final JobContext CONTEXT_FAIL = new JobContext()
 	{
+		public void stopIfRequested()
+		{
+			throw new RuntimeException();
+		}
+
 		public boolean requestedToStop()
 		{
 			throw new RuntimeException();

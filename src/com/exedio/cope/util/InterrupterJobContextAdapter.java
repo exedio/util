@@ -58,6 +58,12 @@ public final class InterrupterJobContextAdapter
 			return progress;
 		}
 
+		public void stopIfRequested() throws JobStop
+		{
+			if(requestedToStop())
+				throw new JobStop();
+		}
+
 		@Deprecated // needed for jdk 1.5
 		public boolean requestedToStop()
 		{

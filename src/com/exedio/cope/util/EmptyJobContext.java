@@ -33,6 +33,16 @@ package com.exedio.cope.util;
 public class EmptyJobContext implements JobContext
 {
 	/**
+	 * This default implementation throws a {@link JobStop},
+	 * if {@link #requestedToStop()} returns <i>true</i>.
+	 */
+	public void stopIfRequested() throws JobStop
+	{
+		if(requestedToStop())
+			throw new JobStop();
+	}
+
+	/**
 	 * This default implementation always returns <i>false</i>.
 	 */
 	public boolean requestedToStop()

@@ -26,6 +26,7 @@ public class ProxyJobContextTest extends CopeAssert
 	{
 		final ProxyJobContext c = new ProxyJobContext(new EmptyJobContext());
 
+		c.stopIfRequested();
 		assertEquals(false, c.requestedToStop());
 		assertEquals(false, c.supportsMessage());
 		assertEquals(false, c.supportsProgress());
