@@ -118,6 +118,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -156,6 +157,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);

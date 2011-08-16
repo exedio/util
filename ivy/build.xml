@@ -20,5 +20,6 @@
 		<copy overwrite="true" todir="../lib" file="artifacts/easymock.jar" />
 		<copy overwrite="true" todir="../lib" file="artifacts/cglib-nodep.jar" />
 		<copy overwrite="true" todir="../lib" file="artifacts/findbugs.tar.gz" />
+		<copy overwrite="true" todir="../lib" file="artifacts/findbugs-annotations.jar" />
 	</target>
 </project>
