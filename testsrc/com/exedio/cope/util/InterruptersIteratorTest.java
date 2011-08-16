@@ -114,7 +114,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		}
 		catch(final NoSuchElementException e)
 		{
-			assertEquals("interrupted", e.getMessage());
+			assertEquals("requestedToStop", e.getMessage());
 		}
 
 		verify(iterator);
