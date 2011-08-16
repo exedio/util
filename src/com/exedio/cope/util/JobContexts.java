@@ -24,43 +24,43 @@ public final class JobContexts
 {
 	// vain -------------------
 
-	public static final JobContext EMPTY_INTERRUPTER = new EmptyJobContext();
+	public static final JobContext EMPTY = new EmptyJobContext();
 
 
 	// iterator ---------------
 
 	public static <E> java.util.Iterator<E> iterator(
 			final java.util.Iterator<E> iterator,
-			final JobContext interrupter)
+			final JobContext ctx)
 	{
 		return
-			(iterator!=null && interrupter!=null)
-			? new Iterator<E>(iterator, interrupter)
+			(iterator!=null && ctx!=null)
+			? new Iterator<E>(iterator, ctx)
 			: iterator;
 	}
 
 	private static final class Iterator<E> implements java.util.Iterator<E>
 	{
 		private final java.util.Iterator<E> iterator;
-		private final JobContext interrupter;
-		private boolean interrupted = false;
+		private final JobContext ctx;
+		private boolean requestedToStop = false;
 
 		Iterator(
 				final java.util.Iterator<E> iterator,
-				final JobContext interrupter)
+				final JobContext ctx)
 		{
 			assert iterator!=null;
-			assert interrupter!=null;
+			assert ctx!=null;
 
 			this.iterator = iterator;
-			this.interrupter = interrupter;
+			this.ctx = ctx;
 		}
 
 		public boolean hasNext()
 		{
-			if(interrupter.requestedToStop())
+			if(ctx.requestedToStop())
 			{
-				interrupted = true;
+				requestedToStop = true;
 				return false;
 			}
 
@@ -74,8 +74,8 @@ public final class JobContexts
 		 */
 		public E next()
 		{
-			if(interrupted)
-				throw new NoSuchElementException("interrupted");
+			if(requestedToStop)
+				throw new NoSuchElementException("requestedToStop");
 
 			return iterator.next();
 		}
@@ -87,8 +87,8 @@ public final class JobContexts
 		 */
 		public void remove()
 		{
-			if(interrupted)
-				throw new NoSuchElementException("interrupted");
+			if(requestedToStop)
+				throw new NoSuchElementException("requestedToStop");
 
 			iterator.remove();
 		}

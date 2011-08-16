@@ -24,6 +24,6 @@ public class JobContextsEmptyTest extends CopeAssert
 {
 	public void test()
 	{
-		assertFalse(JobContexts.EMPTY_INTERRUPTER.requestedToStop());
+		assertFalse(JobContexts.EMPTY.requestedToStop());
 	}
 }

@@ -49,7 +49,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 	};
 
-	private static final JobContext INTERRUPTER_FAIL = new JobContext()
+	private static final JobContext CONTEXT_FAIL = new JobContext()
 	{
 		public boolean requestedToStop()
 		{
@@ -95,35 +95,35 @@ public class JobContextsIteratorTest extends CopeAssert
 	public void testFail()
 	{
 		assertSame(null, iterator(null, null));
-		assertSame(null, iterator(null, INTERRUPTER_FAIL));
+		assertSame(null, iterator(null, CONTEXT_FAIL));
 		assertSame   (ITERATOR_FAIL, iterator(ITERATOR_FAIL, null));
-		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, INTERRUPTER_FAIL));
+		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, CONTEXT_FAIL));
 	}
 
-	public void testImmediateInterrupt()
+	public void testImmediateStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
-		final JobContext interrupter = createStrictMock(JobContext.class);
+		final JobContext ctx = createStrictMock(JobContext.class);
 
-		interrupter.requestedToStop();
+		ctx.requestedToStop();
 		expectLastCall().andReturn(Boolean.TRUE);
 
 		replay(iterator);
-		replay(interrupter);
+		replay(ctx);
 
-		final Iterator<?> tested = iterator(iterator, interrupter);
+		final Iterator<?> tested = iterator(iterator, ctx);
 		assertEquals(false, tested.hasNext());
 
 		verify(iterator);
-		verify(interrupter);
+		verify(ctx);
 	}
 
-	public void testLaterInterrupt()
+	public void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
-		final JobContext interrupter = createStrictMock(JobContext.class);
+		final JobContext ctx = createStrictMock(JobContext.class);
 
-		interrupter.requestedToStop();
+		ctx.requestedToStop();
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.TRUE);
@@ -131,13 +131,13 @@ public class JobContextsIteratorTest extends CopeAssert
 		expectLastCall().andReturn("first");
 		iterator.next();
 		expectLastCall().andReturn("second");
-		interrupter.requestedToStop();
+		ctx.requestedToStop();
 		expectLastCall().andReturn(Boolean.TRUE);
 
 		replay(iterator);
-		replay(interrupter);
+		replay(ctx);
 
-		final Iterator<?> tested = iterator(iterator, interrupter);
+		final Iterator<?> tested = iterator(iterator, ctx);
 		assertEquals(true, tested.hasNext());
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
@@ -149,19 +149,19 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 		catch(final NoSuchElementException e)
 		{
-			assertEquals("interrupted", e.getMessage());
+			assertEquals("requestedToStop", e.getMessage());
 		}
 
 		verify(iterator);
-		verify(interrupter);
+		verify(ctx);
 	}
 
-	public void testNoInterrupt()
+	public void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
-		final JobContext interrupter = createStrictMock(JobContext.class);
+		final JobContext ctx = createStrictMock(JobContext.class);
 
-		interrupter.requestedToStop();
+		ctx.requestedToStop();
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.TRUE);
@@ -169,7 +169,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		expectLastCall().andReturn("first");
 		iterator.next();
 		expectLastCall().andReturn("second");
-		interrupter.requestedToStop();
+		ctx.requestedToStop();
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.FALSE);
@@ -177,9 +177,9 @@ public class JobContextsIteratorTest extends CopeAssert
 		expectLastCall().andThrow(new NoSuchElementException("alliballi"));
 
 		replay(iterator);
-		replay(interrupter);
+		replay(ctx);
 
-		final Iterator<?> tested = iterator(iterator, interrupter);
+		final Iterator<?> tested = iterator(iterator, ctx);
 		assertEquals(true, tested.hasNext());
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
@@ -195,6 +195,6 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 
 		verify(iterator);
-		verify(interrupter);
+		verify(ctx);
 	}
 }
