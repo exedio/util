@@ -39,7 +39,7 @@ public class EmptyJobContext implements JobContext
 	public void stopIfRequested() throws JobStop
 	{
 		if(requestedToStop())
-			throw new JobStop();
+			throw new JobStop("requestedToStop");
 	}
 
 	/**

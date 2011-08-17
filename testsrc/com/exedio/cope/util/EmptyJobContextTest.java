@@ -56,7 +56,7 @@ public class EmptyJobContextTest extends CopeAssert
 		}
 		catch(final JobStop js)
 		{
-			assertEquals(null, js.getMessage());
+			assertEquals("requestedToStop", js.getMessage());
 		}
 	}
 }

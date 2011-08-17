@@ -22,6 +22,15 @@ public class JobStop extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
 
+	public JobStop(final String message)
+	{
+		super(message);
+	}
+
+	/**
+	 * @deprecated Use {@link #JobStop(String)} instead.
+	 */
+	@Deprecated
 	public JobStop()
 	{
 		super();
