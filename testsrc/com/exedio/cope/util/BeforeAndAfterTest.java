@@ -65,4 +65,10 @@ public class BeforeAndAfterTest extends CopeAssert
 		BeforeAssert();
 		AfterAssert();
 	}
+
+	public void testBad()
+	{
+		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));
+		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 7, 6))); // OOOOPS
+	}
 }
