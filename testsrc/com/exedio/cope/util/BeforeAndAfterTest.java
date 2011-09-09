@@ -29,7 +29,8 @@ public class BeforeAndAfterTest extends CopeAssert
 	private Day tomorrow;
 	private Day yesterday;
 
-	public void initDays()
+	@Override
+	public void setUp()
 	{
 		final GregorianCalendar calendar = new GregorianCalendar();
 		today = new Day(calendar);
@@ -39,7 +40,7 @@ public class BeforeAndAfterTest extends CopeAssert
 		yesterday = new Day(calendar);
 	}
 
-	public void BeforeAssert()
+	public void testBeforeAssert()
 	{
 		assertEquals(true, yesterday.before(today));
 		assertEquals(true, yesterday.before(tomorrow));
@@ -49,7 +50,7 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(false, tomorrow.before(today));
 	}
 
-	public void AfterAssert()
+	public void testAfterAssert()
 	{
 		assertEquals(false, yesterday.after(today));
 		assertEquals(false, yesterday.after(tomorrow));
@@ -59,16 +60,14 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(true, tomorrow.after(today));
 	}
 
-	public void testIt()
-	{
-		initDays();
-		BeforeAssert();
-		AfterAssert();
-	}
-
 	public void testBad()
 	{
 		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));
-		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 7, 6))); // OOOOPS
+		assertEquals(false, new Day(2011, 8, 5).before(new Day(2011, 7, 6)));
+		assertEquals(false, new Day(2015, 8, 5).before(new Day(2008, 7, 6)));
+		assertEquals(true, new Day(2011, 9, 8).after(new Day(2011, 9, 6)));
+		assertEquals(false, new Day(2011, 8, 5).after(new Day(2011, 9, 9)));
+		assertEquals(false, new Day(2011, 8, 5).after(new Day(2090, 9, 9)));
+
 	}
 }
