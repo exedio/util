@@ -202,6 +202,16 @@ public final class Day implements Serializable, Comparable<Day>
 		return day==o.day && month==o.month && year==o.year;
 	}
 
+	public boolean after(final Day when)
+	{
+		return (compareTo(when)==1);
+	}
+
+	public boolean before(final Day when)
+	{
+		return (compareTo(when)==-1);
+	}
+
 	@Override
 	public int hashCode()
 	{
