@@ -27,6 +27,7 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(BeforeAndAfterTest.class);
 		suite.addTestSuite(EmptyJobContextTest.class);
 		suite.addTestSuite(ProxyJobContextTest.class);
 		suite.addTestSuite(JobContextsEmptyTest.class);
