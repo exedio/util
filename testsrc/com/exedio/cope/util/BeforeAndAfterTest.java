@@ -60,7 +60,7 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(true, tomorrow.after(today));
 	}
 
-	public void testBad()
+	public void testCombiAssert()
 	{
 		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));
 		assertEquals(false, new Day(2011, 8, 5).before(new Day(2011, 7, 6)));
@@ -68,6 +68,5 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(true, new Day(2011, 9, 8).after(new Day(2011, 9, 6)));
 		assertEquals(false, new Day(2011, 8, 5).after(new Day(2011, 9, 9)));
 		assertEquals(false, new Day(2011, 8, 5).after(new Day(2090, 9, 9)));
-
 	}
 }
