@@ -30,8 +30,9 @@ public class BeforeAndAfterTest extends CopeAssert
 	private Day yesterday;
 
 	@Override
-	public void setUp()
+	public void setUp() throws Exception
 	{
+		super.setUp();
 		final GregorianCalendar calendar = new GregorianCalendar();
 		today = new Day(calendar);
 		calendar.add(Calendar.DATE, 1);
