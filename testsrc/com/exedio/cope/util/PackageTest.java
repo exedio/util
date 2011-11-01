@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.util.annotation.AnnotationInheritanceTest;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -52,6 +54,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(XMLEncoderTest.class);
 		suite.addTestSuite(StrictFileTest.class);
 		suite.addTestSuite(SafeFileTest.class);
+		suite.addTestSuite(AnnotationInheritanceTest.class);
 		return suite;
 	}
 }
