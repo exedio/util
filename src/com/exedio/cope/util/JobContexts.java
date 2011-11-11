@@ -59,6 +59,7 @@ public final class JobContexts
 			this.ctx = ctx;
 		}
 
+		@Deprecated // Needed for jdk 1.5
 		public boolean hasNext()
 		{
 			if(ctx.requestedToStop())
