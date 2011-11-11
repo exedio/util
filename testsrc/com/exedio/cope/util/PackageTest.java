@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.util.annotation.AnnotationInheritanceTest;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import com.exedio.cope.util.annotation.AnnotationInheritanceTest;
 
 public class PackageTest extends TestCase
 {

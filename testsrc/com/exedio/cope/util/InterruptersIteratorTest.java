@@ -20,9 +20,9 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Interrupters.iterator;
 import static org.easymock.EasyMock.createStrictMock;
+import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import static org.easymock.EasyMock.expectLastCall;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

@@ -18,8 +18,8 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Cast.verboseCast;
 import static com.exedio.cope.util.Cast.castElements;
+import static com.exedio.cope.util.Cast.verboseCast;
 
 import java.util.Arrays;
 import java.util.List;
