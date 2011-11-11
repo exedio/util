@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
+
 import com.exedio.cope.junit.CopeAssert;
 
 @edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
@@ -28,7 +30,7 @@ public class EmptyJobContextTest extends CopeAssert
 		final EmptyJobContext c = new EmptyJobContext();
 
 		c.stopIfRequested();
-		assertEquals(false, c.requestedToStop());
+		assertEquals(false, requestedToStop(c));
 		assertEquals(false, c.supportsMessage());
 		assertEquals(false, c.supportsProgress());
 		assertEquals(false, c.supportsCompleteness());
@@ -42,13 +44,13 @@ public class EmptyJobContextTest extends CopeAssert
 	public void testStop()
 	{
 		final EmptyJobContext c = new EmptyJobContext(){
-			@Override public boolean requestedToStop()
+			@Override @Deprecated public boolean requestedToStop()
 			{
 				return true;
 			}
 		};
 
-		assertEquals(true, c.requestedToStop());
+		assertEquals(true, requestedToStop(c));
 		try
 		{
 			c.stopIfRequested();

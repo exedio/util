@@ -18,14 +18,11 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
-
-import com.exedio.cope.junit.CopeAssert;
-
-public class JobContextsEmptyTest extends CopeAssert
+final class JobContextDeprecated
 {
-	public void test()
+	@SuppressWarnings("deprecation") // OK: test deprecated api
+	static boolean requestedToStop(final JobContext ctx)
 	{
-		assertFalse(requestedToStop(JobContexts.EMPTY));
+		return ctx.requestedToStop();
 	}
 }

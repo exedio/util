@@ -47,8 +47,9 @@ public interface JobContext
 	 * If <i>true</i> is returned, the job should stop
 	 * gracefully as soon as possible,
 	 * but all resources held should be closed/disposed carefully.
-	 * It's recommended to use {@link #stopIfRequested()} instead.
+	 * @deprecated It's recommended to use {@link #stopIfRequested()} instead.
 	 */
+	@Deprecated
 	boolean requestedToStop();
 
 

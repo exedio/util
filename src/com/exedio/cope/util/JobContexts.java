@@ -29,6 +29,7 @@ public final class JobContexts
 
 	// iterator ---------------
 
+	@Deprecated
 	public static <E> java.util.Iterator<E> iterator(
 			final java.util.Iterator<E> iterator,
 			final JobContext ctx)
@@ -39,12 +40,14 @@ public final class JobContexts
 			: iterator;
 	}
 
+	@Deprecated
 	private static final class Iterator<E> implements java.util.Iterator<E>
 	{
 		private final java.util.Iterator<E> iterator;
 		private final JobContext ctx;
 		private boolean requestedToStop = false;
 
+		@Deprecated
 		Iterator(
 				final java.util.Iterator<E> iterator,
 				final JobContext ctx)

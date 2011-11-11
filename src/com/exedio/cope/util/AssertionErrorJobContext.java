@@ -35,6 +35,7 @@ public class AssertionErrorJobContext implements JobContext
 		throw new AssertionError();
 	}
 
+	@Deprecated
 	public boolean requestedToStop()
 	{
 		throw new AssertionError();

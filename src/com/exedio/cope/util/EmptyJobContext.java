@@ -45,6 +45,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation always returns <i>false</i>.
 	 */
+	@Deprecated
 	public boolean requestedToStop()
 	{
 		return false;

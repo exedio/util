@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.JobContexts.iterator;
+import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
@@ -56,6 +56,7 @@ public class JobContextsIteratorTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
+		@Deprecated
 		public boolean requestedToStop()
 		{
 			throw new RuntimeException();
@@ -110,7 +111,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
 
-		ctx.requestedToStop();
+		requestedToStop(ctx);
 		expectLastCall().andReturn(Boolean.TRUE);
 
 		replay(iterator);
@@ -129,7 +130,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
 
-		ctx.requestedToStop();
+		requestedToStop(ctx);
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.TRUE);
@@ -137,7 +138,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		expectLastCall().andReturn("first");
 		iterator.next();
 		expectLastCall().andReturn("second");
-		ctx.requestedToStop();
+		requestedToStop(ctx);
 		expectLastCall().andReturn(Boolean.TRUE);
 
 		replay(iterator);
@@ -168,7 +169,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
 
-		ctx.requestedToStop();
+		requestedToStop(ctx);
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.TRUE);
@@ -176,7 +177,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		expectLastCall().andReturn("first");
 		iterator.next();
 		expectLastCall().andReturn("second");
-		ctx.requestedToStop();
+		requestedToStop(ctx);
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.FALSE);
@@ -203,5 +204,13 @@ public class JobContextsIteratorTest extends CopeAssert
 
 		verify(iterator);
 		verify(ctx);
+	}
+
+	@SuppressWarnings("deprecation") // OK: test deprecated api
+	private static <E> java.util.Iterator<E> iterator(
+			final java.util.Iterator<E> iterator,
+			final JobContext ctx)
+	{
+		return JobContexts.iterator(iterator, ctx);
 	}
 }

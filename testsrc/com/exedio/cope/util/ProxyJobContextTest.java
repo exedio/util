@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class ProxyJobContextTest extends CopeAssert
@@ -27,7 +29,7 @@ public class ProxyJobContextTest extends CopeAssert
 		final ProxyJobContext c = new ProxyJobContext(new EmptyJobContext());
 
 		c.stopIfRequested();
-		assertEquals(false, c.requestedToStop());
+		assertEquals(false, requestedToStop(c));
 		assertEquals(false, c.supportsMessage());
 		assertEquals(false, c.supportsProgress());
 		assertEquals(false, c.supportsCompleteness());

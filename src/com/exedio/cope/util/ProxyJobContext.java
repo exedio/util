@@ -46,6 +46,7 @@ public class ProxyJobContext implements JobContext
 		target.stopIfRequested();
 	}
 
+	@Deprecated
 	public boolean requestedToStop()
 	{
 		return target.requestedToStop();
