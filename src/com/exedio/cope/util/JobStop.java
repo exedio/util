@@ -18,10 +18,20 @@
 
 package com.exedio.cope.util;
 
+/**
+ * Signals, that a job is to be terminated as soon as possible,
+ * when calling
+ * {@link JobContext#stopIfRequested()}.
+ *
+ * @author Ralf Wiebicke
+ */
 public class JobStop extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
 
+	/**
+	 * @param message Should contain detailed information about the request to stop the job
+	 */
 	public JobStop(final String message)
 	{
 		super(message);
