@@ -115,6 +115,7 @@ public class PropertiesTest extends CopeAssert
 		super.tearDown();
 	}
 
+	@SuppressWarnings("unused")
 	public void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
@@ -346,6 +347,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final java.util.Properties template,
 			final String sourceDescription,
@@ -622,6 +624,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public void testDuplicate()
 	{
 		try

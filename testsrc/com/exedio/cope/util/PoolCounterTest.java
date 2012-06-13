@@ -205,6 +205,7 @@ public class PoolCounterTest extends CopeAssert
 		assertTrue("isConsistent", p.isConsistent());
 	}
 
+	@SuppressWarnings("unused")
 	public void testFail()
 	{
 		try

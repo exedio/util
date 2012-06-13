@@ -40,6 +40,7 @@ public class ProxyJobContextTest extends CopeAssert
 		c.setCompleteness(0.5);
 	}
 
+	@SuppressWarnings("unused")
 	public void testNull()
 	{
 		try

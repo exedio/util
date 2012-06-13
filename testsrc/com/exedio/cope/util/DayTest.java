@@ -36,6 +36,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class DayTest extends CopeAssert
 {
+	@SuppressWarnings("unused")
 	public void testIt() throws ParseException, DatatypeConfigurationException
 	{
 		try

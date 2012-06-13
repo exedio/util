@@ -134,6 +134,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertNull(PrefixSource.wrap(null, ""));
 	}
 
+	@SuppressWarnings("unused")
 	public void testFail()
 	{
 		try

@@ -356,6 +356,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
+	@SuppressWarnings("unused")
 	public void testError()
 	{
 		try

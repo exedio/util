@@ -22,6 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CharSetTest extends CopeAssert
 {
+	@SuppressWarnings("unused")
 	public void testIt()
 	{
 		try
