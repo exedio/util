@@ -48,6 +48,9 @@ public class Properties
 		// TODO check, that no other property key do occur
 	}
 
+	/**
+	 * This default implementation returns an empty list.
+	 */
 	public List<? extends Callable<?>> getTests()
 	{
 		return Collections.emptyList();
