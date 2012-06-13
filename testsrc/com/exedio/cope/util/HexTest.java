@@ -78,7 +78,7 @@ public class HexTest extends CopeAssert
 		}
 	}
 
-	private void assertIt(final String expected, final byte[] actual)
+	private static void assertIt(final String expected, final byte[] actual)
 	{
 		assertEquals(expected, Hex.encodeLower(actual));
 		assertEquals(expected.toUpperCase(Locale.UK), Hex.encodeUpper(actual));

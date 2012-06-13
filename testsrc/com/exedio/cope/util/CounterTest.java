@@ -24,7 +24,9 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CounterTest extends CopeAssert
 {
+	@SuppressWarnings("unused")
 	private long countNaked;
+	@SuppressWarnings("unused")
 	private volatile long countVolatile;
 	private final Object lock = new Object();
 	private final AtomicLong atomic = new AtomicLong();

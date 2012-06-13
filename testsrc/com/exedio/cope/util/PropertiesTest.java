@@ -346,7 +346,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
-	private void assertWrong(
+	private static void assertWrong(
 			final java.util.Properties template,
 			final String sourceDescription,
 			final String key,
@@ -370,7 +370,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
-	private void assertInconsistent(
+	private static void assertInconsistent(
 			final java.util.Properties template,
 			final String sourceDescription,
 			final String key,
