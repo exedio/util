@@ -13,6 +13,7 @@
 				destdir="build/classes"
 				includeAntRuntime="false"
 				deprecation="on"
+				source="1.6"
 				debug="on"
 				optimize="off">
 			<classpath>
@@ -29,6 +30,7 @@
 		<javac srcdir="testsrc"
 				destdir="build/testclasses"
 				deprecation="on"
+				source="1.6"
 				debug="on"
 				optimize="off">
 			<classpath>
