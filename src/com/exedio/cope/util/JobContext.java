@@ -33,7 +33,7 @@ public interface JobContext
 	 * Checks, whether the job has been requested to stop.
 	 * The developer should call this method in reasonably short
 	 * intervals.
-	 * If throws an {@link JobStop}, the job should stop
+	 * If throws a {@link JobStop}, the job should stop
 	 * gracefully as soon as possible,
 	 * but all resources held should be closed/disposed carefully.
 	 * You may use {@link #requestedToStop()} instead, but it's not recommended.
