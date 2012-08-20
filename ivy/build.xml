@@ -3,23 +3,25 @@
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
 		
-		<move todir="artifacts">
+		<!-- TODO move mapping into copy task below, using the firstmatchmapper in ant 1.8.0 -->
+		<move todir="artifacts/lib">
 			<globmapper from="*-jar.jar" to="*.jar" />
-			<fileset dir="artifacts">
+			<fileset dir="artifacts/lib">
 				<include name="*-jar.jar" />
 			</fileset>
 		</move>
-		<move todir="artifacts">
+		<move todir="artifacts/lib">
 			<globmapper from="*-dist.tar.gz" to="*.tar.gz" />
-			<fileset dir="artifacts">
+			<fileset dir="artifacts/lib">
 				<include name="*-dist.tar.gz" />
 			</fileset>
 		</move>
 		
-		<copy overwrite="true" todir="../lib" file="artifacts/junit.jar" />
-		<copy overwrite="true" todir="../lib" file="artifacts/easymock.jar" />
-		<copy overwrite="true" todir="../lib" file="artifacts/cglib-nodep.jar" />
-		<copy overwrite="true" todir="../lib" file="artifacts/findbugs.tar.gz" />
-		<copy overwrite="true" todir="../lib" file="artifacts/findbugs-annotations.jar" />
+		<copy overwrite="true" todir="../lib">
+			<fileset dir="artifacts/lib">
+				<!--exclude name="example.jar" /-->
+			</fileset>
+		</copy>
+		
 	</target>
 </project>
