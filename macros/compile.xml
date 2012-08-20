@@ -11,12 +11,12 @@
 			<javac srcdir="@{srcdir}"
 					 destdir="build/classes/@{srcdir}"
 					 includeAntRuntime="false"
-					 source="1.6"
+					 source="1.5"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
 				<classpath />
-				<compilerarg value="-Xlint:all,-path" />
+				<compilerarg value="-Xlint" />
 				<compilerarg value="-encoding" />
 				<compilerarg value="ascii" />
 			</javac>

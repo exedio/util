@@ -5,42 +5,26 @@
 	<property file="local.properties" />
 	<property file="project.properties" />
 	
+	<import file="macros/compile.xml" />
 	<import file="macros/findbugs.xml" />
 	
 	<target name="compile">
-		<mkdir dir="build/classes" />
-		<javac srcdir="src"
-				destdir="build/classes"
-				includeAntRuntime="false"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<compile srcdir="src">
 			<classpath>
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
-			<compilerarg value="-Xlint" />
-			<compilerarg value="-encoding" />
-			<compilerarg value="ascii" />
-		</javac>
+		</compile>
 	</target>
 	
 	<target name="test.compile" depends="compile">
-		<mkdir dir="build/testclasses" />
-		<javac srcdir="testsrc"
-				destdir="build/testclasses"
-				deprecation="on"
-				debug="on"
-				optimize="off">
+		<compile srcdir="testsrc">
 			<classpath>
-				<pathelement location="build/classes" />
+				<pathelement location="build/classes/src" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/easymock.jar" />
 			</classpath>
-			<compilerarg value="-Xlint" />
-			<compilerarg value="-encoding" />
-			<compilerarg value="ascii" />
-		</javac>
+		</compile>
 	</target>
 	
 	<target name="test.run" depends="test.compile">
@@ -51,8 +35,8 @@
 			<formatter type="brief" usefile="false" />
 			<formatter type="xml" />
 			<classpath>
-				<pathelement location="build/classes" />
-				<pathelement location="build/testclasses" />
+				<pathelement location="build/classes/src" />
+				<pathelement location="build/classes/testsrc" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/easymock.jar" />
 				<pathelement location="lib/cglib-nodep.jar" />
@@ -65,7 +49,7 @@
 	<target name="test" depends="test.run" />
 	
 	<target name="jar" depends="compile">
-		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes" filesonly="true" duplicate="fail" strict="fail" level="9">
+		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope util"/>
 				<attribute name="Specification-Version" value="${build.tag}"/>
@@ -127,8 +111,8 @@
 					outputFile="${basedir}/build/findbugs.${findbugs.output}"
 					effort="max"
 					reportlevel="low">
-			<class location="${basedir}/build/classes" />
-			<class location="${basedir}/build/testclasses" />
+			<class location="${basedir}/build/classes/src" />
+			<class location="${basedir}/build/classes/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/junit.jar" />
 			</auxclasspath>
