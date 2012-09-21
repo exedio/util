@@ -47,6 +47,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PoolCounterTest.class);
 		suite.addTestSuite(PropertiesTest.class);
 		suite.addTestSuite(PropertiesContextTest.class);
+		suite.addTestSuite(PropertiesContextNullTest.class);
 		suite.addTestSuite(PropertiesGetContextTest.class);
 		suite.addTestSuite(PropertiesDuplicateTest.class);
 		suite.addTestSuite(EmptySourceTest.class);
