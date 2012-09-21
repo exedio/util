@@ -31,11 +31,6 @@ public class PropertiesGetContextTest extends CopeAssert
 	{
 		final StringField stringMandatory = new StringField("stringMandatory");
 
-		TestProperties(final java.util.Properties source, final String sourceDescription)
-		{
-			super(getSource(source, sourceDescription), null);
-		}
-
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
 			super(getSource(source, sourceDescription), context);
