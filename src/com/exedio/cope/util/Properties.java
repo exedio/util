@@ -326,15 +326,6 @@ public class Properties
 			return Boolean.valueOf(value);
 		}
 
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public boolean booleanValue()
-		{
-			return get();
-		}
-
 		public boolean get()
 		{
 			return value;
@@ -347,6 +338,15 @@ public class Properties
 		 */
 		@Deprecated
 		public boolean getBooleanValue()
+		{
+			return get();
+		}
+
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
+		public boolean booleanValue()
 		{
 			return get();
 		}
@@ -400,15 +400,6 @@ public class Properties
 			return Integer.valueOf(value);
 		}
 
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public int intValue()
-		{
-			return get();
-		}
-
 		public int get()
 		{
 			return value;
@@ -421,6 +412,15 @@ public class Properties
 		 */
 		@Deprecated
 		public int getIntValue()
+		{
+			return get();
+		}
+
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
+		public int intValue()
 		{
 			return get();
 		}
@@ -485,15 +485,6 @@ public class Properties
 			return value;
 		}
 
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public String stringValue()
-		{
-			return get();
-		}
-
 		public String get()
 		{
 			return value;
@@ -525,6 +516,15 @@ public class Properties
 		{
 			return get();
 		}
+
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
+		public String stringValue()
+		{
+			return get();
+		}
 	}
 
 	public final class FileField extends Field
@@ -551,15 +551,6 @@ public class Properties
 			return value;
 		}
 
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public File fileValue()
-		{
-			return get();
-		}
-
 		public File get()
 		{
 			return value;
@@ -578,6 +569,15 @@ public class Properties
 		 */
 		@Deprecated
 		public File getFileValue()
+		{
+			return get();
+		}
+
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
+		public File fileValue()
 		{
 			return get();
 		}
