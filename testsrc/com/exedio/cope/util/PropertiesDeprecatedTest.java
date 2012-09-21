@@ -32,6 +32,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		final IntField int10 = new IntField("int10", 10, 5);
 		final StringField stringMandatory = new StringField("stringMandatory");
 		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
+		@SuppressWarnings("deprecation")
 		final StringField stringHidden = new StringField("stringHidden", true);
 		final FileField file = new FileField("file");
 		final MapField map = new MapField("map");

@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.concurrent.Callable;
 public class Properties
 {
 	final ArrayList<Field> fields = new ArrayList<Field>();
-	final HashSet<String> detectDuplicateKeys = new HashSet<String>();
+	final HashMap<String, Field> detectDuplicateKeys = new HashMap<String, Field>();
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
@@ -253,7 +254,7 @@ public class Properties
 		final String key;
 		private final boolean specified;
 
-		Field(final String key)
+		Field(final Field replacement, final String key)
 		{
 			this.key = key;
 			this.specified = source.get(key)!=null;
@@ -262,9 +263,11 @@ public class Properties
 				throw new NullPointerException("key");
 			if(key.length()==0)
 				throw new RuntimeException("key must not be empty.");
-			if(!detectDuplicateKeys.add(key))
+			if(detectDuplicateKeys.put(key, this)!=replacement)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
 
+			if(replacement!=null)
+				fields.remove(replacement);
 			fields.add(this);
 		}
 
@@ -294,7 +297,7 @@ public class Properties
 
 		public BooleanField(final String key, final boolean defaultValue)
 		{
-			super(key);
+			super(null, key);
 			this.defaultValue = defaultValue;
 
 			final String s = resolve(key);
@@ -345,7 +348,7 @@ public class Properties
 
 		public IntField(final String key, final int defaultValue, final int minimumValue)
 		{
-			super(key);
+			super(null, key);
 			this.defaultValue = defaultValue;
 
 			if(defaultValue<minimumValue)
@@ -412,12 +415,12 @@ public class Properties
 		 */
 		public StringField(final String key)
 		{
-			this(key, null, false);
+			this(null, key, null, false);
 		}
 
 		public StringField(final String key, final String defaultValue)
 		{
-			this(key, defaultValue, false);
+			this(null, key, defaultValue, false);
 
 			if(defaultValue==null)
 				throw new NullPointerException("defaultValue");
@@ -425,15 +428,17 @@ public class Properties
 
 		/**
 		 * Creates a mandatory string field.
+		 * @deprecated Use {@link #hide()} instead.
 		 */
+		@Deprecated
 		public StringField(final String key, final boolean hideValue)
 		{
-			this(key, null, hideValue);
+			this(null, key, null, hideValue);
 		}
 
-		private StringField(final String key, final String defaultValue, final boolean hideValue)
+		private StringField(final StringField replacement, final String key, final String defaultValue, final boolean hideValue)
 		{
-			super(key);
+			super(replacement, key);
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
 
@@ -449,6 +454,11 @@ public class Properties
 			}
 			else
 				this.value = s;
+		}
+
+		public StringField hide()
+		{
+			return new StringField(this, key, defaultValue, true);
 		}
 
 		@Override
@@ -490,7 +500,7 @@ public class Properties
 
 		public FileField(final String key)
 		{
-			super(key);
+			super(null, key);
 
 			final String valueString = resolve(key);
 			this.value = (valueString==null) ? null : new File(valueString);
@@ -535,7 +545,7 @@ public class Properties
 
 		public MapField(final String key)
 		{
-			super(key);
+			super(null, key);
 
 			value = new java.util.Properties();
 
