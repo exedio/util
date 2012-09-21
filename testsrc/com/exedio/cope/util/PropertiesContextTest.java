@@ -29,7 +29,7 @@ public class PropertiesContextTest extends CopeAssert
 {
 	static class TestProperties extends Properties
 	{
-		final StringField stringMandatory = new StringField("stringMandatory");
+		final StringField aField = new StringField("stringMandatory");
 
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
@@ -121,6 +121,6 @@ public class PropertiesContextTest extends CopeAssert
 
 	private static final void assertContext(final String replaced, final String raw)
 	{
-		assertEquals(replaced, getContext(raw).stringMandatory.stringValue());
+		assertEquals(replaced, getContext(raw).aField.stringValue());
 	}
 }
