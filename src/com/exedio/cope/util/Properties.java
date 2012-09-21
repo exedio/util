@@ -326,6 +326,13 @@ public class Properties
 			return Boolean.valueOf(value);
 		}
 
+		public boolean booleanValue()
+		{
+			return value;
+		}
+
+		// ------------------- deprecated stuff -------------------
+
 		/**
 		 * @deprecated Use {@link #booleanValue()} instead
 		 */
@@ -333,11 +340,6 @@ public class Properties
 		public boolean getBooleanValue()
 		{
 			return booleanValue();
-		}
-
-		public boolean booleanValue()
-		{
-			return value;
 		}
 	}
 
@@ -389,6 +391,13 @@ public class Properties
 			return Integer.valueOf(value);
 		}
 
+		public int intValue()
+		{
+			return value;
+		}
+
+		// ------------------- deprecated stuff -------------------
+
 		/**
 		 * @deprecated Use {@link #intValue()} instead
 		 */
@@ -396,11 +405,6 @@ public class Properties
 		public int getIntValue()
 		{
 			return intValue();
-		}
-
-		public int intValue()
-		{
-			return value;
 		}
 	}
 
@@ -424,16 +428,6 @@ public class Properties
 
 			if(defaultValue==null)
 				throw new NullPointerException("defaultValue");
-		}
-
-		/**
-		 * Creates a mandatory string field.
-		 * @deprecated Use {@link #hide()} instead.
-		 */
-		@Deprecated
-		public StringField(final String key, final boolean hideValue)
-		{
-			this(null, key, null, hideValue);
 		}
 
 		private StringField(final StringField replacement, final String key, final String defaultValue, final boolean hideValue)
@@ -473,15 +467,6 @@ public class Properties
 			return value;
 		}
 
-		/**
-		 * @deprecated Use {@link #stringValue()} instead
-		 */
-		@Deprecated
-		public String getStringValue()
-		{
-			return stringValue();
-		}
-
 		public String stringValue()
 		{
 			return value;
@@ -491,6 +476,27 @@ public class Properties
 		public boolean hasHiddenValue()
 		{
 			return hideValue;
+		}
+
+		// ------------------- deprecated stuff -------------------
+
+		/**
+		 * Creates a mandatory string field.
+		 * @deprecated Use {@link #hide()} instead.
+		 */
+		@Deprecated
+		public StringField(final String key, final boolean hideValue)
+		{
+			this(null, key, null, hideValue);
+		}
+
+		/**
+		 * @deprecated Use {@link #stringValue()} instead
+		 */
+		@Deprecated
+		public String getStringValue()
+		{
+			return stringValue();
 		}
 	}
 
@@ -518,15 +524,6 @@ public class Properties
 			return value;
 		}
 
-		/**
-		 * @deprecated Use {@link #fileValue()} instead
-		 */
-		@Deprecated
-		public File getFileValue()
-		{
-			return fileValue();
-		}
-
 		public File fileValue()
 		{
 			return value;
@@ -536,6 +533,17 @@ public class Properties
 		public boolean hasHiddenValue()
 		{
 			return false;
+		}
+
+		// ------------------- deprecated stuff -------------------
+
+		/**
+		 * @deprecated Use {@link #fileValue()} instead
+		 */
+		@Deprecated
+		public File getFileValue()
+		{
+			return fileValue();
 		}
 	}
 
@@ -574,15 +582,6 @@ public class Properties
 			return value;
 		}
 
-		/**
-		 * @deprecated Use {@link #mapValue()} instead
-		 */
-		@Deprecated
-		public java.util.Properties getMapValue()
-		{
-			return mapValue();
-		}
-
 		public java.util.Properties mapValue()
 		{
 			return value;
@@ -591,6 +590,17 @@ public class Properties
 		public String getValue(final String key)
 		{
 			return value.getProperty(key);
+		}
+
+		// ------------------- deprecated stuff -------------------
+
+		/**
+		 * @deprecated Use {@link #mapValue()} instead
+		 */
+		@Deprecated
+		public java.util.Properties getMapValue()
+		{
+			return mapValue();
 		}
 	}
 
