@@ -31,7 +31,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 
 		DuplicateProperties()
 		{
-			super(getSource(new java.util.Properties(), "duplicateDescriptin"), null);
+			super(Properties.EMPTY_SOURCE, null);
 		}
 	}
 
