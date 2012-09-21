@@ -102,7 +102,6 @@ public class PropertiesContextTest extends CopeAssert
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", raw);
-		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
 		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Source(){
 
 			public String get(final String key)
