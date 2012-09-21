@@ -40,18 +40,6 @@ public class PropertiesGetContextTest extends CopeAssert
 		{
 			super(getSource(source, sourceDescription), context);
 		}
-
-		void assertIt()
-		{
-			assertEquals(list(), getTests());
-			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
-					stringMandatory,
-			}), getFields());
-
-			assertEquals("stringMandatory", stringMandatory.getKey());
-			assertEquals(null, stringMandatory.getDefaultValue());
-			assertEquals(false, stringMandatory.hasHiddenValue());
-		}
 	}
 
 	public void testGetContext()
