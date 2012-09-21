@@ -29,7 +29,7 @@ public class PropertiesContextTest extends CopeAssert
 {
 	static class TestProperties extends Properties
 	{
-		final StringField aField = new StringField("stringMandatory");
+		final StringField aField = new StringField("aKey");
 
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
@@ -82,7 +82,7 @@ public class PropertiesContextTest extends CopeAssert
 	private static final TestProperties getContext(final String raw)
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
-		pminimal.setProperty("stringMandatory", raw);
+		pminimal.setProperty("aKey", raw);
 		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Source(){
 
 			public String get(final String key)
