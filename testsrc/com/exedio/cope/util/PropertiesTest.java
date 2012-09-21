@@ -523,30 +523,4 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("no context available", e.getMessage());
 		}
 	}
-
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("URF_UNREAD_FIELD") // is read by reflection
-	static class DuplicateProperties extends Properties
-	{
-		final BooleanField duplicate1 = new BooleanField("duplicate", false);
-		final BooleanField duplicate2 = new BooleanField("duplicate", true);
-
-		DuplicateProperties()
-		{
-			super(getSource(new java.util.Properties(), "duplicateDescriptin"), null);
-		}
-	}
-
-	@SuppressWarnings("unused")
-	public void testDuplicate()
-	{
-		try
-		{
-			new DuplicateProperties();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("duplicate key 'duplicate'", e.getMessage());
-		}
-	}
 }
