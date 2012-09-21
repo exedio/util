@@ -119,19 +119,19 @@ public class PropertiesTest extends CopeAssert
 		minimal.assertIt();
 		assertEquals("minimal", minimal.getSource());
 
-		assertEquals(false, minimal.boolFalse.booleanValue());
-		assertEquals(true, minimal.boolTrue.booleanValue());
+		assertEquals(false, minimal.boolFalse.get());
+		assertEquals(true, minimal.boolTrue.get());
 		assertEquals(Boolean.FALSE, minimal.boolFalse.getValue());
 		assertEquals(Boolean.TRUE, minimal.boolTrue.getValue());
-		assertEquals(10, minimal.int10.intValue());
+		assertEquals(10, minimal.int10.get());
 		assertEquals(Integer.valueOf(10), minimal.int10.getValue());
-		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.stringValue());
-		assertEquals("stringOptional.defaultValue", minimal.stringOptional.stringValue());
-		assertEquals("stringHidden.minimalValue", minimal.stringHidden.stringValue());
+		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.get());
+		assertEquals("stringOptional.defaultValue", minimal.stringOptional.get());
+		assertEquals("stringHidden.minimalValue", minimal.stringHidden.get());
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory.getValue());
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden.getValue());
-		assertEquals(null, minimal.file.fileValue());
+		assertEquals(null, minimal.file.get());
 		assertEquals(null, minimal.file.getValue());
 		assertEquals(new java.util.Properties(), minimal.map.mapValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
@@ -168,19 +168,19 @@ public class PropertiesTest extends CopeAssert
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
 
-			assertEquals(true, tp.boolFalse.booleanValue());
-			assertEquals(false, tp.boolTrue.booleanValue());
+			assertEquals(true, tp.boolFalse.get());
+			assertEquals(false, tp.boolTrue.get());
 			assertEquals(Boolean.TRUE, tp.boolFalse.getValue());
 			assertEquals(Boolean.FALSE, tp.boolTrue.getValue());
-			assertEquals(20, tp.int10.intValue());
+			assertEquals(20, tp.int10.get());
 			assertEquals(Integer.valueOf(20), tp.int10.getValue());
-			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.stringValue());
-			assertEquals("stringOptional.explicitValue", tp.stringOptional.stringValue());
-			assertEquals("stringHidden.explicitValue", tp.stringHidden.stringValue());
+			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.get());
+			assertEquals("stringOptional.explicitValue", tp.stringOptional.get());
+			assertEquals("stringHidden.explicitValue", tp.stringHidden.get());
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory.getValue());
 			assertEquals("stringOptional.explicitValue", tp.stringOptional.getValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHidden.getValue());
-			assertEquals(file1, tp.file.fileValue());
+			assertEquals(file1, tp.file.get());
 			assertEquals(file1, tp.file.getValue());
 			final java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
@@ -251,7 +251,7 @@ public class PropertiesTest extends CopeAssert
 			final java.util.Properties p = copy(pminimal);
 			p.setProperty("int10", "5");
 			final TestProperties tp = new TestProperties(p, "int.border");
-			assertEquals(5, tp.int10.intValue());
+			assertEquals(5, tp.int10.get());
 			assertEquals(Integer.valueOf(5), tp.int10.getValue());
 		}
 		assertWrong(pminimal,

@@ -121,6 +121,6 @@ public class PropertiesContextTest extends CopeAssert
 
 	private static final void assertContext(final String replaced, final String raw)
 	{
-		assertEquals(replaced, getContext(raw).aField.stringValue());
+		assertEquals(replaced, getContext(raw).aField.get());
 	}
 }

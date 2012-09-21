@@ -326,7 +326,16 @@ public class Properties
 			return Boolean.valueOf(value);
 		}
 
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
 		public boolean booleanValue()
+		{
+			return get();
+		}
+
+		public boolean get()
 		{
 			return value;
 		}
@@ -334,12 +343,12 @@ public class Properties
 		// ------------------- deprecated stuff -------------------
 
 		/**
-		 * @deprecated Use {@link #booleanValue()} instead
+		 * @deprecated Use {@link #get()} instead
 		 */
 		@Deprecated
 		public boolean getBooleanValue()
 		{
-			return booleanValue();
+			return get();
 		}
 	}
 
@@ -391,7 +400,16 @@ public class Properties
 			return Integer.valueOf(value);
 		}
 
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
 		public int intValue()
+		{
+			return get();
+		}
+
+		public int get()
 		{
 			return value;
 		}
@@ -399,12 +417,12 @@ public class Properties
 		// ------------------- deprecated stuff -------------------
 
 		/**
-		 * @deprecated Use {@link #intValue()} instead
+		 * @deprecated Use {@link #get()} instead
 		 */
 		@Deprecated
 		public int getIntValue()
 		{
-			return intValue();
+			return get();
 		}
 	}
 
@@ -467,7 +485,16 @@ public class Properties
 			return value;
 		}
 
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
 		public String stringValue()
+		{
+			return get();
+		}
+
+		public String get()
 		{
 			return value;
 		}
@@ -491,12 +518,12 @@ public class Properties
 		}
 
 		/**
-		 * @deprecated Use {@link #stringValue()} instead
+		 * @deprecated Use {@link #get()} instead
 		 */
 		@Deprecated
 		public String getStringValue()
 		{
-			return stringValue();
+			return get();
 		}
 	}
 
@@ -524,7 +551,16 @@ public class Properties
 			return value;
 		}
 
+		/**
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
 		public File fileValue()
+		{
+			return get();
+		}
+
+		public File get()
 		{
 			return value;
 		}
@@ -538,12 +574,12 @@ public class Properties
 		// ------------------- deprecated stuff -------------------
 
 		/**
-		 * @deprecated Use {@link #fileValue()} instead
+		 * @deprecated Use {@link #get()} instead
 		 */
 		@Deprecated
 		public File getFileValue()
 		{
-			return fileValue();
+			return get();
 		}
 	}
 

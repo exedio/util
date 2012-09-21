@@ -61,6 +61,6 @@ public class PropertiesContextNullTest extends CopeAssert
 
 	private static final void assertContext(final String raw)
 	{
-		assertEquals(raw, getContext(raw).aField.stringValue());
+		assertEquals(raw, getContext(raw).aField.get());
 	}
 }
