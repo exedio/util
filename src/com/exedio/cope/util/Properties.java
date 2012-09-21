@@ -356,14 +356,16 @@ public class Properties
 	{
 		private final int defaultValue;
 		private final int value;
+		private final int minimum;
 
-		public IntField(final String key, final int defaultValue, final int minimumValue)
+		public IntField(final String key, final int defaultValue, final int minimum)
 		{
 			super(null, key);
 			this.defaultValue = defaultValue;
+			this.minimum = minimum;
 
-			if(defaultValue<minimumValue)
-				throw new RuntimeException(key+defaultValue+','+minimumValue);
+			if(defaultValue<minimum)
+				throw new RuntimeException(key+defaultValue+','+minimum);
 
 			final String s = resolve(key);
 			if(s==null)
@@ -378,13 +380,13 @@ public class Properties
 				{
 					throw new IllegalArgumentException(
 							"property " + key + " in " + sourceDescription + " has invalid value, " +
-							"expected an integer greater or equal " + minimumValue + ", but got >" + s + "<.", e);
+							"expected an integer greater or equal " + minimum + ", but got >" + s + "<.", e);
 				}
 
-				if(value<minimumValue)
+				if(value<minimum)
 					throw new IllegalArgumentException(
 							"property " + key + " in " + sourceDescription + " has invalid value, " +
-							"expected an integer greater or equal " + minimumValue + ", but got " + value + '.');
+							"expected an integer greater or equal " + minimum + ", but got " + value + '.');
 			}
 		}
 
@@ -398,6 +400,11 @@ public class Properties
 		public Object getValue()
 		{
 			return Integer.valueOf(value);
+		}
+
+		public int getMinimum()
+		{
+			return minimum;
 		}
 
 		public int get()

@@ -68,6 +68,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
 			assertEquals(Integer.valueOf(10), int10.getDefaultValue());
+			assertEquals(5, int10.getMinimum());
 			assertEquals(null, stringMandatory.getDefaultValue());
 			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
 			assertEquals(null, stringHidden.getDefaultValue());
