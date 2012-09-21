@@ -20,8 +20,6 @@ package com.exedio.cope.util;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -408,119 +406,5 @@ public class PropertiesTest extends CopeAssert
 	private static final java.util.Properties copy(final java.util.Properties source)
 	{
 		return (java.util.Properties)source.clone();
-	}
-
-	public void testGetContext()
-	{
-		final java.util.Properties pcontext = new java.util.Properties();
-		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
-		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
-
-		final Properties.Source context = new Properties.Source(){
-
-			public String get(final String key)
-			{
-				throw new RuntimeException(key);
-			}
-
-			public Collection<String> keySet()
-			{
-				throw new RuntimeException();
-			}
-
-			public String getDescription()
-			{
-				throw new RuntimeException();
-			}
-
-			@Override
-			public String toString()
-			{
-				throw new RuntimeException();
-			}
-		};
-		final TestProperties properties = new TestProperties(pcontext, "context", context);
-		assertSame(context, properties.getContext());
-
-		final TestProperties none = new TestProperties(pcontext, "none", null);
-		try
-		{
-			none.getContext();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
-		}
-	}
-
-	@Deprecated
-	public void testGetContextDeprecated()
-	{
-		final java.util.Properties pcontext = new java.util.Properties();
-		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
-		pcontext.setProperty("stringHidden", "stringHidden.minimalValue");
-		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Source(){
-
-			public String get(final String key)
-			{
-				if("a".equals(key))
-					return "b";
-				else if("a1".equals(key))
-					return "b1";
-				else if("n".equals(key))
-					return null;
-				else
-					throw new RuntimeException(key);
-			}
-
-			public Collection<String> keySet()
-			{
-				return Collections.unmodifiableList(Arrays.asList("a", "a1"));
-			}
-
-			public String getDescription()
-			{
-				return "TestGetContextDescription";
-			}
-
-			@Override
-			public String toString()
-			{
-				return "TestGetContextToString";
-			}
-		});
-		assertEquals("b", context.getContext("a"));
-		assertEquals("b1", context.getContext("a1"));
-
-		try
-		{
-			context.getContext(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			context.getContext("n");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no value available for key >n< in context TestGetContextDescription", e.getMessage());
-		}
-
-		final TestProperties none = new TestProperties(pcontext, "none", null);
-		try
-		{
-			none.getContext("c");
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
-		}
 	}
 }
