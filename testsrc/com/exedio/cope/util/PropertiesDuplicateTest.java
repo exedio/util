@@ -26,8 +26,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class DuplicateProperties extends Properties
 	{
-		final BooleanField duplicate1 = new BooleanField("duplicate", false);
-		final BooleanField duplicate2 = new BooleanField("duplicate", true);
+		final BooleanField duplicate1 = field("duplicate", false);
+		final BooleanField duplicate2 = field("duplicate", true);
 
 		DuplicateProperties()
 		{

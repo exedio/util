@@ -30,7 +30,7 @@ public class PropertiesGetContextTest extends CopeAssert
 	static class TestProperties extends Properties
 	{
 		@edu.umd.cs.findbugs.annotations.SuppressWarnings("URF_UNREAD_FIELD") // is read by reflection
-		final StringField stringMandatory = new StringField("stringMandatory");
+		final StringField stringMandatory = field("stringMandatory", (String)null);
 
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{

@@ -28,12 +28,12 @@ public class PropertiesTest extends CopeAssert
 {
 	static class TestProperties extends Properties
 	{
-		final BooleanField boolFalse = new BooleanField("boolFalse", false);
-		final BooleanField boolTrue = new BooleanField("boolTrue", true);
-		final IntField int10 = new IntField("int10", 10, 5);
-		final StringField stringMandatory = new StringField("stringMandatory");
-		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
-		final StringField stringHidden = new StringField("stringHidden").hide();
+		final BooleanField boolFalse = field("boolFalse", false);
+		final BooleanField boolTrue = field("boolTrue", true);
+		final IntField int10 = field("int10", 10, 5);
+		final StringField stringMandatory = field("stringMandatory", (String)null);
+		final StringField stringOptional = field("stringOptional", "stringOptional.defaultValue");
+		final StringField stringHidden = field("stringHidden", (String)null).hide();
 		final FileField file = new FileField("file");
 		final MapField map = new MapField("map");
 

@@ -290,11 +290,20 @@ public class Properties
 		}
 	}
 
+	protected final BooleanField field(final String key, final boolean defaultValue)
+	{
+		return new BooleanField(key, defaultValue);
+	}
+
 	public final class BooleanField extends Field
 	{
 		private final boolean defaultValue;
 		private final boolean value;
 
+		/**
+		 * @deprecated Use {@link Properties#field(String, boolean)} instead
+		 */
+		@Deprecated
 		public BooleanField(final String key, final boolean defaultValue)
 		{
 			super(null, key);
@@ -352,12 +361,21 @@ public class Properties
 		}
 	}
 
+	protected final IntField field(final String key, final int defaultValue, final int minimum)
+	{
+		return new IntField(key, defaultValue, minimum);
+	}
+
 	public final class IntField extends Field
 	{
 		private final int defaultValue;
 		private final int value;
 		private final int minimum;
 
+		/**
+		 * @deprecated Use {@link Properties#field(String, int, int)} instead
+		 */
+		@Deprecated
 		public IntField(final String key, final int defaultValue, final int minimum)
 		{
 			super(null, key);
@@ -433,6 +451,14 @@ public class Properties
 		}
 	}
 
+	protected final StringField field(final String key, final String defaultValue)
+	{
+		return
+			defaultValue!=null
+			? new StringField(key, defaultValue)
+			: new StringField(key);
+	}
+
 	public final class StringField extends Field
 	{
 		private final String defaultValue;
@@ -441,12 +467,18 @@ public class Properties
 
 		/**
 		 * Creates a mandatory string field.
+		 * @deprecated Use {@link Properties#field(String, String)} instead
 		 */
+		@Deprecated
 		public StringField(final String key)
 		{
 			this(null, key, null, false);
 		}
 
+		/**
+		 * @deprecated Use {@link Properties#field(String, String)} instead
+		 */
+		@Deprecated
 		public StringField(final String key, final String defaultValue)
 		{
 			this(null, key, defaultValue, false);

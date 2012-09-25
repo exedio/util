@@ -27,10 +27,15 @@ public class PropertiesDeprecatedTest extends CopeAssert
 {
 	static class TestProperties extends Properties
 	{
+		@SuppressWarnings("deprecation")
 		final BooleanField boolFalse = new BooleanField("boolFalse", false);
+		@SuppressWarnings("deprecation")
 		final BooleanField boolTrue = new BooleanField("boolTrue", true);
+		@SuppressWarnings("deprecation")
 		final IntField int10 = new IntField("int10", 10, 5);
+		@SuppressWarnings("deprecation")
 		final StringField stringMandatory = new StringField("stringMandatory");
+		@SuppressWarnings("deprecation")
 		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
 		@SuppressWarnings("deprecation")
 		final StringField stringHidden = new StringField("stringHidden", true);

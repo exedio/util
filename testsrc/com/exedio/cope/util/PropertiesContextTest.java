@@ -29,7 +29,7 @@ public class PropertiesContextTest extends CopeAssert
 {
 	static class TestProperties extends Properties
 	{
-		final StringField aField = new StringField("aKey");
+		final StringField aField = field("aKey", (String)null);
 
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
