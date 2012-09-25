@@ -50,6 +50,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PropertiesContextNullTest.class);
 		suite.addTestSuite(PropertiesGetContextTest.class);
 		suite.addTestSuite(PropertiesDuplicateTest.class);
+		suite.addTestSuite(PropertiesNestedTest.class);
 		suite.addTestSuite(PropertiesDeprecatedTest.class);
 		suite.addTestSuite(EmptySourceTest.class);
 		suite.addTestSuite(SystemPropertySourceTest.class);

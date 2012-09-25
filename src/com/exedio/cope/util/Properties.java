@@ -21,6 +21,8 @@ package com.exedio.cope.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -676,6 +678,65 @@ public class Properties
 		public java.util.Properties getMapValue()
 		{
 			return mapValue();
+		}
+	}
+
+	protected final <T extends Properties> NestedField<T> field(final String key, final Class<T> nested)
+	{
+		return new NestedField<T>(key, nested);
+	}
+
+	public final class NestedField<T extends Properties> extends Field
+	{
+		private final T nested;
+
+		NestedField(final String key, final Class<T> nestedClass)
+		{
+			super(null, key + '.');
+			final Constructor<T> constructor;
+			try
+			{
+				constructor = nestedClass.getDeclaredConstructor(Source.class);
+			}
+			catch(final NoSuchMethodException e)
+			{
+				throw new RuntimeException(e);
+			}
+			constructor.setAccessible(true);
+			final Source source = new PrefixSource(Properties.this.source, key + '.');
+			try
+			{
+				nested = constructor.newInstance(source);
+			}
+			catch(final InstantiationException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(final IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(final InvocationTargetException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+
+		@Override
+		public T getDefaultValue()
+		{
+			return null;
+		}
+
+		@Override
+		public T getValue()
+		{
+			return nested;
+		}
+
+		public T get()
+		{
+			return nested;
 		}
 	}
 
