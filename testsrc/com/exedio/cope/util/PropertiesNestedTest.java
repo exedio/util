@@ -149,8 +149,6 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(109, inner.inner1.get());
 		assertEquals(102, inner.inner2.get());
 
-		// TODO ensureEquality
-		// TODO ensureValidity
 		// TODO key collisions
 	}
 }
