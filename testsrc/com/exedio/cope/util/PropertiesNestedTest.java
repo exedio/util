@@ -148,7 +148,5 @@ public class PropertiesNestedTest extends CopeAssert
 		inner.assertIt();
 		assertEquals(109, inner.inner1.get());
 		assertEquals(102, inner.inner2.get());
-
-		// TODO key collisions
 	}
 }

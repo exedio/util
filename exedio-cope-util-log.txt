@@ -8,6 +8,7 @@ The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
 * Properties supports nested properties
+	- TODO key collisions
 * JobContext#requestedToStop deprecated
 * CharsetName added.
 * add Day#after(Day) method
