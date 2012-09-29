@@ -29,7 +29,7 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final IntField outer1 = field("outer1", 1001, 501);
 		final IntField outer2 = field("outer2", 1002, 502);
-		final NestedField<InnerProperties> nested = field("nested", InnerProperties.factory());
+		final NestedField<InnerProperties> nested = fields("nested", InnerProperties.factory());
 		final IntField nestedInner1 = (IntField)fields.get(fields.size()-2);
 		final IntField nestedInner2 = (IntField)fields.get(fields.size()-1);
 

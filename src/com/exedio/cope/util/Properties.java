@@ -679,7 +679,7 @@ public class Properties
 		}
 	}
 
-	protected final <T extends Properties> NestedField<T> field(final String rootKey, final Factory<T> factory)
+	protected final <T extends Properties> NestedField<T> fields(final String rootKey, final Factory<T> factory)
 	{
 		return new NestedField<T>(rootKey, factory);
 	}
