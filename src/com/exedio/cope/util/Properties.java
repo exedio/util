@@ -698,7 +698,7 @@ public class Properties
 		{
 			this.rootKey = rootKey;
 			final String prefix = rootKey + '.';
-			final Source source = new PrefixSource(Properties.this.source, rootKey + '.');
+			final Source source = new PrefixSource(Properties.this.source, prefix);
 			value = factory.create(source);
 			for(final Field field : value.fields)
 			{
