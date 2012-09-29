@@ -691,13 +691,13 @@ public class Properties
 
 	public final class NestedField<T extends Properties> extends Field
 	{
-		private final T nested;
+		private final T value;
 
 		NestedField(final String key, final Factory<T> factory)
 		{
 			super(null, key + '.');
 			final Source source = new PrefixSource(Properties.this.source, key + '.');
-			nested = factory.create(source);
+			value = factory.create(source);
 		}
 
 		@Override
@@ -709,12 +709,12 @@ public class Properties
 		@Override
 		public T getValue()
 		{
-			return nested;
+			return value;
 		}
 
 		public T get()
 		{
-			return nested;
+			return value;
 		}
 	}
 
