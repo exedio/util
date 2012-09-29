@@ -29,7 +29,7 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final IntField outer1 = field("outer1", 1001, 501);
 		final IntField outer2 = field("outer2", 1002, 502);
-		final NestedField<InnerProperties> nested = field("nested", InnerProperties.class);
+		final NestedField<InnerProperties> nested = field("nested", InnerProperties.factory());
 
 		OuterProperties(final java.util.Properties source)
 		{
@@ -65,10 +65,21 @@ public class PropertiesNestedTest extends CopeAssert
 
 	static class InnerProperties extends Properties
 	{
+		static Factory<InnerProperties> factory()
+		{
+			return new Factory<InnerProperties>()
+			{
+				public InnerProperties create(final Source source)
+				{
+					return new InnerProperties(source);
+				}
+			};
+		}
+
 		final IntField inner1 = field("inner1", 101, 51);
 		final IntField inner2 = field("inner2", 102, 52);
 
-		private InnerProperties(final Source source)
+		InnerProperties(final Source source)
 		{
 			super(source, null);
 		}

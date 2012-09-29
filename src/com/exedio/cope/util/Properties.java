@@ -21,8 +21,6 @@ package com.exedio.cope.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -681,45 +679,25 @@ public class Properties
 		}
 	}
 
-	protected final <T extends Properties> NestedField<T> field(final String key, final Class<T> nested)
+	protected final <T extends Properties> NestedField<T> field(final String key, final Factory<T> factory)
 	{
-		return new NestedField<T>(key, nested);
+		return new NestedField<T>(key, factory);
+	}
+
+	public static interface Factory<T extends Properties>
+	{
+		T create(Source source);
 	}
 
 	public final class NestedField<T extends Properties> extends Field
 	{
 		private final T nested;
 
-		NestedField(final String key, final Class<T> nestedClass)
+		NestedField(final String key, final Factory<T> factory)
 		{
 			super(null, key + '.');
-			final Constructor<T> constructor;
-			try
-			{
-				constructor = nestedClass.getDeclaredConstructor(Source.class);
-			}
-			catch(final NoSuchMethodException e)
-			{
-				throw new RuntimeException(e);
-			}
-			constructor.setAccessible(true);
 			final Source source = new PrefixSource(Properties.this.source, key + '.');
-			try
-			{
-				nested = constructor.newInstance(source);
-			}
-			catch(final InstantiationException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch(final IllegalAccessException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch(final InvocationTargetException e)
-			{
-				throw new RuntimeException(e);
-			}
+			nested = factory.create(source);
 		}
 
 		@Override
