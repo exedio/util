@@ -42,20 +42,17 @@ public class PropertiesNestedTest extends CopeAssert
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					outer1,
 					outer2,
-					nested,
 			}), getFields());
 
 			assertEquals("outer1", outer1.getKey());
 			assertEquals("outer2", outer2.getKey());
-			assertEquals("nested.", nested.getKey());
+			assertEquals("nested", nested.getRootKey());
 
 			assertEquals(Integer.valueOf(1001), outer1.getDefaultValue());
 			assertEquals(Integer.valueOf(1002), outer2.getDefaultValue());
-			assertEquals(null, nested.getDefaultValue());
 
 			assertEquals(false, outer1.hasHiddenValue());
 			assertEquals(false, outer2.hasHiddenValue());
-			assertEquals(false, nested.hasHiddenValue());
 
 			assertEquals(501, outer1.getMinimum());
 			assertEquals(502, outer2.getMinimum());
@@ -117,7 +114,6 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final InnerProperties inner = outer.nested.get();
 		inner.assertIt();
-		assertSame(inner, outer.nested.getValue());
 		assertEquals(101, inner.inner1.get());
 		assertEquals(102, inner.inner2.get());
 	}
@@ -135,7 +131,6 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final InnerProperties inner = outer.nested.get();
 		inner.assertIt();
-		assertSame(inner, outer.nested.getValue());
 		assertEquals(109, inner.inner1.get());
 		assertEquals(102, inner.inner2.get());
 

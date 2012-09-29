@@ -689,27 +689,21 @@ public class Properties
 		T create(Source source);
 	}
 
-	public final class NestedField<T extends Properties> extends Field
+	public final class NestedField<T extends Properties>
 	{
+		private final String rootKey;
 		private final T value;
 
 		NestedField(final String key, final Factory<T> factory)
 		{
-			super(null, key + '.');
+			this.rootKey = key;
 			final Source source = new PrefixSource(Properties.this.source, key + '.');
 			value = factory.create(source);
 		}
 
-		@Override
-		public T getDefaultValue()
+		String getRootKey()
 		{
-			return null;
-		}
-
-		@Override
-		public T getValue()
-		{
-			return value;
+			return rootKey;
 		}
 
 		public T get()
