@@ -697,8 +697,25 @@ public class Properties
 		NestedField(final String rootKey, final Factory<T> factory)
 		{
 			this.rootKey = rootKey;
+			final String prefix = rootKey + '.';
 			final Source source = new PrefixSource(Properties.this.source, rootKey + '.');
 			value = factory.create(source);
+			for(final Field field : value.fields)
+			{
+				final String key = prefix + field.key;
+				if(field instanceof BooleanField)
+					new BooleanField(key, ((BooleanField)field).defaultValue);
+				else if(field instanceof IntField)
+					new IntField(key, ((IntField)field).defaultValue, ((IntField)field).minimum);
+				else if(field instanceof StringField)
+					new StringField(null, key, ((StringField)field).defaultValue, ((StringField)field).hideValue);
+				else if(field instanceof FileField)
+					new FileField(key);
+				else if(field instanceof MapField)
+					new MapField(key);
+				else
+					throw new RuntimeException(field.getClass().getName());
+			}
 		}
 
 		String getRootKey()
