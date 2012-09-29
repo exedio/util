@@ -141,5 +141,6 @@ public class PropertiesNestedTest extends CopeAssert
 
 		// TODO ensureEquality
 		// TODO ensureValidity
+		// TODO key collisions
 	}
 }
