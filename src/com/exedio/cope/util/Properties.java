@@ -679,9 +679,9 @@ public class Properties
 		}
 	}
 
-	protected final <T extends Properties> NestedField<T> field(final String key, final Factory<T> factory)
+	protected final <T extends Properties> NestedField<T> field(final String rootKey, final Factory<T> factory)
 	{
-		return new NestedField<T>(key, factory);
+		return new NestedField<T>(rootKey, factory);
 	}
 
 	public static interface Factory<T extends Properties>
@@ -694,10 +694,10 @@ public class Properties
 		private final String rootKey;
 		private final T value;
 
-		NestedField(final String key, final Factory<T> factory)
+		NestedField(final String rootKey, final Factory<T> factory)
 		{
-			this.rootKey = key;
-			final Source source = new PrefixSource(Properties.this.source, key + '.');
+			this.rootKey = rootKey;
+			final Source source = new PrefixSource(Properties.this.source, rootKey + '.');
 			value = factory.create(source);
 		}
 
