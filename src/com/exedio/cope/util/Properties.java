@@ -716,7 +716,7 @@ public class Properties
 
 	protected final <T extends Properties> NestedField<T> fields(final String rootKey, final Factory<T> factory)
 	{
-		return new NestedField<T>(rootKey, factory);
+		return new NestedField<T>(this, rootKey, factory);
 	}
 
 	public static interface Factory<T extends Properties>
@@ -724,38 +724,22 @@ public class Properties
 		T create(Source source);
 	}
 
-	public final class NestedField<T extends Properties>
+	public static final class NestedField<T extends Properties>
 	{
 		private final String rootKey;
 		private final T value;
 
-		NestedField(final String rootKey, final Factory<T> factory)
+		NestedField(final Properties properties, final String rootKey, final Factory<T> factory)
 		{
 			this.rootKey = rootKey;
 			final String prefix = rootKey + '.';
-			final Source source = new PrefixSource(Properties.this.source, prefix);
+			final Source source = new PrefixSource(properties.source, prefix);
 			value = factory.create(source);
 			for(final Field field : value.fields)
 			{
 				final String key = prefix + field.key;
-				if(field instanceof BooleanField)
-					ignore(new BooleanField(key, (BooleanField)field));
-				else if(field instanceof IntField)
-					ignore(new IntField(key, (IntField)field));
-				else if(field instanceof StringField)
-					ignore(new StringField(key, (StringField)field));
-				else if(field instanceof FileField)
-					ignore(new FileField(key, (FileField)field));
-				else if(field instanceof MapField)
-					ignore(new MapField(key, (MapField)field));
-				else
-					throw new RuntimeException(field.getClass().getName());
+				properties.copy(key, field);
 			}
-		}
-
-		private void ignore(@SuppressWarnings("unused") final Field f)
-		{
-			// just ignore
 		}
 
 		String getRootKey()
@@ -767,6 +751,27 @@ public class Properties
 		{
 			return value;
 		}
+	}
+
+	final void copy(final String key, final Field field)
+	{
+		if(field instanceof BooleanField)
+			ignore(new BooleanField(key, (BooleanField)field));
+		else if(field instanceof IntField)
+			ignore(new IntField(key, (IntField)field));
+		else if(field instanceof StringField)
+			ignore(new StringField(key, (StringField)field));
+		else if(field instanceof FileField)
+			ignore(new FileField(key, (FileField)field));
+		else if(field instanceof MapField)
+			ignore(new MapField(key, (MapField)field));
+		else
+			throw new RuntimeException(field.getClass().getName());
+	}
+
+	private static void ignore(@SuppressWarnings("unused") final Field f)
+	{
+		// just ignore
 	}
 
 	public final void ensureValidity(final String... prefixes)
