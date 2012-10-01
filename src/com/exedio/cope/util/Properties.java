@@ -323,6 +323,13 @@ public class Properties
 			}
 		}
 
+		private BooleanField(final String key, final BooleanField template)
+		{
+			super(null, key);
+			this.defaultValue = template.defaultValue;
+			this.value = template.value;
+		}
+
 		@Override
 		public Object getDefaultValue()
 		{
@@ -406,6 +413,14 @@ public class Properties
 							"property " + key + " in " + sourceDescription + " has invalid value, " +
 							"expected an integer greater or equal " + minimum + ", but got " + value + '.');
 			}
+		}
+
+		private IntField(final String key, final IntField template)
+		{
+			super(null, key);
+			this.defaultValue = template.defaultValue;
+			this.value = template.value;
+			this.minimum = template.minimum;
 		}
 
 		@Override
@@ -507,6 +522,14 @@ public class Properties
 				this.value = s;
 		}
 
+		private StringField(final String key, final StringField template)
+		{
+			super(null, key);
+			this.defaultValue = template.defaultValue;
+			this.hideValue = template.hideValue;
+			this.value = template.value;
+		}
+
 		public StringField hide()
 		{
 			return new StringField(this, key, defaultValue, true);
@@ -578,6 +601,12 @@ public class Properties
 			this.value = (valueString==null) ? null : new File(valueString);
 		}
 
+		private FileField(final String key, final FileField template)
+		{
+			super(null, key);
+			this.value = template.value;
+		}
+
 		@Override
 		public Object getDefaultValue()
 		{
@@ -645,6 +674,12 @@ public class Properties
 			}
 		}
 
+		private MapField(final String key, final MapField template)
+		{
+			super(null, key);
+			this.value = template.value;
+		}
+
 		@Override
 		public Object getDefaultValue()
 		{
@@ -704,15 +739,15 @@ public class Properties
 			{
 				final String key = prefix + field.key;
 				if(field instanceof BooleanField)
-					new BooleanField(key, ((BooleanField)field).defaultValue);
+					new BooleanField(key, (BooleanField)field);
 				else if(field instanceof IntField)
-					new IntField(key, ((IntField)field).defaultValue, ((IntField)field).minimum);
+					new IntField(key, (IntField)field);
 				else if(field instanceof StringField)
-					new StringField(null, key, ((StringField)field).defaultValue, ((StringField)field).hideValue);
+					new StringField(key, (StringField)field);
 				else if(field instanceof FileField)
-					new FileField(key);
+					new FileField(key, (FileField)field);
 				else if(field instanceof MapField)
-					new MapField(key);
+					new MapField(key, (MapField)field);
 				else
 					throw new RuntimeException(field.getClass().getName());
 			}
