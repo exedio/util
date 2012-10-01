@@ -323,7 +323,7 @@ public class Properties
 			}
 		}
 
-		private BooleanField(final String key, final BooleanField template)
+		BooleanField(final String key, final BooleanField template)
 		{
 			super(null, key);
 			this.defaultValue = template.defaultValue;
@@ -415,7 +415,7 @@ public class Properties
 			}
 		}
 
-		private IntField(final String key, final IntField template)
+		IntField(final String key, final IntField template)
 		{
 			super(null, key);
 			this.defaultValue = template.defaultValue;
@@ -522,7 +522,7 @@ public class Properties
 				this.value = s;
 		}
 
-		private StringField(final String key, final StringField template)
+		StringField(final String key, final StringField template)
 		{
 			super(null, key);
 			this.defaultValue = template.defaultValue;
@@ -601,7 +601,7 @@ public class Properties
 			this.value = (valueString==null) ? null : new File(valueString);
 		}
 
-		private FileField(final String key, final FileField template)
+		FileField(final String key, final FileField template)
 		{
 			super(null, key);
 			this.value = template.value;
@@ -674,7 +674,7 @@ public class Properties
 			}
 		}
 
-		private MapField(final String key, final MapField template)
+		MapField(final String key, final MapField template)
 		{
 			super(null, key);
 			this.value = template.value;
@@ -739,18 +739,23 @@ public class Properties
 			{
 				final String key = prefix + field.key;
 				if(field instanceof BooleanField)
-					new BooleanField(key, (BooleanField)field);
+					ignore(new BooleanField(key, (BooleanField)field));
 				else if(field instanceof IntField)
-					new IntField(key, (IntField)field);
+					ignore(new IntField(key, (IntField)field));
 				else if(field instanceof StringField)
-					new StringField(key, (StringField)field);
+					ignore(new StringField(key, (StringField)field));
 				else if(field instanceof FileField)
-					new FileField(key, (FileField)field);
+					ignore(new FileField(key, (FileField)field));
 				else if(field instanceof MapField)
-					new MapField(key, (MapField)field);
+					ignore(new MapField(key, (MapField)field));
 				else
 					throw new RuntimeException(field.getClass().getName());
 			}
+		}
+
+		private void ignore(@SuppressWarnings("unused") final Field f)
+		{
+			// just ignore
 		}
 
 		String getRootKey()
