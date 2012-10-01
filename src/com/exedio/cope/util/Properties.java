@@ -714,9 +714,9 @@ public class Properties
 		}
 	}
 
-	protected final <T extends Properties> NestedField<T> fields(final String rootKey, final Factory<T> factory)
+	protected final <T extends Properties> PropertiesField<T> field(final String rootKey, final Factory<T> factory)
 	{
-		return new NestedField<T>(this, rootKey, factory);
+		return new PropertiesField<T>(this, rootKey, factory);
 	}
 
 	public static interface Factory<T extends Properties>
@@ -724,12 +724,12 @@ public class Properties
 		T create(Source source);
 	}
 
-	public static final class NestedField<T extends Properties>
+	public static final class PropertiesField<T extends Properties>
 	{
 		private final String rootKey;
 		private final T value;
 
-		NestedField(final Properties properties, final String rootKey, final Factory<T> factory)
+		PropertiesField(final Properties properties, final String rootKey, final Factory<T> factory)
 		{
 			this.rootKey = rootKey;
 			final String prefix = rootKey + '.';
