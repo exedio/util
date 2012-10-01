@@ -736,10 +736,7 @@ public class Properties
 			final Source source = new PrefixSource(properties.source, prefix);
 			value = factory.create(source);
 			for(final Field field : value.fields)
-			{
-				final String key = prefix + field.key;
-				properties.copy(key, field);
-			}
+				properties.copy(prefix + field.key, field);
 		}
 
 		String getRootKey()
