@@ -22,6 +22,8 @@ import java.util.Arrays;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 @edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesNestedTest extends CopeAssert
 {
@@ -150,6 +152,7 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(102, inner.inner2.get());
 	}
 
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 	public void testWrong()
 	{
 		final java.util.Properties source = new java.util.Properties();
