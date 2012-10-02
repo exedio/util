@@ -149,4 +149,23 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(109, inner.inner1.get());
 		assertEquals(102, inner.inner2.get());
 	}
+
+	public void testWrong()
+	{
+		final java.util.Properties source = new java.util.Properties();
+		source.setProperty("nested.inner1", "109x");
+
+		try
+		{
+			@SuppressWarnings("unused")
+			final OuterProperties x =
+				new OuterProperties(source);
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"property inner1 in someDescription (prefix nested.) has invalid value, expected an integer greater or equal 51, but got >109x<.",
+					e.getMessage());
+		}
+	}
 }
