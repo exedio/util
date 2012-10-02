@@ -250,6 +250,7 @@ public class PropertiesNestedTest extends CopeAssert
 			@SuppressWarnings("unused")
 			final OuterProperties x =
 				new OuterProperties(source);
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
@@ -273,6 +274,7 @@ public class PropertiesNestedTest extends CopeAssert
 			@SuppressWarnings("unused")
 			final OuterProperties x =
 				new OuterProperties(source);
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
