@@ -163,9 +163,12 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
+			assertEquals("property nested in someDescription invalid, see nested exception", e.getMessage());
+			final Throwable cause = e.getCause();
 			assertEquals(
 					"property inner1 in someDescription (prefix nested.) has invalid value, expected an integer greater or equal 51, but got >109x<.",
-					e.getMessage());
+					cause.getMessage());
+			assertTrue(cause instanceof IllegalArgumentException);
 		}
 	}
 }

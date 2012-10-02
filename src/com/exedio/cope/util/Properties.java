@@ -734,7 +734,16 @@ public class Properties
 			this.rootKey = rootKey;
 			final String prefix = rootKey + '.';
 			final Source source = new PrefixSource(properties.source, prefix);
-			value = factory.create(source);
+			try
+			{
+				value = factory.create(source);
+			}
+			catch(final RuntimeException e)
+			{
+				throw new IllegalArgumentException(
+						"property " + rootKey + " in " + properties.sourceDescription + " invalid, see nested exception",
+						e);
+			}
 			for(final Field field : value.fields)
 				properties.copy(prefix + field.key, field);
 		}
