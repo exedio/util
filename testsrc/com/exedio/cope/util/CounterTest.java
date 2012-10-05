@@ -28,7 +28,7 @@ public class CounterTest extends CopeAssert
 	private long countNaked;
 	@SuppressWarnings("unused")
 	private volatile long countVolatile;
-	private final VolatileLong countVolatileObject = new VolatileLong();
+	private VolatileLong countVolatileObject = null;
 	private final Object lock = new Object();
 	private final AtomicLong atomic = new AtomicLong();
 
@@ -59,7 +59,7 @@ public class CounterTest extends CopeAssert
 				System.out.println("-------volatile     " + elapsed);
 			}
 			{
-				countVolatileObject.reset();
+				countVolatileObject = new VolatileLong();
 				final long start = System.currentTimeMillis();
 				for(int i = 0; i<N; i++)
 				{
@@ -107,11 +107,6 @@ public class CounterTest extends CopeAssert
 		void inc()
 		{
 			value++;
-		}
-
-		void reset()
-		{
-			value = 0;
 		}
 	}
 }
