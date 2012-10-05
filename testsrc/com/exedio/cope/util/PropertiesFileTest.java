@@ -39,7 +39,7 @@ public class PropertiesFileTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		if(file.exists())
-			file.delete();
+			StrictFile.delete(file);
 		super.tearDown();
 	}
 
