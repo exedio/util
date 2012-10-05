@@ -78,6 +78,20 @@ public class PropertiesFileTest extends CopeAssert
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
+	public void testNotExists()
+	{
+		StrictFile.delete(file);
+		try
+		{
+			Properties.getSource(file);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("property file " + file.getAbsolutePath() + " not found.", e.getMessage());
+		}
+	}
+
 	private void store(final java.util.Properties p) throws IOException
 	{
 		final FileOutputStream stream = new FileOutputStream(file);
