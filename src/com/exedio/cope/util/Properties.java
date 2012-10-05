@@ -757,27 +757,22 @@ public class Properties
 	public static final java.util.Properties loadProperties(final File file)
 	{
 		final java.util.Properties result = new java.util.Properties();
-		FileInputStream stream = null;
 		try
 		{
-			stream = new FileInputStream(file);
-			result.load(stream);
+			final FileInputStream stream = new FileInputStream(file);
+			try
+			{
+				result.load(stream);
+			}
+			finally
+			{
+				stream.close();
+			}
 			return result;
 		}
 		catch(final IOException e)
 		{
 			throw new RuntimeException("property file "+file.getAbsolutePath()+" not found.", e);
-		}
-		finally
-		{
-			if(stream!=null)
-			{
-				try
-				{
-					stream.close();
-				}
-				catch(final IOException e) {/*IGNORE*/}
-			}
 		}
 	}
 
