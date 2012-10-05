@@ -48,16 +48,7 @@ public class PropertiesFileTest extends CopeAssert
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey1", "testValue1");
 		p.setProperty("testKey2", "testValue2");
-
-		final FileOutputStream stream = new FileOutputStream(file);
-		try
-		{
-			p.store(stream, null);
-		}
-		finally
-		{
-			stream.close();
-		}
+		store(p);
 
 		final Properties.Source s = Properties.getSource(file);
 		try
@@ -85,5 +76,18 @@ public class PropertiesFileTest extends CopeAssert
 		assertUnmodifiable(s.keySet());
 		assertEquals(file.getAbsolutePath(), s.getDescription());
 		assertEquals(file.getAbsolutePath(), s.toString());
+	}
+
+	private void store(final java.util.Properties p) throws IOException
+	{
+		final FileOutputStream stream = new FileOutputStream(file);
+		try
+		{
+			p.store(stream, null);
+		}
+		finally
+		{
+			stream.close();
+		}
 	}
 }
