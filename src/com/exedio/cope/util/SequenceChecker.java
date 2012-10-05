@@ -20,6 +20,11 @@ package com.exedio.cope.util;
 
 import java.util.Arrays;
 
+/**
+ * <p><strong>Note that this class is not synchronized.</strong>
+ * If multiple threads access an <tt>SequenceChecker</tt> instance concurrently,
+ * it <i>must</i> be synchronized externally.
+ */
 public final class SequenceChecker
 {
 	private final int capacity;
@@ -31,11 +36,11 @@ public final class SequenceChecker
 	private int firstNumber;
 	private int maxNumber;
 
-	private volatile int countInOrder = 0;
-	private volatile int countOutOfOrder = 0;
-	private volatile int countDuplicate = 0;
-	private volatile int countLost = 0;
-	private volatile int countLate = 0;
+	private int countInOrder = 0;
+	private int countOutOfOrder = 0;
+	private int countDuplicate = 0;
+	private int countLost = 0;
+	private int countLate = 0;
 
 	public SequenceChecker(final int capacity)
 	{
