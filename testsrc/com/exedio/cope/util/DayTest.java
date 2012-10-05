@@ -33,6 +33,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DayTest extends CopeAssert
 {
@@ -116,8 +117,6 @@ public class DayTest extends CopeAssert
 		assertNotEquals(d, new Day(2004, 9, 23));
 		assertNotEquals(d, new Day(2005, 8, 23));
 		assertNotEquals(d, new Day(2005, 9, 22));
-		assertTrue(!d.equals("hallo"));
-		assertTrue(!d.equals(Integer.valueOf(22)));
 
 		assertEquals(-1, new Day(2004,  9, 23).compareTo(d));
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
@@ -195,5 +194,13 @@ public class DayTest extends CopeAssert
 		assertEquals(year, cal.getYear());
 		assertEquals(null, cal.getEon());
 		assertEquals(actual, valueOf(cal));
+	}
+
+	@SuppressFBWarnings("EC_UNRELATED_TYPES")
+	public void testUnrelatedEquals()
+	{
+		final Day d = new Day(2005, 9, 23);
+		assertTrue(!d.equals("hallo"));
+		assertTrue(!d.equals(Integer.valueOf(22)));
 	}
 }
