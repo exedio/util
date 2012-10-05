@@ -20,6 +20,8 @@ package com.exedio.cope.util;
 
 import java.util.ArrayList;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Pool<E>
 {
 	public interface Factory<E>
@@ -48,8 +50,8 @@ public final class Pool<E>
 	private final Object lock = new Object();
 
 	private final PoolCounter counter;
-	private volatile int invalidOnGet = 0;
-	private volatile int invalidOnPut = 0;
+	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") private volatile int invalidOnGet = 0;
+	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") private volatile int invalidOnPut = 0;
 
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
 	{
