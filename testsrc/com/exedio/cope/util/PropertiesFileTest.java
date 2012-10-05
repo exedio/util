@@ -19,6 +19,7 @@
 package com.exedio.cope.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -89,6 +90,7 @@ public class PropertiesFileTest extends CopeAssert
 		catch(final RuntimeException e)
 		{
 			assertEquals("property file " + file.getAbsolutePath() + " not found.", e.getMessage());
+			assertTrue(e.getCause() instanceof FileNotFoundException);
 		}
 	}
 
