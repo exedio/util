@@ -27,10 +27,10 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 {
 	static class OuterProperties extends Properties
 	{
-		protected final <T extends Properties> PropertiesField<T> fieldOptional(final String rootKey, final Factory<T> factory)
+		protected final <T extends Properties> PropertiesField<T> fieldOptional(final String key, final Factory<T> factory)
 		{
-			final BooleanField enable = field(rootKey, false);
-			return enable.get() ? field(rootKey, factory) : null;
+			final BooleanField enable = field(key, false);
+			return enable.get() ? field(key, factory) : null;
 		}
 
 		final IntField outer = field("outer", 1001, 501);
@@ -85,7 +85,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 
 			assertOuter();
 
-			assertEquals("nested", nested.getRootKey());
+			assertEquals("nested", nested.getKey());
 			assertEquals("nested.inner1", nestedInner1.getKey());
 			assertEquals("nested.inner2", nestedInner2.getKey());
 

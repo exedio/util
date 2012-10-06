@@ -56,7 +56,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 			assertEquals("outer1", outer1.getKey());
 			assertEquals("outer2", outer2.getKey());
-			assertEquals("nested", nested.getRootKey());
+			assertEquals("nested", nested.getKey());
 			assertEquals("nested.inner1", nestedInner1.getKey());
 			assertEquals("nested.inner2", nestedInner2.getKey());
 			assertEquals("nested.nested.drinner1", nestedDrinner1.getKey());

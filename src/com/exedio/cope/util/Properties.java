@@ -714,9 +714,9 @@ public class Properties
 		}
 	}
 
-	protected final <T extends Properties> PropertiesField<T> field(final String rootKey, final Factory<T> factory)
+	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
-		return new PropertiesField<T>(this, rootKey, factory);
+		return new PropertiesField<T>(this, key, factory);
 	}
 
 	public static interface Factory<T extends Properties>
@@ -726,13 +726,13 @@ public class Properties
 
 	public static final class PropertiesField<T extends Properties>
 	{
-		private final String rootKey;
+		private final String key;
 		private final T value;
 
-		PropertiesField(final Properties properties, final String rootKey, final Factory<T> factory)
+		PropertiesField(final Properties properties, final String key, final Factory<T> factory)
 		{
-			this.rootKey = rootKey;
-			final String prefix = rootKey + '.';
+			this.key = key;
+			final String prefix = key + '.';
 			final Source source = new PrefixSource(properties.source, prefix);
 			try
 			{
@@ -741,16 +741,16 @@ public class Properties
 			catch(final RuntimeException e)
 			{
 				throw new IllegalArgumentException(
-						"property " + rootKey + " in " + properties.sourceDescription + " invalid, see nested exception",
+						"property " + key + " in " + properties.sourceDescription + " invalid, see nested exception",
 						e);
 			}
 			for(final Field field : value.fields)
 				properties.copy(prefix + field.key, field);
 		}
 
-		String getRootKey()
+		String getKey()
 		{
-			return rootKey;
+			return key;
 		}
 
 		public T get()
