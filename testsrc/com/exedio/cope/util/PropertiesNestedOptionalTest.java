@@ -44,6 +44,10 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 			assertEquals(Integer.valueOf(1001), outer.getDefaultValue());
 			assertEquals(false, outer.hasHiddenValue());
 			assertEquals(501, outer.getMinimum());
+
+			assertEquals("nested", nestedEnable.getKey());
+			assertEquals(Boolean.FALSE, nestedEnable.getDefaultValue());
+			assertEquals(false, nestedEnable.hasHiddenValue());
 		}
 
 		void assertDisabled()
@@ -138,6 +142,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertDisabled();
 		assertEquals(1001, outer.outer.get());
+		assertEquals(false, outer.nestedEnable.get());
 		assertNull(outer.nestedInner1);
 		assertNull(outer.nestedInner2);
 		assertNull(outer.nested);
@@ -151,6 +156,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertEnabled();
 		assertEquals(1001, outer.outer.get());
+		assertEquals(true, outer.nestedEnable.get());
 		assertEquals(101, outer.nestedInner1.get());
 		assertEquals(102, outer.nestedInner2.get());
 
@@ -170,6 +176,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertEnabled();
 		assertEquals(1009, outer.outer.get());
+		assertEquals(true, outer.nestedEnable.get());
 		assertEquals(109, outer.nestedInner1.get());
 		assertEquals(102, outer.nestedInner2.get());
 
