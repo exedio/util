@@ -36,6 +36,7 @@ public class Properties
 {
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	final HashMap<String, Field> detectDuplicateKeys = new HashMap<String, Field>();
+	final HashSet<String> detectDuplicatePrefixes = new HashSet<String>();
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
@@ -254,7 +255,7 @@ public class Properties
 		final String key;
 		private final boolean specified;
 
-		Field(final Field replacement, final String key)
+		Field(final boolean top, final Field replacement, final String key)
 		{
 			this.key = key;
 			this.specified = source.get(key)!=null;
@@ -265,6 +266,10 @@ public class Properties
 				throw new RuntimeException("key must not be empty.");
 			if(detectDuplicateKeys.put(key, this)!=replacement)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
+			if(top)
+				for(final String prefix : detectDuplicatePrefixes)
+					if(key.startsWith(prefix))
+						throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
 			if(replacement!=null)
 				fields.remove(replacement);
@@ -306,7 +311,7 @@ public class Properties
 		@Deprecated
 		public BooleanField(final String key, final boolean defaultValue)
 		{
-			super(null, key);
+			super(true, null, key);
 			this.defaultValue = defaultValue;
 
 			final String s = resolve(key);
@@ -325,7 +330,7 @@ public class Properties
 
 		BooleanField(final String key, final BooleanField template)
 		{
-			super(null, key);
+			super(false, null, key);
 			this.defaultValue = template.defaultValue;
 			this.value = template.value;
 		}
@@ -385,7 +390,7 @@ public class Properties
 		@Deprecated
 		public IntField(final String key, final int defaultValue, final int minimum)
 		{
-			super(null, key);
+			super(true, null, key);
 			this.defaultValue = defaultValue;
 			this.minimum = minimum;
 
@@ -417,7 +422,7 @@ public class Properties
 
 		IntField(final String key, final IntField template)
 		{
-			super(null, key);
+			super(false, null, key);
 			this.defaultValue = template.defaultValue;
 			this.value = template.value;
 			this.minimum = template.minimum;
@@ -504,7 +509,7 @@ public class Properties
 
 		private StringField(final StringField replacement, final String key, final String defaultValue, final boolean hideValue)
 		{
-			super(replacement, key);
+			super(true, replacement, key);
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
 
@@ -524,7 +529,7 @@ public class Properties
 
 		StringField(final String key, final StringField template)
 		{
-			super(null, key);
+			super(false, null, key);
 			this.defaultValue = template.defaultValue;
 			this.hideValue = template.hideValue;
 			this.value = template.value;
@@ -595,7 +600,7 @@ public class Properties
 
 		public FileField(final String key)
 		{
-			super(null, key);
+			super(true, null, key);
 
 			final String valueString = resolve(key);
 			this.value = (valueString==null) ? null : new File(valueString);
@@ -603,7 +608,7 @@ public class Properties
 
 		FileField(final String key, final FileField template)
 		{
-			super(null, key);
+			super(false, null, key);
 			this.value = template.value;
 		}
 
@@ -657,7 +662,7 @@ public class Properties
 
 		public MapField(final String key)
 		{
-			super(null, key);
+			super(true, null, key);
 
 			value = new java.util.Properties();
 
@@ -676,7 +681,7 @@ public class Properties
 
 		MapField(final String key, final MapField template)
 		{
-			super(null, key);
+			super(false, null, key);
 			this.value = template.value;
 		}
 
@@ -733,6 +738,16 @@ public class Properties
 		{
 			this.key = key;
 			final String prefix = key + '.';
+
+			for(final String other : properties.detectDuplicatePrefixes)
+				if(other.startsWith(prefix) || prefix.startsWith(other))
+					throw new IllegalArgumentException("properties field '" + prefix + "' collides with properties field '" + other + '\'');
+			for(final String simple : properties.detectDuplicateKeys.keySet())
+				if(simple.startsWith(prefix))
+					throw new IllegalArgumentException("properties field '" + key + "' collides with field '" + simple + '\'');
+			if(!properties.detectDuplicatePrefixes.add(prefix))
+				throw new IllegalArgumentException("duplicate prefix '" + prefix + '\'');
+
 			final Source source = new PrefixSource(properties.source, prefix);
 			try
 			{
