@@ -7,7 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* Properties supports nested properties
+* Properties supports nesting
 * JobContext#requestedToStop deprecated
 * CharsetName added.
 * add Day#after(Day) method
