@@ -48,4 +48,183 @@ public class PropertiesDuplicateTest extends CopeAssert
 			assertEquals("duplicate key 'duplicate'", e.getMessage());
 		}
 	}
+
+
+	static class Nested extends Properties
+	{
+		Nested(final Source source)
+		{
+			super(source, null);
+			field("field", false);
+		}
+	}
+
+	static final Properties.Factory<Nested> factory = new Properties.Factory<Nested>()
+	{
+		public Nested create(final Properties.Source source)
+		{
+			return new Nested(source);
+		}
+	};
+
+	@SuppressWarnings("unused")
+	public void testSimpleNestedEquals()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate.", false);
+				field("duplicate", factory);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate' collides with field 'duplicate.'", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void testSimpleNestedStartsWith()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate.x", false);
+				field("duplicate", factory);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate' collides with field 'duplicate.x'", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void testNestedSimpleEquals()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate", factory);
+				field("duplicate.", false);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate.' collides with field 'duplicate.'", e.getMessage()); // TODO remove dot
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void testNestedSimpleStartsWith()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate", factory);
+				field("duplicate.x", false);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate.' collides with field 'duplicate.x'", e.getMessage()); // TODO remove dot
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void testNestedNestedEquals()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate", factory);
+				field("duplicate", factory);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate.' collides with properties field 'duplicate.'", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void testNestedNestedStartsWith()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate", factory);
+				field("duplicate.x", factory);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate.x.' collides with properties field 'duplicate.'", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unused")
+	public void testNestedNestedStartsWith2()
+	{
+		class Props extends Properties
+		{
+			Props()
+			{
+				super(EMPTY_SOURCE, null);
+				field("duplicate.x", factory);
+				field("duplicate", factory);
+			}
+		}
+		try
+		{
+			new Props();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("properties field 'duplicate.' collides with properties field 'duplicate.x.'", e.getMessage());
+		}
+	}
 }

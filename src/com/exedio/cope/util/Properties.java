@@ -36,6 +36,7 @@ public class Properties
 {
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	final HashMap<String, Field> detectDuplicateKeys = new HashMap<String, Field>();
+	final HashSet<String> detectDuplicatePrefixes = new HashSet<String>();
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
@@ -254,7 +255,7 @@ public class Properties
 		final String key;
 		private final boolean specified;
 
-		Field(final Field replacement, final String key)
+		Field(final boolean top, final Field replacement, final String key)
 		{
 			this.key = key;
 			this.specified = source.get(key)!=null;
@@ -265,6 +266,10 @@ public class Properties
 				throw new RuntimeException("key must not be empty.");
 			if(detectDuplicateKeys.put(key, this)!=replacement)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
+			if(top)
+				for(final String prefix : detectDuplicatePrefixes)
+					if(key.startsWith(prefix))
+						throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
 			if(replacement!=null)
 				fields.remove(replacement);
@@ -306,7 +311,7 @@ public class Properties
 		@Deprecated
 		public BooleanField(final String key, final boolean defaultValue)
 		{
-			super(null, key);
+			super(true, null, key);
 			this.defaultValue = defaultValue;
 
 			final String s = resolve(key);
@@ -321,6 +326,13 @@ public class Properties
 				else
 					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " has invalid value, expected >true< or >false<, but got >" + s + "<.");
 			}
+		}
+
+		BooleanField(final String key, final BooleanField template)
+		{
+			super(false, null, key);
+			this.defaultValue = template.defaultValue;
+			this.value = template.value;
 		}
 
 		@Override
@@ -378,7 +390,7 @@ public class Properties
 		@Deprecated
 		public IntField(final String key, final int defaultValue, final int minimum)
 		{
-			super(null, key);
+			super(true, null, key);
 			this.defaultValue = defaultValue;
 			this.minimum = minimum;
 
@@ -406,6 +418,14 @@ public class Properties
 							"property " + key + " in " + sourceDescription + " has invalid value, " +
 							"expected an integer greater or equal " + minimum + ", but got " + value + '.');
 			}
+		}
+
+		IntField(final String key, final IntField template)
+		{
+			super(false, null, key);
+			this.defaultValue = template.defaultValue;
+			this.value = template.value;
+			this.minimum = template.minimum;
 		}
 
 		@Override
@@ -489,7 +509,7 @@ public class Properties
 
 		private StringField(final StringField replacement, final String key, final String defaultValue, final boolean hideValue)
 		{
-			super(replacement, key);
+			super(true, replacement, key);
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
 
@@ -505,6 +525,14 @@ public class Properties
 			}
 			else
 				this.value = s;
+		}
+
+		StringField(final String key, final StringField template)
+		{
+			super(false, null, key);
+			this.defaultValue = template.defaultValue;
+			this.hideValue = template.hideValue;
+			this.value = template.value;
 		}
 
 		public StringField hide()
@@ -572,10 +600,16 @@ public class Properties
 
 		public FileField(final String key)
 		{
-			super(null, key);
+			super(true, null, key);
 
 			final String valueString = resolve(key);
 			this.value = (valueString==null) ? null : new File(valueString);
+		}
+
+		FileField(final String key, final FileField template)
+		{
+			super(false, null, key);
+			this.value = template.value;
 		}
 
 		@Override
@@ -628,7 +662,7 @@ public class Properties
 
 		public MapField(final String key)
 		{
-			super(null, key);
+			super(true, null, key);
 
 			value = new java.util.Properties();
 
@@ -643,6 +677,12 @@ public class Properties
 				if(currentKey.startsWith(prefix))
 					value.put(currentKey.substring(prefixLength), resolve(currentKey));
 			}
+		}
+
+		MapField(final String key, final MapField template)
+		{
+			super(false, null, key);
+			this.value = template.value;
 		}
 
 		@Override
@@ -677,6 +717,78 @@ public class Properties
 		{
 			return mapValue();
 		}
+	}
+
+	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
+	{
+		return new PropertiesField<T>(this, key, factory);
+	}
+
+	public static interface Factory<T extends Properties>
+	{
+		T create(Source source);
+	}
+
+	public static final class PropertiesField<T extends Properties>
+	{
+		private final String key;
+		private final T value;
+
+		PropertiesField(final Properties properties, final String key, final Factory<T> factory)
+		{
+			this.key = key;
+			final String prefix = key + '.';
+
+			for(final String other : properties.detectDuplicatePrefixes)
+				if(other.startsWith(prefix) || prefix.startsWith(other))
+					throw new IllegalArgumentException("properties field '" + prefix + "' collides with properties field '" + other + '\'');
+			for(final String simple : properties.detectDuplicateKeys.keySet())
+				if(simple.startsWith(prefix))
+					throw new IllegalArgumentException("properties field '" + key + "' collides with field '" + simple + '\'');
+			if(!properties.detectDuplicatePrefixes.add(prefix))
+				throw new IllegalArgumentException("duplicate prefix '" + prefix + '\'');
+
+			final Source source = new PrefixSource(properties.source, prefix);
+			try
+			{
+				value = factory.create(source);
+			}
+			catch(final RuntimeException e)
+			{
+				throw new IllegalArgumentException(
+						"property " + key + " in " + properties.sourceDescription + " invalid, see nested exception",
+						e);
+			}
+			for(final Field field : value.fields)
+				properties.copy(prefix + field.key, field);
+		}
+
+		String getKey()
+		{
+			return key;
+		}
+
+		public T get()
+		{
+			return value;
+		}
+	}
+
+	@SuppressWarnings("unused")
+	final void copy(final String key, final Field field)
+	{
+		if(field instanceof BooleanField)
+			new BooleanField(key, (BooleanField)field);
+		else if(field instanceof IntField)
+			new IntField(key, (IntField)field);
+		else if(field instanceof StringField)
+			new StringField(key, (StringField)field);
+		else if(field instanceof FileField)
+			new FileField(key, (FileField)field);
+		else if(field instanceof MapField)
+			new MapField(key, (MapField)field);
+		else
+			throw new RuntimeException(field.getClass().getName());
 	}
 
 	public final void ensureValidity(final String... prefixes)
