@@ -27,10 +27,10 @@ import com.exedio.cope.junit.CopeAssert;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesGetContextTest extends CopeAssert
 {
-	static class TestProperties extends Properties
+	static class TestProperties extends MyProperties
 	{
 		@edu.umd.cs.findbugs.annotations.SuppressWarnings("URF_UNREAD_FIELD") // is read by reflection
-		final StringField stringMandatory = field("stringMandatory", (String)null);
+		final String stringMandatory = value("stringMandatory", (String)null);
 
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
