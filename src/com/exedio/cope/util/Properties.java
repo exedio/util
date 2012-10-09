@@ -684,7 +684,7 @@ public class Properties
 
 			value = new java.util.Properties();
 
-			final Collection<String> keySet = source.keySet();
+			final Collection<String> keySet = source.keySet(); // TODO should not depend on keySet
 			if(keySet==null)
 				return;
 
