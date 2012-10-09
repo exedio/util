@@ -25,14 +25,8 @@ import com.exedio.cope.junit.CopeAssert;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesNestedOptionalTest extends CopeAssert
 {
-	static class OuterProperties extends Properties
+	static class OuterProperties extends MyProperties
 	{
-		protected final <T extends Properties> PropertiesField<T> fieldOptional(final String key, final Factory<T> factory)
-		{
-			final BooleanField enable = field(key, false);
-			return enable.get() ? field(key, factory) : null;
-		}
-
 		final IntField outer = field("outer", 1001, 501);
 
 		final PropertiesField<InnerProperties> nested = fieldOptional("nested", InnerProperties.factory());
