@@ -32,10 +32,10 @@ public class PropertiesNestedTest extends CopeAssert
 		final IntField outer1 = field("outer1", 1001, 501);
 		final IntField outer2 = field("outer2", 1002, 502);
 		final PropertiesField<InnerProperties> nested = field("nested", InnerProperties.factory());
-		final IntField nestedInner1 = (IntField)fields.get(fields.size()-4);
-		final IntField nestedInner2 = (IntField)fields.get(fields.size()-3);
-		final IntField nestedDrinner1 = (IntField)fields.get(fields.size()-2);
-		final IntField nestedDrinner2 = (IntField)fields.get(fields.size()-1);
+		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
+		final IntField nestedInner2 = (IntField)forKey("nested.inner2");
+		final IntField nestedDrinner1 = (IntField)forKey("nested.nested.drinner1");
+		final IntField nestedDrinner2 = (IntField)forKey("nested.nested.drinner2");
 
 		OuterProperties(final java.util.Properties source)
 		{
@@ -101,8 +101,8 @@ public class PropertiesNestedTest extends CopeAssert
 		final IntField inner1 = field("inner1", 101, 51);
 		final IntField inner2 = field("inner2", 102, 52);
 		final PropertiesField<DrinnerProperties> nested = field("nested", DrinnerProperties.factory());
-		final IntField nestedDrinner1 = (IntField)fields.get(fields.size()-2);
-		final IntField nestedDrinner2 = (IntField)fields.get(fields.size()-1);
+		final IntField nestedDrinner1 = (IntField)forKey("nested.drinner1");
+		final IntField nestedDrinner2 = (IntField)forKey("nested.drinner2");
 
 		InnerProperties(final Source source)
 		{
