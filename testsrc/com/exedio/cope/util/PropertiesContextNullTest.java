@@ -23,9 +23,9 @@ import com.exedio.cope.junit.CopeAssert;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesContextNullTest extends CopeAssert
 {
-	static class TestProperties extends Properties
+	static class TestProperties extends MyProperties
 	{
-		final StringField aField = field("aKey", (String)null);
+		final String aField = value("aKey", (String)null);
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
@@ -61,6 +61,6 @@ public class PropertiesContextNullTest extends CopeAssert
 
 	private static final void assertContext(final String raw)
 	{
-		assertEquals(raw, getContext(raw).aField.get());
+		assertEquals(raw, getContext(raw).aField);
 	}
 }
