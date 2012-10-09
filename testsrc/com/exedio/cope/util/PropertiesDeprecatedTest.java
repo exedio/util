@@ -39,7 +39,9 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
 		@SuppressWarnings("deprecation")
 		final StringField stringHidden = new StringField("stringHidden", true);
+		@SuppressWarnings("deprecation")
 		final FileField file = new FileField("file");
+		@SuppressWarnings("deprecation")
 		final MapField map = new MapField("map");
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)

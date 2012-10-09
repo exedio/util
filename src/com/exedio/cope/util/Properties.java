@@ -594,10 +594,19 @@ public class Properties
 		}
 	}
 
+	protected final FileField fieldFile(final String key)
+	{
+		return new FileField(key);
+	}
+
 	public final class FileField extends Field
 	{
 		private final File value;
 
+		/**
+		 * @deprecated Use {@link Properties#fieldFile(String)} instead
+		 */
+		@Deprecated
 		public FileField(final String key)
 		{
 			super(true, null, key);
@@ -656,10 +665,19 @@ public class Properties
 		}
 	}
 
+	protected final MapField fieldMap(final String key)
+	{
+		return new MapField(key);
+	}
+
 	public final class MapField extends Field
 	{
 		private final java.util.Properties value;
 
+		/**
+		 * @deprecated Use {@link Properties#fieldMap(String)} instead
+		 */
+		@Deprecated
 		public MapField(final String key)
 		{
 			super(true, null, key);
