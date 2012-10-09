@@ -50,6 +50,11 @@ public class Properties
 		// TODO check, that no other property key do occur
 	}
 
+	Field forKey(final String key)
+	{
+		return detectDuplicateKeys.get(key);
+	}
+
 	/**
 	 * This default implementation returns an empty list.
 	 */
