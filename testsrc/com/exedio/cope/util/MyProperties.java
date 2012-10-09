@@ -68,7 +68,7 @@ public class MyProperties extends Properties
 
 	// for testing only
 
-	Field forKey(final String key)
+	final Field forKey(final String key)
 	{
 		return detectDuplicateKeys.get(key);
 	}
