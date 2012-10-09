@@ -27,10 +27,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesNestedTest extends CopeAssert
 {
-	static class OuterProperties extends Properties
+	static class OuterProperties extends MyProperties
 	{
-		final IntField outer1 = field("outer1", 1001, 501);
-		final IntField outer2 = field("outer2", 1002, 502);
+		final int outer1 = value("outer1", 1001, 501);
+		final int outer2 = value("outer2", 1002, 502);
 		final PropertiesField<InnerProperties> nested = field("nested", InnerProperties.factory());
 		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
 		final IntField nestedInner2 = (IntField)forKey("nested.inner2");
@@ -42,42 +42,45 @@ public class PropertiesNestedTest extends CopeAssert
 			super(getSource(source, "someDescription"), null);
 		}
 
+		final IntField outer1F = (IntField)forKey("outer1");
+		final IntField outer2F = (IntField)forKey("outer2");
+
 		void assertIt()
 		{
 			assertEquals(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
-					outer1,
-					outer2,
+					outer1F,
+					outer2F,
 					nestedInner1,
 					nestedInner2,
 					nestedDrinner1,
 					nestedDrinner2,
 			}), getFields());
 
-			assertEquals("outer1", outer1.getKey());
-			assertEquals("outer2", outer2.getKey());
+			assertEquals("outer1", outer1F.getKey());
+			assertEquals("outer2", outer2F.getKey());
 			assertEquals("nested", nested.getKey());
 			assertEquals("nested.inner1", nestedInner1.getKey());
 			assertEquals("nested.inner2", nestedInner2.getKey());
 			assertEquals("nested.nested.drinner1", nestedDrinner1.getKey());
 			assertEquals("nested.nested.drinner2", nestedDrinner2.getKey());
 
-			assertEquals(Integer.valueOf(1001), outer1.getDefaultValue());
-			assertEquals(Integer.valueOf(1002), outer2.getDefaultValue());
+			assertEquals(Integer.valueOf(1001), outer1F.getDefaultValue());
+			assertEquals(Integer.valueOf(1002), outer2F.getDefaultValue());
 			assertEquals(Integer.valueOf(101), nestedInner1.getDefaultValue());
 			assertEquals(Integer.valueOf(102), nestedInner2.getDefaultValue());
 			assertEquals(Integer.valueOf(11), nestedDrinner1.getDefaultValue());
 			assertEquals(Integer.valueOf(12), nestedDrinner2.getDefaultValue());
 
-			assertEquals(false, outer1.hasHiddenValue());
-			assertEquals(false, outer2.hasHiddenValue());
+			assertEquals(false, outer1F.hasHiddenValue());
+			assertEquals(false, outer2F.hasHiddenValue());
 			assertEquals(false, nestedInner1.hasHiddenValue());
 			assertEquals(false, nestedInner2.hasHiddenValue());
 			assertEquals(false, nestedDrinner1.hasHiddenValue());
 			assertEquals(false, nestedDrinner2.hasHiddenValue());
 
-			assertEquals(501, outer1.getMinimum());
-			assertEquals(502, outer2.getMinimum());
+			assertEquals(501, outer1F.getMinimum());
+			assertEquals(502, outer2F.getMinimum());
 			assertEquals( 51, nestedInner1.getMinimum());
 			assertEquals( 52, nestedInner2.getMinimum());
 			assertEquals(  1, nestedDrinner1.getMinimum());
@@ -85,7 +88,7 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 	}
 
-	static class InnerProperties extends Properties
+	static class InnerProperties extends MyProperties
 	{
 		static Factory<InnerProperties> factory()
 		{
@@ -98,8 +101,8 @@ public class PropertiesNestedTest extends CopeAssert
 			};
 		}
 
-		final IntField inner1 = field("inner1", 101, 51);
-		final IntField inner2 = field("inner2", 102, 52);
+		final int inner1 = value("inner1", 101, 51);
+		final int inner2 = value("inner2", 102, 52);
 		final PropertiesField<DrinnerProperties> nested = field("nested", DrinnerProperties.factory());
 		final IntField nestedDrinner1 = (IntField)forKey("nested.drinner1");
 		final IntField nestedDrinner2 = (IntField)forKey("nested.drinner2");
@@ -109,39 +112,42 @@ public class PropertiesNestedTest extends CopeAssert
 			super(source, null);
 		}
 
+		final IntField inner1F = (IntField)forKey("inner1");
+		final IntField inner2F = (IntField)forKey("inner2");
+
 		void assertIt()
 		{
 			assertEquals(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
-					inner1,
-					inner2,
+					inner1F,
+					inner2F,
 					nestedDrinner1,
 					nestedDrinner2,
 			}), getFields());
 
-			assertEquals("inner1", inner1.getKey());
-			assertEquals("inner2", inner2.getKey());
+			assertEquals("inner1", inner1F.getKey());
+			assertEquals("inner2", inner2F.getKey());
 			assertEquals("nested.drinner1", nestedDrinner1.getKey());
 			assertEquals("nested.drinner2", nestedDrinner2.getKey());
 
-			assertEquals(Integer.valueOf(101), inner1.getDefaultValue());
-			assertEquals(Integer.valueOf(102), inner2.getDefaultValue());
+			assertEquals(Integer.valueOf(101), inner1F.getDefaultValue());
+			assertEquals(Integer.valueOf(102), inner2F.getDefaultValue());
 			assertEquals(Integer.valueOf(11), nestedDrinner1.getDefaultValue());
 			assertEquals(Integer.valueOf(12), nestedDrinner2.getDefaultValue());
 
-			assertEquals(false, inner1.hasHiddenValue());
-			assertEquals(false, inner2.hasHiddenValue());
+			assertEquals(false, inner1F.hasHiddenValue());
+			assertEquals(false, inner2F.hasHiddenValue());
 			assertEquals(false, nestedDrinner1.hasHiddenValue());
 			assertEquals(false, nestedDrinner2.hasHiddenValue());
 
-			assertEquals(51, inner1.getMinimum());
-			assertEquals(52, inner2.getMinimum());
+			assertEquals(51, inner1F.getMinimum());
+			assertEquals(52, inner2F.getMinimum());
 			assertEquals( 1, nestedDrinner1.getMinimum());
 			assertEquals( 2, nestedDrinner2.getMinimum());
 		}
 	}
 
-	static class DrinnerProperties extends Properties
+	static class DrinnerProperties extends MyProperties
 	{
 		static Factory<DrinnerProperties> factory()
 		{
@@ -154,33 +160,36 @@ public class PropertiesNestedTest extends CopeAssert
 			};
 		}
 
-		final IntField drinner1 = field("drinner1", 11, 1);
-		final IntField drinner2 = field("drinner2", 12, 2);
+		final int drinner1 = value("drinner1", 11, 1);
+		final int drinner2 = value("drinner2", 12, 2);
 
 		DrinnerProperties(final Source source)
 		{
 			super(source, null);
 		}
 
+		final IntField drinner1F = (IntField)forKey("drinner1");
+		final IntField drinner2F = (IntField)forKey("drinner2");
+
 		void assertIt()
 		{
 			assertEquals(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
-					drinner1,
-					drinner2,
+					drinner1F,
+					drinner2F,
 			}), getFields());
 
-			assertEquals("drinner1", drinner1.getKey());
-			assertEquals("drinner2", drinner2.getKey());
+			assertEquals("drinner1", drinner1F.getKey());
+			assertEquals("drinner2", drinner2F.getKey());
 
-			assertEquals(Integer.valueOf(11), drinner1.getDefaultValue());
-			assertEquals(Integer.valueOf(12), drinner2.getDefaultValue());
+			assertEquals(Integer.valueOf(11), drinner1F.getDefaultValue());
+			assertEquals(Integer.valueOf(12), drinner2F.getDefaultValue());
 
-			assertEquals(false, drinner1.hasHiddenValue());
-			assertEquals(false, drinner2.hasHiddenValue());
+			assertEquals(false, drinner1F.hasHiddenValue());
+			assertEquals(false, drinner2F.hasHiddenValue());
 
-			assertEquals(1, drinner1.getMinimum());
-			assertEquals(2, drinner2.getMinimum());
+			assertEquals(1, drinner1F.getMinimum());
+			assertEquals(2, drinner2F.getMinimum());
 		}
 	}
 
@@ -190,8 +199,8 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertIt();
-		assertEquals(1001, outer.outer1.get());
-		assertEquals(1002, outer.outer2.get());
+		assertEquals(1001, outer.outer1);
+		assertEquals(1002, outer.outer2);
 		assertEquals(101, outer.nestedInner1.get());
 		assertEquals(102, outer.nestedInner2.get());
 		assertEquals(11, outer.nestedDrinner1.get());
@@ -199,15 +208,15 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final InnerProperties inner = outer.nested.get();
 		inner.assertIt();
-		assertEquals(101, inner.inner1.get());
-		assertEquals(102, inner.inner2.get());
+		assertEquals(101, inner.inner1);
+		assertEquals(102, inner.inner2);
 		assertEquals(11, inner.nestedDrinner1.get());
 		assertEquals(12, inner.nestedDrinner2.get());
 
 		final DrinnerProperties drinner = inner.nested.get();
 		drinner.assertIt();
-		assertEquals(11, drinner.drinner1.get());
-		assertEquals(12, drinner.drinner2.get());
+		assertEquals(11, drinner.drinner1);
+		assertEquals(12, drinner.drinner2);
 	}
 
 	public void testSet()
@@ -219,8 +228,8 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertIt();
-		assertEquals(1009, outer.outer1.get());
-		assertEquals(1002, outer.outer2.get());
+		assertEquals(1009, outer.outer1F.get());
+		assertEquals(1002, outer.outer2F.get());
 		assertEquals(109, outer.nestedInner1.get());
 		assertEquals(102, outer.nestedInner2.get());
 		assertEquals(19, outer.nestedDrinner1.get());
@@ -228,15 +237,15 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final InnerProperties inner = outer.nested.get();
 		inner.assertIt();
-		assertEquals(109, inner.inner1.get());
-		assertEquals(102, inner.inner2.get());
+		assertEquals(109, inner.inner1);
+		assertEquals(102, inner.inner2);
 		assertEquals(19, inner.nestedDrinner1.get());
 		assertEquals(12, inner.nestedDrinner2.get());
 
 		final DrinnerProperties drinner = inner.nested.get();
 		drinner.assertIt();
-		assertEquals(19, drinner.drinner1.get());
-		assertEquals(12, drinner.drinner2.get());
+		assertEquals(19, drinner.drinner1);
+		assertEquals(12, drinner.drinner2);
 	}
 
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
