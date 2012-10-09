@@ -24,10 +24,10 @@ import com.exedio.cope.junit.CopeAssert;
 public class PropertiesDuplicateTest extends CopeAssert
 {
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("URF_UNREAD_FIELD") // is read by reflection
-	static class DuplicateProperties extends Properties
+	static class DuplicateProperties extends MyProperties
 	{
-		final BooleanField duplicate1 = field("duplicate", false);
-		final BooleanField duplicate2 = field("duplicate", true);
+		final boolean duplicate1 = value("duplicate", false);
+		final boolean duplicate2 = value("duplicate", true);
 
 		DuplicateProperties()
 		{
@@ -50,12 +50,12 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 
-	static class Nested extends Properties
+	static class Nested extends MyProperties
 	{
 		Nested(final Source source)
 		{
 			super(source, null);
-			field("field", false);
+			value("field", false);
 		}
 	}
 
@@ -70,13 +70,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testSimpleNestedEquals()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate.", false);
-				field("duplicate", factory);
+				value("duplicate.", false);
+				value("duplicate", factory);
 			}
 		}
 		try
@@ -93,13 +93,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testSimpleNestedStartsWith()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate.x", false);
-				field("duplicate", factory);
+				value("duplicate.x", false);
+				value("duplicate", factory);
 			}
 		}
 		try
@@ -116,13 +116,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testNestedSimpleEquals()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate", factory);
-				field("duplicate.", false);
+				value("duplicate", factory);
+				value("duplicate.", false);
 			}
 		}
 		try
@@ -139,13 +139,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testNestedSimpleStartsWith()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate", factory);
-				field("duplicate.x", false);
+				value("duplicate", factory);
+				value("duplicate.x", false);
 			}
 		}
 		try
@@ -162,13 +162,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testNestedNestedEquals()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate", factory);
-				field("duplicate", factory);
+				value("duplicate", factory);
+				value("duplicate", factory);
 			}
 		}
 		try
@@ -185,13 +185,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testNestedNestedStartsWith()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate", factory);
-				field("duplicate.x", factory);
+				value("duplicate", factory);
+				value("duplicate.x", factory);
 			}
 		}
 		try
@@ -208,13 +208,13 @@ public class PropertiesDuplicateTest extends CopeAssert
 	@SuppressWarnings("unused")
 	public void testNestedNestedStartsWith2()
 	{
-		class Props extends Properties
+		class Props extends MyProperties
 		{
 			Props()
 			{
 				super(EMPTY_SOURCE, null);
-				field("duplicate.x", factory);
-				field("duplicate", factory);
+				value("duplicate.x", factory);
+				value("duplicate", factory);
 			}
 		}
 		try
