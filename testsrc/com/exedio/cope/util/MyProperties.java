@@ -66,4 +66,11 @@ public class MyProperties extends Properties
 		final PropertiesField<T> field = fieldOptional(key, factory);
 		return field!=null ? field.get() : null;
 	}
+
+	// for testing only
+
+	Field forKey(final String key)
+	{
+		return detectDuplicateKeys.get(key);
+	}
 }
