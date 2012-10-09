@@ -33,7 +33,7 @@ public class SystemPropertySourceTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("key can't be null", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 		try
 		{
@@ -42,7 +42,7 @@ public class SystemPropertySourceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("key can't be empty", e.getMessage());
+			assertEquals("key must not be empty", e.getMessage());
 		}
 		assertEquals(null, SYSTEM_PROPERTY_SOURCE.get("xxx"));
 		assertNull(SYSTEM_PROPERTY_SOURCE.keySet());

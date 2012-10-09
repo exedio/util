@@ -51,11 +51,7 @@ public final class PrefixSource implements Source
 
 	public String get(final String key)
 	{
-		if(key==null)
-			throw new NullPointerException("key");
-		if(key.length()==0)
-			throw new IllegalArgumentException("key must not be empty");
-
+		Sources.checkKey(key);
 		return source.get(prefix + key);
 	}
 

@@ -116,6 +116,7 @@ public class Properties
 	{
 		/**
 		 * @throws RuntimeException if key is null or empty.
+		 * You may want to use {@link Sources#checkKey(String)} for implementations.
 		 */
 		String get(String key);
 
@@ -144,11 +145,7 @@ public class Properties
 
 		public String get(final String key)
 		{
-			if(key==null)
-				throw new NullPointerException("key");
-			if(key.length()==0)
-				throw new IllegalArgumentException("key must not be empty");
-
+			Sources.checkKey(key);
 			return null;
 		}
 
@@ -181,6 +178,7 @@ public class Properties
 
 		public String get(final String key)
 		{
+			Sources.checkKey(key);
 			return System.getProperty(key);
 		}
 
@@ -216,11 +214,7 @@ public class Properties
 		return new Source(){
 			public String get(final String key)
 			{
-				if(key==null)
-					throw new NullPointerException("key");
-				if(key.length()==0)
-					throw new IllegalArgumentException("key must not be empty");
-
+				Sources.checkKey(key);
 				return properties.getProperty(key);
 			}
 
