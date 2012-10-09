@@ -56,8 +56,8 @@ public class MyProperties extends Properties
 	// TODO make field(key, factory, optionDefault)
 	protected final <T extends Properties> PropertiesField<T> fieldOptional(final String key, final Factory<T> factory)
 	{
-		final BooleanField enable = field(key, false);
-		return enable.get() ? field(key, factory) : null;
+		final boolean enable = value(key, false);
+		return enable ? field(key, factory) : null;
 	}
 
 	// TODO make field(key, factory, optionDefault)
