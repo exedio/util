@@ -31,7 +31,7 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
-		final PropertiesField<InnerProperties> nested = field("nested", InnerProperties.factory());
+		final InnerProperties nested = value("nested", InnerProperties.factory());
 		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
 		final IntField nestedInner2 = (IntField)forKey("nested.inner2");
 		final IntField nestedDrinner1 = (IntField)forKey("nested.nested.drinner1");
@@ -44,6 +44,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final IntField outer1F = (IntField)forKey("outer1");
 		final IntField outer2F = (IntField)forKey("outer2");
+		final PropertiesField<InnerProperties> nestedF = forPrefix("nested", InnerProperties.class);
 
 		void assertIt()
 		{
@@ -59,7 +60,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 			assertEquals("outer1", outer1F.getKey());
 			assertEquals("outer2", outer2F.getKey());
-			assertEquals("nested", nested.getKey());
+			assertEquals("nested", nestedF.getKey());
 			assertEquals("nested.inner1", nestedInner1.getKey());
 			assertEquals("nested.inner2", nestedInner2.getKey());
 			assertEquals("nested.nested.drinner1", nestedDrinner1.getKey());
@@ -103,7 +104,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
-		final PropertiesField<DrinnerProperties> nested = field("nested", DrinnerProperties.factory());
+		final DrinnerProperties nested = value("nested", DrinnerProperties.factory());
 		final IntField nestedDrinner1 = (IntField)forKey("nested.drinner1");
 		final IntField nestedDrinner2 = (IntField)forKey("nested.drinner2");
 
@@ -114,6 +115,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final IntField inner1F = (IntField)forKey("inner1");
 		final IntField inner2F = (IntField)forKey("inner2");
+		final PropertiesField<DrinnerProperties> nestedF = forPrefix("nested", DrinnerProperties.class);
 
 		void assertIt()
 		{
@@ -206,14 +208,14 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(11, outer.nestedDrinner1.get());
 		assertEquals(12, outer.nestedDrinner2.get());
 
-		final InnerProperties inner = outer.nested.get();
+		final InnerProperties inner = outer.nested;
 		inner.assertIt();
 		assertEquals(101, inner.inner1);
 		assertEquals(102, inner.inner2);
 		assertEquals(11, inner.nestedDrinner1.get());
 		assertEquals(12, inner.nestedDrinner2.get());
 
-		final DrinnerProperties drinner = inner.nested.get();
+		final DrinnerProperties drinner = inner.nested;
 		drinner.assertIt();
 		assertEquals(11, drinner.drinner1);
 		assertEquals(12, drinner.drinner2);
@@ -235,14 +237,14 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(19, outer.nestedDrinner1.get());
 		assertEquals(12, outer.nestedDrinner2.get());
 
-		final InnerProperties inner = outer.nested.get();
+		final InnerProperties inner = outer.nested;
 		inner.assertIt();
 		assertEquals(109, inner.inner1);
 		assertEquals(102, inner.inner2);
 		assertEquals(19, inner.nestedDrinner1.get());
 		assertEquals(12, inner.nestedDrinner2.get());
 
-		final DrinnerProperties drinner = inner.nested.get();
+		final DrinnerProperties drinner = inner.nested;
 		drinner.assertIt();
 		assertEquals(19, drinner.drinner1);
 		assertEquals(12, drinner.drinner2);

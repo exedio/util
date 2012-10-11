@@ -36,7 +36,7 @@ public class Properties
 {
 	final ArrayList<Field> fields = new ArrayList<Field>();
 	final HashMap<String, Field> detectDuplicateKeys = new HashMap<String, Field>();
-	final HashSet<String> detectDuplicatePrefixes = new HashSet<String>();
+	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<String, PropertiesField<?>>();
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
@@ -261,7 +261,7 @@ public class Properties
 			if(detectDuplicateKeys.put(key, this)!=replacement)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
 			if(top)
-				for(final String prefix : detectDuplicatePrefixes)
+				for(final String prefix : detectDuplicatePrefixes.keySet())
 					if(key.startsWith(prefix))
 						throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
@@ -751,13 +751,13 @@ public class Properties
 			this.key = key;
 			final String prefix = key + '.';
 
-			for(final String other : properties.detectDuplicatePrefixes)
+			for(final String other : properties.detectDuplicatePrefixes.keySet())
 				if(other.startsWith(prefix) || prefix.startsWith(other))
 					throw new IllegalArgumentException("properties field '" + prefix + "' collides with properties field '" + other + '\'');
 			for(final String simple : properties.detectDuplicateKeys.keySet())
 				if(simple.startsWith(prefix))
 					throw new IllegalArgumentException("properties field '" + key + "' collides with field '" + simple + '\'');
-			if(!properties.detectDuplicatePrefixes.add(prefix))
+			if(properties.detectDuplicatePrefixes.put(prefix, this)!=null)
 				throw new IllegalArgumentException("duplicate prefix '" + prefix + '\'');
 
 			final Source source = new PrefixSource(properties.source, prefix);

@@ -31,7 +31,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 	{
 		final int outer = value("outer", 1001, 501);
 
-		final PropertiesField<InnerProperties> nested = fieldOptional("nested", InnerProperties.factory());
+		final InnerProperties nested = valueOptional("nested", InnerProperties.factory());
 
 		final BooleanField nestedEnable = (BooleanField)forKey("nested");
 		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
@@ -43,6 +43,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		}
 
 		final IntField outerF = (IntField)forKey("outer");
+		final PropertiesField<InnerProperties> nestedF = forPrefix("nested", InnerProperties.class);
 
 		private void assertOuter()
 		{
@@ -83,7 +84,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 
 			assertOuter();
 
-			assertEquals("nested", nested.getKey());
+			assertEquals("nested", nestedF.getKey());
 			assertEquals("nested.inner1", nestedInner1.getKey());
 			assertEquals("nested.inner2", nestedInner2.getKey());
 
@@ -169,7 +170,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		assertEquals(101, outer.nestedInner1.get());
 		assertEquals(102, outer.nestedInner2.get());
 
-		final InnerProperties inner = outer.nested.get();
+		final InnerProperties inner = outer.nested;
 		inner.assertIt();
 		assertEquals(101, inner.inner1);
 		assertEquals(102, inner.inner2);
@@ -189,7 +190,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		assertEquals(109, outer.nestedInner1.get());
 		assertEquals(102, outer.nestedInner2.get());
 
-		final InnerProperties inner = outer.nested.get();
+		final InnerProperties inner = outer.nested;
 		inner.assertIt();
 		assertEquals(109, inner.inner1);
 		assertEquals(102, inner.inner2);

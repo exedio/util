@@ -72,4 +72,10 @@ public class MyProperties extends Properties
 	{
 		return detectDuplicateKeys.get(key);
 	}
+
+	@SuppressWarnings("unchecked")
+	final <T extends Properties> PropertiesField<T> forPrefix(final String key, @SuppressWarnings("unused") final Class<T> clazz)
+	{
+		return (PropertiesField<T>)detectDuplicatePrefixes.get(key + '.');
+	}
 }
