@@ -22,40 +22,11 @@
 
 package com.exedio.cope.util;
 
-// TODO move into framework
-// TODO
-// must not move this class into frameworks other that util
-// to avoid collitions with upcoming features
 public class MyProperties extends Properties
 {
 	protected MyProperties(final Source source, final Source context)
 	{
 		super(source, context);
-	}
-
-	protected final boolean value(final String key, final boolean defaultValue)
-	{
-		return field(key, defaultValue).get();
-	}
-
-	protected final int value(final String key, final int defaultValue, final int minimum)
-	{
-		return field(key, defaultValue, minimum).get();
-	}
-
-	protected final String value(final String key, final String defaultValue)
-	{
-		return field(key, defaultValue).get();
-	}
-
-	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
-	{
-		return field(key, factory).get();
-	}
-
-	protected final <T extends Properties> T value(final String key, final boolean enabledDefault, final Factory<T> factory)
-	{
-		return value(key, enabledDefault) ? field(key, factory).get() : null;
 	}
 
 	// for testing only

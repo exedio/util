@@ -289,6 +289,11 @@ public class Properties
 		}
 	}
 
+	protected final boolean value(final String key, final boolean defaultValue)
+	{
+		return field(key, defaultValue).get();
+	}
+
 	protected final BooleanField field(final String key, final boolean defaultValue)
 	{
 		return new BooleanField(key, defaultValue);
@@ -365,6 +370,11 @@ public class Properties
 		{
 			return get();
 		}
+	}
+
+	protected final int value(final String key, final int defaultValue, final int minimum)
+	{
+		return field(key, defaultValue, minimum).get();
 	}
 
 	protected final IntField field(final String key, final int defaultValue, final int minimum)
@@ -463,6 +473,11 @@ public class Properties
 		{
 			return get();
 		}
+	}
+
+	protected final String value(final String key, final String defaultValue)
+	{
+		return field(key, defaultValue).get();
 	}
 
 	protected final StringField field(final String key, final String defaultValue)
@@ -729,6 +744,16 @@ public class Properties
 		{
 			return mapValue();
 		}
+	}
+
+	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
+	{
+		return field(key, factory).get();
+	}
+
+	protected final <T extends Properties> T value(final String key, final boolean enabledDefault, final Factory<T> factory)
+	{
+		return value(key, enabledDefault) ? field(key, factory).get() : null;
 	}
 
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
