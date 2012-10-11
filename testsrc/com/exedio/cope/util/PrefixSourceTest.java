@@ -24,6 +24,8 @@ import java.util.List;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class PrefixSourceTest extends CopeAssert
 {
 	private static class MockSource implements Source
@@ -58,7 +60,7 @@ public class PrefixSourceTest extends CopeAssert
 			return description;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_TOSTRING_COULD_RETURN_NULL")
+		@SuppressFBWarnings("NP_TOSTRING_COULD_RETURN_NULL")
 		@Override
 		public String toString()
 		{

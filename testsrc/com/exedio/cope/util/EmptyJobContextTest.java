@@ -22,7 +22,9 @@ import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 
 import com.exedio.cope.junit.CopeAssert;
 
-@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class EmptyJobContextTest extends CopeAssert
 {
 	public void testIt()

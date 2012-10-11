@@ -24,6 +24,8 @@ import java.util.Collections;
 
 import com.exedio.cope.util.Properties.Source;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class PrefixSource implements Source
 {
 	public static Source wrap(final Source source, final String prefix)
@@ -77,7 +79,7 @@ public final class PrefixSource implements Source
 			: ("unknown prefix " + prefix);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE") // happens in code generated for plus operator
+	@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE") // happens in code generated for plus operator
 	@Override
 	public String toString()
 	{

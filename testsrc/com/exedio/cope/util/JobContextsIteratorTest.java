@@ -29,6 +29,8 @@ import java.util.NoSuchElementException;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class JobContextsIteratorTest extends CopeAssert
 {
 	private static final Iterator<String> ITERATOR_FAIL = new Iterator<String>()
@@ -124,7 +126,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -163,7 +165,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);

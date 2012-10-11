@@ -29,6 +29,8 @@ import java.util.NoSuchElementException;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 @SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersIteratorTest extends CopeAssert
 {
@@ -84,7 +86,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testLaterInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -123,7 +125,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	public void testNoInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
