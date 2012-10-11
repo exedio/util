@@ -31,11 +31,11 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 	{
 		final int outer = value("outer", 1001, 501);
 
-		final InnerProperties nested = value("nested", false, InnerProperties.factory());
+		final InnerProperties nestedFalse = value("nested", false, InnerProperties.factory());
 
-		final BooleanField nestedEnable = (BooleanField)forKey("nested");
-		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
-		final IntField nestedInner2 = (IntField)forKey("nested.inner2");
+		final BooleanField nestedFalseEnable = (BooleanField)forKey("nested");
+		final IntField nestedFalseInner1 = (IntField)forKey("nested.inner1");
+		final IntField nestedFalseInner2 = (IntField)forKey("nested.inner2");
 
 		OuterProperties(final java.util.Properties source)
 		{
@@ -43,7 +43,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		}
 
 		final IntField outerF = (IntField)forKey("outer");
-		final PropertiesField<InnerProperties> nestedF = forPrefix("nested", InnerProperties.class);
+		final PropertiesField<InnerProperties> nestedFalseF = forPrefix("nested", InnerProperties.class);
 
 		private void assertOuter()
 		{
@@ -52,9 +52,9 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 			assertEquals(false, outerF.hasHiddenValue());
 			assertEquals(501, outerF.getMinimum());
 
-			assertEquals("nested", nestedEnable.getKey());
-			assertEquals(Boolean.FALSE, nestedEnable.getDefaultValue());
-			assertEquals(false, nestedEnable.hasHiddenValue());
+			assertEquals("nested", nestedFalseEnable.getKey());
+			assertEquals(Boolean.FALSE, nestedFalseEnable.getDefaultValue());
+			assertEquals(false, nestedFalseEnable.hasHiddenValue());
 		}
 
 		void assertDisabled()
@@ -62,14 +62,14 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 			assertEquals(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					outerF,
-					nestedEnable,
+					nestedFalseEnable,
 			}), getFields());
 
 			assertOuter();
 
-			assertNull(nested);
-			assertNull(nestedInner1);
-			assertNull(nestedInner2);
+			assertNull(nestedFalse);
+			assertNull(nestedFalseInner1);
+			assertNull(nestedFalseInner2);
 		}
 
 		void assertEnabled()
@@ -77,25 +77,25 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 			assertEquals(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					outerF,
-					nestedEnable,
-					nestedInner1,
-					nestedInner2,
+					nestedFalseEnable,
+					nestedFalseInner1,
+					nestedFalseInner2,
 			}), getFields());
 
 			assertOuter();
 
-			assertEquals("nested", nestedF.getKey());
-			assertEquals("nested.inner1", nestedInner1.getKey());
-			assertEquals("nested.inner2", nestedInner2.getKey());
+			assertEquals("nested", nestedFalseF.getKey());
+			assertEquals("nested.inner1", nestedFalseInner1.getKey());
+			assertEquals("nested.inner2", nestedFalseInner2.getKey());
 
-			assertEquals(Integer.valueOf(101), nestedInner1.getDefaultValue());
-			assertEquals(Integer.valueOf(102), nestedInner2.getDefaultValue());
+			assertEquals(Integer.valueOf(101), nestedFalseInner1.getDefaultValue());
+			assertEquals(Integer.valueOf(102), nestedFalseInner2.getDefaultValue());
 
-			assertEquals(false, nestedInner1.hasHiddenValue());
-			assertEquals(false, nestedInner2.hasHiddenValue());
+			assertEquals(false, nestedFalseInner1.hasHiddenValue());
+			assertEquals(false, nestedFalseInner2.hasHiddenValue());
 
-			assertEquals( 51, nestedInner1.getMinimum());
-			assertEquals( 52, nestedInner2.getMinimum());
+			assertEquals( 51, nestedFalseInner1.getMinimum());
+			assertEquals( 52, nestedFalseInner2.getMinimum());
 		}
 	}
 
@@ -152,10 +152,10 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertDisabled();
 		assertEquals(1001, outer.outer);
-		assertEquals(false, outer.nestedEnable.get());
-		assertNull(outer.nestedInner1);
-		assertNull(outer.nestedInner2);
-		assertNull(outer.nested);
+		assertEquals(false, outer.nestedFalseEnable.get());
+		assertNull(outer.nestedFalseInner1);
+		assertNull(outer.nestedFalseInner2);
+		assertNull(outer.nestedFalse);
 	}
 
 	public void testDefaultsNested()
@@ -166,14 +166,14 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertEnabled();
 		assertEquals(1001, outer.outer);
-		assertEquals(true, outer.nestedEnable.get());
-		assertEquals(101, outer.nestedInner1.get());
-		assertEquals(102, outer.nestedInner2.get());
+		assertEquals(true, outer.nestedFalseEnable.get());
+		assertEquals(101, outer.nestedFalseInner1.get());
+		assertEquals(102, outer.nestedFalseInner2.get());
 
-		final InnerProperties inner = outer.nested;
-		inner.assertIt();
-		assertEquals(101, inner.inner1);
-		assertEquals(102, inner.inner2);
+		final InnerProperties innerFalse = outer.nestedFalse;
+		innerFalse.assertIt();
+		assertEquals(101, innerFalse.inner1);
+		assertEquals(102, innerFalse.inner2);
 	}
 
 	public void testSet()
@@ -186,13 +186,13 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertEnabled();
 		assertEquals(1009, outer.outer);
-		assertEquals(true, outer.nestedEnable.get());
-		assertEquals(109, outer.nestedInner1.get());
-		assertEquals(102, outer.nestedInner2.get());
+		assertEquals(true, outer.nestedFalseEnable.get());
+		assertEquals(109, outer.nestedFalseInner1.get());
+		assertEquals(102, outer.nestedFalseInner2.get());
 
-		final InnerProperties inner = outer.nested;
-		inner.assertIt();
-		assertEquals(109, inner.inner1);
-		assertEquals(102, inner.inner2);
+		final InnerProperties innerFalse = outer.nestedFalse;
+		innerFalse.assertIt();
+		assertEquals(109, innerFalse.inner1);
+		assertEquals(102, innerFalse.inner2);
 	}
 }
