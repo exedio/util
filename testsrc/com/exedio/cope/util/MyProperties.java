@@ -53,7 +53,6 @@ public class MyProperties extends Properties
 		return field(key, factory).get();
 	}
 
-
 	protected final <T extends Properties> T value(final String key, final boolean enabledDefault, final Factory<T> factory)
 	{
 		return value(key, enabledDefault) ? field(key, factory).get() : null;
