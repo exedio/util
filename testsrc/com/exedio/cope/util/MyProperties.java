@@ -53,10 +53,10 @@ public class MyProperties extends Properties
 		return field(key, factory).get();
 	}
 
-	// TODO make value(key, factory, optionDefault)
-	protected final <T extends Properties> T valueOptional(final String key, final Factory<T> factory)
+
+	protected final <T extends Properties> T value(final String key, final boolean enabledDefault, final Factory<T> factory)
 	{
-		return value(key, false) ? field(key, factory).get() : null;
+		return value(key, enabledDefault) ? field(key, factory).get() : null;
 	}
 
 	// for testing only

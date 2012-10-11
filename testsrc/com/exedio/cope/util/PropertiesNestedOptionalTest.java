@@ -31,7 +31,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 	{
 		final int outer = value("outer", 1001, 501);
 
-		final InnerProperties nested = valueOptional("nested", InnerProperties.factory());
+		final InnerProperties nested = value("nested", false, InnerProperties.factory());
 
 		final BooleanField nestedEnable = (BooleanField)forKey("nested");
 		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
