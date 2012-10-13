@@ -848,9 +848,8 @@ public class Properties
 		if(prefixes!=null)
 			allowedPrefixes.addAll(Arrays.asList(prefixes));
 
-		for(final Object keyObject : source.keySet())
+		for(final String key : source.keySet())
 		{
-			final String key = (String)keyObject;
 			if(!allowedValues.contains(key))
 			{
 				boolean error = true;
