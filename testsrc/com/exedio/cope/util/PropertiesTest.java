@@ -36,6 +36,7 @@ public class PropertiesTest extends CopeAssert
 		final String stringMandatory = value("stringMandatory", (String)null);
 		final String stringOptional = value("stringOptional", "stringOptional.defaultValue");
 		final String stringHidden = valueHidden("stringHidden", (String)null);
+		final String stringHiddenOptional = valueHidden("stringHiddenOptional", "stringHiddenOptional.defaultValue");
 		final FileField file = fieldFile("file");
 		final MapField map = fieldMap("map");
 
@@ -50,6 +51,7 @@ public class PropertiesTest extends CopeAssert
 		final StringField stringMandatoryF = (StringField)forKey("stringMandatory");
 		final StringField stringOptionalF = (StringField)forKey("stringOptional");
 		final StringField stringHiddenF = (StringField)forKey("stringHidden");
+		final StringField stringHiddenOptionalF = (StringField)forKey("stringHiddenOptional");
 
 		void assertIt()
 		{
@@ -61,6 +63,7 @@ public class PropertiesTest extends CopeAssert
 					stringMandatoryF,
 					stringOptionalF,
 					stringHiddenF,
+					stringHiddenOptionalF,
 					file,
 					map,
 			}), getFields());
@@ -71,6 +74,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory", stringMandatoryF.getKey());
 			assertEquals("stringOptional", stringOptionalF.getKey());
 			assertEquals("stringHidden", stringHiddenF.getKey());
+			assertEquals("stringHiddenOptional", stringHiddenOptionalF.getKey());
 			assertEquals("file", file.getKey());
 			assertEquals("map", map.getKey());
 
@@ -81,6 +85,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(null, stringMandatoryF.getDefaultValue());
 			assertEquals("stringOptional.defaultValue", stringOptionalF.getDefaultValue());
 			assertEquals(null, stringHiddenF.getDefaultValue());
+			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValue());
 			assertEquals(null, file.getDefaultValue());
 			assertEquals(null, map.getDefaultValue());
 
@@ -90,6 +95,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(false, stringMandatoryF.hasHiddenValue());
 			assertEquals(false, stringOptionalF.hasHiddenValue());
 			assertEquals(true, stringHiddenF.hasHiddenValue());
+			assertEquals(true, stringHiddenOptionalF.hasHiddenValue());
 			assertEquals(false, file.hasHiddenValue());
 			assertEquals(false, map.hasHiddenValue());
 		}
@@ -141,6 +147,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatoryF.getValue());
 		assertEquals("stringOptional.defaultValue", minimal.stringOptionalF.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHiddenF.getValue());
+		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptionalF.getValue());
 		assertEquals(null, minimal.file.get());
 		assertEquals(null, minimal.file.getValue());
 		assertEquals(new java.util.Properties(), minimal.map.mapValue());
@@ -153,6 +160,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(true, minimal.stringMandatoryF.isSpecified());
 		assertEquals(false, minimal.stringOptionalF.isSpecified());
 		assertEquals(true, minimal.stringHiddenF.isSpecified());
+		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
 		assertEquals(false, minimal.file.isSpecified());
 		assertEquals(false, minimal.map.isSpecified());
 
@@ -172,6 +180,7 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("stringMandatory", "stringMandatory.explicitValue");
 			p.setProperty("stringOptional", "stringOptional.explicitValue");
 			p.setProperty("stringHidden", "stringHidden.explicitValue");
+			p.setProperty("stringHiddenOptional", "stringHiddenOptional.explicitValue");
 			p.setProperty("file", file1.getPath());
 			p.setProperty("map.explicitKey1", "map.explicitValue1");
 			p.setProperty("map.explicitKey2", "map.explicitValue2");
@@ -190,6 +199,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatoryF.getValue());
 			assertEquals("stringOptional.explicitValue", tp.stringOptionalF.getValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHiddenF.getValue());
+			assertEquals("stringHiddenOptional.explicitValue", tp.stringHiddenOptionalF.getValue());
 			assertEquals(file1, tp.file.get());
 			assertEquals(file1, tp.file.getValue());
 			final java.util.Properties mapExpected = new java.util.Properties();
@@ -207,6 +217,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(true, tp.stringMandatoryF.isSpecified());
 			assertEquals(true, tp.stringOptionalF.isSpecified());
 			assertEquals(true, tp.stringHiddenF.isSpecified());
+			assertEquals(true, tp.stringHiddenOptionalF.isSpecified());
 			assertEquals(true, tp.file.isSpecified());
 			assertEquals(false, tp.map.isSpecified()); // TODO
 		}
@@ -231,6 +242,7 @@ public class PropertiesTest extends CopeAssert
 						"stringMandatory, " +
 						"stringOptional, " +
 						"stringHidden, " +
+						"stringHiddenOptional, " +
 						"file] " +
 						"or one starting with [map.].", e.getMessage());
 			}

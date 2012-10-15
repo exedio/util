@@ -525,8 +525,6 @@ public class Properties
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
 
-			assert !(defaultValue!=null && hideValue);
-
 			final String s = resolve(key);
 			if(s==null)
 			{
