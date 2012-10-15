@@ -144,6 +144,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory);
 		assertEquals("stringOptional.defaultValue", minimal.stringOptional);
 		assertEquals("stringHidden.minimalValue", minimal.stringHidden);
+		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptional);
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatoryF.getValue());
 		assertEquals("stringOptional.defaultValue", minimal.stringOptionalF.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHiddenF.getValue());
@@ -196,6 +197,7 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatory);
 			assertEquals("stringOptional.explicitValue", tp.stringOptional);
 			assertEquals("stringHidden.explicitValue", tp.stringHidden);
+			assertEquals("stringHiddenOptional.explicitValue", tp.stringHiddenOptional);
 			assertEquals("stringMandatory.explicitValue", tp.stringMandatoryF.getValue());
 			assertEquals("stringOptional.explicitValue", tp.stringOptionalF.getValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHiddenF.getValue());
