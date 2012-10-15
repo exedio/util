@@ -35,7 +35,7 @@ public class PropertiesTest extends CopeAssert
 		final int int10 = value("int10", 10, 5);
 		final String stringMandatory = value("stringMandatory", (String)null);
 		final String stringOptional = value("stringOptional", "stringOptional.defaultValue");
-		final String stringHidden = field("stringHidden", (String)null).hide().get();
+		final String stringHidden = valueHidden("stringHidden", (String)null);
 		final FileField file = fieldFile("file");
 		final MapField map = fieldMap("map");
 

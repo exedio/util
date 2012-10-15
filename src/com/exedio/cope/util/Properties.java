@@ -249,7 +249,7 @@ public class Properties
 		final String key;
 		private final boolean specified;
 
-		Field(final boolean top, final Field replacement, final String key)
+		Field(final boolean top, final String key)
 		{
 			this.key = key;
 			this.specified = source.get(key)!=null;
@@ -258,15 +258,13 @@ public class Properties
 				throw new NullPointerException("key");
 			if(key.length()==0)
 				throw new RuntimeException("key must not be empty.");
-			if(detectDuplicateKeys.put(key, this)!=replacement)
+			if(detectDuplicateKeys.put(key, this)!=null)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
 			if(top)
 				for(final String prefix : detectDuplicatePrefixes.keySet())
 					if(key.startsWith(prefix))
 						throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
-			if(replacement!=null)
-				fields.remove(replacement);
 			fields.add(this);
 		}
 
@@ -310,7 +308,7 @@ public class Properties
 		@Deprecated
 		public BooleanField(final String key, final boolean defaultValue)
 		{
-			super(true, null, key);
+			super(true, key);
 			this.defaultValue = defaultValue;
 
 			final String s = resolve(key);
@@ -329,7 +327,7 @@ public class Properties
 
 		BooleanField(final String key, final BooleanField template)
 		{
-			super(false, null, key);
+			super(false, key);
 			this.defaultValue = template.defaultValue;
 			this.value = template.value;
 		}
@@ -394,7 +392,7 @@ public class Properties
 		@Deprecated
 		public IntField(final String key, final int defaultValue, final int minimum)
 		{
-			super(true, null, key);
+			super(true, key);
 			this.defaultValue = defaultValue;
 			this.minimum = minimum;
 
@@ -426,7 +424,7 @@ public class Properties
 
 		IntField(final String key, final IntField template)
 		{
-			super(false, null, key);
+			super(false, key);
 			this.defaultValue = template.defaultValue;
 			this.value = template.value;
 			this.minimum = template.minimum;
@@ -480,6 +478,11 @@ public class Properties
 		return field(key, defaultValue).get();
 	}
 
+	protected final String valueHidden(final String key, final String defaultValue)
+	{
+		return new StringField(key, defaultValue, true).get();
+	}
+
 	protected final StringField field(final String key, final String defaultValue)
 	{
 		return
@@ -501,7 +504,7 @@ public class Properties
 		@Deprecated
 		public StringField(final String key)
 		{
-			this(null, key, null, false);
+			this(key, null, false);
 		}
 
 		/**
@@ -510,15 +513,15 @@ public class Properties
 		@Deprecated
 		public StringField(final String key, final String defaultValue)
 		{
-			this(null, key, defaultValue, false);
+			this(key, defaultValue, false);
 
 			if(defaultValue==null)
 				throw new NullPointerException("defaultValue");
 		}
 
-		private StringField(final StringField replacement, final String key, final String defaultValue, final boolean hideValue)
+		StringField(final String key, final String defaultValue, final boolean hideValue)
 		{
-			super(true, replacement, key);
+			super(true, key);
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
 
@@ -538,15 +541,10 @@ public class Properties
 
 		StringField(final String key, final StringField template)
 		{
-			super(false, null, key);
+			super(false, key);
 			this.defaultValue = template.defaultValue;
 			this.hideValue = template.hideValue;
 			this.value = template.value;
-		}
-
-		public StringField hide()
-		{
-			return new StringField(this, key, defaultValue, true);
 		}
 
 		@Override
@@ -576,12 +574,12 @@ public class Properties
 
 		/**
 		 * Creates a mandatory string field.
-		 * @deprecated Use {@link #hide()} instead.
+		 * @deprecated Use {@link Properties#valueHidden(String, String)} instead.
 		 */
 		@Deprecated
 		public StringField(final String key, final boolean hideValue)
 		{
-			this(null, key, null, hideValue);
+			this(key, null, hideValue);
 		}
 
 		/**
@@ -618,7 +616,7 @@ public class Properties
 		@Deprecated
 		public FileField(final String key)
 		{
-			super(true, null, key);
+			super(true, key);
 
 			final String valueString = resolve(key);
 			this.value = (valueString==null) ? null : new File(valueString);
@@ -626,7 +624,7 @@ public class Properties
 
 		FileField(final String key, final FileField template)
 		{
-			super(false, null, key);
+			super(false, key);
 			this.value = template.value;
 		}
 
@@ -689,7 +687,7 @@ public class Properties
 		@Deprecated
 		public MapField(final String key)
 		{
-			super(true, null, key);
+			super(true, key);
 
 			value = new java.util.Properties();
 
@@ -708,7 +706,7 @@ public class Properties
 
 		MapField(final String key, final MapField template)
 		{
-			super(false, null, key);
+			super(false, key);
 			this.value = template.value;
 		}
 
