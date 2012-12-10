@@ -35,7 +35,7 @@ public class StrictFileTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		f = File.createTempFile(getClass().getSimpleName(), "tmp");
+		f = File.createTempFile(getClass().getName(), "tmp");
 	}
 
 	@Override
