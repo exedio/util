@@ -33,7 +33,7 @@ public class PropertiesFileTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		file = File.createTempFile(getClass().getName(), ".properties");
+		file = File.createTempFile(PropertiesFileTest.class.getName(), ".properties");
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class SafeFileTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		f = File.createTempFile(getClass().getName(), "tmp");
+		f = File.createTempFile(SafeFileTest.class.getName(), "tmp");
 	}
 
 	@Deprecated
