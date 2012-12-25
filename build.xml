@@ -29,6 +29,7 @@
 	
 	<target name="test.run" depends="test.compile">
 		<mkdir dir="build/testresults" />
+		<mkdir dir="build/testtmpdir" />
 		<junit fork="yes"
 				 haltonerror="true" haltonfailure="true"
 				 showoutput="true" printsummary="true">
@@ -41,6 +42,7 @@
 				<pathelement location="lib/easymock.jar" />
 				<pathelement location="lib/cglib-nodep.jar" />
 			</classpath>
+			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<test name="com.exedio.cope.util.PackageTest" todir="build/testresults" outfile="cope-util" />
 			<assertions><enable/></assertions>
 		</junit>
