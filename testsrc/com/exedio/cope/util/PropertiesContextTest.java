@@ -33,6 +33,7 @@ public class PropertiesContextTest extends CopeAssert
 	{
 		final String aField = value("aKey", (String)null);
 
+		@Deprecated
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
 			super(getSource(source, sourceDescription), context);

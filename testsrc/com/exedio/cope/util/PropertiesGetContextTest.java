@@ -34,6 +34,7 @@ public class PropertiesGetContextTest extends CopeAssert
 		@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 		final String stringMandatory = value("stringMandatory", (String)null);
 
+		@Deprecated
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
 			super(getSource(source, sourceDescription), context);

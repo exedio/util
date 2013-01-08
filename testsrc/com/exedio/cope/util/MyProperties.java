@@ -24,6 +24,12 @@ package com.exedio.cope.util;
 
 public class MyProperties extends Properties
 {
+	protected MyProperties(final Source source)
+	{
+		super(source);
+	}
+
+	@Deprecated
 	protected MyProperties(final Source source, final Source context)
 	{
 		super(source, context);

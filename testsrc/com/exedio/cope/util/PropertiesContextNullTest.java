@@ -31,7 +31,7 @@ public class PropertiesContextNullTest extends CopeAssert
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
-			super(getSource(source, sourceDescription), null);
+			super(getSource(source, sourceDescription));
 		}
 	}
 

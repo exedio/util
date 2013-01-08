@@ -41,6 +41,17 @@ public class Properties
 	final String sourceDescription;
 	private final Source context;
 
+	public Properties(final Source source)
+	{
+		this(source, null);
+	}
+
+	/**
+	 * @deprecated
+	 * Use {@link #Properties(Source)} instead.
+	 * Using context is deprecated at all.
+	 */
+	@Deprecated
 	public Properties(final Source source, final Source context)
 	{
 		this.source = source;

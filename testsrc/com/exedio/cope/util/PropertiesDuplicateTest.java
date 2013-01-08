@@ -33,7 +33,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 
 		DuplicateProperties()
 		{
-			super(Properties.EMPTY_SOURCE, null);
+			super(Properties.EMPTY_SOURCE);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	{
 		Nested(final Source source)
 		{
-			super(source, null);
+			super(source);
 			value("field", false);
 		}
 	}
@@ -76,7 +76,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate.", false);
 				value("duplicate", factory);
 			}
@@ -99,7 +99,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate.x", false);
 				value("duplicate", factory);
 			}
@@ -122,7 +122,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate", factory);
 				value("duplicate.", false);
 			}
@@ -145,7 +145,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate", factory);
 				value("duplicate.x", false);
 			}
@@ -168,7 +168,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate", factory);
 				value("duplicate", factory);
 			}
@@ -191,7 +191,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate", factory);
 				value("duplicate.x", factory);
 			}
@@ -214,7 +214,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 		{
 			Props()
 			{
-				super(EMPTY_SOURCE, null);
+				super(EMPTY_SOURCE);
 				value("duplicate.x", factory);
 				value("duplicate", factory);
 			}

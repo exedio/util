@@ -42,7 +42,7 @@ public class PropertiesTest extends CopeAssert
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
-			super(getSource(source, sourceDescription), null);
+			super(getSource(source, sourceDescription));
 		}
 
 		final BooleanField boolFalseF = (BooleanField)forKey("boolFalse");
@@ -355,7 +355,7 @@ public class PropertiesTest extends CopeAssert
 
 		try
 		{
-			new Properties((Properties.Source)null, null);
+			new Properties((Properties.Source)null);
 			fail();
 		}
 		catch(final NullPointerException e)

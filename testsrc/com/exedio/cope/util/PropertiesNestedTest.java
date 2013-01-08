@@ -39,7 +39,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		OuterProperties(final java.util.Properties source)
 		{
-			super(getSource(source, "someDescription"), null);
+			super(getSource(source, "someDescription"));
 		}
 
 		final IntField outer1F = (IntField)forKey("outer1");
@@ -110,7 +110,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		InnerProperties(final Source source)
 		{
-			super(source, null);
+			super(source);
 		}
 
 		final IntField inner1F = (IntField)forKey("inner1");
@@ -167,7 +167,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		DrinnerProperties(final Source source)
 		{
-			super(source, null);
+			super(source);
 		}
 
 		final IntField drinner1F = (IntField)forKey("drinner1");
