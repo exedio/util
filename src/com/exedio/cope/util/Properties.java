@@ -46,8 +46,6 @@ public class Properties
 		this.source = source;
 		this.sourceDescription = source.getDescription();
 		this.context = context;
-
-		// TODO check, that no other property key do occur
 	}
 
 	/**
@@ -826,6 +824,8 @@ public class Properties
 
 	public final void ensureValidity(final String... prefixes)
 	{
+		// TODO make a method Collection<String> getOrphanedKeys() from this method
+
 		final Collection<String> keySet = source.keySet();
 		if(keySet==null)
 			return;
