@@ -20,7 +20,10 @@ package com.exedio.cope.util;
 
 public final class CharsetName
 {
-	public static final String UTF8 = "utf-8";
+	/**
+	 * See <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+	 */
+	public static final String UTF8 = "UTF-8";
 
 	private CharsetName()
 	{
