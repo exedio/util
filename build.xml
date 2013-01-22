@@ -74,16 +74,17 @@
 	
 	<target name="clean">
 		<delete dir="build" />
+		<delete dir="api" /><!-- not created anymore-->
 	</target>
 
 	<target name="api">
 
-		<delete dir="api" />
-		<mkdir  dir="api" />
+		<delete dir="build/api" />
+		<mkdir  dir="build/api" />
 
 		<javadoc
 				sourcepath="src"
-				destdir="api"
+				destdir="build/api"
 				maxmemory="60m"
 				author="on"
 				use="on"
