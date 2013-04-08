@@ -215,24 +215,6 @@ public class Properties
 	}
 
 
-	/**
-	 * @deprecated Use {@link Sources#view(java.util.Properties, String)} instead.
-	 */
-	@Deprecated
-	public static final Source getSource(final java.util.Properties properties, final String description)
-	{
-		return Sources.view(properties, description);
-	}
-
-	/**
-	 * @deprecated Use {@link Sources#load(File)} instead.
-	 */
-	@Deprecated
-	public static final Source getSource(final File file)
-	{
-		return Sources.load(file);
-	}
-
 	public abstract class Field
 	{
 		final String key;
@@ -889,15 +871,6 @@ public class Properties
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link Sources#loadProperties(File)} instead.
-	 */
-	@Deprecated
-	public static final java.util.Properties loadProperties(final File file)
-	{
-		return Sources.loadProperties(file);
-	}
-
 	// ------------------- deprecated stuff -------------------
 
 	/**
@@ -954,5 +927,32 @@ public class Properties
 	public static final Source getContext(final java.util.Properties properties, final String description)
 	{
 		return getSource(properties, description);
+	}
+
+	/**
+	 * @deprecated Use {@link Sources#view(java.util.Properties, String)} instead.
+	 */
+	@Deprecated
+	public static final Source getSource(final java.util.Properties properties, final String description)
+	{
+		return Sources.view(properties, description);
+	}
+
+	/**
+	 * @deprecated Use {@link Sources#load(File)} instead.
+	 */
+	@Deprecated
+	public static final Source getSource(final File file)
+	{
+		return Sources.load(file);
+	}
+
+	/**
+	 * @deprecated Use {@link Sources#loadProperties(File)} instead.
+	 */
+	@Deprecated
+	public static final java.util.Properties loadProperties(final File file)
+	{
+		return Sources.loadProperties(file);
 	}
 }
