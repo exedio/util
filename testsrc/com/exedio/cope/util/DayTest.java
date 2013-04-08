@@ -113,10 +113,10 @@ public class DayTest extends CopeAssert
 		assertEquals("2005/9/23", d.toString());
 
 		assertFalse(d.equals(null));
-		assertEquals(d, new Day(2005, 9, 23));
-		assertNotEquals(d, new Day(2004, 9, 23));
-		assertNotEquals(d, new Day(2005, 8, 23));
-		assertNotEquals(d, new Day(2005, 9, 22));
+		assertEqualsStrict(d, new Day(2005, 9, 23));
+		assertNotEqualsStrict(d, new Day(2004, 9, 23));
+		assertNotEqualsStrict(d, new Day(2005, 8, 23));
+		assertNotEqualsStrict(d, new Day(2005, 9, 22));
 
 		assertEquals(-1, new Day(2004,  9, 23).compareTo(d));
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
@@ -128,35 +128,35 @@ public class DayTest extends CopeAssert
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
 		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
 
-		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000")));
-		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999")));
-		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000").getTime()));
-		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999").getTime()));
+		assertEqualsStrict(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000")));
+		assertEqualsStrict(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999")));
+		assertEqualsStrict(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000").getTime()));
+		assertEqualsStrict(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999").getTime()));
 
-		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
-		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
-		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
+		assertEqualsStrict(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
+		assertEqualsStrict(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
+		assertEqualsStrict(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
 
 		assertNull(valueOf((Date)null));
 		assertNull(valueOf((GregorianCalendar)null));
 		assertNull(valueOf((XMLGregorianCalendar)null));
 
-		assertEquals(  new Day(2005, 2, 23),
+		assertEqualsStrict(  new Day(2005, 2, 23),
 			reserialize(new Day(2005, 2, 23), 80));
 		assertEquals(  list(new Day(2007, 2, 23), new Day(2009, 8, 25)),
 			reserialize(list(new Day(2007, 2, 23), new Day(2009, 8, 25)), 210));
 	}
 
-	static final void assertEquals(final Day expected, final Day actual)
+	static final void assertEqualsStrict(final Day expected, final Day actual)
 	{
-		assertEquals((Object)expected, (Object)actual);
-		assertEquals((Object)actual, (Object)expected);
+		assertEquals(expected, actual);
+		assertEquals(actual, expected);
 		assertEquals(expected.hashCode(), actual.hashCode());
 		assertEquals(0, expected.compareTo(actual));
 		assertEquals(0, actual.compareTo(expected));
 	}
 
-	static final void assertNotEquals(final Day expected, final Day actual)
+	static final void assertNotEqualsStrict(final Day expected, final Day actual)
 	{
 		assertTrue(!expected.equals(actual));
 		assertTrue(!actual.equals(expected));
@@ -178,7 +178,7 @@ public class DayTest extends CopeAssert
 		assertEquals(month, cal.get(Calendar.MONDAY));
 		assertEquals(year, cal.get(Calendar.YEAR));
 		assertEquals(1, cal.get(Calendar.ERA));
-		assertEquals(actual, valueOf(cal));
+		assertEqualsStrict(actual, valueOf(cal));
 	}
 
 	static final void assertXMLGregorianCalendar(final int year, final int month, final int day, final Day actual) throws DatatypeConfigurationException
@@ -193,7 +193,7 @@ public class DayTest extends CopeAssert
 		assertEquals(month, cal.getMonth());
 		assertEquals(year, cal.getYear());
 		assertEquals(null, cal.getEon());
-		assertEquals(actual, valueOf(cal));
+		assertEqualsStrict(actual, valueOf(cal));
 	}
 
 	@SuppressFBWarnings("EC_UNRELATED_TYPES")
