@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -68,24 +69,28 @@ public final class Sources
 
 	public static final Properties loadProperties(final File file)
 	{
-		final Properties result = new Properties();
 		try
 		{
-			final FileInputStream stream = new FileInputStream(file);
-			try
-			{
-				result.load(stream);
-			}
-			finally
-			{
-				stream.close();
-			}
-			return result;
+			return loadPropertiesAndClose(new FileInputStream(file));
 		}
 		catch(final IOException e)
 		{
 			throw new RuntimeException("property file " + file.getAbsolutePath() + " not found.", e);
 		}
+	}
+
+	private static final Properties loadPropertiesAndClose(final InputStream stream) throws IOException
+	{
+		final Properties result = new Properties();
+		try
+		{
+			result.load(stream);
+		}
+		finally
+		{
+			stream.close();
+		}
+		return result;
 	}
 
 	public static Source cascade(final Source... sources)
