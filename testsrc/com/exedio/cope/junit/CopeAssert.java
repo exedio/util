@@ -18,6 +18,11 @@
 
 package com.exedio.cope.junit;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,9 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
-public abstract class CopeAssert extends TestCase
+public abstract class CopeAssert
 {
 	public static final void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{

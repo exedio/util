@@ -18,7 +18,13 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import java.util.Arrays;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -195,7 +201,8 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 	}
 
-	public void testDefaults()
+	@SuppressWarnings("static-method")
+	@Test public final void testDefaults()
 	{
 		final java.util.Properties source = new java.util.Properties();
 
@@ -221,7 +228,8 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(12, drinner.drinner2);
 	}
 
-	public void testSet()
+	@SuppressWarnings("static-method")
+	@Test public final void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer1", "1009");
@@ -250,8 +258,9 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(12, drinner.drinner2);
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
-	public void testWrong()
+	@Test public final void testWrong()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nested.inner1", "109x");
@@ -274,8 +283,9 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
-	public void testWrongDrinner()
+	@Test public final void testWrongDrinner()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nested.nested.drinner1", "19x");

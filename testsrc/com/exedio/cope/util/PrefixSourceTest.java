@@ -18,8 +18,16 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
+
 import java.util.Collection;
 import java.util.List;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
@@ -68,7 +76,8 @@ public class PrefixSourceTest extends CopeAssert
 		}
 	}
 
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		final MockSource ms = new MockSource(false, "description");
 		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
@@ -102,7 +111,8 @@ public class PrefixSourceTest extends CopeAssert
 		assertSame(ms, PrefixSource.wrap(ms, ""));
 	}
 
-	public void testNull()
+	@SuppressWarnings("static-method")
+	@Test public final void testNull()
 	{
 		final MockSource ms = new MockSource(true, null);
 		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
@@ -136,8 +146,8 @@ public class PrefixSourceTest extends CopeAssert
 		assertNull(PrefixSource.wrap(null, ""));
 	}
 
-	@SuppressWarnings("unused")
-	public void testFail()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testFail()
 	{
 		try
 		{

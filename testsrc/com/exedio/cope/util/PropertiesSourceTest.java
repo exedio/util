@@ -18,11 +18,17 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class PropertiesSourceTest extends CopeAssert
 {
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey", "testValue");

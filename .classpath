@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/easymock.jar"/>
 	<classpathentry kind="lib" path="lib/cglib-nodep.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/cpsuite.jar" sourcepath="lib/cpsuite-src.zip"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>

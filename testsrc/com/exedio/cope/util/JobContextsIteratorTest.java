@@ -19,6 +19,10 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
@@ -26,6 +30,8 @@ import static org.easymock.EasyMock.verify;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -100,7 +106,8 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 	};
 
-	public void testFail()
+	@SuppressWarnings("static-method")
+	@Test public final void testFail()
 	{
 		assertSame(null, iterator(null, null));
 		assertSame(null, iterator(null, CONTEXT_FAIL));
@@ -108,7 +115,8 @@ public class JobContextsIteratorTest extends CopeAssert
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, CONTEXT_FAIL));
 	}
 
-	public void testImmediateStop()
+	@SuppressWarnings("static-method")
+	@Test public final void testImmediateStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
@@ -126,8 +134,9 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	public void testLaterStop()
+	@Test public final void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
@@ -165,8 +174,9 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	public void testNoStop()
+	@Test public final void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);

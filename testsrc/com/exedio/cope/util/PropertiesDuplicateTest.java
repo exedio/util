@@ -18,6 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -37,8 +42,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testDuplicate()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testDuplicate()
 	{
 		try
 		{
@@ -69,8 +74,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	};
 
-	@SuppressWarnings("unused")
-	public void testSimpleNestedEquals()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testSimpleNestedEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -92,8 +97,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testSimpleNestedStartsWith()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testSimpleNestedStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -115,8 +120,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testNestedSimpleEquals()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testNestedSimpleEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -138,8 +143,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testNestedSimpleStartsWith()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testNestedSimpleStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -161,8 +166,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testNestedNestedEquals()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testNestedNestedEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -184,8 +189,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testNestedNestedStartsWith()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testNestedNestedStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -207,8 +212,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public void testNestedNestedStartsWith2()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testNestedNestedStartsWith2()
 	{
 		class Props extends MyProperties
 		{

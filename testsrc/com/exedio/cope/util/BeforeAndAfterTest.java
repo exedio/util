@@ -18,21 +18,27 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class BeforeAndAfterTest extends CopeAssert
 {
 	private Day today;
 	private Day tomorrow;
 	private Day yesterday;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		final GregorianCalendar calendar = new GregorianCalendar();
 		today = new Day(calendar);
 		calendar.add(Calendar.DATE, 1);
@@ -41,7 +47,7 @@ public class BeforeAndAfterTest extends CopeAssert
 		yesterday = new Day(calendar);
 	}
 
-	public void testBeforeAssert()
+	@Test public final void testBeforeAssert()
 	{
 		assertEquals(true, yesterday.before(today));
 		assertEquals(true, yesterday.before(tomorrow));
@@ -51,7 +57,7 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(false, tomorrow.before(today));
 	}
 
-	public void testAfterAssert()
+	@Test public final void testAfterAssert()
 	{
 		assertEquals(false, yesterday.after(today));
 		assertEquals(false, yesterday.after(tomorrow));
@@ -61,7 +67,8 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(true, tomorrow.after(today));
 	}
 
-	public void testCombiAssert()
+	@SuppressWarnings("static-method")
+	@Test public final void testCombiAssert()
 	{
 		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));
 		assertEquals(false, new Day(2011, 8, 5).before(new Day(2011, 7, 6)));

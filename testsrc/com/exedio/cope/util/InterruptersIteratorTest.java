@@ -19,6 +19,10 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Interrupters.iterator;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
@@ -26,6 +30,8 @@ import static org.easymock.EasyMock.verify;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -60,7 +66,8 @@ public class InterruptersIteratorTest extends CopeAssert
 		}
 	};
 
-	public void testFail()
+	@SuppressWarnings("static-method")
+	@Test public final void testFail()
 	{
 		assertSame(null, iterator(null, null));
 		assertSame(null, iterator(null, INTERRUPTER_FAIL));
@@ -68,7 +75,8 @@ public class InterruptersIteratorTest extends CopeAssert
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, INTERRUPTER_FAIL));
 	}
 
-	public void testImmediateInterrupt()
+	@SuppressWarnings("static-method")
+	@Test public final void testImmediateInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);
@@ -86,8 +94,9 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	public void testLaterInterrupt()
+	@Test public final void testLaterInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);
@@ -125,8 +134,9 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	public void testNoInterrupt()
+	@Test public final void testNoInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);

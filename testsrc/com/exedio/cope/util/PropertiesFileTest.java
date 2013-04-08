@@ -18,10 +18,18 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -29,22 +37,18 @@ public class PropertiesFileTest extends CopeAssert
 {
 	private File file;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws IOException
 	{
-		super.setUp();
 		file = File.createTempFile(PropertiesFileTest.class.getName(), ".properties");
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		if(file.exists())
 			StrictFile.delete(file);
-		super.tearDown();
 	}
 
-	public void testIt() throws IOException
+	@Test public final void testIt() throws IOException
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey1", "testValue1");
@@ -79,7 +83,7 @@ public class PropertiesFileTest extends CopeAssert
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
-	public void testNotExists()
+	@Test public final void testNotExists()
 	{
 		StrictFile.delete(file);
 		try

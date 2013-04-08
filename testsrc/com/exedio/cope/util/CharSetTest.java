@@ -18,12 +18,19 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class CharSetTest extends CopeAssert
 {
-	@SuppressWarnings("unused")
-	public void testIt()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testIt()
 	{
 		try
 		{

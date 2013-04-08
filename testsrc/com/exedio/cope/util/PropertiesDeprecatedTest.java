@@ -18,7 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+
 import java.util.Arrays;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -95,7 +99,8 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		}
 	}
 
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");

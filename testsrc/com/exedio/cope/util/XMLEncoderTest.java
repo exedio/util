@@ -20,6 +20,8 @@ package com.exedio.cope.util;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 public class XMLEncoderTest extends TestCase
 {
 	private static final void assertIt(final String expected, final String actual)
@@ -36,7 +38,8 @@ public class XMLEncoderTest extends TestCase
 		}
 	}
 
-	public void testEncode()
+	@SuppressWarnings("static-method")
+	@Test public final void testEncode()
 	{
 		assertEquals(null, XMLEncoder.encode(null));
 		assertIt("", "");

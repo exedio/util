@@ -19,12 +19,17 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class EmptySourceTest extends CopeAssert
 {
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		try
 		{

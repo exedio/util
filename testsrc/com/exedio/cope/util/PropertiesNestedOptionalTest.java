@@ -18,7 +18,12 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
+
 import java.util.Arrays;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -170,7 +175,8 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		}
 	}
 
-	public void testDefaults()
+	@SuppressWarnings("static-method")
+	@Test public final void testDefaults()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedTrue", "false");
@@ -188,7 +194,8 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		assertNull(outer.nestedTrue);
 	}
 
-	public void testDefaultsNested()
+	@SuppressWarnings("static-method")
+	@Test public final void testDefaultsNested()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedFalse", "true");
@@ -214,7 +221,8 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		assertEquals(102, innerTrue.inner2);
 	}
 
-	public void testSet()
+	@SuppressWarnings("static-method")
+	@Test public final void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer", "1009");

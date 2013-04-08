@@ -18,9 +18,15 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -41,7 +47,8 @@ public class PropertiesGetContextTest extends CopeAssert
 		}
 	}
 
-	public void testGetContext()
+	@SuppressWarnings("static-method")
+	@Test public final void testGetContext()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -84,8 +91,9 @@ public class PropertiesGetContextTest extends CopeAssert
 		}
 	}
 
+	@SuppressWarnings("static-method")
 	@Deprecated
-	public void testGetContextDeprecated()
+	@Test public final void testGetContextDeprecated()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");

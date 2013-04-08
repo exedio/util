@@ -19,12 +19,19 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class SystemPropertySourceTest extends CopeAssert
 {
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		try
 		{
@@ -50,8 +57,9 @@ public class SystemPropertySourceTest extends CopeAssert
 		assertEquals("SystemPropertySource", SYSTEM_PROPERTY_SOURCE.toString());
 	}
 
+	@SuppressWarnings("static-method")
 	@Deprecated // OK: testing deprecated api
-	public void testDeprecated()
+	@Test public final void testDeprecated()
 	{
 		assertSame(SYSTEM_PROPERTY_SOURCE, Properties.getSystemPropertySource());
 	}

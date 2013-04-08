@@ -20,9 +20,15 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Cast.castElements;
 import static com.exedio.cope.util.Cast.verboseCast;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -31,7 +37,8 @@ public class CastTest extends CopeAssert
 	private static final String string1 = "string1";
 	private static final Object string1Object = string1;
 
-	public void testVerboseCast()
+	@SuppressWarnings("static-method")
+	@Test public final void testVerboseCast()
 	{
 		assertNull(verboseCast(String.class, null));
 		assertSame(string1, verboseCast(String.class, string1Object));
@@ -66,7 +73,8 @@ public class CastTest extends CopeAssert
 		}
 	}
 
-	public void testCastElements()
+	@SuppressWarnings("static-method")
+	@Test public final void testCastElements()
 	{
 		final List<String> strings = Arrays.asList(string1);
 		final List<String> strings2 = Arrays.asList(string1, string1);

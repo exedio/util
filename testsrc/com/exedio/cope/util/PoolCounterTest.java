@@ -18,14 +18,22 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import java.util.Iterator;
 import java.util.List;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class PoolCounterTest extends CopeAssert
 {
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		final PoolCounter c = new PoolCounter(1,2);
 
@@ -76,7 +84,8 @@ public class PoolCounterTest extends CopeAssert
 		assertIt(c2, 3, 3); assertIt(p21,1, 0, 1, 2, 2, 66); assertIt(p22,2, 1, 2, 2, 1,33);
 	}
 
-	public void testExtend()
+	@SuppressWarnings("static-method")
+	@Test public final void testExtend()
 	{
 		final PoolCounter c = new PoolCounter(1,2,4,6);
 		{
@@ -205,8 +214,8 @@ public class PoolCounterTest extends CopeAssert
 		assertTrue("isConsistent", p.isConsistent());
 	}
 
-	@SuppressWarnings("unused")
-	public void testFail()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testFail()
 	{
 		try
 		{

@@ -20,6 +20,9 @@ package com.exedio.cope.util;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -35,7 +38,8 @@ public class CounterTest extends CopeAssert
 	private final Object lock = new Object();
 	private final AtomicLong atomic = new AtomicLong();
 
-	public void testCount()
+	@Ignore
+	@Test public final void testCount()
 	{
 		final int N = 10000000;
 		for(int j = 0; j<2; j++)

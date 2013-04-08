@@ -18,7 +18,15 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 import java.io.File;
+import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -26,25 +34,20 @@ public class SafeFileTest extends CopeAssert
 {
 	File f;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws IOException
 	{
-		super.setUp();
 		f = File.createTempFile(SafeFileTest.class.getName(), "tmp");
 	}
 
 	@Deprecated
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		if(f.exists())
 			SafeFile.delete(f);
-
-		super.tearDown();
 	}
 
 	@Deprecated
-	public void testDelete()
+	@Test public final void testDelete()
 	{
 		SafeFile.delete(f);
 		try
@@ -59,7 +62,7 @@ public class SafeFileTest extends CopeAssert
 	}
 
 	@Deprecated
-	public void testMkdir()
+	@Test public final void testMkdir()
 	{
 		SafeFile.delete(f);
 		SafeFile.mkdir(f);
@@ -75,7 +78,7 @@ public class SafeFileTest extends CopeAssert
 	}
 
 	@Deprecated
-	public void testMkdirs()
+	@Test public final void testMkdirs()
 	{
 		SafeFile.delete(f);
 		SafeFile.mkdirs(f);
@@ -91,7 +94,7 @@ public class SafeFileTest extends CopeAssert
 	}
 
 	@Deprecated
-	public void testRenameTo()
+	@Test public final void testRenameTo()
 	{
 		final File f2 = new File(f.getAbsolutePath()+"-rename");
 		SafeFile.renameTo(f, f2);

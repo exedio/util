@@ -19,12 +19,17 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class ProxyJobContextTest extends CopeAssert
 {
-	public void testIt()
+	@SuppressWarnings("static-method")
+	@Test public final void testIt()
 	{
 		final ProxyJobContext c = new ProxyJobContext(new EmptyJobContext());
 
@@ -40,8 +45,8 @@ public class ProxyJobContextTest extends CopeAssert
 		c.setCompleteness(0.5);
 	}
 
-	@SuppressWarnings("unused")
-	public void testNull()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testNull()
 	{
 		try
 		{

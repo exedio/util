@@ -18,9 +18,14 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -40,7 +45,8 @@ public class PropertiesContextTest extends CopeAssert
 		}
 	}
 
-	public void testContext()
+	@SuppressWarnings("static-method")
+	@Test public final void testContext()
 	{
 		assertContext("y", "${x}");
 		assertContext("bucket", "${eimer}");

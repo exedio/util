@@ -20,6 +20,11 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Day.valueOf;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,14 +36,16 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DayTest extends CopeAssert
 {
-	@SuppressWarnings("unused")
-	public void testIt() throws ParseException, DatatypeConfigurationException
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testIt() throws ParseException, DatatypeConfigurationException
 	{
 		try
 		{
@@ -196,8 +203,9 @@ public class DayTest extends CopeAssert
 		assertEqualsStrict(actual, valueOf(cal));
 	}
 
+	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("EC_UNRELATED_TYPES")
-	public void testUnrelatedEquals()
+	@Test public final void testUnrelatedEquals()
 	{
 		final Day d = new Day(2005, 9, 23);
 		assertTrue(!d.equals("hallo"));

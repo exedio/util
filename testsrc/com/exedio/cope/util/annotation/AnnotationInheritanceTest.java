@@ -18,9 +18,13 @@
 
 package com.exedio.cope.util.annotation;
 
+import static junit.framework.Assert.assertEquals;
+
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -29,7 +33,8 @@ import com.exedio.cope.junit.CopeAssert;
  */
 public class AnnotationInheritanceTest extends CopeAssert
 {
-	public void testIt() throws NoSuchFieldException, NoSuchMethodException
+	@SuppressWarnings("static-method")
+	@Test public final void testIt() throws NoSuchFieldException, NoSuchMethodException
 	{
 		assertAnno("BothSuperClassDeclared", "BothSuperClassInherited", BothSuper.class);
 		assertAnno("BothSuperFieldDeclared", "BothSuperFieldInherited", field(BothSuper.class));

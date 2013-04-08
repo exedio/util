@@ -18,6 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -35,7 +39,8 @@ public class PropertiesContextNullTest extends CopeAssert
 		}
 	}
 
-	public void testContext()
+	@SuppressWarnings("static-method")
+	@Test public final void testContext()
 	{
 		assertContext("${x}");
 		assertContext("${eimer}");

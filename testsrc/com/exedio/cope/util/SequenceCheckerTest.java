@@ -18,27 +18,31 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class SequenceCheckerTest extends CopeAssert
 {
 	SequenceChecker sc;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		sc = new SequenceChecker(5);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		sc = null;
-		super.tearDown();
 	}
 
-	public void testInOrder()
+	@Test public final void testInOrder()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -74,7 +78,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,10, 8, 0, 0, 0, 0, 0);
 	}
 
-	public void testOutOfOrder()
+	@Test public final void testOutOfOrder()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -104,7 +108,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,10, 5, 3, 0, 0, 0, 0);
 	}
 
-	public void testDuplicate()
+	@Test public final void testDuplicate()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -128,7 +132,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,15, 3, 0, 3, 6, 0, 4);
 	}
 
-	public void testLostStep()
+	@Test public final void testLostStep()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -158,7 +162,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,13, 8, 0, 0, 3, 0, 0);
 	}
 
-	public void testLostJump()
+	@Test public final void testLostJump()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -176,7 +180,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,13, 4, 0, 0, 3, 0, 4);
 	}
 
-	public void testLostJumpOver()
+	@Test public final void testLostJumpOver()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -194,7 +198,7 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,16, 4, 0, 0, 6, 0, 4);
 	}
 
-	public void testLate()
+	@Test public final void testLate()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -218,8 +222,8 @@ public class SequenceCheckerTest extends CopeAssert
 		assertIt(3,13, 2, 2, 0, 5, 2, 2);
 	}
 
-	@SuppressWarnings("unused")
-	public void testException()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testException()
 	{
 		try
 		{

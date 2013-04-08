@@ -18,8 +18,16 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -104,28 +112,22 @@ public class PropertiesTest extends CopeAssert
 	File file1;
 	File file2;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws IOException
 	{
-		super.setUp();
-
 		file1 = File.createTempFile(PropertiesTest.class.getName(), ".tmp");
 		file2 = File.createTempFile(PropertiesTest.class.getName(), ".tmp");
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		if(!file1.delete())
 			System.err.println("could not delete " + file1);
 		if(!file2.delete())
 			System.err.println("could not delete " + file2);
-
-		super.tearDown();
 	}
 
 	@SuppressWarnings("unused")
-	public void testIt()
+	@Test public final void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");

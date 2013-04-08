@@ -18,14 +18,21 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
 import java.util.Arrays;
 import java.util.Locale;
 
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 
+@SuppressWarnings("static-method")
 public class HexTest extends CopeAssert
 {
-	public void testDecodeHelper()
+	@Test public final void testDecodeHelper()
 	{
 		assertEquals(0x00, Hex.decodeLower('0'));
 		assertEquals(0x09, Hex.decodeLower('9'));
@@ -52,7 +59,7 @@ public class HexTest extends CopeAssert
 		}
 	}
 
-	public void testIt()
+	@Test public final void testIt()
 	{
 		assertIt("000ff0aa", new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa});
 		assertIt("0123456789abcdef", new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef});

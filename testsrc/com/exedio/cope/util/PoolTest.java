@@ -18,15 +18,21 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.fail;
+
 import java.util.Iterator;
 import java.util.List;
+
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class PoolTest extends CopeAssert
 {
-
-	public void testSimple()
+	@SuppressWarnings("static-method")
+	@Test public final void testSimple()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(listg(c1));
@@ -64,7 +70,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	public void testOverflow()
+	@SuppressWarnings("static-method")
+	@Test public final void testOverflow()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -103,7 +110,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	public void testPrecendence()
+	@SuppressWarnings("static-method")
+	@Test public final void testPrecendence()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -190,7 +198,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	public void testIdleInitial()
+	@SuppressWarnings("static-method")
+	@Test public final void testIdleInitial()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(listg(c1));
@@ -208,7 +217,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	public void testIsValidOnPut()
+	@SuppressWarnings("static-method")
+	@Test public final void testIsValidOnPut()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -250,7 +260,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	public void testFlush()
+	@SuppressWarnings("static-method")
+	@Test public final void testFlush()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -289,7 +300,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	public void testNoPool()
+	@SuppressWarnings("static-method")
+	@Test public final void testNoPool()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -322,7 +334,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	public void testValidOnGet()
+	@SuppressWarnings("static-method")
+	@Test public final void testValidOnGet()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -356,8 +369,8 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("unused")
-	public void testError()
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testError()
 	{
 		try
 		{

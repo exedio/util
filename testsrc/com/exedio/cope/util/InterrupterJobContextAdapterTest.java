@@ -18,6 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static junit.framework.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 
@@ -44,7 +48,8 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}
 	}
 
-	public void testSupports()
+	@SuppressWarnings("static-method")
+	@Test public final void testSupports()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
 			public void run(final JobContext ctx)
@@ -71,7 +76,8 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	public void testStopIfRequested()
+	@SuppressWarnings("static-method")
+	@Test public final void testStopIfRequested()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
 			public void run(final JobContext ctx)
@@ -94,7 +100,8 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	public void testRequestedToStop()
+	@SuppressWarnings("static-method")
+	@Test public final void testRequestedToStop()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
 			public void run(final JobContext ctx)
@@ -117,7 +124,8 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	public void testProgress()
+	@SuppressWarnings("static-method")
+	@Test public final void testProgress()
 	{
 		assertEquals(1, InterrupterJobContextAdapter.run(null, new Body(){
 			public void run(final JobContext ctx)
@@ -136,7 +144,8 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	public void testProgressDelta()
+	@SuppressWarnings("static-method")
+	@Test public final void testProgressDelta()
 	{
 		assertEquals(5, InterrupterJobContextAdapter.run(null, new Body(){
 			public void run(final JobContext ctx)

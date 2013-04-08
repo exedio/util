@@ -18,31 +18,11 @@
 
 package com.exedio.cope.util;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import org.junit.extensions.cpsuite.ClasspathSuite;
+import org.junit.runner.RunWith;
 
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
-
-public class MessageDigestUtilTest extends CopeAssert
+@RunWith(ClasspathSuite.class)
+public class AllTests
 {
-	@SuppressWarnings("static-method")
-	@Test public final void testIt()
-	{
-		assertEquals("MD5", MessageDigestUtil.getInstance("MD5").getAlgorithm());
-		try
-		{
-			MessageDigestUtil.getInstance("NIXUS");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
-		}
-	}
+	// empty class
 }

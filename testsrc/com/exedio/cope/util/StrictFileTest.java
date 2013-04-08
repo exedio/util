@@ -22,8 +22,15 @@ import static com.exedio.cope.util.StrictFile.delete;
 import static com.exedio.cope.util.StrictFile.mkdir;
 import static com.exedio.cope.util.StrictFile.mkdirs;
 import static com.exedio.cope.util.StrictFile.renameTo;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -31,23 +38,18 @@ public class StrictFileTest extends CopeAssert
 {
 	File f;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws IOException
 	{
-		super.setUp();
 		f = File.createTempFile(StrictFileTest.class.getName(), "tmp");
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		if(f.exists())
 			delete(f);
-
-		super.tearDown();
 	}
 
-	public void testDelete()
+	@Test public final void testDelete()
 	{
 		delete(f);
 		try
@@ -61,7 +63,7 @@ public class StrictFileTest extends CopeAssert
 		}
 	}
 
-	public void testMkdir()
+	@Test public final void testMkdir()
 	{
 		delete(f);
 		mkdir(f);
@@ -76,7 +78,7 @@ public class StrictFileTest extends CopeAssert
 		}
 	}
 
-	public void testMkdirs()
+	@Test public final void testMkdirs()
 	{
 		delete(f);
 		mkdirs(f);
@@ -91,7 +93,7 @@ public class StrictFileTest extends CopeAssert
 		}
 	}
 
-	public void testRenameTo()
+	@Test public final void testRenameTo()
 	{
 		final File f2 = new File(f.getAbsolutePath()+"-rename");
 		renameTo(f, f2);
