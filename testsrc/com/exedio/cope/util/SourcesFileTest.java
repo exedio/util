@@ -34,13 +34,13 @@ import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class PropertiesFileTest extends CopeAssert
+public class SourcesFileTest extends CopeAssert
 {
 	private File file;
 
 	@Before public final void setUp() throws IOException
 	{
-		file = File.createTempFile(PropertiesFileTest.class.getName(), ".properties");
+		file = File.createTempFile(SourcesFileTest.class.getName(), ".properties");
 	}
 
 	@After public final void tearDown()
