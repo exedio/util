@@ -18,8 +18,15 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.util.Properties.Source;
+
 public final class Sources
 {
+	public static Source cascade(final Source... sources)
+	{
+		return CascadeSource.cascade(sources);
+	}
+
 	/**
 	 * Checks a key to be valid for calling {@link Properties.Source#get(String)}.
 	 * @param key
