@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -76,6 +77,18 @@ public final class Sources
 		catch(final IOException e)
 		{
 			throw new RuntimeException("property file " + file.getAbsolutePath() + " not found.", e);
+		}
+	}
+
+	public static final Source load(final URL url)
+	{
+		try
+		{
+			return view(loadPropertiesAndClose(url.openStream()), url.toString());
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException("property url " + url.toString() + " not found.", e);
 		}
 	}
 
