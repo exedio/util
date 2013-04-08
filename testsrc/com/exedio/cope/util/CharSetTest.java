@@ -98,16 +98,16 @@ public class CharSetTest extends CopeAssert
 			assertTrue(cs.contains('o'));
 			assertFalse(cs.contains('q'));
 		}
-		assertEquals(
+		assertEqualsStrict(
 				new CharSet('A', 'A'),
 				new CharSet('A', 'A'));
-		assertEquals(
+		assertEqualsStrict(
 				new CharSet('A', 'X', 'a', 'x'),
 				new CharSet('A', 'X', 'a', 'x'));
-		assertNotEquals(
+		assertNotEqualsStrict(
 				new CharSet('A', 'A'),
 				new CharSet('A', 'A', 'a', 'x'));
-		assertNotEquals(
+		assertNotEqualsStrict(
 				new CharSet('A', 'X', 'a', 'x'),
 				new CharSet('A', 'X', 'a', 'y'));
 
@@ -116,14 +116,14 @@ public class CharSetTest extends CopeAssert
 		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
 	}
 
-	private static void assertEquals(final CharSet cs1, final CharSet cs2)
+	private static void assertEqualsStrict(final CharSet cs1, final CharSet cs2)
 	{
-		assertEquals((Object)cs1, (Object)cs2);
-		assertEquals((Object)cs2, (Object)cs1);
+		assertEquals(cs1, cs2);
+		assertEquals(cs2, cs1);
 		assertEquals(cs1.hashCode(), cs2.hashCode());
 	}
 
-	private static void assertNotEquals(final CharSet cs1, final CharSet cs2)
+	private static void assertNotEqualsStrict(final CharSet cs1, final CharSet cs2)
 	{
 		assertTrue(!cs1.equals(cs2));
 		assertTrue(!cs2.equals(cs1));
