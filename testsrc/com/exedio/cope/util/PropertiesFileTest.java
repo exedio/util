@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Sources.load;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
@@ -55,7 +56,7 @@ public class PropertiesFileTest extends CopeAssert
 		p.setProperty("testKey2", "testValue2");
 		store(p);
 
-		final Properties.Source s = Properties.getSource(file);
+		final Properties.Source s = load(file);
 		try
 		{
 			s.get(null);
@@ -88,7 +89,7 @@ public class PropertiesFileTest extends CopeAssert
 		StrictFile.delete(file);
 		try
 		{
-			Properties.getSource(file);
+			load(file);
 			fail();
 		}
 		catch(final RuntimeException e)

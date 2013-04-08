@@ -19,8 +19,6 @@
 package com.exedio.cope.util;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -226,9 +224,13 @@ public class Properties
 		return Sources.view(properties, description);
 	}
 
+	/**
+	 * @deprecated Use {@link Sources#load(File)} instead.
+	 */
+	@Deprecated
 	public static final Source getSource(final File file)
 	{
-		return getSource(loadProperties(file), file.getAbsolutePath());
+		return Sources.load(file);
 	}
 
 	public abstract class Field
@@ -887,26 +889,13 @@ public class Properties
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link Sources#loadProperties(File)} instead.
+	 */
+	@Deprecated
 	public static final java.util.Properties loadProperties(final File file)
 	{
-		final java.util.Properties result = new java.util.Properties();
-		try
-		{
-			final FileInputStream stream = new FileInputStream(file);
-			try
-			{
-				result.load(stream);
-			}
-			finally
-			{
-				stream.close();
-			}
-			return result;
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException("property file "+file.getAbsolutePath()+" not found.", e);
-		}
+		return Sources.loadProperties(file);
 	}
 
 	// ------------------- deprecated stuff -------------------

@@ -18,6 +18,9 @@
 
 package com.exedio.cope.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,6 +59,33 @@ public final class Sources
 				return description;
 			}
 		};
+	}
+
+	public static final Source load(final File file)
+	{
+		return view(loadProperties(file), file.getAbsolutePath());
+	}
+
+	public static final Properties loadProperties(final File file)
+	{
+		final Properties result = new Properties();
+		try
+		{
+			final FileInputStream stream = new FileInputStream(file);
+			try
+			{
+				result.load(stream);
+			}
+			finally
+			{
+				stream.close();
+			}
+			return result;
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException("property file " + file.getAbsolutePath() + " not found.", e);
+		}
 	}
 
 	public static Source cascade(final Source... sources)
