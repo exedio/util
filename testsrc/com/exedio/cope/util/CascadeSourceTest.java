@@ -19,8 +19,8 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
-import static com.exedio.cope.util.Properties.getSource;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.util.Sources.view;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
@@ -47,8 +47,8 @@ public class CascadeSourceTest
 		properties2.setProperty("key12", "value12-2");
 
 		final Source s = cascade(
-				getSource(properties1, "description1"),
-				getSource(properties2, "description2"));
+				view(properties1, "description1"),
+				view(properties2, "description2"));
 
 		assertEquals("value1a", s.get("key1a"));
 		assertEquals("value1b", s.get("key1b"));
@@ -124,7 +124,7 @@ public class CascadeSourceTest
 
 	@Test public void singleton()
 	{
-		final Source singleton = getSource(new Properties(), "description1");
+		final Source singleton = view(new Properties(), "description1");
 		assertSame(singleton, cascade(singleton));
 	}
 }

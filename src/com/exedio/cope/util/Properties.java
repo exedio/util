@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -218,34 +217,13 @@ public class Properties
 	}
 
 
+	/**
+	 * @deprecated Use {@link Sources#view(java.util.Properties, String)} instead.
+	 */
+	@Deprecated
 	public static final Source getSource(final java.util.Properties properties, final String description)
 	{
-		return new Source(){
-			public String get(final String key)
-			{
-				Sources.checkKey(key);
-				return properties.getProperty(key);
-			}
-
-			public Collection<String> keySet()
-			{
-				final ArrayList<String> result = new ArrayList<String>();
-				for(final Enumeration<?> names = properties.propertyNames(); names.hasMoreElements(); )
-					result.add((String)names.nextElement());
-				return Collections.unmodifiableList(result);
-			}
-
-			public String getDescription()
-			{
-				return description;
-			}
-
-			@Override
-			public String toString()
-			{
-				return description;
-			}
-		};
+		return Sources.view(properties, description);
 	}
 
 	public static final Source getSource(final File file)

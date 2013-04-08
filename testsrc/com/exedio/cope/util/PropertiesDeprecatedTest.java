@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Sources.view;
 import static junit.framework.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -52,7 +53,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
-			super(getSource(source, sourceDescription));
+			super(view(source, sourceDescription));
 		}
 
 		void assertIt()

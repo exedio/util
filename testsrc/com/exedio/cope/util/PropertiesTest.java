@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Sources.view;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
@@ -50,7 +51,7 @@ public class PropertiesTest extends CopeAssert
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
-			super(getSource(source, sourceDescription));
+			super(view(source, sourceDescription));
 		}
 
 		final BooleanField boolFalseF = (BooleanField)forKey("boolFalse");

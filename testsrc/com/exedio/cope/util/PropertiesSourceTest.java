@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Sources.view;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
@@ -32,7 +33,7 @@ public class PropertiesSourceTest extends CopeAssert
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey", "testValue");
-		final Properties.Source s = Properties.getSource(p, "testDescription");
+		final Properties.Source s = view(p, "testDescription");
 		try
 		{
 			s.get(null);

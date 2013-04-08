@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Sources.view;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
@@ -45,7 +46,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		OuterProperties(final java.util.Properties source)
 		{
-			super(getSource(source, "someDescription"));
+			super(view(source, "someDescription"));
 		}
 
 		final IntField outer1F = (IntField)forKey("outer1");

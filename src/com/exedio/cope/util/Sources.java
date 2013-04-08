@@ -18,10 +18,46 @@
 
 package com.exedio.cope.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Properties;
+
 import com.exedio.cope.util.Properties.Source;
 
 public final class Sources
 {
+	public static final Source view(final Properties properties, final String description)
+	{
+		return new Source(){
+			public String get(final String key)
+			{
+				checkKey(key);
+				return properties.getProperty(key);
+			}
+
+			public Collection<String> keySet()
+			{
+				final ArrayList<String> result = new ArrayList<String>();
+				for(final Enumeration<?> names = properties.propertyNames(); names.hasMoreElements(); )
+					result.add((String)names.nextElement());
+				return Collections.unmodifiableList(result);
+			}
+
+			public String getDescription()
+			{
+				return description;
+			}
+
+			@Override
+			public String toString()
+			{
+				return description;
+			}
+		};
+	}
+
 	public static Source cascade(final Source... sources)
 	{
 		return CascadeSource.cascade(sources);
