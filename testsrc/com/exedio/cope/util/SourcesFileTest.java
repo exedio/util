@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
@@ -52,7 +53,7 @@ public class SourcesFileTest extends CopeAssert
 
 	@Test public final void testIt() throws IOException
 	{
-		final java.util.Properties p = new java.util.Properties();
+		final Properties p = new Properties();
 		p.setProperty("testKey1", "testValue1");
 		p.setProperty("testKey2", "testValue2");
 		store(p);
@@ -100,7 +101,7 @@ public class SourcesFileTest extends CopeAssert
 		}
 	}
 
-	private void store(final java.util.Properties p) throws IOException
+	private void store(final Properties p) throws IOException
 	{
 		final FileOutputStream stream = new FileOutputStream(file);
 		try
