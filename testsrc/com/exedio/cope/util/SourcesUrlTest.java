@@ -30,6 +30,7 @@ import java.net.UnknownHostException;
 import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties.Source;
 
 public class SourcesUrlTest extends CopeAssert
 {
@@ -37,7 +38,7 @@ public class SourcesUrlTest extends CopeAssert
 	@Test public final void testIt()
 	{
 		final URL url = SourcesUrlTest.class.getResource("sourcesUrlTest.properties");
-		final Properties.Source s = load(url);
+		final Source s = load(url);
 		try
 		{
 			s.get(null);

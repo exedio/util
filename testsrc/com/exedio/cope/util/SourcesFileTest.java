@@ -25,6 +25,7 @@ import static junit.framework.Assert.fail;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import com.exedio.cope.util.Properties.Source;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -56,7 +57,7 @@ public class SourcesFileTest extends CopeAssert
 		p.setProperty("testKey2", "testValue2");
 		store(p);
 
-		final Properties.Source s = load(file);
+		final Source s = load(file);
 		try
 		{
 			s.get(null);
