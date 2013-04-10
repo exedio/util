@@ -50,7 +50,11 @@ final class CascadeSource
 		{
 			// TODO check for nested cascades
 			// TODO check for nested empty
-			this.sources = sources;
+
+			// make a copy to avoid modifications afterwards
+			this.sources = new Source[sources.length];
+			for(int i = 0; i<sources.length; i++)
+				this.sources[i] = sources[i];
 		}
 
 		public String get(final String key)

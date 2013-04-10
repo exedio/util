@@ -127,4 +127,20 @@ public class CascadeSourceTest
 		final Source singleton = view(new Properties(), "description1");
 		assertSame(singleton, cascade(singleton));
 	}
+
+	@Test public void exposeArray()
+	{
+		final Source[] sources = new Source[]{
+				view(new Properties(), "description1"),
+				view(new Properties(), "description2")};
+
+		final Source s = cascade(sources);
+		assertEquals("description1 / description2", s.getDescription());
+
+		sources[0] = null;
+		// NOTE
+		// the following line throws a NullPointerException,
+		// if sources are not copied.
+		assertEquals("description1 / description2", s.getDescription());
+	}
 }
