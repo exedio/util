@@ -424,6 +424,7 @@ public class PoolTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unused","static-method"})
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public final void testError()
 	{
 		try
