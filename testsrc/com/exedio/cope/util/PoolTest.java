@@ -29,6 +29,8 @@ import org.junit.Test;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class PoolTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
@@ -378,6 +380,7 @@ public class PoolTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unused","static-method", "deprecation"})
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test public final void testErrorDeprecated()
 	{
 		try
