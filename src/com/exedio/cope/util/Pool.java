@@ -19,6 +19,8 @@
 package com.exedio.cope.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -53,20 +55,49 @@ public final class Pool<E>
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") private volatile int invalidOnGet = 0;
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") private volatile int invalidOnPut = 0;
 
+	/**
+	 * @deprecated Use {@link #Pool(Factory, PoolProperties, PoolCounter)} instead.
+	 */
+	@Deprecated
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
+	{
+		this(factory, PoolProperties.factory(50).create(new Properties.Source(){
+
+			private static final String LIMIT   = "idleLimit";
+			private static final String INITIAL = "idleInitial";
+
+			public String get(final String key)
+			{
+				if(LIMIT.equals(key))
+					return String.valueOf(idleLimit);
+				else if(INITIAL.equals(key))
+					return String.valueOf(idleInitial);
+				else
+					return null;
+			}
+
+			public Collection<String> keySet()
+			{
+				return Arrays.asList(LIMIT, INITIAL);
+			}
+
+			public String getDescription()
+			{
+				return "Pool#Pool(Factory, int, int, PoolCounter)";
+			}
+		}), counter);
+	}
+
+	public Pool(final Factory<E> factory, final PoolProperties properties, final PoolCounter counter)
 	{
 		if(factory==null)
 			throw new NullPointerException("factory");
-		if(idleLimit<0)
-			throw new IllegalArgumentException("idleLimit must not be negative, but was " + idleLimit);
-		if(idleInitial<0)
-			throw new IllegalArgumentException("idleInitial must not be negative, but was " + idleInitial);
-		if(idleInitial>idleLimit)
-			throw new IllegalArgumentException("idleInitial must not be greater than idleLimit, but was " + idleInitial + " and " + idleLimit);
+		if(properties==null)
+			throw new NullPointerException("properties");
 
 		this.factory = factory;
-		this.idleLimit = idleLimit;
-		this.idleInitial = idleInitial;
+		this.idleLimit = properties.idleLimit;
+		this.idleInitial = properties.idleInitial;
 
 		this.idle = idleLimit>0 ? cast(new Object[idleLimit]) : null;
 

@@ -38,6 +38,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -78,6 +79,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -118,6 +120,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 2, 0, null);
 		assertEquals(2, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -205,6 +208,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 1, null);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(1, cp.getInfo().getIdleInitial());
@@ -225,6 +229,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -268,6 +273,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -308,6 +314,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 0, 0, null);
 		assertEquals(0, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -342,6 +349,7 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(listg(c1, c2));
 		f.assertV(0);
 
+		@SuppressWarnings("deprecation")
 		final Pool<Pooled> cp = new Pool<Pooled>(f, 1, 0, null);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
@@ -369,12 +377,12 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings({"unused","static-method"})
-	@Test public final void testError()
+	@SuppressWarnings({"unused","static-method", "deprecation"})
+	@Test public final void testErrorDeprecated()
 	{
 		try
 		{
-			new Pool<Pooled>((Factory)null, -1, -1, null);
+			new Pool<Pooled>((Factory)null, 0, 0, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -384,32 +392,57 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(CopeAssert.<Pooled>listg());
 		try
 		{
-			new Pool<Pooled>(f, -1, -1, null);
+			new Pool<Pooled>(null, -1, 0, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("idleLimit must not be negative, but was -1", e.getMessage());
+			assertEquals("property idleLimit in Pool#Pool(Factory, int, int, PoolCounter) has invalid value, expected an integer greater or equal 0, but got -1.", e.getMessage());
 		}
 		try
 		{
-			new Pool<Pooled>(f, 0, -1, null);
+			new Pool<Pooled>(null, -1, -1, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("idleInitial must not be negative, but was -1", e.getMessage());
+			assertEquals("property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) has invalid value, expected an integer greater or equal 0, but got -1.", e.getMessage());
 		}
 		try
 		{
-			new Pool<Pooled>(f, 0, 1, null);
+			new Pool<Pooled>(null, 0, 1, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("idleInitial must not be greater than idleLimit, but was 1 and 0", e.getMessage());
+			assertEquals("property idleInitial must not be greater than idleLimit, but was 1 and 0", e.getMessage());
 		}
 		new Pool<Pooled>(f, 0, 0, null);
+	}
+
+	@SuppressWarnings({"unused","static-method"})
+	@Test public final void testError()
+	{
+		try
+		{
+			new Pool<Pooled>((Factory)null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("factory", e.getMessage());
+		}
+		final Factory f = new Factory(CopeAssert.<Pooled>listg());
+		try
+		{
+			new Pool<Pooled>(f, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+		new Pool<Pooled>(f, PoolProperties.factory(50).create(Properties.EMPTY_SOURCE), null);
 	}
 
 	static class Factory implements Pool.Factory<Pooled>
