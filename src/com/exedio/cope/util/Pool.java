@@ -59,6 +59,7 @@ public final class Pool<E>
 	 * @deprecated Use {@link #Pool(Factory, PoolProperties, PoolCounter)} instead.
 	 */
 	@Deprecated
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
 	{
 		this(factory, PoolProperties.factory(50).create(new Properties.Source(){
