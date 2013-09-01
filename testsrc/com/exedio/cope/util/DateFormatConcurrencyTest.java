@@ -35,14 +35,14 @@ public class DateFormatConcurrencyTest extends CopeAssert
 	@Ignore
 	@Test public void torment() throws ParseException, InterruptedException
 	{
-		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		final List<DFThread> threads = new ArrayList<DFThread>();
-		threads.add(new DFThread(df, "2013-07-18 09:02:26.001"));
-		threads.add(new DFThread(df, "1234-10-12 10:11:21.002"));
-		threads.add(new DFThread(df, "1235-11-02 12:13:24.003"));
-		threads.add(new DFThread(df, "2020-08-30 18:19:20.004"));
-		threads.add(new DFThread(df, "1975-05-29 19:20:25.005"));
-		threads.add(new DFThread(df, "2010-01-02 01:03:05.006"));
+		threads.add(new DFThread(format, "2013-07-18 09:02:26.001"));
+		threads.add(new DFThread(format, "1234-10-12 10:11:21.002"));
+		threads.add(new DFThread(format, "1235-11-02 12:13:24.003"));
+		threads.add(new DFThread(format, "2020-08-30 18:19:20.004"));
+		threads.add(new DFThread(format, "1975-05-29 19:20:25.005"));
+		threads.add(new DFThread(format, "2010-01-02 01:03:05.006"));
 
 		for(final DFThread t : threads)
 			t.start();
@@ -52,16 +52,16 @@ public class DateFormatConcurrencyTest extends CopeAssert
 
 	private static class DFThread extends Thread
 	{
-		private final Date date;
-		private final DateFormat df;
+		private final Date value;
+		private final DateFormat format;
 		private final String expected;
 
-		public DFThread(final DateFormat df, final String dateString) throws ParseException
+		public DFThread(final DateFormat format, final String string) throws ParseException
 		{
-			this.df = df;
-			//this.df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-			this.expected = dateString;
-			this.date = df.parse(dateString);
+			this.format = format;
+			//this.format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			this.expected = string;
+			this.value = format.parse(string);
 		}
 
 		@Override
@@ -69,7 +69,7 @@ public class DateFormatConcurrencyTest extends CopeAssert
 		{
 			for(int i = 0; i<1000; i++)
 			{
-				final String actual = df.format(date);
+				final String actual = format.format(value);
 				if(!expected.equals(actual))
 					throw new RuntimeException(
 							"DFThread " + expected + " iteration " + i + ": got " + actual);
