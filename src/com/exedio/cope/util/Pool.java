@@ -124,9 +124,6 @@ public final class Pool<E>
 
 	public E get()
 	{
-		if(counter!=null)
-			counter.incrementGet();
-
 		E result = null;
 
 		do
@@ -157,6 +154,10 @@ public final class Pool<E>
 		// Important to do this outside the synchronized block!
 		if(result==null)
 			result = factory.create();
+
+		if(counter!=null)
+			counter.incrementGet();
+
 		return result;
 	}
 

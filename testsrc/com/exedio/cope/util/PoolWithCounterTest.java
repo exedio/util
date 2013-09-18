@@ -122,7 +122,7 @@ public class PoolWithCounterTest extends CopeAssert
 		{
 			assertEquals("createFails", e.getMessage());
 		}
-		assertIt(cp, 1, 0); // TODO should be 0/0
+		assertIt(cp, 0, 0);
 	}
 
 	@SuppressWarnings("static-method")
