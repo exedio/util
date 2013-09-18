@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,8 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Properties;
-
-import com.exedio.cope.util.Properties.Source;
 
 public final class Sources
 {

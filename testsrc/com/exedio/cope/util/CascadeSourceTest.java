@@ -25,11 +25,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import java.util.Properties;
-
-import org.junit.Test;
-
 import com.exedio.cope.util.Properties.Source;
+import java.util.Properties;
+import org.junit.Test;
 
 public class CascadeSourceTest
 {

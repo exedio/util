@@ -18,13 +18,11 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.util.Properties.Source;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
-import com.exedio.cope.util.Properties.Source;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class PrefixSource implements Source
 {

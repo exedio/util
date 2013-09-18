@@ -22,11 +22,10 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
+import com.exedio.cope.junit.CopeAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class SequenceCheckerTest extends CopeAssert
 {

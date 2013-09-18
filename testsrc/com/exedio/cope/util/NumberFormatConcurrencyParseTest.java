@@ -18,16 +18,14 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class NumberFormatConcurrencyParseTest extends CopeAssert
 {

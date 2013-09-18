@@ -20,12 +20,10 @@ package com.exedio.cope.util;
 
 import static junit.framework.Assert.assertEquals;
 
-import org.junit.Test;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Test;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 @SuppressWarnings("deprecation") // OK: testing deprecated api

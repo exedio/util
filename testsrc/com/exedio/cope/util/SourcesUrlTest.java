@@ -23,14 +23,12 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties.Source;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Properties.Source;
 
 public class SourcesUrlTest extends CopeAssert
 {

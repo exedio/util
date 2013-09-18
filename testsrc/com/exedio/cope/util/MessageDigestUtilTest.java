@@ -22,11 +22,9 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.Test;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.security.NoSuchAlgorithmException;
+import org.junit.Test;
 
 public class MessageDigestUtilTest extends CopeAssert
 {

@@ -25,12 +25,10 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class CastTest extends CopeAssert
 {

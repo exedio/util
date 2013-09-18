@@ -18,14 +18,11 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.junit.CopeAssert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class CounterTest extends CopeAssert
 {

@@ -23,9 +23,8 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import org.junit.Test;
-
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class CharSetTest extends CopeAssert
 {

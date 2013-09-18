@@ -24,15 +24,12 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.junit.Test;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collection;
+import java.util.List;
+import org.junit.Test;
 
 public class PrefixSourceTest extends CopeAssert
 {

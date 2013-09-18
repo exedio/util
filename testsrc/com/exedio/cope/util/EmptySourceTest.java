@@ -22,9 +22,8 @@ import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import org.junit.Test;
-
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EmptySourceTest extends CopeAssert
 {

@@ -23,18 +23,16 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Properties.Source;
 
 public class SourcesFileTest extends CopeAssert
 {

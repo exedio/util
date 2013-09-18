@@ -20,15 +20,12 @@ package com.exedio.cope.util;
 
 import static junit.framework.Assert.assertEquals;
 
+import com.exedio.cope.junit.CopeAssert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class BeforeAndAfterTest extends CopeAssert

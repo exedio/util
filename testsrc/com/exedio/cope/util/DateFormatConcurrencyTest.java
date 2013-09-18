@@ -18,17 +18,15 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class DateFormatConcurrencyTest extends CopeAssert
 {

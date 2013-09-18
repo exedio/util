@@ -21,9 +21,8 @@ package com.exedio.cope.util;
 import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static junit.framework.Assert.assertFalse;
 
-import org.junit.Test;
-
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class JobContextsEmptyTest extends CopeAssert
 {

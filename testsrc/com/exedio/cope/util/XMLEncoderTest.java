@@ -19,7 +19,6 @@
 package com.exedio.cope.util;
 
 import junit.framework.TestCase;
-
 import org.junit.Test;
 
 public class XMLEncoderTest extends TestCase

@@ -20,11 +20,10 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
 
+import com.exedio.cope.util.Properties.Source;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-
-import com.exedio.cope.util.Properties.Source;
 
 final class CascadeSource
 {

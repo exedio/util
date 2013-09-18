@@ -18,11 +18,10 @@
 
 package com.exedio.cope.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Pool<E>
 {

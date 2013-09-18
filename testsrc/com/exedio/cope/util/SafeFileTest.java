@@ -21,14 +21,12 @@ package com.exedio.cope.util;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class SafeFileTest extends CopeAssert
 {
