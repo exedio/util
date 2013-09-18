@@ -221,6 +221,40 @@ public class PoolTest extends CopeAssert
 		assertSame(c1, cp.get());
 		c1.assertV(1, 0, 0);
 		f.assertV(1);
+
+		try
+		{
+			cp.put(c1);
+			fail();
+		}
+		catch(final ArrayIndexOutOfBoundsException e) // TODO is a bug
+		{
+			assertEquals("1", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("static-method")
+	@Test public final void testIdleInitialNotFull()
+	{
+		final Pooled c1 = new Pooled();
+		final Factory f = new Factory(listg(c1));
+		f.assertV(0);
+
+		@SuppressWarnings("deprecation")
+		final Pool<Pooled> cp = new Pool<Pooled>(f, 2, 1, null);
+		assertEquals(2, cp.getInfo().getIdleLimit());
+		assertEquals(1, cp.getInfo().getIdleInitial());
+		c1.assertV(0, 0, 0);
+		f.assertV(1); // already created
+
+		// get from idle
+		assertSame(c1, cp.get());
+		c1.assertV(1, 0, 0);
+		f.assertV(1);
+
+		cp.put(c1);
+		c1.assertV(1, 1, 0);
+		f.assertV(1);
 	}
 
 	@SuppressWarnings("static-method")
