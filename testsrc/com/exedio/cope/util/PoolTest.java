@@ -388,7 +388,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 
 		// create new because c1 timed out
-		c1.validOnGet = false;
+		c1.isValidOnGet = false;
 		assertSame(c2, cp.get());
 		c1.assertV(1, 1, 0);
 		c2.assertV(0, 0, 0);
@@ -504,7 +504,7 @@ public class PoolTest extends CopeAssert
 
 	static class Pooled
 	{
-		boolean validOnGet = true;
+		boolean isValidOnGet = true;
 		int isValidOnGetCount = 0;
 		boolean isValidOnPut = true;
 		int isValidOnPutCount = 0;
@@ -520,7 +520,7 @@ public class PoolTest extends CopeAssert
 		boolean isValidOnGet()
 		{
 			isValidOnGetCount++;
-			return validOnGet;
+			return isValidOnGet;
 		}
 
 		boolean isValidOnPut()
