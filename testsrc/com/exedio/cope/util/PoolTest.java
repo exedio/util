@@ -222,15 +222,9 @@ public class PoolTest extends CopeAssert
 		c1.assertV(1, 0, 0);
 		f.assertV(1);
 
-		try
-		{
-			cp.put(c1);
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e) // TODO is a bug
-		{
-			assertEquals("1", e.getMessage());
-		}
+		cp.put(c1);
+		c1.assertV(1, 1, 0);
+		f.assertV(1);
 	}
 
 	@SuppressWarnings("static-method")

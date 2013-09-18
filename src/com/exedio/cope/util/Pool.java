@@ -104,7 +104,7 @@ public final class Pool<E>
 
 		this.idleLevel = idleInitial;
 		this.idleFrom = 0;
-		this.idleTo = idleInitial;
+		this.idleTo = idleInitial<idleLimit ? idleInitial : 0;
 		for(int i = 0; i<idleInitial; i++)
 			idle[i] = factory.create();
 
