@@ -28,7 +28,6 @@ public class CounterTest extends CopeAssert
 {
 	@SuppressWarnings("unused")
 	private long countNaked;
-	@SuppressWarnings("unused")
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long countVolatile;
 	private VolatileLong countVolatileObject = null;
@@ -100,7 +99,6 @@ public class CounterTest extends CopeAssert
 
 	private static final class VolatileLong
 	{
-		@SuppressWarnings("unused")
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 		private volatile long value = 0;
 
