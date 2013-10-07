@@ -25,6 +25,12 @@ import java.text.DecimalFormat;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * This test evaluates, whether its ok to use {@link java.awt.Color}
+ * for storing rgba values suitable for Cascading Style Sheets (CSS).
+ * Especially regarding rounding issues between the 0.00 - 1.00 syntax
+ * of CSS and the bytes stores in {@link java.awt.Color Color}.
+ */
 public class ColorDecimalAlphaTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
