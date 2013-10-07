@@ -21,12 +21,13 @@ package com.exedio.cope.util;
 import static junit.framework.Assert.assertEquals;
 
 import com.exedio.cope.junit.CopeAssert;
+import java.awt.Color;
 import java.text.DecimalFormat;
 import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * This test evaluates, whether its ok to use {@link java.awt.Color}
+ * This test evaluates, whether its ok to use {@link Color}
  * for storing rgba values suitable for Cascading Style Sheets (CSS).
  * Especially regarding rounding issues between the 0.00 - 1.00 syntax
  * of CSS and the bytes stores in {@link java.awt.Color Color}.
@@ -48,6 +49,9 @@ public class ColorDecimalAlphaTest extends CopeAssert
 			final String actualDecimal = new DecimalFormat("#########0.00").format(alphaFloat);
 			assertEquals(expectedDecimal, actualDecimal);
 			System.out.println("" + alphaPercent + " " + alphaByte + "  " + alphaByteFromFloat + "  " + expectedDecimal + "  " + actualDecimal + "  " + alphaFloat);
+			final Color color = new Color(0.22f, 0.33f, 0.44f, alphaFloat);
+			assertEquals(alphaByte, color.getAlpha());
+			assertEquals(alphaFloat, color.getRGBComponents(null)[3], 0.0f);
 		}
 	}
 }
