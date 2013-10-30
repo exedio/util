@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
+import static com.exedio.cope.util.Clock.newDate;
 import static com.exedio.cope.util.Clock.removeSource;
 import static com.exedio.cope.util.Clock.setSource;
 import static junit.framework.Assert.assertEquals;
@@ -57,6 +58,9 @@ public class ClockTest
 		assertEquals(444, currentTimeMillis());
 		assertEquals(2, ms.currentTimeMillisCount);
 
+		assertEquals(new Date(444), newDate());
+		assertEquals(3, ms.currentTimeMillisCount);
+
 		removeSource();
 		assertUnset();
 	}
@@ -87,10 +91,18 @@ public class ClockTest
 
 	private static void assertUnset()
 	{
-		final Date before = new Date();
-		final long date = currentTimeMillis();
-		final Date after = new Date();
-		assertWithin(before, after, new Date(date));
+		{
+			final Date before = new Date();
+			final long date = currentTimeMillis();
+			final Date after = new Date();
+			assertWithin(before, after, new Date(date));
+		}
+		{
+			final Date before = new Date();
+			final Date date = newDate();
+			final Date after = new Date();
+			assertWithin(before, after, date);
+		}
 	}
 
 	@After public void remove()

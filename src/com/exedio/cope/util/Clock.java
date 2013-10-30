@@ -18,9 +18,16 @@
 
 package com.exedio.cope.util;
 
+import java.util.Date;
+
 public final class Clock
 {
 	private static Source source = null; // TODO concurrency
+
+	public static Date newDate()
+	{
+		return new Date(currentTimeMillis());
+	}
 
 	public static long currentTimeMillis()
 	{
