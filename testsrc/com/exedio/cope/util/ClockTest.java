@@ -33,13 +33,7 @@ public class ClockTest
 {
 	@Test public void testIt()
 	{
-
-		{
-			final Date before = new Date();
-			final long date = currentTimeMillis();
-			final Date after = new Date();
-			assertWithin(before, after, new Date(date));
-		}
+		assertUnset();
 
 		try
 		{
@@ -49,11 +43,7 @@ public class ClockTest
 		catch(final NullPointerException e)
 		{
 			assertEquals("source", e.getMessage());
-
-			final Date before = new Date();
-			final long date = currentTimeMillis();
-			final Date after = new Date();
-			assertWithin(before, after, new Date(date));
+			assertUnset();
 		}
 
 		final MockSource ms = new MockSource();
@@ -74,20 +64,10 @@ public class ClockTest
 		assertEquals(2, ms.currentTimeMillisCount);
 
 		removeSource();
-		{
-			final Date before = new Date();
-			final long date = currentTimeMillis();
-			final Date after = new Date();
-			assertWithin(before, after, new Date(date));
-		}
+		assertUnset();
 
 		removeSource();
-		{
-			final Date before = new Date();
-			final long date = currentTimeMillis();
-			final Date after = new Date();
-			assertWithin(before, after, new Date(date));
-		}
+		assertUnset();
 	}
 
 	private static final class MockSource implements Clock.Source
@@ -104,6 +84,14 @@ public class ClockTest
 			currentTimeMillisCount++;
 			return 444;
 		}
+	}
+
+	private static void assertUnset()
+	{
+		final Date before = new Date();
+		final long date = currentTimeMillis();
+		final Date after = new Date();
+		assertWithin(before, after, new Date(date));
 	}
 
 	@After public void remove()
