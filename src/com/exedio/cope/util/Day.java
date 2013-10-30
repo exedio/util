@@ -69,7 +69,7 @@ public final class Day implements Serializable, Comparable<Day>
     */
 	public Day()
 	{
-		this(System.currentTimeMillis());
+		this(Clock.currentTimeMillis());
 	}
 
 	public Day(final Date date)
