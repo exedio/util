@@ -49,7 +49,6 @@ public class ClockTest
 
 	@Test public void testIt()
 	{
-
 		final MockSource ms = new MockSource();
 		setSource(ms);
 		assertEquals(444, currentTimeMillis());
