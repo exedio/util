@@ -22,9 +22,8 @@ import static com.exedio.cope.junit.CopeAssert.assertWithin;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import org.junit.Test;
-
 import java.util.Date;
+import org.junit.Test;
 
 public class ClockTest
 {
