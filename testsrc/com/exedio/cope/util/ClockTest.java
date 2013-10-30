@@ -26,6 +26,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 import java.util.Date;
+import org.junit.After;
 import org.junit.Test;
 
 public class ClockTest
@@ -103,5 +104,10 @@ public class ClockTest
 			currentTimeMillisCount++;
 			return 444;
 		}
+	}
+
+	@After public void remove()
+	{
+		removeSource();
 	}
 }
