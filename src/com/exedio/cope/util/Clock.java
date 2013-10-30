@@ -32,10 +32,10 @@ public final class Clock
 	public static long currentTimeMillis()
 	{
 		final Source source = Clock.source;
-		if(source!=null)
-			return source.currentTimeMillis();
-
-		return System.currentTimeMillis();
+		return
+			(source!=null)
+			? source.currentTimeMillis()
+			: System.currentTimeMillis();
 	}
 
 	public static void setSource(final Source source)
