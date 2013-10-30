@@ -68,6 +68,11 @@ public class ClockTest
 
 		removeSource();
 		assertUnset();
+	}
+
+	@Test public void removeNotNeeded()
+	{
+		assertUnset();
 
 		removeSource();
 		assertUnset();
