@@ -31,7 +31,7 @@ import org.junit.Test;
 
 public class ClockTest
 {
-	@Test public void testIt()
+	@Test public void setNull()
 	{
 		assertUnset();
 
@@ -45,6 +45,10 @@ public class ClockTest
 			assertEquals("source", e.getMessage());
 			assertUnset();
 		}
+	}
+
+	@Test public void testIt()
+	{
 
 		final MockSource ms = new MockSource();
 		setSource(ms);
