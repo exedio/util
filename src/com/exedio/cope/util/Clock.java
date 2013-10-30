@@ -22,7 +22,7 @@ import java.util.Date;
 
 public final class Clock
 {
-	private static volatile Source source = null;
+	private static volatile Strategy strategy = null;
 
 	public static Date newDate()
 	{
@@ -31,29 +31,29 @@ public final class Clock
 
 	public static long currentTimeMillis()
 	{
-		final Source source = Clock.source;
+		final Strategy source = Clock.strategy;
 		return
 			(source!=null)
 			? source.currentTimeMillis()
 			: System.currentTimeMillis();
 	}
 
-	public interface Source
+	public interface Strategy
 	{
 		long currentTimeMillis();
 	}
 
-	public static void override(final Source source)
+	public static void override(final Strategy strategy)
 	{
-		if(source==null)
-			throw new NullPointerException("source");
+		if(strategy==null)
+			throw new NullPointerException("strategy");
 
-		Clock.source = source;
+		Clock.strategy = strategy;
 	}
 
 	public static void clearOverride()
 	{
-		source = null;
+		strategy = null;
 	}
 
 	private Clock()

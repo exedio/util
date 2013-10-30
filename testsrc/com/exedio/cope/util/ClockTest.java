@@ -43,14 +43,14 @@ public class ClockTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("source", e.getMessage());
+			assertEquals("strategy", e.getMessage());
 		}
 		assertClear();
 	}
 
 	@Test public void testIt()
 	{
-		final MockSource ms = new MockSource();
+		final MockStrategy ms = new MockStrategy();
 		override(ms);
 		assertEquals(444, currentTimeMillis());
 		assertEquals(1, ms.currentTimeMillisCount);
@@ -73,11 +73,11 @@ public class ClockTest
 		assertClear();
 	}
 
-	private static final class MockSource implements Clock.Source
+	private static final class MockStrategy implements Clock.Strategy
 	{
 		int currentTimeMillisCount = 0;
 
-		MockSource()
+		MockStrategy()
 		{
 			// just make package private
 		}

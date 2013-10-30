@@ -215,7 +215,7 @@ public class DayTest extends CopeAssert
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test public final void currentDay()
 	{
-		override(new Clock.Source(){
+		override(new Clock.Strategy(){
 			public long currentTimeMillis()
 			{
 				return new Day(1986, 4, 26).getTimeInMillisFrom();
