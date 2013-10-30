@@ -51,7 +51,7 @@ public final class Clock
 		source = null;
 	}
 
-	interface Source
+	public interface Source
 	{
 		long currentTimeMillis();
 	}
