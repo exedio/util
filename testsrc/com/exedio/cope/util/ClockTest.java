@@ -78,6 +78,14 @@ public class ClockTest
 			final Date after = new Date();
 			assertWithin(before, after, new Date(date));
 		}
+
+		c.removeSource();
+		{
+			final Date before = new Date();
+			final long date = c.currentTimeMillis();
+			final Date after = new Date();
+			assertWithin(before, after, new Date(date));
+		}
 	}
 
 	private static final class MockSource implements Clock.Source
