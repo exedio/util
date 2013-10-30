@@ -212,6 +212,7 @@ public class DayTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test public final void currentDay()
 	{
 		setSource(new Clock.Source(){
