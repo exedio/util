@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-final class Clock
+public final class Clock
 {
 	private Source source = null;
 
