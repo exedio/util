@@ -38,7 +38,7 @@ public final class Clock
 			: System.currentTimeMillis();
 	}
 
-	public static void setSource(final Source source)
+	public static void override(final Source source)
 	{
 		if(source==null)
 			throw new NullPointerException("source");
@@ -46,7 +46,7 @@ public final class Clock
 		Clock.source = source;
 	}
 
-	public static void removeSource()
+	public static void clearOverride()
 	{
 		source = null;
 	}

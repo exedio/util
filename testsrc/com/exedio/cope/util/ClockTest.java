@@ -21,8 +21,8 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
 import static com.exedio.cope.util.Clock.newDate;
-import static com.exedio.cope.util.Clock.removeSource;
-import static com.exedio.cope.util.Clock.setSource;
+import static com.exedio.cope.util.Clock.clearOverride;
+import static com.exedio.cope.util.Clock.override;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
@@ -32,13 +32,13 @@ import org.junit.Test;
 
 public class ClockTest
 {
-	@Test public void setNull()
+	@Test public void overrideNull()
 	{
 		assertUnset();
 
 		try
 		{
-			setSource(null);
+			override(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -51,7 +51,7 @@ public class ClockTest
 	@Test public void testIt()
 	{
 		final MockSource ms = new MockSource();
-		setSource(ms);
+		override(ms);
 		assertEquals(444, currentTimeMillis());
 		assertEquals(1, ms.currentTimeMillisCount);
 
@@ -61,15 +61,15 @@ public class ClockTest
 		assertEquals(new Date(444), newDate());
 		assertEquals(3, ms.currentTimeMillisCount);
 
-		removeSource();
+		clearOverride();
 		assertUnset();
 	}
 
-	@Test public void removeNotNeeded()
+	@Test public void clearNotNeeded()
 	{
 		assertUnset();
 
-		removeSource();
+		clearOverride();
 		assertUnset();
 	}
 
@@ -105,8 +105,8 @@ public class ClockTest
 		}
 	}
 
-	@After public void remove()
+	@After public void clearClock()
 	{
-		removeSource();
+		clearOverride();
 	}
 }
