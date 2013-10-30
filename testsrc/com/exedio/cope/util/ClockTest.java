@@ -43,8 +43,8 @@ public class ClockTest
 		catch(final NullPointerException e)
 		{
 			assertEquals("source", e.getMessage());
-			assertUnset();
 		}
+		assertUnset();
 	}
 
 	@Test public void testIt()
