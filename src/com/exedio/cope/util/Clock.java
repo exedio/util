@@ -22,7 +22,7 @@ import java.util.Date;
 
 public final class Clock
 {
-	private static Source source = null; // TODO concurrency
+	private static volatile Source source = null;
 
 	public static Date newDate()
 	{
