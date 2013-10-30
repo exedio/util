@@ -34,7 +34,7 @@ public class ClockTest
 {
 	@Test public void overrideNull()
 	{
-		assertUnset();
+		assertClear();
 
 		try
 		{
@@ -45,7 +45,7 @@ public class ClockTest
 		{
 			assertEquals("source", e.getMessage());
 		}
-		assertUnset();
+		assertClear();
 	}
 
 	@Test public void testIt()
@@ -62,15 +62,15 @@ public class ClockTest
 		assertEquals(3, ms.currentTimeMillisCount);
 
 		clearOverride();
-		assertUnset();
+		assertClear();
 	}
 
 	@Test public void clearNotNeeded()
 	{
-		assertUnset();
+		assertClear();
 
 		clearOverride();
-		assertUnset();
+		assertClear();
 	}
 
 	private static final class MockSource implements Clock.Source
@@ -89,7 +89,7 @@ public class ClockTest
 		}
 	}
 
-	private static void assertUnset()
+	private static void assertClear()
 	{
 		{
 			final Date before = new Date();
