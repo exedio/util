@@ -38,6 +38,11 @@ public final class Clock
 			: System.currentTimeMillis();
 	}
 
+	public interface Source
+	{
+		long currentTimeMillis();
+	}
+
 	public static void override(final Source source)
 	{
 		if(source==null)
@@ -49,11 +54,6 @@ public final class Clock
 	public static void clearOverride()
 	{
 		source = null;
-	}
-
-	public interface Source
-	{
-		long currentTimeMillis();
 	}
 
 	private Clock()
