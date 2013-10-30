@@ -20,26 +20,26 @@ package com.exedio.cope.util;
 
 public final class Clock
 {
-	private Source source = null;
+	private static Source source = null; // TODO concurrency
 
-	public long currentTimeMillis()
+	public static long currentTimeMillis()
 	{
-		final Source source = this.source;
+		final Source source = Clock.source;
 		if(source!=null)
 			return source.currentTimeMillis();
 
 		return System.currentTimeMillis();
 	}
 
-	public void setSource(final Source source)
+	public static void setSource(final Source source)
 	{
 		if(source==null)
 			throw new NullPointerException("source");
 
-		this.source = source;
+		Clock.source = source;
 	}
 
-	public void removeSource()
+	public static void removeSource()
 	{
 		source = null;
 	}
@@ -47,5 +47,10 @@ public final class Clock
 	interface Source
 	{
 		long currentTimeMillis();
+	}
+
+	private Clock()
+	{
+		// prevent instantiation
 	}
 }

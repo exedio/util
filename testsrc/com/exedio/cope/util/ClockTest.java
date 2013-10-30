@@ -19,6 +19,9 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
+import static com.exedio.cope.util.Clock.currentTimeMillis;
+import static com.exedio.cope.util.Clock.removeSource;
+import static com.exedio.cope.util.Clock.setSource;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
@@ -29,18 +32,17 @@ public class ClockTest
 {
 	@Test public void testIt()
 	{
-		final Clock c = new Clock();
 
 		{
 			final Date before = new Date();
-			final long date = c.currentTimeMillis();
+			final long date = currentTimeMillis();
 			final Date after = new Date();
 			assertWithin(before, after, new Date(date));
 		}
 
 		try
 		{
-			c.setSource(null);
+			setSource(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -48,40 +50,40 @@ public class ClockTest
 			assertEquals("source", e.getMessage());
 
 			final Date before = new Date();
-			final long date = c.currentTimeMillis();
+			final long date = currentTimeMillis();
 			final Date after = new Date();
 			assertWithin(before, after, new Date(date));
 		}
 
 		final MockSource ms = new MockSource();
-		c.setSource(ms);
-		assertEquals(444, c.currentTimeMillis());
+		setSource(ms);
+		assertEquals(444, currentTimeMillis());
 		assertEquals(1, ms.currentTimeMillisCount);
 
 		try
 		{
-			c.setSource(null);
+			setSource(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("source", e.getMessage());
 		}
-		assertEquals(444, c.currentTimeMillis());
+		assertEquals(444, currentTimeMillis());
 		assertEquals(2, ms.currentTimeMillisCount);
 
-		c.removeSource();
+		removeSource();
 		{
 			final Date before = new Date();
-			final long date = c.currentTimeMillis();
+			final long date = currentTimeMillis();
 			final Date after = new Date();
 			assertWithin(before, after, new Date(date));
 		}
 
-		c.removeSource();
+		removeSource();
 		{
 			final Date before = new Date();
-			final long date = c.currentTimeMillis();
+			final long date = currentTimeMillis();
 			final Date after = new Date();
 			assertWithin(before, after, new Date(date));
 		}
