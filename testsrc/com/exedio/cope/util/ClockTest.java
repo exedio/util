@@ -54,15 +54,6 @@ public class ClockTest
 		assertEquals(444, currentTimeMillis());
 		assertEquals(1, ms.currentTimeMillisCount);
 
-		try
-		{
-			setSource(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
 		assertEquals(444, currentTimeMillis());
 		assertEquals(2, ms.currentTimeMillisCount);
 
