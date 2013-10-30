@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Clock.clearOverride;
+import static com.exedio.cope.util.Clock.override;
 import static com.exedio.cope.util.Day.valueOf;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 import static junit.framework.Assert.assertEquals;
@@ -36,6 +38,7 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.junit.After;
 import org.junit.Test;
 
 public class DayTest extends CopeAssert
@@ -206,5 +209,23 @@ public class DayTest extends CopeAssert
 		final Day d = new Day(2005, 9, 23);
 		assertTrue(!d.equals("hallo"));
 		assertTrue(!d.equals(Integer.valueOf(22)));
+	}
+
+	@SuppressWarnings("static-method")
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
+	@Test public final void currentDay()
+	{
+		override(new Clock.Strategy(){
+			public long currentTimeMillis()
+			{
+				return new Day(1986, 4, 26).getTimeInMillisFrom();
+			}
+		});
+		assertEquals(new Day(1986, 4, 26), new Day());
+	}
+
+	@After public void clearClock()
+	{
+		clearOverride();
 	}
 }
