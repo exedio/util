@@ -594,13 +594,13 @@ public class Properties
 		{
 			super(true, key);
 
-			final String valueString = resolve(key);
+			final String s = resolve(key);
 
-			if(valueString==null)
+			if(s==null)
 				throw new IllegalArgumentException(
 						"property " + key + " in " + sourceDescription + " not set.");
 
-			this.value = new File(valueString);
+			this.value = new File(s);
 		}
 
 		FileField(final String key, final FileField template)
