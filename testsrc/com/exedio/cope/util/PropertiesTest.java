@@ -130,6 +130,7 @@ public class PropertiesTest extends CopeAssert
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
+		pminimal.setProperty("file", "file.minimalValue");
 
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
@@ -149,8 +150,8 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringOptional.defaultValue", minimal.stringOptionalF.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHiddenF.getValue());
 		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptionalF.getValue());
-		assertEquals(null, minimal.file.get());
-		assertEquals(null, minimal.file.getValue());
+		assertEquals(new File("file.minimalValue"), minimal.file.get());
+		assertEquals(new File("file.minimalValue"), minimal.file.getValue());
 		assertEquals(new java.util.Properties(), minimal.map.mapValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
@@ -162,7 +163,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(false, minimal.stringOptionalF.isSpecified());
 		assertEquals(true, minimal.stringHiddenF.isSpecified());
 		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
-		assertEquals(false, minimal.file.isSpecified());
+		assertEquals(true, minimal.file.isSpecified());
 		assertEquals(false, minimal.map.isSpecified());
 
 		minimal.ensureEquality(minimal);
@@ -326,13 +327,18 @@ public class PropertiesTest extends CopeAssert
 				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
 
 		// File
+		assertWrong(pminimal,
+				"wrong.file.missing",
+				"file", null,
+				"property file in wrong.file.missing not set.");
+
 		assertInconsistent(pminimal,
 				"inconsistent.file",
 				"file", file2.getPath(),
 				"inconsistent initialization for file between minimal and inconsistent.file," +
-					" expected null but got " + file2.getPath() + ".",
+					" expected file.minimalValue but got " + file2.getPath() + ".",
 				"inconsistent initialization for file between inconsistent.file and minimal," +
-					" expected " + file2.getPath() + " but got null.");
+					" expected " + file2.getPath() + " but got file.minimalValue.");
 
 		final java.util.Properties fileInconsistency = copy(pminimal);
 		fileInconsistency.setProperty("file", file1.getPath());

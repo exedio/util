@@ -588,7 +588,12 @@ public class Properties
 			super(true, key);
 
 			final String valueString = resolve(key);
-			this.value = (valueString==null) ? null : new File(valueString);
+
+			if(valueString==null)
+				throw new IllegalArgumentException(
+						"property " + key + " in " + sourceDescription + " not set.");
+
+			this.value = new File(valueString);
 		}
 
 		FileField(final String key, final FileField template)

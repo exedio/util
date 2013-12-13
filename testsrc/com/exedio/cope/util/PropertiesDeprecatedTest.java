@@ -103,6 +103,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
+		pminimal.setProperty("file", "file.minimalValue");
 
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
