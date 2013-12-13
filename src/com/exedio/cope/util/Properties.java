@@ -245,6 +245,10 @@ public class Properties
 		}
 
 		public abstract Object getDefaultValue();
+
+		/**
+		 * Never returns null.
+		 */
 		public abstract Object getValue();
 
 		public final boolean isSpecified()
@@ -528,6 +532,9 @@ public class Properties
 			return value;
 		}
 
+		/**
+		 * Never returns null.
+		 */
 		public String get()
 		{
 			return value;
@@ -614,6 +621,9 @@ public class Properties
 			return value;
 		}
 
+		/**
+		 * Never returns null.
+		 */
 		public File get()
 		{
 			return value;
@@ -696,6 +706,9 @@ public class Properties
 			return value;
 		}
 
+		/**
+		 * Never returns null.
+		 */
 		public java.util.Properties mapValue()
 		{
 			return value;
