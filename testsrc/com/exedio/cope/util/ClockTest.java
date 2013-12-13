@@ -19,9 +19,9 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
+import static com.exedio.cope.util.Clock.clearOverride;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
 import static com.exedio.cope.util.Clock.newDate;
-import static com.exedio.cope.util.Clock.clearOverride;
 import static com.exedio.cope.util.Clock.override;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
