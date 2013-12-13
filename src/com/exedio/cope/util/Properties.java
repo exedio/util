@@ -314,7 +314,7 @@ public class Properties
 		}
 
 		@Override
-		public Object getValue()
+		public Boolean getValue()
 		{
 			return Boolean.valueOf(value);
 		}
@@ -412,7 +412,7 @@ public class Properties
 		}
 
 		@Override
-		public Object getValue()
+		public Integer getValue()
 		{
 			return Integer.valueOf(value);
 		}
@@ -527,7 +527,7 @@ public class Properties
 		}
 
 		@Override
-		public Object getValue()
+		public String getValue()
 		{
 			return value;
 		}
@@ -616,7 +616,7 @@ public class Properties
 		}
 
 		@Override
-		public Object getValue()
+		public File getValue()
 		{
 			return value;
 		}
