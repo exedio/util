@@ -33,7 +33,7 @@ public final class Pool<E>
 		/**
 		 * If this method returns false, it should also try its best
 		 * to release any resources associated with <tt>e</tt>,
-		 * because in this case {@link #dispose()} is not called by the pool.
+		 * because in this case {@link #dispose(Object)} is not called by the pool.
 		 */
 		boolean isValidOnPut(E e);
 		void dispose(E e);
