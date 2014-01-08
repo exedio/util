@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Pool will not fail anymore, if Factory#isValidOnPut returns false.
+	Instead of throwing an IllegalArgumentException (invalid on put)
+	the pooled object is silently dropped. Any logging should be done by
+	isValidOnPut itself.
+	This breaks backwards API compatibility.
 * Properties#fieldFile becomes mandatory
 	This breaks backwards API compatibility.
 * Clock added and used by Day

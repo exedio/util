@@ -93,15 +93,7 @@ public class PoolWithCounterTest extends CopeAssert
 
 		// put into idle
 		c1.isValidOnPut = false;
-		try
-		{
-			cp.put(c1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("invalid on put", e.getMessage());
-		}
+		cp.put(c1);
 		assertIt(cp, 1, 1);
 	}
 

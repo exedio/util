@@ -266,15 +266,7 @@ public class PoolTest extends CopeAssert
 
 		// dont put into idle, because its closed
 		c1.isValidOnPut = false;
-		try
-		{
-			cp.put(c1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("invalid on put", e.getMessage());
-		}
+		cp.put(c1);
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
