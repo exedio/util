@@ -155,12 +155,6 @@ public class DayTest extends CopeAssert
 		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)"), d.getTimeFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)"), d.getTimeTo());
 
-		assertEqualsAndHash(d, new Day(2005, 9, 23));
-		assertNotEqualsAndHash(d,
-				new Day(2004, 9, 23),
-				new Day(2005, 8, 23),
-				new Day(2005, 9, 22));
-
 		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
 		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000 (+0100)").getTime()));
@@ -181,6 +175,16 @@ public class DayTest extends CopeAssert
 		assertNull(valueOf((Date)null));
 		assertNull(valueOf((GregorianCalendar)null));
 		assertNull(valueOf((XMLGregorianCalendar)null));
+	}
+	@Test
+	public final void equalsHash()
+	{
+		final Day d = new Day(2005, 9, 23);
+		assertEqualsAndHash(d, new Day(2005, 9, 23));
+		assertNotEqualsAndHash(d,
+				new Day(2004, 9, 23),
+				new Day(2005, 8, 23),
+				new Day(2005, 9, 22));
 	}
 	@Test
 	public final void compare()
