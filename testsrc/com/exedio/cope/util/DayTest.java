@@ -41,10 +41,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.After;
 import org.junit.Test;
 
+@SuppressWarnings({"unused","static-method"})
 public class DayTest extends CopeAssert
 {
-	@SuppressWarnings({"unused","static-method"})
-	@Test public final void testIt() throws ParseException, DatatypeConfigurationException
+	@Test
+	public final void yearSmall()
 	{
 		try
 		{
@@ -55,6 +56,10 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("year must be in range 1000..9999, but was: 999", e.getMessage());
 		}
+	}
+	@Test
+	public final void yearLarge()
+	{
 		try
 		{
 			new Day(10000, 31, 12);
@@ -64,6 +69,10 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("year must be in range 1000..9999, but was: 10000", e.getMessage());
 		}
+	}
+	@Test
+	public final void monthSmall()
+	{
 		try
 		{
 			new Day(2005, 0, 12);
@@ -73,6 +82,10 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("month must be in range 1..12, but was: 0", e.getMessage());
 		}
+	}
+	@Test
+	public final void monthLarge()
+	{
 		try
 		{
 			new Day(2005, 32, 12);
@@ -82,6 +95,10 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("month must be in range 1..12, but was: 32", e.getMessage());
 		}
+	}
+	@Test
+	public final void daySmall()
+	{
 		try
 		{
 			new Day(2005, 9, 0);
@@ -91,6 +108,10 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("day must be in range 1..31, but was: 0", e.getMessage());
 		}
+	}
+	@Test
+	public final void dayLarge()
+	{
 		try
 		{
 			new Day(2005, 9, 32);
@@ -100,10 +121,17 @@ public class DayTest extends CopeAssert
 		{
 			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
 		}
+	}
+	@Test
+	public final void getters()
+	{
 		assertEquals(2005, new Day(2005, 2, 31).getYear());
 		assertEquals(3,    new Day(2005, 2, 31).getMonth());
 		assertEquals(3,    new Day(2005, 2, 31).getDay());
-
+	}
+	@Test
+	public final void testIt() throws ParseException, DatatypeConfigurationException
+	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day d = new Day(2005, 9, 23);
