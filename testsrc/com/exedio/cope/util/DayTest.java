@@ -150,11 +150,13 @@ public class DayTest extends CopeAssert
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day summer = new Day(2005, 9, 23);
+		final Day winter = new Day(2005, 2, 22);
+
 		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)"), summer.getTimeFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)"), summer.getTimeTo());
 
-		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
-		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
+		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
+		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
 	}
 	@Test
 	public final void conversionMillis() throws ParseException
