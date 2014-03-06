@@ -34,9 +34,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * The class <tt>Day</tt> represents a specific day.
- * It is similar to {@link java.util.Date},
- * but with &quot;day precision&quot; instead of millisecond precision.
- * Unlike {@link java.util.Date} its immutable,
+ * An instance of this class does <b>NOT</b> represent range of time,
+ * but rather something like a calendar sheet.
+ * If you want to convert <tt>Day</tt> into {@link Date} or vice versa,
+ * the result depends on the {@link TimeZone}.
+ * <p>
+ * Instance of this class are immutable,
  * so you cannot change the value of an instance of this class.
  *
  * @author Ralf Wiebicke
