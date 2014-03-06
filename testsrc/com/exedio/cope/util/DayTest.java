@@ -164,7 +164,10 @@ public class DayTest extends CopeAssert
 		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
 		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
 		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
-
+	}
+	@Test
+	public final void valueOfNull()
+	{
 		assertNull(valueOf((Date)null));
 		assertNull(valueOf((GregorianCalendar)null));
 		assertNull(valueOf((XMLGregorianCalendar)null));
