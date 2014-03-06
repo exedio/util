@@ -126,9 +126,10 @@ public class DayTest extends CopeAssert
 	@Test
 	public final void getters()
 	{
-		assertEquals(2005, new Day(2005, 2, 31).getYear());
-		assertEquals(3,    new Day(2005, 2, 31).getMonth());
-		assertEquals(3,    new Day(2005, 2, 31).getDay());
+		final Day d = new Day(2005, 2, 31);
+		assertEquals(2005, d.getYear());
+		assertEquals(3,    d.getMonth());
+		assertEquals(3,    d.getDay());
 	}
 	@Test
 	public final void testIt() throws ParseException, DatatypeConfigurationException
