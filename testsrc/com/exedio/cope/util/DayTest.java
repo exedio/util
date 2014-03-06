@@ -232,7 +232,6 @@ public class DayTest extends CopeAssert
 		assertEqualsStrict(actual, valueOf(cal));
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("EC_UNRELATED_TYPES")
 	@Test public final void testUnrelatedEquals()
 	{
@@ -241,7 +240,6 @@ public class DayTest extends CopeAssert
 		assertTrue(!d.equals(Integer.valueOf(22)));
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test public final void currentDay()
 	{
