@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -132,6 +133,7 @@ public class DayTest extends CopeAssert
 	@Test
 	public final void testIt() throws ParseException, DatatypeConfigurationException
 	{
+		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day d = new Day(2005, 9, 23);
