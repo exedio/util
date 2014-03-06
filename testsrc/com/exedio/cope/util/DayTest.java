@@ -104,16 +104,16 @@ public class DayTest extends CopeAssert
 		assertEquals(3,    new Day(2005, 2, 31).getMonth());
 		assertEquals(3,    new Day(2005, 2, 31).getDay());
 
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day d = new Day(2005, 9, 23);
 		assertEquals(2005, d.getYear());
 		assertEquals(9, d.getMonth());
 		assertEquals(23, d.getDay());
-		assertEquals(df.parse("2005-09-23 00:00:00.000").getTime(), d.getTimeInMillisFrom());
-		assertEquals(df.parse("2005-09-23 23:59:59.999").getTime(), d.getTimeInMillisTo());
-		assertEquals(df.parse("2005-09-23 00:00:00.000"), d.getTimeFrom());
-		assertEquals(df.parse("2005-09-23 23:59:59.999"), d.getTimeTo());
+		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)").getTime(), d.getTimeInMillisFrom());
+		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)").getTime(), d.getTimeInMillisTo());
+		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)"), d.getTimeFrom());
+		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)"), d.getTimeTo());
 		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d);
 		assertXMLGregorianCalendar(2005, 9, 23, d);
 		assertEquals("2005/9/23", d.toString());
@@ -134,10 +134,10 @@ public class DayTest extends CopeAssert
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
 		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
 
-		assertEqualsStrict(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000")));
-		assertEqualsStrict(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999")));
-		assertEqualsStrict(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000").getTime()));
-		assertEqualsStrict(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999").getTime()));
+		assertEqualsStrict(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
+		assertEqualsStrict(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
+		assertEqualsStrict(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000 (+0100)").getTime()));
+		assertEqualsStrict(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999 (+0100)").getTime()));
 
 		assertEqualsStrict(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
 		assertEqualsStrict(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
