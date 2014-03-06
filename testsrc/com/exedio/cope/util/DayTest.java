@@ -125,6 +125,17 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
+	public final void getters() throws DatatypeConfigurationException
+	{
+		final Day d = new Day(2005, 9, 23);
+		assertEquals(2005, d.getYear());
+		assertEquals(9, d.getMonth());
+		assertEquals(23, d.getDay());
+		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d);
+		assertXMLGregorianCalendar(2005, 9, 23, d);
+		assertEquals("2005/9/23", d.toString());
+	}
+	@Test
 	public final void overflow()
 	{
 		final Day d = new Day(2005, 2, 31);
@@ -133,22 +144,16 @@ public class DayTest extends CopeAssert
 		assertEquals(3,    d.getDay());
 	}
 	@Test
-	public final void testIt() throws ParseException, DatatypeConfigurationException
+	public final void testIt() throws ParseException
 	{
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day d = new Day(2005, 9, 23);
-		assertEquals(2005, d.getYear());
-		assertEquals(9, d.getMonth());
-		assertEquals(23, d.getDay());
 		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)").getTime(), d.getTimeInMillisFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)").getTime(), d.getTimeInMillisTo());
 		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)"), d.getTimeFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)"), d.getTimeTo());
-		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d);
-		assertXMLGregorianCalendar(2005, 9, 23, d);
-		assertEquals("2005/9/23", d.toString());
 
 		assertEqualsAndHash(d, new Day(2005, 9, 23));
 		assertNotEqualsAndHash(d,
