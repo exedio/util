@@ -19,6 +19,7 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Clock.clearOverride;
 import static com.exedio.cope.util.Clock.override;
 import static com.exedio.cope.util.Day.valueOf;
@@ -150,9 +151,10 @@ public class DayTest extends CopeAssert
 		assertEquals("2005/9/23", d.toString());
 
 		assertEqualsAndHash(d, new Day(2005, 9, 23));
-		assertNotEqualsStrict(d, new Day(2004, 9, 23));
-		assertNotEqualsStrict(d, new Day(2005, 8, 23));
-		assertNotEqualsStrict(d, new Day(2005, 9, 22));
+		assertNotEqualsAndHash(d,
+				new Day(2004, 9, 23),
+				new Day(2005, 8, 23),
+				new Day(2005, 9, 22));
 
 		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
 		assertEquals(new Day(2005, 2, 22), valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
@@ -193,15 +195,6 @@ public class DayTest extends CopeAssert
 		assertEquals(
 				list(new Day(2007, 2, 23), new Day(2009, 8, 25)), reserialize(
 				list(new Day(2007, 2, 23), new Day(2009, 8, 25)), 210));
-	}
-
-	static final void assertNotEqualsStrict(final Day expected, final Day actual)
-	{
-		assertTrue(!expected.equals(actual));
-		assertTrue(!actual.equals(expected));
-		assertTrue(expected.hashCode()!=actual.hashCode());
-		assertTrue(expected.compareTo(actual)!=0);
-		assertTrue(actual.compareTo(expected)!=0);
 	}
 
 	static final void assertGregorianCalendar(final int year, final int month, final int day, final Day actual)

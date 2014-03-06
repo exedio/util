@@ -214,7 +214,7 @@ public final class Day implements Serializable, Comparable<Day>
 	@Override
 	public int hashCode()
 	{
-		return day ^ month ^ year;
+		return ((31*31)*day) ^ (31*month) ^ year;
 	}
 
 	public int compareTo(final Day other)
