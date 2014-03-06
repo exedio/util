@@ -125,7 +125,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void getters()
+	public final void overflow()
 	{
 		final Day d = new Day(2005, 2, 31);
 		assertEquals(2005, d.getYear());
