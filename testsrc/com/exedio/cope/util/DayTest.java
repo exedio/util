@@ -154,7 +154,11 @@ public class DayTest extends CopeAssert
 
 		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)"), summer.getTimeFrom());
 		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)"), summer.getTimeTo());
+		assertEquals(df.parse("2005-02-22 00:00:00.000 (+0100)"), winter.getTimeFrom());
+		assertEquals(df.parse("2005-02-22 23:59:59.999 (+0100)"), winter.getTimeTo());
 
+		assertEquals(summer, valueOf(df.parse("2005-09-23 00:00:00.000 (+0200)")));
+		assertEquals(summer, valueOf(df.parse("2005-09-23 23:59:59.999 (+0200)")));
 		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
 	}
