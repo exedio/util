@@ -131,7 +131,8 @@ public class DayTest extends CopeAssert
 		assertEquals(2005, d.getYear());
 		assertEquals(9, d.getMonth());
 		assertEquals(23, d.getDay());
-		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d);
+		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, TimeZone.getTimeZone("Europe/Berlin"));
+		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, TimeZone.getTimeZone("Etc/GMT"));
 		assertXMLGregorianCalendar(2005, 9, 23, d);
 		assertEquals("2005/9/23", d.toString());
 	}
@@ -144,7 +145,8 @@ public class DayTest extends CopeAssert
 		assertEquals(3,    d.getDay());
 	}
 	@Test
-	public final void conversionDate() throws ParseException
+	@Deprecated // OK testing deprecated API
+	public final void conversionDateDeprecated() throws ParseException
 	{
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
@@ -163,17 +165,56 @@ public class DayTest extends CopeAssert
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
 	}
 	@Test
-	public final void conversionMillis() throws ParseException
+	public final void conversionDateBerlin() throws ParseException
 	{
-		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
+		final TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
-		final Day d = new Day(2005, 9, 23);
-		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)").getTime(), d.getTimeInMillisFrom());
-		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)").getTime(), d.getTimeInMillisTo());
+		final Day summer = new Day(2005, 9, 23);
+		final Day winter = new Day(2005, 2, 22);
 
-		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000 (+0100)").getTime()));
-		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999 (+0100)").getTime()));
+		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)"), summer.getTimeFrom(tz));
+		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)"), summer.getTimeTo(tz));
+		assertEquals(df.parse("2005-02-22 00:00:00.000 (+0100)"), winter.getTimeFrom(tz));
+		assertEquals(df.parse("2005-02-22 23:59:59.999 (+0100)"), winter.getTimeTo(tz));
+
+		assertEquals(summer, valueOf(df.parse("2005-09-23 00:00:00.000 (+0200)"), tz));
+		assertEquals(summer, valueOf(df.parse("2005-09-23 23:59:59.999 (+0200)"), tz));
+		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)"), tz));
+		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)"), tz));
+	}
+	@Test
+	public final void conversionDateGMT() throws ParseException
+	{
+		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
+		final TimeZone tz = TimeZone.getTimeZone("Etc/GMT");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
+
+		final Day summer = new Day(2005, 9, 23);
+		final Day winter = new Day(2005, 2, 22);
+
+		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0000)"), summer.getTimeFrom(tz));
+		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0000)"), summer.getTimeTo(tz));
+		assertEquals(df.parse("2005-02-22 00:00:00.000 (+0000)"), winter.getTimeFrom(tz));
+		assertEquals(df.parse("2005-02-22 23:59:59.999 (+0000)"), winter.getTimeTo(tz));
+
+		assertEquals(summer, valueOf(df.parse("2005-09-23 00:00:00.000 (+0000)"), tz));
+		assertEquals(summer, valueOf(df.parse("2005-09-23 23:59:59.999 (+0000)"), tz));
+		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0000)"), tz));
+		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0000)"), tz));
+	}
+	@Test
+	public final void conversionMillis() throws ParseException
+	{
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
+		final TimeZone tz = TimeZone.getTimeZone("Europe/Berlin"); // TODO use GMT
+
+		final Day d = new Day(2005, 9, 23);
+		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)").getTime(), d.getTimeInMillisFrom(tz));
+		assertEquals(df.parse("2005-09-23 23:59:59.999 (+0200)").getTime(), d.getTimeInMillisTo(tz));
+
+		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000 (+0100)").getTime(), tz));
+		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999 (+0100)").getTime(), tz));
 	}
 	@Test
 	public final void add()
@@ -187,7 +228,7 @@ public class DayTest extends CopeAssert
 	@Test
 	public final void valueOfNull()
 	{
-		assertNull(valueOf((Date)null));
+		assertNull(valueOf((Date)null, (TimeZone)null));
 		assertNull(valueOf((GregorianCalendar)null));
 		assertNull(valueOf((XMLGregorianCalendar)null));
 	}
@@ -229,9 +270,9 @@ public class DayTest extends CopeAssert
 				list(new Day(2007, 2, 23), new Day(2009, 8, 25)), 210));
 	}
 
-	static final void assertGregorianCalendar(final int year, final int month, final int day, final Day actual)
+	static final void assertGregorianCalendar(final int year, final int month, final int day, final Day actual, final TimeZone zone)
 	{
-		final GregorianCalendar cal = actual.getGregorianCalendar();
+		final GregorianCalendar cal = actual.getGregorianCalendar(zone);
 		assertEquals(0, cal.get(Calendar.MILLISECOND));
 		assertEquals(0, cal.get(Calendar.SECOND));
 		assertEquals(0, cal.get(Calendar.MINUTE));
@@ -274,10 +315,10 @@ public class DayTest extends CopeAssert
 		override(new Clock.Strategy(){
 			public long currentTimeMillis()
 			{
-				return new Day(1986, 4, 26).getTimeInMillisFrom();
+				return new Day(1986, 4, 26).getTimeInMillisFrom(TimeZone.getTimeZone("Etc/GMT"));
 			}
 		});
-		assertEquals(new Day(1986, 4, 26), new Day());
+		assertEquals(new Day(1986, 4, 26), new Day(TimeZone.getTimeZone("Etc/GMT")));
 	}
 
 	@After public void clearClock()

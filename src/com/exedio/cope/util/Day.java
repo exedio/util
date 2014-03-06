@@ -27,6 +27,7 @@ import static java.util.Calendar.YEAR;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -42,9 +43,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public final class Day implements Serializable, Comparable<Day>
 {
-	public static Day valueOf(final Date value)
+	public static Day valueOf(final Date value, final TimeZone zone)
 	{
-		return value!=null ? new Day(value) : null;
+		return value!=null ? new Day(value, zone) : null;
 	}
 
 	public static Day valueOf(final GregorianCalendar value)
@@ -67,24 +68,24 @@ public final class Day implements Serializable, Comparable<Day>
     * Creates a new <tt>Day</tt> object,
     * that represents today.
     */
-	public Day()
+	public Day(final TimeZone zone)
 	{
-		this(Clock.currentTimeMillis());
+		this(Clock.currentTimeMillis(), zone);
 	}
 
-	public Day(final Date date)
+	public Day(final Date date, final TimeZone zone)
 	{
-		this(date.getTime());
+		this(date.getTime(), zone);
 	}
 
-	public Day(final long date)
+	public Day(final long date, final TimeZone zone)
 	{
-		this(makeCalendar(date));
+		this(makeCalendar(date, zone));
 	}
 
-	private static GregorianCalendar makeCalendar(final long time)
+	private static GregorianCalendar makeCalendar(final long time, final TimeZone zone)
 	{
-		final GregorianCalendar result = new GregorianCalendar();
+		final GregorianCalendar result = new GregorianCalendar(zone);
 		result.setTimeInMillis(time);
 		return result;
 	}
@@ -108,6 +109,7 @@ public final class Day implements Serializable, Comparable<Day>
 		check(   1,   31, day,   "day"  );
 
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
+		c.setTimeZone(TimeZone.getTimeZone("Etc/GMT"));
 		this.year = c.get(YEAR);
 		this.month = c.get(MONTH)+1;
 		this.day = c.get(DAY_OF_MONTH);
@@ -134,32 +136,34 @@ public final class Day implements Serializable, Comparable<Day>
 		return day;
 	}
 
-	public Date getTimeFrom()
+	public Date getTimeFrom(final TimeZone zone)
 	{
-		return new Date(getTimeInMillisFrom());
+		return new Date(getTimeInMillisFrom(zone));
 	}
 
-	public Date getTimeTo()
+	public Date getTimeTo(final TimeZone zone)
 	{
-		return new Date(getTimeInMillisTo());
+		return new Date(getTimeInMillisTo(zone));
 	}
 
-	public long getTimeInMillisFrom()
+	public long getTimeInMillisFrom(final TimeZone zone)
 	{
-		return getGregorianCalendar().getTimeInMillis();
+		return getGregorianCalendar(zone).getTimeInMillis();
 	}
 
-	public long getTimeInMillisTo()
+	public long getTimeInMillisTo(final TimeZone zone)
 	{
-		final GregorianCalendar cal = getGregorianCalendar();
+		final GregorianCalendar cal = getGregorianCalendar(zone);
 		cal.add(DAY_OF_MONTH, 1);
 		cal.add(MILLISECOND, -1);
 		return cal.getTimeInMillis();
 	}
 
-	public GregorianCalendar getGregorianCalendar()
+	public GregorianCalendar getGregorianCalendar(final TimeZone zone)
 	{
-		return new GregorianCalendar(year, month-1, day);
+		final GregorianCalendar result = new GregorianCalendar(year, month-1, day);
+		result.setTimeZone(zone);
+		return result;
 	}
 
 	public XMLGregorianCalendar getXMLGregorianCalendar()
@@ -186,7 +190,7 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public Day add(final int days)
 	{
-		final GregorianCalendar cal = getGregorianCalendar();
+		final GregorianCalendar cal = getGregorianCalendar(TimeZone.getTimeZone("Etc/GMT"));
 		cal.add(DATE, days);
 		return new Day(cal);
 	}
@@ -244,6 +248,89 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public static Day valueOf(final Date value)
+	{
+		return valueOf(value, TimeZone.getDefault());
+	}
+
+   /**
+    * Creates a new <tt>Day</tt> object,
+    * that represents today.
+	 * @deprecated Provide {@link TimeZone} as parameter.
+    */
+	@Deprecated
+	public Day()
+	{
+		this(TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public Day(final Date date)
+	{
+		this(date, TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public Day(final long date)
+	{
+		this(date, TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public Date getTimeFrom()
+	{
+		return getTimeFrom(TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public Date getTimeTo()
+	{
+		return getTimeTo(TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public long getTimeInMillisFrom()
+	{
+		return getTimeInMillisFrom(TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public long getTimeInMillisTo()
+	{
+		return getTimeInMillisTo(TimeZone.getDefault());
+	}
+
+	/**
+	 * @deprecated Provide {@link TimeZone} as parameter.
+	 */
+	@Deprecated
+	public GregorianCalendar getGregorianCalendar()
+	{
+		return getGregorianCalendar(TimeZone.getDefault());
+	}
 
 	/**
 	 * @deprecated Use {@link #getTimeInMillisFrom()} instead
