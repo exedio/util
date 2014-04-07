@@ -143,6 +143,8 @@ public class CharSetTest extends CopeAssert
 		assertRegexp("^[-,a-z]*$", new CharSet('-', '-', 'a', 'z'));
 		assertRegexp("^[-,(-)]*$", new CharSet('(', ')', '-', '-'));
 		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
+		assertRegexp("^[\t-\n,\r,0-9]*$", new CharSet('\t', '\n', '\r', '\r', '0', '9')); // TODO escape
+		assertRegexp("^[\b,0-9]*$", new CharSet('\b', '\b', '0', '9')); // TODO escape
 	}
 
 	private static void assertEqualsStrict(final CharSet cs1, final CharSet cs2)
