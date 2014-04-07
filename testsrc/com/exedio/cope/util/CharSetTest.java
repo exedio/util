@@ -28,8 +28,8 @@ import org.junit.Test;
 
 public class CharSetTest extends CopeAssert
 {
-	@SuppressWarnings({"unused","static-method"})
-	@Test public final void testIt()
+	@SuppressWarnings("unused")
+	@Test public void inconsistent1()
 	{
 		try
 		{
@@ -40,6 +40,10 @@ public class CharSetTest extends CopeAssert
 		{
 			assertEquals("inconsistent character set, character 'A' on position 1 is less character 'Z' on position 0", e.getMessage());
 		}
+	}
+	@SuppressWarnings("unused")
+	@Test public void inconsistent2()
+	{
 		try
 		{
 			new CharSet('B', 'A');
@@ -49,6 +53,10 @@ public class CharSetTest extends CopeAssert
 		{
 			assertEquals("inconsistent character set, character 'A' on position 1 is less character 'B' on position 0", e.getMessage());
 		}
+	}
+	@SuppressWarnings("unused")
+	@Test public void inconsistent3()
+	{
 		try
 		{
 			new CharSet('A', 'C', 'B', 'A');
@@ -58,6 +66,10 @@ public class CharSetTest extends CopeAssert
 		{
 			assertEquals("inconsistent character set, character 'B' on position 2 is less character 'C' on position 1", e.getMessage());
 		}
+	}
+	@SuppressWarnings("unused")
+	@Test public void inconsistent4()
+	{
 		try
 		{
 			new CharSet('A', 'C', 'N', 'M');
@@ -67,6 +79,9 @@ public class CharSetTest extends CopeAssert
 		{
 			assertEquals("inconsistent character set, character 'M' on position 3 is less character 'N' on position 2", e.getMessage());
 		}
+	}
+	@Test public void simple()
+	{
 		{
 			final CharSet cs = new CharSet('C', 'C');
 			assertRegexp("^[C]*$", cs);
@@ -88,6 +103,9 @@ public class CharSetTest extends CopeAssert
 				assertEquals(null, e.getMessage());
 			}
 		}
+	}
+	@Test public void complex()
+	{
 		{
 			final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
 			assertRegexp("^[C,M-O,m-o]*$", cs);
@@ -104,6 +122,9 @@ public class CharSetTest extends CopeAssert
 			assertTrue(cs.contains('o'));
 			assertFalse(cs.contains('q'));
 		}
+	}
+	@Test public void equals()
+	{
 		assertEqualsStrict(
 				new CharSet('A', 'A'),
 				new CharSet('A', 'A'));
@@ -116,7 +137,9 @@ public class CharSetTest extends CopeAssert
 		assertNotEqualsStrict(
 				new CharSet('A', 'X', 'a', 'x'),
 				new CharSet('A', 'X', 'a', 'y'));
-
+	}
+	@Test public void regexp()
+	{
 		assertRegexp("^[-,a-z]*$", new CharSet('-', '-', 'a', 'z'));
 		assertRegexp("^[-,(-)]*$", new CharSet('(', ')', '-', '-'));
 		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
