@@ -47,7 +47,7 @@ import org.junit.Test;
 public class DayTest extends CopeAssert
 {
 	@Test
-	public final void yearSmall()
+	public void yearSmall()
 	{
 		try
 		{
@@ -60,7 +60,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void yearLarge()
+	public void yearLarge()
 	{
 		try
 		{
@@ -73,7 +73,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void monthSmall()
+	public void monthSmall()
 	{
 		try
 		{
@@ -86,7 +86,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void monthLarge()
+	public void monthLarge()
 	{
 		try
 		{
@@ -99,7 +99,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void daySmall()
+	public void daySmall()
 	{
 		try
 		{
@@ -112,7 +112,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void dayLarge()
+	public void dayLarge()
 	{
 		try
 		{
@@ -125,7 +125,7 @@ public class DayTest extends CopeAssert
 		}
 	}
 	@Test
-	public final void getters() throws DatatypeConfigurationException
+	public void getters() throws DatatypeConfigurationException
 	{
 		final Day d = new Day(2005, 9, 23);
 		assertEquals(2005, d.getYear());
@@ -137,7 +137,7 @@ public class DayTest extends CopeAssert
 		assertEquals("2005/9/23", d.toString());
 	}
 	@Test
-	public final void overflow()
+	public void overflow()
 	{
 		final Day d = new Day(2005, 2, 31);
 		assertEquals(2005, d.getYear());
@@ -145,7 +145,7 @@ public class DayTest extends CopeAssert
 		assertEquals(3,    d.getDay());
 	}
 	@Test
-	public final void nullZone()
+	public void nullZone()
 	{
 		try
 		{
@@ -159,7 +159,7 @@ public class DayTest extends CopeAssert
 	}
 	@Test
 	@Deprecated // OK testing deprecated API
-	public final void conversionDateDeprecated() throws ParseException
+	public void conversionDateDeprecated() throws ParseException
 	{
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
@@ -178,7 +178,7 @@ public class DayTest extends CopeAssert
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
 	}
 	@Test
-	public final void conversionDateBerlin() throws ParseException
+	public void conversionDateBerlin() throws ParseException
 	{
 		final TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
@@ -197,7 +197,7 @@ public class DayTest extends CopeAssert
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)"), tz));
 	}
 	@Test
-	public final void conversionDateGMT() throws ParseException
+	public void conversionDateGMT() throws ParseException
 	{
 		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
 		final TimeZone tz = TimeZone.getTimeZone("Etc/GMT");
@@ -217,7 +217,7 @@ public class DayTest extends CopeAssert
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0000)"), tz));
 	}
 	@Test
-	public final void conversionMillis() throws ParseException
+	public void conversionMillis() throws ParseException
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 		final TimeZone tz = TimeZone.getTimeZone("Europe/Berlin"); // TODO use GMT
@@ -230,7 +230,7 @@ public class DayTest extends CopeAssert
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999 (+0100)").getTime(), tz));
 	}
 	@Test
-	public final void add()
+	public void add()
 	{
 		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
 		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
@@ -239,14 +239,14 @@ public class DayTest extends CopeAssert
 		assertEquals(new Day(2005, 2, 17), new Day(2005,  2, 22).add(-5));
 	}
 	@Test
-	public final void valueOfNull()
+	public void valueOfNull()
 	{
 		assertNull(valueOf((Date)null, (TimeZone)null));
 		assertNull(valueOf((GregorianCalendar)null));
 		assertNull(valueOf((XMLGregorianCalendar)null));
 	}
 	@Test
-	public final void equalsHash()
+	public void equalsHash()
 	{
 		final Day d = new Day(2005, 9, 23);
 		assertEqualsAndHash(d, new Day(2005, 9, 23));
@@ -256,7 +256,7 @@ public class DayTest extends CopeAssert
 				new Day(2005, 9, 22));
 	}
 	@Test
-	public final void compare()
+	public void compare()
 	{
 		final Day d = new Day(2005, 9, 23);
 		// year
@@ -273,7 +273,7 @@ public class DayTest extends CopeAssert
 		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
 	}
 	@Test
-	public final void serialize()
+	public void serialize()
 	{
 		assertEquals(
 				new Day(2005, 2, 23), reserialize(
@@ -315,7 +315,7 @@ public class DayTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("EC_UNRELATED_TYPES")
-	@Test public final void testUnrelatedEquals()
+	@Test public void testUnrelatedEquals()
 	{
 		final Day d = new Day(2005, 9, 23);
 		assertTrue(!d.equals("hallo"));
@@ -323,7 +323,7 @@ public class DayTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
-	@Test public final void currentDay()
+	@Test public void currentDay()
 	{
 		override(new Clock.Strategy(){
 			public long currentTimeMillis()
