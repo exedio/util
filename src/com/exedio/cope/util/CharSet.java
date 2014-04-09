@@ -82,6 +82,11 @@ public final class CharSet
 		this.set = set;
 	}
 
+	public boolean isSubsetOfAscii()
+	{
+		return set[set.length-1]<=127;
+	}
+
 	public boolean contains(final char c)
 	{
 		for(int i = 0; i<set.length; i+=2)

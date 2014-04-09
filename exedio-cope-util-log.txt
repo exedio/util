@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* CharSet#isSubsetOfAscii added
 * bugfix: Day requires TimeZone where needed
 	old API was deprecated
 * bugfix: Day#hashCode produces distinct values for days like 2/5/2005 and 5/2/2005

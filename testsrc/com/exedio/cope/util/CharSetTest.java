@@ -123,6 +123,19 @@ public class CharSetTest extends CopeAssert
 			assertFalse(cs.contains('q'));
 		}
 	}
+	@Test public void isSubsetOfAscii()
+	{
+		assertEquals(true , new CharSet('a', 'z')     .isSubsetOfAscii());
+
+		assertEquals(true , new CharSet('a', '\u007f').isSubsetOfAscii());
+		assertEquals(false, new CharSet('a', '\u0080').isSubsetOfAscii());
+
+		assertEquals(true , new CharSet('A', 'Z', 'a', '\u007f').isSubsetOfAscii());
+		assertEquals(false, new CharSet('A', 'Z', 'a', '\u0080').isSubsetOfAscii());
+
+		assertEquals(true , new CharSet('\0', '\u007f').isSubsetOfAscii());
+		assertEquals(false, new CharSet('\0', '\u0080').isSubsetOfAscii());
+	}
 	@Test public void equals()
 	{
 		assertEqualsStrict(
