@@ -191,9 +191,13 @@ public final class CharSet
 					bf.append(',');
 
 				if(from==to)
-					bf.append(from);
+					append(bf, from);
 				else if(from<to)
-					bf.append(from).append('-').append(to);
+				{
+					append(bf, from);
+					bf.append('-');
+					append(bf, to);
+				}
 
 				prependComma = true;
 			}
@@ -201,5 +205,28 @@ public final class CharSet
 
 		bf.append("]*$");
 		return bf.toString();
+	}
+
+	private static void append(final StringBuilder bf, final char c)
+	{
+		switch(c)
+		{
+			// see https://dev.mysql.com/doc/refman/5.5/en/regexp.html
+			case    0: bf.append("[.NUL.]");             break;
+			case '\t': bf.append("[.tab.]");             break;
+			case '\n': bf.append("[.newline.]");         break;
+			case '\r': bf.append("[.carriage-return.]"); break;
+			case '\b': bf.append("[.backspace.]");       break;
+			case  '~': bf.append("[.tilde.]");           break;
+			default:
+			{
+				if(c<' ' || c>127)
+					bf.append("\\u{").append(Integer.toHexString(c)).append('}');
+				else
+					bf.append(c);
+
+				break;
+			}
+		}
 	}
 }
