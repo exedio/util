@@ -43,7 +43,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.After;
 import org.junit.Test;
 
-@SuppressWarnings({"unused","static-method"})
+@SuppressWarnings("unused")
 public class DayTest extends CopeAssert
 {
 	@Test
