@@ -145,6 +145,19 @@ public class DayTest extends CopeAssert
 		assertEquals(3,    d.getDay());
 	}
 	@Test
+	public final void nullZone()
+	{
+		try
+		{
+			new Day(5555l, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+	@Test
 	@Deprecated // OK testing deprecated API
 	public final void conversionDateDeprecated() throws ParseException
 	{
