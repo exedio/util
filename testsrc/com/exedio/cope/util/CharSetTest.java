@@ -82,46 +82,42 @@ public class CharSetTest extends CopeAssert
 	}
 	@Test public void simple()
 	{
-		{
-			final CharSet cs = new CharSet('C', 'C');
-			assertRegexp("^[C]*$", cs);
-			assertEquals(cs.toString(), "[C-C]", cs.toString());
-			assertFalse(cs.contains('A'));
-			assertTrue(cs.contains('C'));
-			assertFalse(cs.contains('D'));
+		final CharSet cs = new CharSet('C', 'C');
+		assertRegexp("^[C]*$", cs);
+		assertEquals(cs.toString(), "[C-C]", cs.toString());
+		assertFalse(cs.contains('A'));
+		assertTrue(cs.contains('C'));
+		assertFalse(cs.contains('D'));
 
-			assertEquals( 0, cs.indexOfNotContains("AC"));
-			assertEquals( 1, cs.indexOfNotContains("CA"));
-			assertEquals(-1, cs.indexOfNotContains("CC"));
-			try
-			{
-				cs.indexOfNotContains(null);
-				fail();
-			}
-			catch(final NullPointerException e)
-			{
-				assertEquals(null, e.getMessage());
-			}
+		assertEquals( 0, cs.indexOfNotContains("AC"));
+		assertEquals( 1, cs.indexOfNotContains("CA"));
+		assertEquals(-1, cs.indexOfNotContains("CC"));
+		try
+		{
+			cs.indexOfNotContains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 	}
 	@Test public void complex()
 	{
-		{
-			final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
-			assertRegexp("^[C,M-O,m-o]*$", cs);
-			assertEquals(cs.toString(), "[C-C,M-O,m-o]", cs.toString());
-			assertFalse(cs.contains('A'));
-			assertTrue(cs.contains('C'));
-			assertFalse(cs.contains('D'));
-			assertFalse(cs.contains('L'));
-			assertTrue(cs.contains('M'));
-			assertTrue(cs.contains('O'));
-			assertFalse(cs.contains('Q'));
-			assertFalse(cs.contains('l'));
-			assertTrue(cs.contains('m'));
-			assertTrue(cs.contains('o'));
-			assertFalse(cs.contains('q'));
-		}
+		final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
+		assertRegexp("^[C,M-O,m-o]*$", cs);
+		assertEquals(cs.toString(), "[C-C,M-O,m-o]", cs.toString());
+		assertFalse(cs.contains('A'));
+		assertTrue(cs.contains('C'));
+		assertFalse(cs.contains('D'));
+		assertFalse(cs.contains('L'));
+		assertTrue(cs.contains('M'));
+		assertTrue(cs.contains('O'));
+		assertFalse(cs.contains('Q'));
+		assertFalse(cs.contains('l'));
+		assertTrue(cs.contains('m'));
+		assertTrue(cs.contains('o'));
+		assertFalse(cs.contains('q'));
 	}
 	@Test public void isSubsetOfAscii()
 	{
