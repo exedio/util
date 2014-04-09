@@ -145,6 +145,14 @@ public class CharSetTest extends CopeAssert
 		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
 		assertRegexp("^[\t-\n,\r,0-9]*$", new CharSet('\t', '\n', '\r', '\r', '0', '9')); // TODO escape
 		assertRegexp("^[\b,0-9]*$", new CharSet('\b', '\b', '0', '9')); // TODO escape
+		assertRegexp("^[\0]*$", new CharSet('\0', '\0'));
+		assertRegexp("^[\0- ,0-9]*$", new CharSet('\0', ' ', '0', '9'));
+		assertRegexp("^[0-9,~]*$", new CharSet('0', '9', '~', '~'));
+		assertRegexp("^[-, -~]*$", new CharSet(' ', '~')); // TODO leading dash is unnecessary
+		assertRegexp("^[ ,0-9]*$", new CharSet(' ', ' ', '0', '9'));
+		assertRegexp("^[-, -\u00fc]*$"  , new CharSet(' ', '\u00fc')); // uuml
+		assertRegexp("^[-, -\uabcd]*$", new CharSet(' ', '\uabcd'));
+		assertRegexp("^[-, -\uffff]*$", new CharSet(' ', '\uffff'));
 	}
 
 	private static void assertEqualsStrict(final CharSet cs1, final CharSet cs2)
