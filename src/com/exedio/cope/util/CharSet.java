@@ -18,10 +18,14 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public final class CharSet
+public final class CharSet implements Serializable
 {
+	// TODO deserialization should not duplicate predefined charsets
+	private static final long serialVersionUID = 1l;
+
 	public static final CharSet ALPHA = new CharSet('A', 'Z', 'a', 'z');
 	public static final CharSet ALPHA_UPPER = new CharSet('A', 'Z');
 	public static final CharSet ALPHA_LOWER = new CharSet('a', 'z');

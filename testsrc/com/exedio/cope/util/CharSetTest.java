@@ -187,4 +187,13 @@ public class CharSetTest extends CopeAssert
 		final String actual = cs.getRegularExpression();
 		assertEquals(actual, regularExpression, actual);
 	}
+	@Test public void serialize()
+	{
+		assertEquals(
+			new CharSet('A', 'A'), reserialize(
+			new CharSet('A', 'A'), 88));
+		assertEquals(
+			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), reserialize(
+			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), 96));
+	}
 }
