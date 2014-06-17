@@ -28,7 +28,7 @@ public final class PrefixSource implements Source
 {
 	public static Source wrap(final Source source, final String prefix)
 	{
-		if(prefix==null || prefix.isEmpty())
+		if(prefix==null || prefix.length()==0)
 			return source;
 
 		return new PrefixSource(source, prefix);
