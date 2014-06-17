@@ -770,7 +770,7 @@ public class Properties
 			if(properties.detectDuplicatePrefixes.put(prefix, this)!=null)
 				throw new IllegalArgumentException("duplicate prefix '" + prefix + '\'');
 
-			final Source source = new PrefixSource(properties.source, prefix);
+			final Source source = PrefixSource.wrap(properties.source, prefix);
 			try
 			{
 				value = factory.create(source);

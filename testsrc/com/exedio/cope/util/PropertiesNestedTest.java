@@ -303,7 +303,7 @@ public class PropertiesNestedTest extends CopeAssert
 			assertTrue(cause instanceof IllegalArgumentException);
 			final Throwable causeCause = cause.getCause();
 			assertEquals(
-					"property drinner1 in someDescription (prefix nested.) (prefix nested.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
+					"property drinner1 in someDescription (prefix nested.nested.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
 					causeCause.getMessage());
 			assertTrue(causeCause instanceof IllegalArgumentException);
 		}
