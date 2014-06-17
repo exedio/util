@@ -78,7 +78,7 @@ public class PrefixSourceTest extends CopeAssert
 	@Test public final void testIt()
 	{
 		final MockSource ms = new MockSource(false, "description");
-		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
+		final PrefixSource ps = (PrefixSource)wrap(ms, "prefix.");
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
@@ -105,8 +105,8 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 		assertEquals("toString(description) (prefix prefix.)", ps.toString());
 
-		assertSame(ms, PrefixSource.wrap(ms, null));
-		assertSame(ms, PrefixSource.wrap(ms, ""));
+		assertSame(ms, wrap(ms, null));
+		assertSame(ms, wrap(ms, ""));
 	}
 
 	@SuppressWarnings("static-method")
@@ -140,8 +140,8 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 		assertEquals(null, ps.toString());
 
-		assertNull(PrefixSource.wrap(null, null));
-		assertNull(PrefixSource.wrap(null, ""));
+		assertNull(wrap(null, null));
+		assertNull(wrap(null, ""));
 	}
 
 	@SuppressWarnings({"unused","static-method"})
@@ -158,7 +158,7 @@ public class PrefixSourceTest extends CopeAssert
 		}
 		try
 		{
-			PrefixSource.wrap(null, "prefix.");
+			wrap(null, "prefix.");
 			fail();
 		}
 		catch(final NullPointerException e)
