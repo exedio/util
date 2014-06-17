@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.PrefixSource.wrap;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
@@ -184,5 +185,12 @@ public class PrefixSourceTest extends CopeAssert
 		{
 			assertEquals("prefix", e.getMessage());
 		}
+	}
+
+	@Test public void nest()
+	{
+		assertEquals(
+				"description (prefix inner.) (prefix outer.)",
+				wrap(wrap(new MockSource(false, "description"), "inner."), "outer.").getDescription());
 	}
 }
