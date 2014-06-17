@@ -28,10 +28,10 @@ public final class PrefixSource implements Source
 {
 	public static Source wrap(final Source source, final String prefix)
 	{
-		return
-			(prefix!=null && prefix.length()>0)
-			? new PrefixSource(source, prefix)
-			: source;
+		if(prefix==null || prefix.isEmpty())
+			return source;
+
+		return new PrefixSource(source, prefix);
 	}
 
 	private final Source source;
