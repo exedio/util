@@ -190,7 +190,7 @@ public class PrefixSourceTest extends CopeAssert
 	@Test public void nest()
 	{
 		assertEquals(
-				"description (prefix inner.) (prefix outer.)",
+				"description (prefix outer.inner.)",
 				wrap(wrap(new MockSource(false, "description"), "inner."), "outer.").getDescription());
 	}
 }

@@ -31,6 +31,12 @@ public final class PrefixSource implements Source
 		if(prefix==null || prefix.length()==0)
 			return source;
 
+		if(source!=null && source instanceof PrefixSource)
+		{
+			final PrefixSource ps =(PrefixSource)source;
+			return new PrefixSource(ps.source, prefix + ps.prefix);
+		}
+
 		return new PrefixSource(source, prefix);
 	}
 
