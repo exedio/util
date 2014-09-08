@@ -38,7 +38,8 @@ public class PrefixSourceTest extends CopeAssert
 	{
 		private final List<String> keySet = listg(
 				"alpha.one", "prefix.one", "prefix.two", "prefix.",
-				"outer.inner.one", "outer.inner.two");
+				"outer.inner.one", "outer.inner.two",
+				"inner.outer.one", "inner.outer.two"); // TODO wrong nesting
 		private final boolean keySetNull;
 		private final String description;
 
@@ -198,6 +199,18 @@ public class PrefixSourceTest extends CopeAssert
 				s.getDescription());
 		assertEquals("outer.inner.one/val", s.get("one"));
 		assertEquals("outer.inner.two/val", s.get("two"));
+		assertEquals(list("one", "two"), s.keySet());
+	}
+
+	@Test public void nestConstructor()
+	{
+		final Source s =
+				new PrefixSource(new PrefixSource(new MockSource(false, "description"), "inner."), "outer.");
+		assertEquals(
+				"description (prefix inner.) (prefix outer.)",
+				s.getDescription());
+		assertEquals("inner.outer.one/val", s.get("one")); // TODO wrong nesting
+		assertEquals("inner.outer.two/val", s.get("two")); // TODO wrong nesting
 		assertEquals(list("one", "two"), s.keySet());
 	}
 }
