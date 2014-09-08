@@ -36,7 +36,9 @@ public class PrefixSourceTest extends CopeAssert
 {
 	private static class MockSource implements Source
 	{
-		private final List<String> keySet = listg("alpha.one", "prefix.one", "prefix.two", "prefix.");
+		private final List<String> keySet = listg(
+				"alpha.one", "prefix.one", "prefix.two", "prefix.",
+				"inner.outer.one", "inner.outer.two");
 		private final boolean keySetNull;
 		private final String description;
 
@@ -189,8 +191,25 @@ public class PrefixSourceTest extends CopeAssert
 
 	@Test public void nest()
 	{
+		final Source s =
+				wrap(wrap(new MockSource(false, "description"), "inner."), "outer.");
 		assertEquals(
-				"description (prefix outer.inner.)",
-				wrap(wrap(new MockSource(false, "description"), "inner."), "outer.").getDescription());
+				"description (prefix inner.outer.)",
+				s.getDescription());
+		assertEquals("inner.outer.one/val", s.get("one"));
+		assertEquals("inner.outer.two/val", s.get("two"));
+		assertEquals(list("one", "two"), s.keySet());
+	}
+
+	@Test public void nestConstructor()
+	{
+		final Source s =
+				new PrefixSource(new PrefixSource(new MockSource(false, "description"), "inner."), "outer.");
+		assertEquals(
+				"description (prefix inner.) (prefix outer.)",
+				s.getDescription());
+		assertEquals("inner.outer.one/val", s.get("one"));
+		assertEquals("inner.outer.two/val", s.get("two"));
+		assertEquals(list("one", "two"), s.keySet());
 	}
 }

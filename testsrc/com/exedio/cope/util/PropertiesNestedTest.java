@@ -35,11 +35,11 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
-		final InnerProperties nested = value("nested", InnerProperties.factory());
-		final IntField nestedInner1 = (IntField)forKey("nested.inner1");
-		final IntField nestedInner2 = (IntField)forKey("nested.inner2");
-		final IntField nestedDrinner1 = (IntField)forKey("nested.nested.drinner1");
-		final IntField nestedDrinner2 = (IntField)forKey("nested.nested.drinner2");
+		final InnerProperties nested = value("nestedO", InnerProperties.factory());
+		final IntField nestedInner1 = (IntField)forKey("nestedO.inner1");
+		final IntField nestedInner2 = (IntField)forKey("nestedO.inner2");
+		final IntField nestedDrinner1 = (IntField)forKey("nestedO.nestedI.drinner1");
+		final IntField nestedDrinner2 = (IntField)forKey("nestedO.nestedI.drinner2");
 
 		OuterProperties(final java.util.Properties source)
 		{
@@ -48,7 +48,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final IntField outer1F = (IntField)forKey("outer1");
 		final IntField outer2F = (IntField)forKey("outer2");
-		final PropertiesField<InnerProperties> nestedF = forPrefix("nested", InnerProperties.class);
+		final PropertiesField<InnerProperties> nestedF = forPrefix("nestedO", InnerProperties.class);
 
 		void assertIt()
 		{
@@ -64,11 +64,11 @@ public class PropertiesNestedTest extends CopeAssert
 
 			assertEquals("outer1", outer1F.getKey());
 			assertEquals("outer2", outer2F.getKey());
-			assertEquals("nested", nestedF.getKey());
-			assertEquals("nested.inner1", nestedInner1.getKey());
-			assertEquals("nested.inner2", nestedInner2.getKey());
-			assertEquals("nested.nested.drinner1", nestedDrinner1.getKey());
-			assertEquals("nested.nested.drinner2", nestedDrinner2.getKey());
+			assertEquals("nestedO", nestedF.getKey());
+			assertEquals("nestedO.inner1", nestedInner1.getKey());
+			assertEquals("nestedO.inner2", nestedInner2.getKey());
+			assertEquals("nestedO.nestedI.drinner1", nestedDrinner1.getKey());
+			assertEquals("nestedO.nestedI.drinner2", nestedDrinner2.getKey());
 
 			assertEquals(Integer.valueOf(1001), outer1F.getDefaultValue());
 			assertEquals(Integer.valueOf(1002), outer2F.getDefaultValue());
@@ -108,9 +108,9 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
-		final DrinnerProperties nested = value("nested", DrinnerProperties.factory());
-		final IntField nestedDrinner1 = (IntField)forKey("nested.drinner1");
-		final IntField nestedDrinner2 = (IntField)forKey("nested.drinner2");
+		final DrinnerProperties nested = value("nestedI", DrinnerProperties.factory());
+		final IntField nestedDrinner1 = (IntField)forKey("nestedI.drinner1");
+		final IntField nestedDrinner2 = (IntField)forKey("nestedI.drinner2");
 
 		InnerProperties(final Source source)
 		{
@@ -119,7 +119,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		final IntField inner1F = (IntField)forKey("inner1");
 		final IntField inner2F = (IntField)forKey("inner2");
-		final PropertiesField<DrinnerProperties> nestedF = forPrefix("nested", DrinnerProperties.class);
+		final PropertiesField<DrinnerProperties> nestedF = forPrefix("nestedI", DrinnerProperties.class);
 
 		void assertIt()
 		{
@@ -133,8 +133,8 @@ public class PropertiesNestedTest extends CopeAssert
 
 			assertEquals("inner1", inner1F.getKey());
 			assertEquals("inner2", inner2F.getKey());
-			assertEquals("nested.drinner1", nestedDrinner1.getKey());
-			assertEquals("nested.drinner2", nestedDrinner2.getKey());
+			assertEquals("nestedI.drinner1", nestedDrinner1.getKey());
+			assertEquals("nestedI.drinner2", nestedDrinner2.getKey());
 
 			assertEquals(Integer.valueOf(101), inner1F.getDefaultValue());
 			assertEquals(Integer.valueOf(102), inner2F.getDefaultValue());
@@ -231,8 +231,8 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer1", "1009");
-		source.setProperty("nested.inner1", "109");
-		source.setProperty("nested.nested.drinner1", "19");
+		source.setProperty("nestedO.inner1", "109");
+		source.setProperty("nestedO.nestedI.drinner1", "19");
 
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertIt();
@@ -261,7 +261,7 @@ public class PropertiesNestedTest extends CopeAssert
 	@Test public final void testWrong()
 	{
 		final java.util.Properties source = new java.util.Properties();
-		source.setProperty("nested.inner1", "109x");
+		source.setProperty("nestedO.inner1", "109x");
 
 		try
 		{
@@ -272,10 +272,10 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("property nested in someDescription invalid, see nested exception", e.getMessage());
+			assertEquals("property nestedO in someDescription invalid, see nested exception", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals(
-					"property inner1 in someDescription (prefix nested.) has invalid value, expected an integer greater or equal 51, but got >109x<.",
+					"property inner1 in someDescription (prefix nestedO.) has invalid value, expected an integer greater or equal 51, but got >109x<.",
 					cause.getMessage());
 			assertTrue(cause instanceof IllegalArgumentException);
 		}
@@ -286,7 +286,7 @@ public class PropertiesNestedTest extends CopeAssert
 	@Test public final void testWrongDrinner()
 	{
 		final java.util.Properties source = new java.util.Properties();
-		source.setProperty("nested.nested.drinner1", "19x");
+		source.setProperty("nestedO.nestedI.drinner1", "19x");
 
 		try
 		{
@@ -297,13 +297,13 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("property nested in someDescription invalid, see nested exception", e.getMessage());
+			assertEquals("property nestedO in someDescription invalid, see nested exception", e.getMessage());
 			final Throwable cause = e.getCause();
-			assertEquals("property nested in someDescription (prefix nested.) invalid, see nested exception", cause.getMessage());
+			assertEquals("property nestedI in someDescription (prefix nestedO.) invalid, see nested exception", cause.getMessage());
 			assertTrue(cause instanceof IllegalArgumentException);
 			final Throwable causeCause = cause.getCause();
 			assertEquals(
-					"property drinner1 in someDescription (prefix nested.nested.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
+					"property drinner1 in someDescription (prefix nestedO.nestedI.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
 					causeCause.getMessage());
 			assertTrue(causeCause instanceof IllegalArgumentException);
 		}
