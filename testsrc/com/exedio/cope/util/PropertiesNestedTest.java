@@ -232,7 +232,7 @@ public class PropertiesNestedTest extends CopeAssert
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer1", "1009");
 		source.setProperty("nestedO.inner1", "109");
-		source.setProperty("nestedI.nestedO.drinner1", "19"); // TODO wrong nesting
+		source.setProperty("nestedO.nestedI.drinner1", "19");
 
 		final OuterProperties outer = new OuterProperties(source);
 		outer.assertIt();
@@ -286,7 +286,7 @@ public class PropertiesNestedTest extends CopeAssert
 	@Test public final void testWrongDrinner()
 	{
 		final java.util.Properties source = new java.util.Properties();
-		source.setProperty("nestedI.nestedO.drinner1", "19x"); // TODO wrong nesting
+		source.setProperty("nestedO.nestedI.drinner1", "19x");
 
 		try
 		{
@@ -303,7 +303,7 @@ public class PropertiesNestedTest extends CopeAssert
 			assertTrue(cause instanceof IllegalArgumentException);
 			final Throwable causeCause = cause.getCause();
 			assertEquals(
-					"property drinner1 in someDescription (prefix nestedI.nestedO.) has invalid value, expected an integer greater or equal 1, but got >19x<.", // TODO wrong nesting
+					"property drinner1 in someDescription (prefix nestedO.nestedI.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
 					causeCause.getMessage());
 			assertTrue(causeCause instanceof IllegalArgumentException);
 		}
