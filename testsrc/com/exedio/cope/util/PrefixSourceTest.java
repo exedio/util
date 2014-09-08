@@ -36,7 +36,9 @@ public class PrefixSourceTest extends CopeAssert
 {
 	private static class MockSource implements Source
 	{
-		private final List<String> keySet = listg("alpha.one", "prefix.one", "prefix.two", "prefix.");
+		private final List<String> keySet = listg(
+				"alpha.one", "prefix.one", "prefix.two", "prefix.",
+				"outer.inner.one", "outer.inner.two");
 		private final boolean keySetNull;
 		private final String description;
 
@@ -194,5 +196,8 @@ public class PrefixSourceTest extends CopeAssert
 		assertEquals(
 				"description (prefix outer.inner.)",
 				s.getDescription());
+		assertEquals("outer.inner.one/val", s.get("one"));
+		assertEquals("outer.inner.two/val", s.get("two"));
+		assertEquals(list("one", "two"), s.keySet());
 	}
 }
