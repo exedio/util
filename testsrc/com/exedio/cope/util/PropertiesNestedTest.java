@@ -270,14 +270,14 @@ public class PropertiesNestedTest extends CopeAssert
 				new OuterProperties(source);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals("property nestedO in someDescription invalid, see nested exception", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals(
 					"property inner1 in someDescription (prefix nestedO.) has invalid value, expected an integer greater or equal 51, but got >109x<.",
 					cause.getMessage());
-			assertTrue(cause instanceof IllegalArgumentException);
+			assertTrue(cause instanceof IllegalPropertiesException);
 		}
 	}
 
@@ -295,17 +295,17 @@ public class PropertiesNestedTest extends CopeAssert
 				new OuterProperties(source);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals("property nestedO in someDescription invalid, see nested exception", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals("property nestedI in someDescription (prefix nestedO.) invalid, see nested exception", cause.getMessage());
-			assertTrue(cause instanceof IllegalArgumentException);
+			assertTrue(cause instanceof IllegalPropertiesException);
 			final Throwable causeCause = cause.getCause();
 			assertEquals(
 					"property drinner1 in someDescription (prefix nestedO.nestedI.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
 					causeCause.getMessage());
-			assertTrue(causeCause instanceof IllegalArgumentException);
+			assertTrue(causeCause instanceof IllegalPropertiesException);
 		}
 	}
 }

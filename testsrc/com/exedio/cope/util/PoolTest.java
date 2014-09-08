@@ -406,7 +406,7 @@ public class PoolTest extends CopeAssert
 			newPool(null, -1, 0);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals("property idleLimit in Pool#Pool(Factory, int, int, PoolCounter) has invalid value, expected an integer greater or equal 0, but got -1.", e.getMessage());
 		}
@@ -415,7 +415,7 @@ public class PoolTest extends CopeAssert
 			newPool(null, -1, -1);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals("property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) has invalid value, expected an integer greater or equal 0, but got -1.", e.getMessage());
 		}
@@ -424,7 +424,7 @@ public class PoolTest extends CopeAssert
 			newPool(null, 0, 1);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals("property idleInitial must not be greater than idleLimit, but was 1 and 0", e.getMessage());
 		}
