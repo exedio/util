@@ -296,7 +296,7 @@ public class Properties
 				else if(s.equals("false"))
 					this.value = false;
 				else
-					throw new IllegalPropertiesException("property " + key + " in " + sourceDescription + " has invalid value, expected >true< or >false<, but got >" + s + "<.");
+					throw new IllegalPropertiesException(key, "in " + sourceDescription + " has invalid value, expected >true< or >false<, but got >" + s + "<.");
 			}
 		}
 
@@ -386,13 +386,13 @@ public class Properties
 				catch(final NumberFormatException e)
 				{
 					throw new IllegalPropertiesException(
-							"property " + key + " in " + sourceDescription + " has invalid value, " +
+							key, "in " + sourceDescription + " has invalid value, " +
 							"expected an integer greater or equal " + minimum + ", but got >" + s + "<.", e);
 				}
 
 				if(value<minimum)
 					throw new IllegalPropertiesException(
-							"property " + key + " in " + sourceDescription + " has invalid value, " +
+							key, "in " + sourceDescription + " has invalid value, " +
 							"expected an integer greater or equal " + minimum + ", but got " + value + '.');
 			}
 		}
@@ -504,7 +504,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new IllegalPropertiesException("property " + key + " in " + sourceDescription + " not set and no default value specified.");
+					throw new IllegalPropertiesException(key, "in " + sourceDescription + " not set and no default value specified.");
 				else
 					this.value = defaultValue;
 			}
@@ -598,7 +598,7 @@ public class Properties
 
 			if(s==null)
 				throw new IllegalPropertiesException(
-						"property " + key + " in " + sourceDescription + " not set.");
+						key, "in " + sourceDescription + " not set.");
 
 			this.value = new File(s);
 		}
@@ -778,7 +778,7 @@ public class Properties
 			catch(final IllegalPropertiesException e)
 			{
 				throw new IllegalPropertiesException(
-						"property " + key + " in " + properties.sourceDescription + " invalid, see nested exception",
+						key, "in " + properties.sourceDescription + " invalid, see nested exception",
 						e);
 			}
 			catch(final RuntimeException e)

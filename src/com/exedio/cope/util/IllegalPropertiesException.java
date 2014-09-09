@@ -18,16 +18,28 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 public final class IllegalPropertiesException extends IllegalArgumentException
 {
 	private static final long serialVersionUID = 1l;
 
-	IllegalPropertiesException(final String message)
+	private final String key;
+
+	IllegalPropertiesException(final String key, final String message)
 	{
-		super(message);
+		super("property " + key + ' ' + message);
+		this.key = requireNonNull(key, "key");
 	}
-	IllegalPropertiesException(final String message, final Throwable cause)
+
+	IllegalPropertiesException(final String key, final String message, final Throwable cause)
 	{
-		super(message, cause);
+		super("property " + key + ' ' + message, cause);
+		this.key = requireNonNull(key, "key");
+	}
+
+	public String getKey()
+	{
+		return key;
 	}
 }
