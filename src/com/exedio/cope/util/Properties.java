@@ -778,8 +778,7 @@ public class Properties
 			catch(final IllegalPropertiesException e)
 			{
 				throw new IllegalPropertiesException(
-						key, properties.sourceDescription, "invalid, see nested exception",
-						e);
+						prefix, properties.sourceDescription, e);
 			}
 			catch(final RuntimeException e)
 			{

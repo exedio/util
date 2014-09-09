@@ -25,17 +25,27 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 	private static final long serialVersionUID = 1l;
 
 	private final String key;
+	private final String detail;
 
 	IllegalPropertiesException(final String key, final String sourceDescription, final String message)
 	{
 		super("property " + key + " in " + sourceDescription + ' ' + message);
 		this.key = requireNonNull(key, "key");
+		this.detail = requireNonNull(message, "detail");
 	}
 
 	IllegalPropertiesException(final String key, final String sourceDescription, final String message, final Throwable cause)
 	{
 		super("property " + key + " in " + sourceDescription + ' ' + message, cause);
 		this.key = requireNonNull(key, "key");
+		this.detail = requireNonNull(message, "detail");
+	}
+
+	IllegalPropertiesException(final String prefix, final String sourceDescription, final IllegalPropertiesException cause)
+	{
+		super("property " + prefix + cause.key + " in " + sourceDescription + ' ' + cause.detail, cause);
+		this.key = requireNonNull(prefix + cause.key, "key");
+		this.detail = requireNonNull(cause.detail, "detail");
 	}
 
 	public String getKey()
