@@ -278,13 +278,12 @@ public class PropertiesNestedTest extends CopeAssert
 					e.getMessage());
 			assertEquals("nestedO.inner1", e.getKey());
 			assertEquals(detail, e.getDetail());
-			final Throwable cause = e.getCause();
+			final IllegalPropertiesException cause = (IllegalPropertiesException)e.getCause();
 			assertEquals(
 					"property inner1 in someDescription (prefix nestedO.) " + detail,
 					cause.getMessage());
-			assertTrue(cause instanceof IllegalPropertiesException);
-			assertEquals("inner1", ((IllegalPropertiesException)cause).getKey());
-			assertEquals(detail, ((IllegalPropertiesException)cause).getDetail());
+			assertEquals("inner1", cause.getKey());
+			assertEquals(detail, cause.getDetail());
 			assertTrue(cause.getCause() instanceof NumberFormatException);
 		}
 	}
@@ -311,20 +310,18 @@ public class PropertiesNestedTest extends CopeAssert
 					e.getMessage());
 			assertEquals("nestedO.nestedI.drinner1", e.getKey());
 			assertEquals(detail, e.getDetail());
-			final Throwable cause = e.getCause();
+			final IllegalPropertiesException cause = (IllegalPropertiesException)e.getCause();
 			assertEquals(
 					"property nestedI.drinner1 in someDescription (prefix nestedO.) " + detail,
 					cause.getMessage());
-			assertTrue(cause instanceof IllegalPropertiesException);
-			assertEquals("nestedI.drinner1", ((IllegalPropertiesException)cause).getKey());
-			assertEquals(detail, ((IllegalPropertiesException)cause).getDetail());
-			final Throwable causeCause = cause.getCause();
+			assertEquals("nestedI.drinner1", cause.getKey());
+			assertEquals(detail, cause.getDetail());
+			final IllegalPropertiesException causeCause = (IllegalPropertiesException)cause.getCause();
 			assertEquals(
 					"property drinner1 in someDescription (prefix nestedO.nestedI.) " + detail,
 					causeCause.getMessage());
-			assertTrue(causeCause instanceof IllegalPropertiesException);
-			assertEquals("drinner1", ((IllegalPropertiesException)causeCause).getKey());
-			assertEquals(detail, ((IllegalPropertiesException)causeCause).getDetail());
+			assertEquals("drinner1", causeCause.getKey());
+			assertEquals(detail, causeCause.getDetail());
 			assertTrue(causeCause.getCause() instanceof NumberFormatException);
 		}
 	}
