@@ -389,9 +389,10 @@ public class PropertiesTest extends CopeAssert
 			new TestProperties(wrongProps, sourceDescription);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(message, e.getMessage());
+			assertEquals(key, e.getKey());
 		}
 	}
 
