@@ -272,18 +272,19 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalPropertiesException e)
 		{
+			final String detail = "has invalid value, expected an integer greater or equal 51, but got >109x<.";
 			assertEquals(
-					"property nestedO.inner1 in someDescription has invalid value, expected an integer greater or equal 51, but got >109x<.",
+					"property nestedO.inner1 in someDescription " + detail,
 					e.getMessage());
 			assertEquals("nestedO.inner1", e.getKey());
-			assertEquals("has invalid value, expected an integer greater or equal 51, but got >109x<.", e.getDetail());
+			assertEquals(detail, e.getDetail());
 			final Throwable cause = e.getCause();
 			assertEquals(
-					"property inner1 in someDescription (prefix nestedO.) has invalid value, expected an integer greater or equal 51, but got >109x<.",
+					"property inner1 in someDescription (prefix nestedO.) " + detail,
 					cause.getMessage());
 			assertTrue(cause instanceof IllegalPropertiesException);
 			assertEquals("inner1", ((IllegalPropertiesException)cause).getKey());
-			assertEquals("has invalid value, expected an integer greater or equal 51, but got >109x<.", ((IllegalPropertiesException)cause).getDetail());
+			assertEquals(detail, ((IllegalPropertiesException)cause).getDetail());
 			assertTrue(cause.getCause() instanceof NumberFormatException);
 		}
 	}
@@ -304,25 +305,26 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalPropertiesException e)
 		{
+			final String detail = "has invalid value, expected an integer greater or equal 1, but got >19x<.";
 			assertEquals(
-					"property nestedO.nestedI.drinner1 in someDescription has invalid value, expected an integer greater or equal 1, but got >19x<.",
+					"property nestedO.nestedI.drinner1 in someDescription " + detail,
 					e.getMessage());
 			assertEquals("nestedO.nestedI.drinner1", e.getKey());
-			assertEquals("has invalid value, expected an integer greater or equal 1, but got >19x<.", e.getDetail());
+			assertEquals(detail, e.getDetail());
 			final Throwable cause = e.getCause();
 			assertEquals(
-					"property nestedI.drinner1 in someDescription (prefix nestedO.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
+					"property nestedI.drinner1 in someDescription (prefix nestedO.) " + detail,
 					cause.getMessage());
 			assertTrue(cause instanceof IllegalPropertiesException);
 			assertEquals("nestedI.drinner1", ((IllegalPropertiesException)cause).getKey());
-			assertEquals("has invalid value, expected an integer greater or equal 1, but got >19x<.", ((IllegalPropertiesException)cause).getDetail());
+			assertEquals(detail, ((IllegalPropertiesException)cause).getDetail());
 			final Throwable causeCause = cause.getCause();
 			assertEquals(
-					"property drinner1 in someDescription (prefix nestedO.nestedI.) has invalid value, expected an integer greater or equal 1, but got >19x<.",
+					"property drinner1 in someDescription (prefix nestedO.nestedI.) " + detail,
 					causeCause.getMessage());
 			assertTrue(causeCause instanceof IllegalPropertiesException);
 			assertEquals("drinner1", ((IllegalPropertiesException)causeCause).getKey());
-			assertEquals("has invalid value, expected an integer greater or equal 1, but got >19x<.", ((IllegalPropertiesException)causeCause).getDetail());
+			assertEquals(detail, ((IllegalPropertiesException)causeCause).getDetail());
 			assertTrue(causeCause.getCause() instanceof NumberFormatException);
 		}
 	}
