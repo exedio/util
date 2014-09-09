@@ -52,4 +52,9 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 	{
 		return key;
 	}
+
+	public String getDetail()
+	{
+		return detail;
+	}
 }
