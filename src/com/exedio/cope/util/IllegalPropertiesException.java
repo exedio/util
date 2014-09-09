@@ -26,15 +26,15 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 
 	private final String key;
 
-	IllegalPropertiesException(final String key, final String message)
+	IllegalPropertiesException(final String key, final String sourceDescription, final String message)
 	{
-		super("property " + key + ' ' + message);
+		super("property " + key + " in " + sourceDescription + ' ' + message);
 		this.key = requireNonNull(key, "key");
 	}
 
-	IllegalPropertiesException(final String key, final String message, final Throwable cause)
+	IllegalPropertiesException(final String key, final String sourceDescription, final String message, final Throwable cause)
 	{
-		super("property " + key + ' ' + message, cause);
+		super("property " + key + " in " + sourceDescription + ' ' + message, cause);
 		this.key = requireNonNull(key, "key");
 	}
 

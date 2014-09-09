@@ -426,7 +426,7 @@ public class PoolTest extends CopeAssert
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("property idleInitial must not be greater than idleLimit, but was 1 and 0", e.getMessage());
+			assertEquals("property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) must not be greater than idleLimit, but was 1 and 0", e.getMessage());
 		}
 		newPool(f, 0, 0);
 	}

@@ -42,7 +42,7 @@ public final class PoolProperties extends Properties
 		this.idleLimit   = value("idleLimit",   idleLimitDefault, 0);
 		if(idleInitial>idleLimit)
 			throw new IllegalPropertiesException(
-					"idleInitial", "must not be greater than idleLimit, " +
+					"idleInitial", source.getDescription(), "must not be greater than idleLimit, " +
 					"but was " + idleInitial + " and " + idleLimit);
 	}
 
