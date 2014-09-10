@@ -296,7 +296,10 @@ public class Properties
 				else if(s.equals("false"))
 					this.value = false;
 				else
-					throw new IllegalPropertiesException(key, sourceDescription, "has invalid value, expected >true< or >false<, but got >" + s + "<.");
+					throw new IllegalPropertiesException(
+							key, sourceDescription,
+							"has invalid value, expected >true< or >false<, " +
+							"but got >" + s + "<.");
 			}
 		}
 
@@ -386,14 +389,19 @@ public class Properties
 				catch(final NumberFormatException e)
 				{
 					throw new IllegalPropertiesException(
-							key, sourceDescription, "has invalid value, " +
-							"expected an integer greater or equal " + minimum + ", but got >" + s + "<.", e);
+							key, sourceDescription,
+							"has invalid value, " +
+							"expected an integer greater or equal " + minimum + ", " +
+							"but got >" + s + "<.",
+							e);
 				}
 
 				if(value<minimum)
 					throw new IllegalPropertiesException(
-							key, sourceDescription, "has invalid value, " +
-							"expected an integer greater or equal " + minimum + ", but got " + value + '.');
+							key, sourceDescription,
+							"has invalid value, " +
+							"expected an integer greater or equal " + minimum + ", " +
+							"but got " + value + '.');
 			}
 		}
 
@@ -504,7 +512,9 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new IllegalPropertiesException(key, sourceDescription, "not set and no default value specified.");
+					throw new IllegalPropertiesException(
+							key, sourceDescription,
+							"not set and no default value specified.");
 				else
 					this.value = defaultValue;
 			}
@@ -598,7 +608,8 @@ public class Properties
 
 			if(s==null)
 				throw new IllegalPropertiesException(
-						key, sourceDescription, "not set.");
+						key, sourceDescription,
+						"not set.");
 
 			this.value = new File(s);
 		}
