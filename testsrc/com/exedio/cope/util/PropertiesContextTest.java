@@ -91,6 +91,7 @@ public class PropertiesContextTest extends CopeAssert
 		pminimal.setProperty("aKey", raw);
 		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Source(){
 
+			@Override
 			public String get(final String key)
 			{
 				if("x".equals(key))
@@ -105,11 +106,13 @@ public class PropertiesContextTest extends CopeAssert
 					throw new RuntimeException(key);
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return Collections.unmodifiableList(Arrays.asList("x", "eimer", "wasser"));
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "TestContextDescription";

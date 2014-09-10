@@ -52,16 +52,19 @@ public class PropertiesGetContextTest extends CopeAssert
 
 		final Properties.Source context = new Properties.Source(){
 
+			@Override
 			public String get(final String key)
 			{
 				throw new RuntimeException(key);
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				throw new RuntimeException();
 			}
 
+			@Override
 			public String getDescription()
 			{
 				throw new RuntimeException();
@@ -96,6 +99,7 @@ public class PropertiesGetContextTest extends CopeAssert
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Source(){
 
+			@Override
 			public String get(final String key)
 			{
 				if("a".equals(key))
@@ -108,11 +112,13 @@ public class PropertiesGetContextTest extends CopeAssert
 					throw new RuntimeException(key);
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return Collections.unmodifiableList(Arrays.asList("a", "a1"));
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "TestGetContextDescription";

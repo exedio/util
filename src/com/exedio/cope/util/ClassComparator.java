@@ -43,6 +43,7 @@ public final class ClassComparator implements Comparator<Class<?>>, Serializable
 		// do not allow instantiation, is a singleton
 	}
 
+	@Override
 	public int compare(final Class<?> c1, final Class<?> c2)
 	{
 		return c1.getName().compareTo(c2.getName());

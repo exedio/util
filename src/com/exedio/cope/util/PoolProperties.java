@@ -27,6 +27,7 @@ public final class PoolProperties extends Properties
 	{
 		return new Factory<PoolProperties>()
 		{
+			@Override
 			@SuppressWarnings("synthetic-access")
 			public PoolProperties create(final Source source)
 			{

@@ -72,6 +72,7 @@ public final class Pool<E>
 			private static final String LIMIT   = "idleLimit";
 			private static final String INITIAL = "idleInitial";
 
+			@Override
 			public String get(final String key)
 			{
 				if(LIMIT.equals(key))
@@ -82,11 +83,13 @@ public final class Pool<E>
 					return null;
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return Arrays.asList(LIMIT, INITIAL);
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Pool#Pool(Factory, int, int, PoolCounter)";

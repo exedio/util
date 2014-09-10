@@ -39,16 +39,19 @@ public class InterruptersIteratorTest extends CopeAssert
 {
 	private static final Iterator<String> ITERATOR_FAIL = new Iterator<String>()
 	{
+		@Override
 		public boolean hasNext()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public String next()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public void remove()
 		{
 			throw new RuntimeException();
@@ -57,6 +60,7 @@ public class InterruptersIteratorTest extends CopeAssert
 
 	private static final Interrupter INTERRUPTER_FAIL = new Interrupter()
 	{
+		@Override
 		public boolean isRequested()
 		{
 			throw new RuntimeException();

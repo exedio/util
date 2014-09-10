@@ -36,6 +36,7 @@ public class EmptyJobContext implements JobContext
 	 * This default implementation throws a {@link JobStop},
 	 * if {@link #requestedToStop()} returns <i>true</i>.
 	 */
+	@Override
 	public void stopIfRequested() throws JobStop
 	{
 		if(requestedToStop())
@@ -45,6 +46,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation always returns <i>false</i>.
 	 */
+	@Override
 	@Deprecated
 	public boolean requestedToStop()
 	{
@@ -57,6 +59,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation always returns <i>false</i>.
 	 */
+	@Override
 	public boolean supportsMessage()
 	{
 		return false;
@@ -65,6 +68,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation does nothing.
 	 */
+	@Override
 	public void setMessage(final String message)
 	{
 		// empty
@@ -76,6 +80,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation always returns <i>false</i>.
 	 */
+	@Override
 	public boolean supportsProgress()
 	{
 		return false;
@@ -85,6 +90,7 @@ public class EmptyJobContext implements JobContext
 	 * This default implementation calls
 	 * {@link #incrementProgress(int) incrementProgress}(1).
 	 */
+	@Override
 	public void incrementProgress()
 	{
 		incrementProgress(1);
@@ -93,6 +99,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation does nothing.
 	 */
+	@Override
 	public void incrementProgress(final int delta)
 	{
 		// empty
@@ -104,6 +111,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation always returns <i>false</i>.
 	 */
+	@Override
 	public boolean supportsCompleteness()
 	{
 		return false;
@@ -112,6 +120,7 @@ public class EmptyJobContext implements JobContext
 	/**
 	 * This default implementation does nothing.
 	 */
+	@Override
 	public void setCompleteness(final double completeness)
 	{
 		// empty

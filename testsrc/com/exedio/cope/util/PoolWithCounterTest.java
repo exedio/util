@@ -160,6 +160,7 @@ public class PoolWithCounterTest extends CopeAssert
 			this.connections = connections.iterator();
 		}
 
+		@Override
 		public Pooled create()
 		{
 			if(createFails)
@@ -167,16 +168,19 @@ public class PoolWithCounterTest extends CopeAssert
 			return connections.next();
 		}
 
+		@Override
 		public boolean isValidOnGet(final Pooled e)
 		{
 			return e.isValidOnGet();
 		}
 
+		@Override
 		public boolean isValidOnPut(final Pooled e)
 		{
 			return e.isValidOnPut();
 		}
 
+		@Override
 		public void dispose(final Pooled e)
 		{
 			e.dispose();

@@ -133,7 +133,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		{
 			return new Factory<InnerProperties>()
 			{
-				public InnerProperties create(final Source source)
+				@Override public InnerProperties create(final Source source)
 				{
 					return new InnerProperties(source);
 				}

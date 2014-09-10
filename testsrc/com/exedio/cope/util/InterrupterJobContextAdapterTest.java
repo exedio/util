@@ -39,6 +39,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 			// make non-private
 		}
 
+		@Override
 		public boolean isRequested()
 		{
 			isRequestedCount++;
@@ -50,7 +51,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public final void testSupports()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				assertEquals(false, ctx.supportsMessage());
 				assertEquals(true,  ctx.supportsProgress());
@@ -63,7 +64,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		final MockInterrupter interruptor = new MockInterrupter();
 
 		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				assertEquals(false, ctx.supportsMessage());
 				assertEquals(true,  ctx.supportsProgress());
@@ -78,7 +79,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public final void testStopIfRequested()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				ctx.stopIfRequested();
 			}
@@ -87,7 +88,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		final MockInterrupter interruptor = new MockInterrupter();
 
 		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				assertEquals(0, interruptor.isRequestedCount);
 				ctx.stopIfRequested();
@@ -102,7 +103,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public final void testRequestedToStop()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				assertEquals(false, ctx.requestedToStop());
 			}
@@ -111,7 +112,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		final MockInterrupter interruptor = new MockInterrupter();
 
 		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				assertEquals(0, interruptor.isRequestedCount);
 				assertEquals(false, ctx.requestedToStop());
@@ -126,7 +127,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public final void testProgress()
 	{
 		assertEquals(1, InterrupterJobContextAdapter.run(null, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				ctx.incrementProgress();
 			}
@@ -135,7 +136,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		final MockInterrupter interruptor = new MockInterrupter();
 
 		assertEquals(1, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				ctx.incrementProgress();
 			}
@@ -146,7 +147,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public final void testProgressDelta()
 	{
 		assertEquals(5, InterrupterJobContextAdapter.run(null, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				ctx.incrementProgress(5);
 			}
@@ -155,7 +156,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		final MockInterrupter interruptor = new MockInterrupter();
 
 		assertEquals(5, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			public void run(final JobContext ctx)
+			@Override public void run(final JobContext ctx)
 			{
 				ctx.incrementProgress(5);
 			}

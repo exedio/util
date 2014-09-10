@@ -82,6 +82,7 @@ public class ClockTest
 			// just make package private
 		}
 
+		@Override
 		public long currentTimeMillis()
 		{
 			currentTimeMillisCount++;

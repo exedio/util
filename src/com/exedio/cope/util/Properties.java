@@ -149,17 +149,20 @@ public class Properties
 			// empty
 		}
 
+		@Override
 		public String get(final String key)
 		{
 			Sources.checkKey(key);
 			return null;
 		}
 
+		@Override
 		public Collection<String> keySet()
 		{
 			return Collections.<String>emptyList();
 		}
 
+		@Override
 		public String getDescription()
 		{
 			return "empty";
@@ -182,17 +185,20 @@ public class Properties
 			// empty
 		}
 
+		@Override
 		public String get(final String key)
 		{
 			Sources.checkKey(key);
 			return System.getProperty(key);
 		}
 
+		@Override
 		public Collection<String> keySet()
 		{
 			return null;
 		}
 
+		@Override
 		public String getDescription()
 		{
 			return "java.lang.System.getProperty";

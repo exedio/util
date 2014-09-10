@@ -472,22 +472,26 @@ public class PoolTest extends CopeAssert
 			assertEquals(createCount, this.createCount);
 		}
 
+		@Override
 		public Pooled create()
 		{
 			createCount++;
 			return connections.next();
 		}
 
+		@Override
 		public boolean isValidOnGet(final Pooled e)
 		{
 			return e.isValidOnGet();
 		}
 
+		@Override
 		public boolean isValidOnPut(final Pooled e)
 		{
 			return e.isValidOnPut();
 		}
 
+		@Override
 		public void dispose(final Pooled e)
 		{
 			e.dispose();

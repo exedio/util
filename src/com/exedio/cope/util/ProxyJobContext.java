@@ -41,11 +41,13 @@ public class ProxyJobContext implements JobContext
 			throw new NullPointerException("target");
 	}
 
+	@Override
 	public void stopIfRequested() throws JobStop
 	{
 		target.stopIfRequested();
 	}
 
+	@Override
 	@Deprecated
 	public boolean requestedToStop()
 	{
@@ -55,11 +57,13 @@ public class ProxyJobContext implements JobContext
 
 	// message
 
+	@Override
 	public boolean supportsMessage()
 	{
 		return target.supportsMessage();
 	}
 
+	@Override
 	public void setMessage(final String message)
 	{
 		target.setMessage(message);
@@ -68,16 +72,19 @@ public class ProxyJobContext implements JobContext
 
 	// progress
 
+	@Override
 	public boolean supportsProgress()
 	{
 		return target.supportsProgress();
 	}
 
+	@Override
 	public void incrementProgress()
 	{
 		target.incrementProgress();
 	}
 
+	@Override
 	public void incrementProgress(final int delta)
 	{
 		target.incrementProgress(delta);
@@ -86,11 +93,13 @@ public class ProxyJobContext implements JobContext
 
 	// completeness
 
+	@Override
 	public boolean supportsCompleteness()
 	{
 		return target.supportsCompleteness();
 	}
 
+	@Override
 	public void setCompleteness(final double completeness)
 	{
 		target.setCompleteness(completeness);

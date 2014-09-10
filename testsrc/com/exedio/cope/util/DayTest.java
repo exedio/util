@@ -326,7 +326,7 @@ public class DayTest extends CopeAssert
 	@Test public void currentDay()
 	{
 		override(new Clock.Strategy(){
-			public long currentTimeMillis()
+			@Override public long currentTimeMillis()
 			{
 				return new Day(1986, 4, 26).getTimeInMillisFrom(TimeZone.getTimeZone("Etc/GMT"));
 			}

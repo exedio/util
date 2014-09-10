@@ -99,7 +99,7 @@ public class PropertiesNestedTest extends CopeAssert
 		{
 			return new Factory<InnerProperties>()
 			{
-				public InnerProperties create(final Source source)
+				@Override public InnerProperties create(final Source source)
 				{
 					return new InnerProperties(source);
 				}
@@ -159,7 +159,7 @@ public class PropertiesNestedTest extends CopeAssert
 		{
 			return new Factory<DrinnerProperties>()
 			{
-				public DrinnerProperties create(final Source source)
+				@Override public DrinnerProperties create(final Source source)
 				{
 					return new DrinnerProperties(source);
 				}

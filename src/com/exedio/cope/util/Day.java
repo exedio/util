@@ -224,6 +224,7 @@ public final class Day implements Serializable, Comparable<Day>
 		return ((31*31)*day) ^ (31*month) ^ year;
 	}
 
+	@Override
 	public int compareTo(final Day other)
 	{
 		if(year<other.year)

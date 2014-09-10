@@ -58,12 +58,14 @@ public final class InterrupterJobContextAdapter
 			return progress;
 		}
 
+		@Override
 		public void stopIfRequested() throws JobStop
 		{
 			if(requestedToStop())
 				throw new JobStop("requestedToStop");
 		}
 
+		@Override
 		@Deprecated // needed for jdk 1.5
 		public boolean requestedToStop()
 		{
@@ -73,12 +75,14 @@ public final class InterrupterJobContextAdapter
 
 		// message
 
+		@Override
 		public boolean supportsMessage()
 		{
 			assertNotClosed();
 			return false;
 		}
 
+		@Override
 		public void setMessage(final String message)
 		{
 			assertNotClosed();
@@ -86,18 +90,21 @@ public final class InterrupterJobContextAdapter
 
 		// progress
 
+		@Override
 		public boolean supportsProgress()
 		{
 			assertNotClosed();
 			return true;
 		}
 
+		@Override
 		public void incrementProgress()
 		{
 			assertNotClosed();
 			progress++;
 		}
 
+		@Override
 		public void incrementProgress(final int delta)
 		{
 			assertNotClosed();
@@ -106,12 +113,14 @@ public final class InterrupterJobContextAdapter
 
 		// completeness
 
+		@Override
 		public boolean supportsCompleteness()
 		{
 			assertNotClosed();
 			return false;
 		}
 
+		@Override
 		public void setCompleteness(final double completeness)
 		{
 			assertNotClosed();

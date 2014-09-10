@@ -31,6 +31,7 @@ public final class Interrupters
 	@Deprecated
 	private static final class Vain implements Interrupter
 	{
+		@Override
 		@Deprecated // needed for jdk 1.5
 		public boolean isRequested()
 		{

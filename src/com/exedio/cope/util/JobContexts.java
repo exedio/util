@@ -59,6 +59,7 @@ public final class JobContexts
 			this.ctx = ctx;
 		}
 
+		@Override
 		@Deprecated // Needed for jdk 1.5
 		public boolean hasNext()
 		{
@@ -76,6 +77,7 @@ public final class JobContexts
 		 * because {@link #hasNext()} may already have promised
 		 * to have one more element.
 		 */
+		@Override
 		public E next()
 		{
 			if(requestedToStop)
@@ -89,6 +91,7 @@ public final class JobContexts
 		 * because {@link #hasNext()} may already have promised
 		 * to have one more element.
 		 */
+		@Override
 		public void remove()
 		{
 			if(requestedToStop)

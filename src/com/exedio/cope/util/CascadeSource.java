@@ -56,6 +56,7 @@ final class CascadeSource
 				this.sources[i] = sources[i];
 		}
 
+		@Override
 		public String get(final String key)
 		{
 			Sources.checkKey(key);
@@ -70,6 +71,7 @@ final class CascadeSource
 			return null;
 		}
 
+		@Override
 		public Collection<String> keySet()
 		{
 			final LinkedHashSet<String> result = new LinkedHashSet<>();
@@ -83,6 +85,7 @@ final class CascadeSource
 			return Collections.unmodifiableSet(result);
 		}
 
+		@Override
 		public String getDescription()
 		{
 			final StringBuilder result = new StringBuilder();

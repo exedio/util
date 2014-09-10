@@ -30,11 +30,13 @@ package com.exedio.cope.util;
  */
 public class AssertionErrorJobContext implements JobContext
 {
+	@Override
 	public void stopIfRequested()
 	{
 		throw new AssertionError();
 	}
 
+	@Override
 	@Deprecated
 	public boolean requestedToStop()
 	{
@@ -44,11 +46,13 @@ public class AssertionErrorJobContext implements JobContext
 
 	// message
 
+	@Override
 	public boolean supportsMessage()
 	{
 		throw new AssertionError();
 	}
 
+	@Override
 	public void setMessage(final String message)
 	{
 		throw new AssertionError(message);
@@ -57,16 +61,19 @@ public class AssertionErrorJobContext implements JobContext
 
 	// progress
 
+	@Override
 	public boolean supportsProgress()
 	{
 		throw new AssertionError();
 	}
 
+	@Override
 	public void incrementProgress()
 	{
 		throw new AssertionError();
 	}
 
+	@Override
 	public void incrementProgress(final int delta)
 	{
 		throw new AssertionError(delta);
@@ -75,11 +82,13 @@ public class AssertionErrorJobContext implements JobContext
 
 	// completeness
 
+	@Override
 	public boolean supportsCompleteness()
 	{
 		throw new AssertionError();
 	}
 
+	@Override
 	public void setCompleteness(final double completeness)
 	{
 		throw new AssertionError(completeness);

@@ -48,6 +48,7 @@ public class PrefixSourceTest extends CopeAssert
 			this.description = description;
 		}
 
+		@Override
 		public String get(final String key)
 		{
 			assertNotNull(key);
@@ -58,11 +59,13 @@ public class PrefixSourceTest extends CopeAssert
 				return null;
 		}
 
+		@Override
 		public Collection<String> keySet()
 		{
 			return keySetNull ? null : keySet;
 		}
 
+		@Override
 		public String getDescription()
 		{
 			return description;

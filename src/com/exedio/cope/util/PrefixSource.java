@@ -55,12 +55,14 @@ public final class PrefixSource implements Source
 		this.prefix = prefix;
 	}
 
+	@Override
 	public String get(final String key)
 	{
 		Sources.checkKey(key);
 		return source.get(prefix + key);
 	}
 
+	@Override
 	public Collection<String> keySet()
 	{
 		final Collection<String> sourceKeySet = source.keySet();
@@ -74,6 +76,7 @@ public final class PrefixSource implements Source
 		return Collections.unmodifiableList(result);
 	}
 
+	@Override
 	public String getDescription()
 	{
 		final String sourceDescription = source.getDescription();

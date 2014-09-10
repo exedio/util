@@ -35,12 +35,14 @@ public final class Sources
 	public static final Source view(final Properties properties, final String description)
 	{
 		return new Source(){
+			@Override
 			public String get(final String key)
 			{
 				checkKey(key);
 				return properties.getProperty(key);
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				final ArrayList<String> result = new ArrayList<>();
@@ -49,6 +51,7 @@ public final class Sources
 				return Collections.unmodifiableList(result);
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return description;
