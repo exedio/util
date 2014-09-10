@@ -38,12 +38,15 @@ public final class PoolProperties extends Properties
 	private PoolProperties(final Source source, final int idleLimitDefault)
 	{
 		super(source);
-		this.idleInitial = value("idleInitial", 0, 0);
-		this.idleLimit   = value("idleLimit",   idleLimitDefault, 0);
+		final String idleInitialKey = "idleInitial";
+		final String idleLimitKey   = "idleLimit";
+
+		this.idleInitial = value(idleInitialKey, 0, 0);
+		this.idleLimit   = value(idleLimitKey,   idleLimitDefault, 0);
 		if(idleInitial>idleLimit)
 			throw new IllegalPropertiesException(
-					"idleInitial", source.getDescription(),
-					"must not be greater than idleLimit, " +
+					idleInitialKey, source.getDescription(),
+					"must not be greater than " + idleLimitKey + ", " +
 					"but was " + idleInitial + " and " + idleLimit);
 	}
 
