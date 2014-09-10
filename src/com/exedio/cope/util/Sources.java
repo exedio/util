@@ -43,7 +43,7 @@ public final class Sources
 
 			public Collection<String> keySet()
 			{
-				final ArrayList<String> result = new ArrayList<String>();
+				final ArrayList<String> result = new ArrayList<>();
 				for(final Enumeration<?> names = properties.propertyNames(); names.hasMoreElements(); )
 					result.add((String)names.nextElement());
 				return Collections.unmodifiableList(result);

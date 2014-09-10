@@ -216,6 +216,6 @@ public class PoolWithCounterTest extends CopeAssert
 	@SuppressWarnings("deprecation")
 	private static Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
 	{
-		return new Pool<Pooled>(factory, idleLimit, idleInitial, new PoolCounter());
+		return new Pool<>(factory, idleLimit, idleInitial, new PoolCounter());
 	}
 }

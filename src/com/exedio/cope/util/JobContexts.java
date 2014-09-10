@@ -36,7 +36,7 @@ public final class JobContexts
 	{
 		return
 			(iterator!=null && ctx!=null)
-			? new Iterator<E>(iterator, ctx)
+			? new Iterator<>(iterator, ctx)
 			: iterator;
 	}
 

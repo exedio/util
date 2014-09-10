@@ -31,9 +31,9 @@ import java.util.concurrent.Callable;
 
 public class Properties
 {
-	final ArrayList<Field> fields = new ArrayList<Field>();
-	final HashMap<String, Field> detectDuplicateKeys = new HashMap<String, Field>();
-	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<String, PropertiesField<?>>();
+	final ArrayList<Field> fields = new ArrayList<>();
+	final HashMap<String, Field> detectDuplicateKeys = new HashMap<>();
+	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<>();
 	final Source source;
 	final String sourceDescription;
 	private final Source context;
@@ -754,7 +754,7 @@ public class Properties
 
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
-		return new PropertiesField<T>(this, key, factory);
+		return new PropertiesField<>(this, key, factory);
 	}
 
 	public static interface Factory<T extends Properties>
@@ -837,8 +837,8 @@ public class Properties
 		if(keySet==null)
 			return;
 
-		final HashSet<String> allowedValues = new HashSet<String>();
-		final ArrayList<String> allowedPrefixes = new ArrayList<String>();
+		final HashSet<String> allowedValues = new HashSet<>();
+		final ArrayList<String> allowedPrefixes = new ArrayList<>();
 
 		for(final Field field : fields)
 		{
@@ -867,7 +867,7 @@ public class Properties
 				if(error)
 				{
 					// maintain order of fields lost in allowedValues
-					final ArrayList<String> allowedValueList = new ArrayList<String>();
+					final ArrayList<String> allowedValueList = new ArrayList<>();
 					for(final Field field : fields)
 						if(!(field instanceof MapField))
 							allowedValueList.add(field.key);

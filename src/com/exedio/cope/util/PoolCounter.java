@@ -152,7 +152,7 @@ public final class PoolCounter
 
 	public List<Pool> getPools()
 	{
-		final ArrayList<Pool> result = new ArrayList<Pool>(idleLimitA.length);
+		final ArrayList<Pool> result = new ArrayList<>(idleLimitA.length);
 		synchronized(lock)
 		{
 			final int count = this.count;

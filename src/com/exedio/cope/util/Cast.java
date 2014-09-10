@@ -49,7 +49,7 @@ public final class Cast
 		if(c==null)
 			return null;
 
-		final ArrayList<E> result = new ArrayList<E>(c.size());
+		final ArrayList<E> result = new ArrayList<>(c.size());
 		for(final Object o : c)
 			result.add(verboseCast(clazz, o));
 		return result;

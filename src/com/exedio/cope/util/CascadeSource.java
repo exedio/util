@@ -72,7 +72,7 @@ final class CascadeSource
 
 		public Collection<String> keySet()
 		{
-			final LinkedHashSet<String> result = new LinkedHashSet<String>();
+			final LinkedHashSet<String> result = new LinkedHashSet<>();
 			for(final Source source : sources)
 			{
 				final Collection<String> keySet = source.keySet();

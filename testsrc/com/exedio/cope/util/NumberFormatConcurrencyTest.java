@@ -33,7 +33,7 @@ public class NumberFormatConcurrencyTest extends CopeAssert
 	@Test public void torment() throws ParseException, InterruptedException
 	{
 		final NumberFormat format = NumberFormat.getInstance(Locale.ENGLISH);
-		final List<DFThread> threads = new ArrayList<DFThread>();
+		final List<DFThread> threads = new ArrayList<>();
 		threads.add(new DFThread(format, "2,223.44"));
 		threads.add(new DFThread(format, "2,224.44"));
 		threads.add(new DFThread(format, "2,225.44"));

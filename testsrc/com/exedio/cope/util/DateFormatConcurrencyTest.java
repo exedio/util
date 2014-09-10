@@ -34,7 +34,7 @@ public class DateFormatConcurrencyTest extends CopeAssert
 	@Test public void torment() throws ParseException, InterruptedException
 	{
 		final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.ENGLISH);
-		final List<DFThread> threads = new ArrayList<DFThread>();
+		final List<DFThread> threads = new ArrayList<>();
 		threads.add(new DFThread(format, "Jun 18, 2013 9:02:26 PM"));
 		threads.add(new DFThread(format, "Oct 12, 1234 10:11:21 PM"));
 		threads.add(new DFThread(format, "Nov 11, 1235 2:13:24 AM"));

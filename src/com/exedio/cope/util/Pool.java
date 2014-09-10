@@ -207,7 +207,7 @@ public final class Pool<E>
 		{
 			// make a copy of idle to avoid disposing idle items
 			// inside the synchronized block
-			final ArrayList<E> copyOfIdle = new ArrayList<E>(idle.length);
+			final ArrayList<E> copyOfIdle = new ArrayList<>(idle.length);
 
 			synchronized(lock)
 			{

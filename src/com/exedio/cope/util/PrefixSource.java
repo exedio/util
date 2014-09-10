@@ -67,7 +67,7 @@ public final class PrefixSource implements Source
 		if(sourceKeySet==null)
 			return null;
 
-		final ArrayList<String> result = new ArrayList<String>();
+		final ArrayList<String> result = new ArrayList<>();
 		for(final String key : sourceKeySet)
 			if(key!=null && key.startsWith(prefix))
 				result.add(key.substring(prefix.length()));
