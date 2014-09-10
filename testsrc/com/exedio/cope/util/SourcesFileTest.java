@@ -101,9 +101,9 @@ public class SourcesFileTest extends CopeAssert
 
 	private void store(final Properties p) throws IOException
 	{
-		try(FileOutputStream stream = new FileOutputStream(file))
+		try(FileOutputStream s = new FileOutputStream(file))
 		{
-			p.store(stream, null);
+			p.store(s, null);
 		}
 	}
 }
