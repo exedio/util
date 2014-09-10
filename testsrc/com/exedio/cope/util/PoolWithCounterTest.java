@@ -33,7 +33,7 @@ public class PoolWithCounterTest extends CopeAssert
 	@Test public final void testNormal()
 	{
 		final Pooled c1 = new Pooled();
-		final Factory f = new Factory(listg(c1));
+		final Factory f = new Factory(asList(c1));
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
 		assertIt(cp, 0, 0);
@@ -60,7 +60,7 @@ public class PoolWithCounterTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
 		assertIt(cp, 0, 0);
@@ -82,7 +82,7 @@ public class PoolWithCounterTest extends CopeAssert
 	@Test public final void testInvalidOnPut()
 	{
 		final Pooled c1 = new Pooled();
-		final Factory f = new Factory(listg(c1));
+		final Factory f = new Factory(asList(c1));
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
 		assertIt(cp, 0, 0);
@@ -100,7 +100,7 @@ public class PoolWithCounterTest extends CopeAssert
 	@SuppressWarnings("static-method")
 	@Test public final void testCreateFails()
 	{
-		final Factory f = new Factory(listg(new Pooled()));
+		final Factory f = new Factory(asList(new Pooled()));
 		final Pool<Pooled> cp = newPool(f, 1, 0);
 		assertIt(cp, 0, 0);
 
@@ -122,7 +122,7 @@ public class PoolWithCounterTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		final Pool<Pooled> cp = newPool(f, 1, 0);
 		assertIt(cp, 0, 0);
 

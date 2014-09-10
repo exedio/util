@@ -36,7 +36,7 @@ public class PrefixSourceTest extends CopeAssert
 {
 	private static class MockSource implements Source
 	{
-		private final List<String> keySet = listg(
+		private final List<String> keySet = asList(
 				"alpha.one", "prefix.one", "prefix.two", "prefix.",
 				"inner.outer.one", "inner.outer.two");
 		private final boolean keySetNull;

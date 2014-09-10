@@ -34,7 +34,7 @@ public class PoolTest extends CopeAssert
 	@Test public final void testSimple()
 	{
 		final Pooled c1 = new Pooled();
-		final Factory f = new Factory(listg(c1));
+		final Factory f = new Factory(asList(c1));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -74,7 +74,7 @@ public class PoolTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -114,7 +114,7 @@ public class PoolTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 2, 0);
@@ -201,7 +201,7 @@ public class PoolTest extends CopeAssert
 	@Test public final void testIdleInitial()
 	{
 		final Pooled c1 = new Pooled();
-		final Factory f = new Factory(listg(c1));
+		final Factory f = new Factory(asList(c1));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 1);
@@ -224,7 +224,7 @@ public class PoolTest extends CopeAssert
 	@Test public final void testIdleInitialNotFull()
 	{
 		final Pooled c1 = new Pooled();
-		final Factory f = new Factory(listg(c1));
+		final Factory f = new Factory(asList(c1));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 2, 1);
@@ -248,7 +248,7 @@ public class PoolTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -283,7 +283,7 @@ public class PoolTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -323,7 +323,7 @@ public class PoolTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 0, 0);
@@ -357,7 +357,7 @@ public class PoolTest extends CopeAssert
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
-		final Factory f = new Factory(listg(c1, c2));
+		final Factory f = new Factory(asList(c1, c2));
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -400,7 +400,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(CopeAssert.<Pooled>listg());
+		final Factory f = new Factory(CopeAssert.<Pooled>asList());
 		try
 		{
 			newPool(null, -1, 0);
@@ -444,7 +444,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(CopeAssert.<Pooled>listg());
+		final Factory f = new Factory(CopeAssert.<Pooled>asList());
 		try
 		{
 			new Pool<Pooled>(f, null, null);

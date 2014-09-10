@@ -129,7 +129,7 @@ public abstract class CopeAssert
 		return Arrays.asList(o);
 	}
 
-	public static final <T> List<T> listg(final T... o)
+	public static final <T> List<T> asList(final T... o)
 	{
 		return Arrays.asList(o);
 	}
