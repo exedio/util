@@ -253,15 +253,18 @@ public abstract class CopeAssert
 		try
 		{
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new ObjectOutputStream(bos);
-			oos.writeObject(value);
-			oos.close();
+			try(ObjectOutputStream oos = new ObjectOutputStream(bos))
+			{
+				oos.writeObject(value);
+			}
 
 			assertTrue(String.valueOf(bos.size()), bos.size()<maxSize);
 
-			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-			final Object result = ois.readObject();
-			ois.close();
+			final Object result;
+			try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())))
+			{
+				result = ois.readObject();
+			}
 			return (S)result;
 		}
 		catch(final IOException e)
