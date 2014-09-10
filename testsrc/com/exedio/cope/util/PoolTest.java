@@ -18,12 +18,14 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
@@ -400,7 +402,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(CopeAssert.<Pooled>asList());
+		final Factory f = new Factory(Arrays.<Pooled>asList());
 		try
 		{
 			newPool(null, -1, 0);
@@ -444,7 +446,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(CopeAssert.<Pooled>asList());
+		final Factory f = new Factory(Arrays.<Pooled>asList());
 		try
 		{
 			new Pool<Pooled>(f, null, null);

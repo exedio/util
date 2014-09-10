@@ -19,6 +19,7 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.PrefixSource.wrap;
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
