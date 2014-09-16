@@ -22,9 +22,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Pool<E>
 {
+	private static final Logger log = LoggerFactory.getLogger(Pool.class);
+
 	public interface Factory<E>
 	{
 		E create();
@@ -236,15 +240,11 @@ public final class Pool<E>
 				}
 				catch(final Exception ex)
 				{
-					System.err.println("warning: exception on flushing pool");
-					ex.printStackTrace();
-					System.err.println("/warning: exception on flushing pool");
+					log.error("on flushing pool", ex);
 				}
 				catch(final AssertionError ex)
 				{
-					System.err.println("warning: assertion error on flushing pool");
-					ex.printStackTrace();
-					System.err.println("/warning: assertion error on flushing pool");
+					log.error("on flushing pool", ex);
 				}
 			}
 		}

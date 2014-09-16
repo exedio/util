@@ -11,6 +11,7 @@
 	<target name="compile">
 		<compile srcdir="src">
 			<classpath>
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -39,6 +40,9 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/testsrc" />
+				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/logback-core.jar" />
+				<pathelement location="lib/logback-classic.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="lib/easymock.jar" />
@@ -101,6 +105,7 @@
 			<bottom><![CDATA[<small>Copyright &copy; 2004-2008 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
 			<package name="com.*" />
 			<classpath>
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</javadoc>
@@ -119,6 +124,7 @@
 			<class location="${basedir}/build/classes/src" />
 			<class location="${basedir}/build/classes/testsrc" />
 			<auxclasspath>
+				<pathelement location="${basedir}/lib/slf4j-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
 			</auxclasspath>
 		</findbugs>
