@@ -42,7 +42,7 @@ public class TimeZoneStrictTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("Europe/Berlinx#GMT", e.getMessage());
+			assertEquals("unsupported time zone: Europe/Berlinx", e.getMessage());
 		}
 	}
 
