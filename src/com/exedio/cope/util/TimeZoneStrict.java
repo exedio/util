@@ -36,7 +36,7 @@ public final class TimeZoneStrict
 
 		final TimeZone zone = TimeZone.getTimeZone(ID);
 		if(!ID.equals(zone.getID()))
-			throw new IllegalStateException(ID + '#' + zone.getID());
+			throw new IllegalArgumentException(ID + '#' + zone.getID());
 		return zone;
 	}
 
