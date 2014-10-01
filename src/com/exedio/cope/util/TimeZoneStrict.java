@@ -31,6 +31,8 @@ public final class TimeZoneStrict
 	{
 		if(ID==null)
 			throw new NullPointerException();
+		if(ID.isEmpty())
+			throw new IllegalArgumentException("ID must not be empty");
 
 		final TimeZone zone = TimeZone.getTimeZone(ID);
 		if(!ID.equals(zone.getID()))

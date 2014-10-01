@@ -53,9 +53,9 @@ public class TimeZoneStrictTest extends CopeAssert
 			getTimeZone("");
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("#GMT", e.getMessage());
+			assertEquals("ID must not be empty", e.getMessage());
 		}
 	}
 
