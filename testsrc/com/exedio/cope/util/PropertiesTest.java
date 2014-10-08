@@ -38,6 +38,7 @@ public class PropertiesTest extends CopeAssert
 	{
 		final boolean boolFalse = value("boolFalse", false);
 		final boolean boolTrue = value("boolTrue", true);
+		final int intAny = value("intAny", 10, Integer.MIN_VALUE);
 		final int int10 = value("int10", 10, 5);
 		final String stringMandatory = value("stringMandatory", (String)null);
 		final String stringOptional = value("stringOptional", "stringOptional.defaultValue");
@@ -53,6 +54,7 @@ public class PropertiesTest extends CopeAssert
 
 		final BooleanField boolFalseF = (BooleanField)forKey("boolFalse");
 		final BooleanField boolTrueF = (BooleanField)forKey("boolTrue");
+		final IntField intAnyF = (IntField)forKey("intAny");
 		final IntField int10F = (IntField)forKey("int10");
 		final StringField stringMandatoryF = (StringField)forKey("stringMandatory");
 		final StringField stringOptionalF = (StringField)forKey("stringOptional");
@@ -65,6 +67,7 @@ public class PropertiesTest extends CopeAssert
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					boolFalseF,
 					boolTrueF,
+					intAnyF,
 					int10F,
 					stringMandatoryF,
 					stringOptionalF,
@@ -241,6 +244,7 @@ public class PropertiesTest extends CopeAssert
 						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
 						"boolFalse, " +
 						"boolTrue, " +
+						"intAny, " +
 						"int10, " +
 						"stringMandatory, " +
 						"stringOptional, " +
@@ -279,6 +283,11 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(5, tp.int10F.get());
 			assertEquals(Integer.valueOf(5), tp.int10F.getValue());
 		}
+		assertWrong(pminimal,
+				"wrong.intAny.noNumber",
+				"intAny", "" + (Integer.MAX_VALUE + 1l),
+				"property intAny in wrong.intAny.noNumber has invalid value," +
+				" expected an integer greater or equal " + Integer.MIN_VALUE + ", but got >" + (Integer.MAX_VALUE + 1l) + "<.");
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",
 				"int10", "4",
