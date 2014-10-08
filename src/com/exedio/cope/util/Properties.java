@@ -397,7 +397,8 @@ public class Properties
 					throw new IllegalPropertiesException(
 							key, sourceDescription,
 							"has invalid value, " +
-							"expected an integer greater or equal " + minimum + ", " +
+							"expected an integer" +
+							(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", " +
 							"but got >" + s + "<.",
 							e);
 				}

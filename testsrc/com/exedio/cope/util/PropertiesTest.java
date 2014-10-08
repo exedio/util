@@ -287,7 +287,7 @@ public class PropertiesTest extends CopeAssert
 				"wrong.intAny.noNumber",
 				"intAny", "" + (Integer.MAX_VALUE + 1l),
 				"property intAny in wrong.intAny.noNumber has invalid value," +
-				" expected an integer greater or equal " + Integer.MIN_VALUE + ", but got >" + (Integer.MAX_VALUE + 1l) + "<.");
+				" expected an integer, but got >" + (Integer.MAX_VALUE + 1l) + "<.");
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",
 				"int10", "4",
