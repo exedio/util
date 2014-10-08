@@ -143,6 +143,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(true, minimal.boolTrue);
 		assertEquals(Boolean.FALSE, minimal.boolFalseF.getValue());
 		assertEquals(Boolean.TRUE, minimal.boolTrueF.getValue());
+		assertEquals(10, minimal.intAny);
 		assertEquals(10, minimal.int10);
 		assertEquals(Integer.valueOf(10), minimal.int10F.getValue());
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatory);
