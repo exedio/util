@@ -28,9 +28,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Properties
 {
+	 // yyyy-mm-dd, allow to leave out leading zeros on month and day but not on year, otherwise 14-1-1 may result in another day as expected
+	static final Pattern DAY_PATTERN = Pattern.compile("(\\d{4})-(\\d{1,2})-(\\d{1,2})");
+
 	final ArrayList<Field> fields = new ArrayList<>();
 	final HashMap<String, Field> detectDuplicateKeys = new HashMap<>();
 	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<>();
@@ -462,6 +467,84 @@ public class Properties
 			return get();
 		}
 	}
+
+	protected final Day value(final String key, final Day defaultValue)
+	{
+		return field(key, defaultValue).getValue();
+	}
+
+	protected final DayField field(final String key, final Day defaultValue)
+	{
+		return new DayField(key, defaultValue);
+	}
+
+	public final class DayField extends Field
+	{
+
+		private final Day value;
+		private final Day defaultValue;
+
+		DayField(final String key, final Day defaultValue)
+		{
+			super(true, key);
+			this.defaultValue = defaultValue;
+
+			final String s = resolve(key);
+			if(s==null)
+			{
+				if(defaultValue==null)
+					throw new IllegalPropertiesException(
+							key, sourceDescription,
+							"not set and no default value specified.");
+				value = defaultValue;
+			}
+			else
+			{
+				try
+				{
+					final Matcher matcher = DAY_PATTERN.matcher(s);
+					if (!matcher.matches())
+						throw new IllegalArgumentException("Input sequence does not match the pattern.");
+
+					final int year = Integer.parseInt(matcher.group(1));
+					final int month = Integer.parseInt(matcher.group(2));
+					final int day = Integer.parseInt(matcher.group(3));
+
+					value = new Day(year, month, day);
+				}
+				catch(final IllegalArgumentException e)
+				{
+					throw new IllegalPropertiesException(
+							key, sourceDescription,
+							"has invalid value, " +
+							"expected a day of format yyyy-mm-dd " +
+							"but got >" + s + "<.",
+							e);
+				}
+			}
+		}
+
+
+		DayField(final String key, final DayField template)
+		{
+			super(false, key);
+			this.defaultValue = template.defaultValue;
+			this.value = template.value;
+		}
+
+		@Override
+		public Day getDefaultValue()
+		{
+			return defaultValue;
+		}
+
+		@Override
+		public Day getValue()
+		{
+			return value;
+		}
+	}
+
 
 	protected final String value(final String key, final String defaultValue)
 	{

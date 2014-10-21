@@ -44,6 +44,8 @@ public class PropertiesTest extends CopeAssert
 		final String stringOptional = value("stringOptional", "stringOptional.defaultValue");
 		final String stringHidden = valueHidden("stringHidden", (String)null);
 		final String stringHiddenOptional = valueHidden("stringHiddenOptional", "stringHiddenOptional.defaultValue");
+		final Day dayMandatory = value("dayMandatory", (Day) null);
+		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
 		final FileField file = fieldFile("file");
 		final MapField map = fieldMap("map");
 
@@ -60,6 +62,9 @@ public class PropertiesTest extends CopeAssert
 		final StringField stringOptionalF = (StringField)forKey("stringOptional");
 		final StringField stringHiddenF = (StringField)forKey("stringHidden");
 		final StringField stringHiddenOptionalF = (StringField)forKey("stringHiddenOptional");
+		final DayField dayMandatoryF = (DayField)forKey("dayMandatory");
+		final DayField dayOptionalF = (DayField)forKey("dayOptional");
+
 
 		void assertIt()
 		{
@@ -73,8 +78,10 @@ public class PropertiesTest extends CopeAssert
 					stringOptionalF,
 					stringHiddenF,
 					stringHiddenOptionalF,
+					dayMandatoryF,
+					dayOptionalF,
 					file,
-					map,
+					map
 			}), getFields());
 
 			assertEquals("boolFalse", boolFalseF.getKey());
@@ -86,6 +93,8 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringHiddenOptional", stringHiddenOptionalF.getKey());
 			assertEquals("file", file.getKey());
 			assertEquals("map", map.getKey());
+			assertEquals("dayMandatory", dayMandatoryF.getKey());
+			assertEquals("dayOptional", dayOptionalF.getKey());
 
 			assertEquals(Boolean.FALSE, boolFalseF.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrueF.getDefaultValue());
@@ -97,6 +106,8 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValue());
 			assertEquals(null, file.getDefaultValue());
 			assertEquals(null, map.getDefaultValue());
+			assertEquals(null, dayMandatoryF.getDefaultValue());
+			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
 
 			assertEquals(false, boolFalseF.hasHiddenValue());
 			assertEquals(false, boolTrueF.hasHiddenValue());
@@ -107,6 +118,8 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(true, stringHiddenOptionalF.hasHiddenValue());
 			assertEquals(false, file.hasHiddenValue());
 			assertEquals(false, map.hasHiddenValue());
+			assertEquals(false, dayMandatoryF.hasHiddenValue());
+			assertEquals(false, dayOptionalF.hasHiddenValue());
 		}
 	}
 
@@ -134,6 +147,7 @@ public class PropertiesTest extends CopeAssert
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
 		pminimal.setProperty("file", "file.minimalValue");
+		pminimal.setProperty("dayMandatory", "1000-08-31");
 
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
@@ -159,6 +173,10 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(new java.util.Properties(), minimal.map.mapValue());
 		assertEquals(new java.util.Properties(), minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
+		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
+		assertEquals(new Day(1009,7,13), minimal.dayOptional);
+		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.getValue());
+		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.getValue());
 
 		assertEquals(false, minimal.boolFalseF.isSpecified());
 		assertEquals(false, minimal.boolTrueF.isSpecified());
@@ -169,6 +187,8 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
 		assertEquals(true, minimal.file.isSpecified());
 		assertEquals(false, minimal.map.isSpecified());
+		assertEquals(true, minimal.dayMandatoryF.isSpecified());
+		assertEquals(false, minimal.dayOptionalF.isSpecified());
 
 		minimal.ensureEquality(minimal);
 
@@ -190,6 +210,9 @@ public class PropertiesTest extends CopeAssert
 			p.setProperty("file", file1.getPath());
 			p.setProperty("map.explicitKey1", "map.explicitValue1");
 			p.setProperty("map.explicitKey2", "map.explicitValue2");
+			p.setProperty("dayMandatory", "2000-11-4");
+			p.setProperty("dayOptional", "2001-3-31");
+
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
 
@@ -207,6 +230,10 @@ public class PropertiesTest extends CopeAssert
 			assertEquals("stringOptional.explicitValue", tp.stringOptionalF.getValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHiddenF.getValue());
 			assertEquals("stringHiddenOptional.explicitValue", tp.stringHiddenOptionalF.getValue());
+			assertEquals(new Day(2000,11,4), tp.dayMandatory);
+			assertEquals(new Day(2001,3,31), tp.dayOptional);
+			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.getValue());
+			assertEquals(new Day(2001,3,31), tp.dayOptionalF.getValue());
 			assertEquals(file1, tp.file.get());
 			assertEquals(file1, tp.file.getValue());
 			final java.util.Properties mapExpected = new java.util.Properties();
@@ -227,6 +254,8 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(true, tp.stringHiddenOptionalF.isSpecified());
 			assertEquals(true, tp.file.isSpecified());
 			assertEquals(false, tp.map.isSpecified()); // TODO
+			assertEquals(true, tp.dayMandatoryF.isSpecified());
+			assertEquals(true, tp.dayOptionalF.isSpecified());
 		}
 		{
 			final java.util.Properties p = copy(pminimal);
@@ -251,6 +280,8 @@ public class PropertiesTest extends CopeAssert
 						"stringOptional, " +
 						"stringHidden, " +
 						"stringHiddenOptional, " +
+						"dayMandatory, " +
+						"dayOptional, " +
 						"file] " +
 						"or one starting with [map.].", e.getMessage());
 			}
@@ -336,6 +367,44 @@ public class PropertiesTest extends CopeAssert
 				"inconsistent initialization for stringHidden between minimal and inconsistent.stringHidden.",
 				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
 
+		// Day
+		assertWrong(pminimal,
+				"wrong.dayMandatory.missing",
+				"dayMandatory", null,
+				"property dayMandatory in wrong.dayMandatory.missing not set and no default value specified.");
+		assertWrong(pminimal,
+				"wrong.dayMandatory.invalidFormat",
+				"dayMandatory", "no-date-set",
+				"property dayMandatory in wrong.dayMandatory.invalidFormat has invalid value, expected a day of format yyyy-mm-dd but got >no-date-set<.");
+		assertWrong(pminimal,
+				"wrong.dayMandatory.invalidYear",
+				"dayMandatory", "200-04-04",
+				"property dayMandatory in wrong.dayMandatory.invalidYear has invalid value, expected a day of format yyyy-mm-dd but got >200-04-04<.");
+		assertWrong(pminimal,
+				"wrong.dayMandatory.invalidMonth",
+				"dayMandatory", "2000-40-04",
+				"property dayMandatory in wrong.dayMandatory.invalidMonth has invalid value, expected a day of format yyyy-mm-dd but got >2000-40-04<.");
+		assertWrong(pminimal,
+				"wrong.dayMandatory.invalidDay",
+				"dayMandatory", "2000-04-40",
+				"property dayMandatory in wrong.dayMandatory.invalidDay has invalid value, expected a day of format yyyy-mm-dd but got >2000-04-40<.");
+		assertInconsistent(pminimal,
+				"inconsistent.dayMandatory",
+				"dayMandatory", "3000-01-01",
+				"inconsistent initialization for dayMandatory between minimal and inconsistent.dayMandatory," +
+					" expected 1000/8/31 but got 3000/1/1.",
+				"inconsistent initialization for dayMandatory between inconsistent.dayMandatory and minimal," +
+					" expected 3000/1/1 but got 1000/8/31.");
+		assertInconsistent(pminimal,
+				"inconsistent.dayOptional",
+				"dayOptional", "3001-02-01",
+				"inconsistent initialization for dayOptional between minimal and inconsistent.dayOptional," +
+					" expected 1009/7/13 but got 3001/2/1.",
+				"inconsistent initialization for dayOptional between inconsistent.dayOptional and minimal," +
+					" expected 3001/2/1 but got 1009/7/13.");
+
+
+
 		// File
 		assertWrong(pminimal,
 				"wrong.file.missing",
@@ -380,6 +449,11 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
+
+	/**
+	 * Asserts the property with given key and value set in the given java.util.Properties template will cause an IllegalPropertiesException
+	 * with given message when a cope.util.Properties is created.
+	 */
 	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final java.util.Properties template,
@@ -406,6 +480,10 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
+	/**
+	 * Asserts a valid change of the given property (key = value) will  cause an InvalidArgumentException when
+	 * calling ensureEquality() on Properties based on template compared with a Properties based on template with changed value.
+	 */
 	private static void assertInconsistent(
 			final java.util.Properties template,
 			final String sourceDescription,
