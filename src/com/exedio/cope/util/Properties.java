@@ -470,7 +470,7 @@ public class Properties
 
 	protected final Day value(final String key, final Day defaultValue)
 	{
-		return field(key, defaultValue).getValue();
+		return field(key, defaultValue).get();
 	}
 
 	protected final DayField field(final String key, final Day defaultValue)
@@ -538,6 +538,11 @@ public class Properties
 
 		@Override
 		public Day getValue()
+		{
+			return value;
+		}
+
+		public Day get()
 		{
 			return value;
 		}

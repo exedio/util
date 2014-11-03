@@ -176,7 +176,9 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
 		assertEquals(new Day(1009,7,13), minimal.dayOptional);
 		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.getValue());
+		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.get());
 		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.getValue());
+		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.get());
 
 		assertEquals(false, minimal.boolFalseF.isSpecified());
 		assertEquals(false, minimal.boolTrueF.isSpecified());
@@ -233,7 +235,9 @@ public class PropertiesTest extends CopeAssert
 			assertEquals(new Day(2000,11,4), tp.dayMandatory);
 			assertEquals(new Day(2001,3,31), tp.dayOptional);
 			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.getValue());
+			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.get());
 			assertEquals(new Day(2001,3,31), tp.dayOptionalF.getValue());
+			assertEquals(new Day(2001,3,31), tp.dayOptionalF.get());
 			assertEquals(file1, tp.file.get());
 			assertEquals(file1, tp.file.getValue());
 			final java.util.Properties mapExpected = new java.util.Properties();
