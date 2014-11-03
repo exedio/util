@@ -480,7 +480,6 @@ public class Properties
 
 	public final class DayField extends Field
 	{
-
 		private final Day value;
 		private final Day defaultValue;
 
@@ -523,7 +522,6 @@ public class Properties
 				}
 			}
 		}
-
 
 		DayField(final String key, final DayField template)
 		{
