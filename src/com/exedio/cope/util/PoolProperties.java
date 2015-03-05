@@ -45,8 +45,8 @@ public final class PoolProperties extends Properties
 		this.idleInitial = value(idleInitialKey, 0, 0);
 		this.idleLimit   = value(idleLimitKey,   idleLimitDefault, 0);
 		if(idleInitial>idleLimit)
-			throw new IllegalPropertiesException(
-					idleInitialKey, source.getDescription(),
+			throw newException(
+					idleInitialKey,
 					"must not be greater than " + idleLimitKey + ", " +
 					"but was " + idleInitial + " and " + idleLimit);
 	}

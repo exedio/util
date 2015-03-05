@@ -28,13 +28,6 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 	private final String sourceDescription;
 	private final String detail;
 
-	IllegalPropertiesException(final String key, final String sourceDescription, final String detail)
-	{
-		this.key = requireNonNull(key, "key");
-		this.sourceDescription = sourceDescription;
-		this.detail = requireNonNull(detail, "detail");
-	}
-
 	IllegalPropertiesException(final String key, final String sourceDescription, final String detail, final Throwable cause)
 	{
 		super(cause);

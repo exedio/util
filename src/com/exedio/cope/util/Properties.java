@@ -307,8 +307,7 @@ public class Properties
 				else if(s.equals("false"))
 					this.value = false;
 				else
-					throw new IllegalPropertiesException(
-							key, sourceDescription,
+					throw newException(key,
 							"has invalid value, expected >true< or >false<, " +
 							"but got >" + s + "<.");
 			}
@@ -399,8 +398,7 @@ public class Properties
 				}
 				catch(final NumberFormatException e)
 				{
-					throw new IllegalPropertiesException(
-							key, sourceDescription,
+					throw newException(key,
 							"has invalid value, " +
 							"expected an integer" +
 							(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", " +
@@ -409,8 +407,7 @@ public class Properties
 				}
 
 				if(value<minimum)
-					throw new IllegalPropertiesException(
-							key, sourceDescription,
+					throw newException(key,
 							"has invalid value, " +
 							"expected an integer greater or equal " + minimum + ", " +
 							"but got " + value + '.');
@@ -492,8 +489,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new IllegalPropertiesException(
-							key, sourceDescription,
+					throw newException(key,
 							"not set and no default value specified.");
 				value = defaultValue;
 			}
@@ -513,8 +509,7 @@ public class Properties
 				}
 				catch(final IllegalArgumentException e)
 				{
-					throw new IllegalPropertiesException(
-							key, sourceDescription,
+					throw newException(key,
 							"has invalid value, " +
 							"expected a day of format yyyy-mm-dd " +
 							"but got >" + s + "<.",
@@ -605,8 +600,7 @@ public class Properties
 			if(s==null)
 			{
 				if(defaultValue==null)
-					throw new IllegalPropertiesException(
-							key, sourceDescription,
+					throw newException(key,
 							"not set and no default value specified.");
 				else
 					this.value = defaultValue;
@@ -700,9 +694,7 @@ public class Properties
 			final String s = resolve(key);
 
 			if(s==null)
-				throw new IllegalPropertiesException(
-						key, sourceDescription,
-						"not set.");
+				throw newException(key, "not set.");
 
 			this.value = new File(s);
 		}
@@ -920,6 +912,16 @@ public class Properties
 			new MapField(key, (MapField)field);
 		else
 			throw new RuntimeException(field.getClass().getName());
+	}
+
+	protected final IllegalPropertiesException newException(final String key, final String detail)
+	{
+		return newException(key, detail, null);
+	}
+
+	protected final IllegalPropertiesException newException(final String key, final String detail, final Throwable cause)
+	{
+		return new IllegalPropertiesException(key, source.getDescription(), detail, cause);
 	}
 
 	public final void ensureValidity(final String... prefixes)
