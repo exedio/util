@@ -18,11 +18,15 @@
 
 package com.exedio.cope.util;
 
+import java.nio.charset.StandardCharsets;
+
 public final class CharsetName
 {
 	/**
 	 * See <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+	 * @deprecated Use {@link StandardCharsets#UTF_8} instead
 	 */
+	@Deprecated
 	public static final String UTF8 = "UTF-8";
 
 	private CharsetName()

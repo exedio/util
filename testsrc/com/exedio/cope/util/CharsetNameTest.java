@@ -26,6 +26,7 @@ import org.junit.Test;
 public class CharsetNameTest
 {
 	@Test
+	@Deprecated // OK: testing deprecated API
 	public void test()
 	{
 		assertEquals(CharsetName.UTF8, StandardCharsets.UTF_8.name());
