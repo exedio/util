@@ -31,24 +31,24 @@ import org.junit.Test;
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesNestedTest extends CopeAssert
 {
-	static class OuterProperties extends MyProperties
+	static class Outer extends MyProperties
 	{
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
-		final InnerProperties nested = value("nestedO", InnerProperties.factory());
+		final Inner nested = value("nestedO", Inner.factory());
 		final IntField nestedInner1 = (IntField)forKey("nestedO.inner1");
 		final IntField nestedInner2 = (IntField)forKey("nestedO.inner2");
 		final IntField nestedDrinner1 = (IntField)forKey("nestedO.nestedI.drinner1");
 		final IntField nestedDrinner2 = (IntField)forKey("nestedO.nestedI.drinner2");
 
-		OuterProperties(final java.util.Properties source)
+		Outer(final java.util.Properties source)
 		{
 			super(view(source, "someDescription"));
 		}
 
 		final IntField outer1F = (IntField)forKey("outer1");
 		final IntField outer2F = (IntField)forKey("outer2");
-		final PropertiesField<InnerProperties> nestedF = forPrefix("nestedO", InnerProperties.class);
+		final PropertiesField<Inner> nestedF = forPrefix("nestedO", Inner.class);
 
 		void assertIt()
 		{
@@ -93,33 +93,33 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 	}
 
-	static class InnerProperties extends MyProperties
+	static class Inner extends MyProperties
 	{
-		static Factory<InnerProperties> factory()
+		static Factory<Inner> factory()
 		{
-			return new Factory<InnerProperties>()
+			return new Factory<Inner>()
 			{
-				@Override public InnerProperties create(final Source source)
+				@Override public Inner create(final Source source)
 				{
-					return new InnerProperties(source);
+					return new Inner(source);
 				}
 			};
 		}
 
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
-		final DrinnerProperties nested = value("nestedI", DrinnerProperties.factory());
+		final Drinner nested = value("nestedI", Drinner.factory());
 		final IntField nestedDrinner1 = (IntField)forKey("nestedI.drinner1");
 		final IntField nestedDrinner2 = (IntField)forKey("nestedI.drinner2");
 
-		InnerProperties(final Source source)
+		Inner(final Source source)
 		{
 			super(source);
 		}
 
 		final IntField inner1F = (IntField)forKey("inner1");
 		final IntField inner2F = (IntField)forKey("inner2");
-		final PropertiesField<DrinnerProperties> nestedF = forPrefix("nestedI", DrinnerProperties.class);
+		final PropertiesField<Drinner> nestedF = forPrefix("nestedI", Drinner.class);
 
 		void assertIt()
 		{
@@ -153,15 +153,15 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 	}
 
-	static class DrinnerProperties extends MyProperties
+	static class Drinner extends MyProperties
 	{
-		static Factory<DrinnerProperties> factory()
+		static Factory<Drinner> factory()
 		{
-			return new Factory<DrinnerProperties>()
+			return new Factory<Drinner>()
 			{
-				@Override public DrinnerProperties create(final Source source)
+				@Override public Drinner create(final Source source)
 				{
-					return new DrinnerProperties(source);
+					return new Drinner(source);
 				}
 			};
 		}
@@ -169,7 +169,7 @@ public class PropertiesNestedTest extends CopeAssert
 		final int drinner1 = value("drinner1", 11, 1);
 		final int drinner2 = value("drinner2", 12, 2);
 
-		DrinnerProperties(final Source source)
+		Drinner(final Source source)
 		{
 			super(source);
 		}
@@ -204,7 +204,7 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final java.util.Properties source = new java.util.Properties();
 
-		final OuterProperties outer = new OuterProperties(source);
+		final Outer outer = new Outer(source);
 		outer.assertIt();
 		assertEquals(1001, outer.outer1);
 		assertEquals(1002, outer.outer2);
@@ -213,14 +213,14 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(11, outer.nestedDrinner1.get());
 		assertEquals(12, outer.nestedDrinner2.get());
 
-		final InnerProperties inner = outer.nested;
+		final Inner inner = outer.nested;
 		inner.assertIt();
 		assertEquals(101, inner.inner1);
 		assertEquals(102, inner.inner2);
 		assertEquals(11, inner.nestedDrinner1.get());
 		assertEquals(12, inner.nestedDrinner2.get());
 
-		final DrinnerProperties drinner = inner.nested;
+		final Drinner drinner = inner.nested;
 		drinner.assertIt();
 		assertEquals(11, drinner.drinner1);
 		assertEquals(12, drinner.drinner2);
@@ -234,7 +234,7 @@ public class PropertiesNestedTest extends CopeAssert
 		source.setProperty("nestedO.inner1", "109");
 		source.setProperty("nestedO.nestedI.drinner1", "19");
 
-		final OuterProperties outer = new OuterProperties(source);
+		final Outer outer = new Outer(source);
 		outer.assertIt();
 		assertEquals(1009, outer.outer1F.get());
 		assertEquals(1002, outer.outer2F.get());
@@ -243,14 +243,14 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(19, outer.nestedDrinner1.get());
 		assertEquals(12, outer.nestedDrinner2.get());
 
-		final InnerProperties inner = outer.nested;
+		final Inner inner = outer.nested;
 		inner.assertIt();
 		assertEquals(109, inner.inner1);
 		assertEquals(102, inner.inner2);
 		assertEquals(19, inner.nestedDrinner1.get());
 		assertEquals(12, inner.nestedDrinner2.get());
 
-		final DrinnerProperties drinner = inner.nested;
+		final Drinner drinner = inner.nested;
 		drinner.assertIt();
 		assertEquals(19, drinner.drinner1);
 		assertEquals(12, drinner.drinner2);
@@ -266,8 +266,7 @@ public class PropertiesNestedTest extends CopeAssert
 		try
 		{
 			@SuppressWarnings("unused")
-			final OuterProperties x =
-				new OuterProperties(source);
+			final Outer x = new Outer(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -298,8 +297,7 @@ public class PropertiesNestedTest extends CopeAssert
 		try
 		{
 			@SuppressWarnings("unused")
-			final OuterProperties x =
-				new OuterProperties(source);
+			final Outer x = new Outer(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
