@@ -22,6 +22,7 @@ import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import java.util.concurrent.Callable;
 import org.junit.Test;
@@ -45,6 +46,7 @@ public class PropertiesNestedTestsTest
 	static class Outer extends Properties
 	{
 		final Inner nested1 = value("inner1", Inner.factory());
+		@SuppressFBWarnings("URF_UNREAD_FIELD")
 		final Inner nested2 = value("inner2", Inner.factory());
 
 		final Callable<?> test1 = test("outerTest1");
@@ -65,6 +67,7 @@ public class PropertiesNestedTestsTest
 	static class Inner extends Properties
 	{
 		final Drinner nested1 = value("drinner1", Drinner.factory());
+		@SuppressFBWarnings("URF_UNREAD_FIELD")
 		final Drinner nested2 = value("drinner2", Drinner.factory());
 
 		final Callable<?> test1 = test("innerTest1");
