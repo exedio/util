@@ -273,6 +273,7 @@ public class Properties
 		}
 	}
 
+
 	protected final boolean value(final String key, final boolean defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -357,6 +358,7 @@ public class Properties
 			return get();
 		}
 	}
+
 
 	protected final int value(final String key, final int defaultValue, final int minimum)
 	{
@@ -464,6 +466,7 @@ public class Properties
 			return get();
 		}
 	}
+
 
 	protected final Day value(final String key, final Day defaultValue)
 	{
@@ -674,6 +677,7 @@ public class Properties
 		}
 	}
 
+
 	protected final FileField fieldFile(final String key)
 	{
 		return new FileField(key);
@@ -752,6 +756,7 @@ public class Properties
 		}
 	}
 
+
 	protected final MapField fieldMap(final String key)
 	{
 		return new MapField(key);
@@ -827,6 +832,7 @@ public class Properties
 		}
 	}
 
+
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();
@@ -896,6 +902,7 @@ public class Properties
 			return value;
 		}
 	}
+
 
 	@SuppressWarnings("unused")
 	final void copy(final String key, final Field field)
