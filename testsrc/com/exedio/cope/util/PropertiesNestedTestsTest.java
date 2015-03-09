@@ -129,11 +129,11 @@ public class PropertiesNestedTestsTest
 		}
 	}
 
-	static Callable<?> test(final String name)
+	static Callable<Callable<?>> test(final String name)
 	{
-		return new Callable<Object>(){
+		return new Callable<Callable<?>>(){
 			@Override
-			public Object call()
+			public Callable<?> call()
 			{
 				throw new RuntimeException();
 			}
