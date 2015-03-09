@@ -22,7 +22,6 @@ import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import java.util.concurrent.Callable;
 import org.junit.Test;
@@ -36,17 +35,24 @@ public class PropertiesNestedTestsTest
 
 		final Outer outer = new Outer(source);
 		final Inner inner1 = outer.nested1;
-		final Drinner drinner1 = inner1.nested1;
+		final Inner inner2 = outer.nested2;
+		final Drinner drinner11 = inner1.nested1;
+		final Drinner drinner12 = inner1.nested2;
+		final Drinner drinner21 = inner2.nested1;
+		final Drinner drinner22 = inner2.nested2;
 
 		assertEquals(asList(outer.test1, outer.test2), outer.getTests());
 		assertEquals(asList(inner1.test1, inner1.test2), inner1.getTests());
-		assertEquals(asList(drinner1.test1, drinner1.test2), drinner1.getTests());
+		assertEquals(asList(inner2.test1, inner2.test2), inner2.getTests());
+		assertEquals(asList(drinner11.test1, drinner11.test2), drinner11.getTests());
+		assertEquals(asList(drinner12.test1, drinner12.test2), drinner12.getTests());
+		assertEquals(asList(drinner21.test1, drinner21.test2), drinner21.getTests());
+		assertEquals(asList(drinner22.test1, drinner22.test2), drinner22.getTests());
 	}
 
 	static class Outer extends Properties
 	{
 		final Inner nested1 = value("inner1", Inner.factory());
-		@SuppressFBWarnings("URF_UNREAD_FIELD")
 		final Inner nested2 = value("inner2", Inner.factory());
 
 		final Callable<?> test1 = test("outerTest1");
@@ -67,7 +73,6 @@ public class PropertiesNestedTestsTest
 	static class Inner extends Properties
 	{
 		final Drinner nested1 = value("drinner1", Drinner.factory());
-		@SuppressFBWarnings("URF_UNREAD_FIELD")
 		final Drinner nested2 = value("drinner2", Drinner.factory());
 
 		final Callable<?> test1 = test("innerTest1");
