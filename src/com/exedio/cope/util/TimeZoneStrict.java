@@ -24,7 +24,7 @@ public final class TimeZoneStrict
 {
 	/**
 	 * Workaround for {@link TimeZone#getTimeZone(String)},
-	 * as this method always return a zone zone, even for
+	 * as this method always returns a zone, even for
 	 * unknown IDs.
 	 */
 	public static TimeZone getTimeZone(final String ID)
