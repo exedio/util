@@ -88,31 +88,15 @@
 	</target>
 
 	<target name="api">
-
-		<delete dir="build/api" />
-		<mkdir  dir="build/api" />
-
-		<javadoc
-				sourcepath="src"
-				destdir="build/api"
-				maxmemory="60m"
-				author="on"
-				use="on"
-				version="on"
-				windowtitle="exedio cope util"
-				splitindex="on"
-				failonerror="true"
-			>
-			<doctitle><![CDATA[COPE Utilities<br>API Specification]]></doctitle>
-			<header>exedio cope util</header>
-			<footer>exedio cope util</footer>
-			<bottom><![CDATA[<small>Copyright &copy; 2004-2008 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
-			<package name="com.*" />
-			<classpath>
+		<api title="cope util">
+			<src>
+				<fileset file="src/com" includes="**/*.java" />
+			</src>
+			<myClasspath>
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
-		</javadoc>
+			</myClasspath>
+		</api>
 	</target>
 	
 	<target name="findbugs" depends="compile, test.compile, findbugs.taskdef">
