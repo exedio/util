@@ -114,7 +114,7 @@ public final class Sources
 	}
 
 	/**
-	 * Checks a key to be valid for calling {@link Properties.Source#get(String)}.
+	 * Checks a key to be valid for calling {@link com.exedio.cope.util.Properties.Source#get(String)}.
 	 * @param key
 	 */
 	public static void checkKey(final String key)
