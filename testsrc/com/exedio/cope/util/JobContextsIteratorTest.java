@@ -45,6 +45,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 
 		@Override
+		@SuppressFBWarnings("IT_NO_SUCH_ELEMENT") // OK
 		public String next()
 		{
 			throw new RuntimeException();
