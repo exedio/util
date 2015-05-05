@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Date;
 
 public final class Clock
@@ -45,10 +47,7 @@ public final class Clock
 
 	public static void override(final Strategy strategy)
 	{
-		if(strategy==null)
-			throw new NullPointerException("strategy");
-
-		Clock.strategy = strategy;
+		Clock.strategy = requireNonNull(strategy, "strategy");
 	}
 
 	public static void clearOverride()
