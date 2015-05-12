@@ -41,6 +41,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("unused")
@@ -338,6 +339,18 @@ public class DayTest extends CopeAssert
 			}
 		});
 		assertEquals(new Day(1986, 4, 26), new Day(TimeZone.getTimeZone("Etc/GMT")));
+	}
+
+
+	private TimeZone defaultTimeZone;
+
+	@Before public void saveTimeZone()
+	{
+		defaultTimeZone = TimeZone.getDefault();
+	}
+	@After public void resetTimeZone()
+	{
+		TimeZone.setDefault(defaultTimeZone);
 	}
 
 	@After public void clearClock()
