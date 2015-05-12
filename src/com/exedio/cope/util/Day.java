@@ -113,7 +113,7 @@ public final class Day implements Serializable, Comparable<Day>
 		check(   1,   31, day,   "day"  );
 
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
-		c.setTimeZone(getTimeZone("Etc/GMT"));
+		c.setTimeZone(GMT);
 		this.year = c.get(YEAR);
 		this.month = c.get(MONTH)+1;
 		this.day = c.get(DAY_OF_MONTH);
@@ -194,10 +194,13 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public Day add(final int days)
 	{
-		final GregorianCalendar cal = getGregorianCalendar(getTimeZone("Etc/GMT"));
+		final GregorianCalendar cal = getGregorianCalendar(GMT);
 		cal.add(DATE, days);
 		return new Day(cal);
 	}
+
+	private static TimeZone GMT = getTimeZone("Etc/GMT");
+
 
 	@Override
 	public boolean equals(final Object other)
