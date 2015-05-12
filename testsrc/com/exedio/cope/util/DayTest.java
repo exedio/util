@@ -47,6 +47,12 @@ import org.junit.Test;
 public class DayTest extends CopeAssert
 {
 	@Test
+	public void printDefaultTimeZone()
+	{
+		final TimeZone d = TimeZone.getDefault();
+		System.out.println("Default TimeZone " + d.getID() + ' ' + d.getOffset(System.currentTimeMillis())/1000);
+	}
+	@Test
 	public void yearSmall()
 	{
 		try
