@@ -23,6 +23,7 @@ import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Clock.clearOverride;
 import static com.exedio.cope.util.Clock.override;
 import static com.exedio.cope.util.Day.valueOf;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
@@ -138,8 +139,8 @@ public class DayTest extends CopeAssert
 		assertEquals(2005, d.getYear());
 		assertEquals(9, d.getMonth());
 		assertEquals(23, d.getDay());
-		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, TimeZone.getTimeZone("Europe/Berlin"));
-		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, TimeZone.getTimeZone("Etc/GMT"));
+		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, getTimeZone("Europe/Berlin"));
+		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, getTimeZone("Etc/GMT"));
 		assertXMLGregorianCalendar(2005, 9, 23, d);
 		assertEquals("2005/9/23", d.toString());
 	}
@@ -168,7 +169,7 @@ public class DayTest extends CopeAssert
 	@Deprecated // OK testing deprecated API
 	public void conversionDateDeprecated() throws ParseException
 	{
-		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
+		TimeZone.setDefault(getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day summer = new Day(2005, 9, 23);
@@ -187,7 +188,7 @@ public class DayTest extends CopeAssert
 	@Test
 	public void conversionDateBerlin() throws ParseException
 	{
-		final TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
+		final TimeZone tz = getTimeZone("Europe/Berlin");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day summer = new Day(2005, 9, 23);
@@ -206,8 +207,8 @@ public class DayTest extends CopeAssert
 	@Test
 	public void conversionDateGMT() throws ParseException
 	{
-		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
-		final TimeZone tz = TimeZone.getTimeZone("Etc/GMT");
+		TimeZone.setDefault(getTimeZone("Europe/Berlin"));
+		final TimeZone tz = getTimeZone("Etc/GMT");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day summer = new Day(2005, 9, 23);
@@ -227,7 +228,7 @@ public class DayTest extends CopeAssert
 	public void conversionMillis() throws ParseException
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
-		final TimeZone tz = TimeZone.getTimeZone("Europe/Berlin"); // TODO use GMT
+		final TimeZone tz = getTimeZone("Europe/Berlin"); // TODO use GMT
 
 		final Day d = new Day(2005, 9, 23);
 		assertEquals(df.parse("2005-09-23 00:00:00.000 (+0200)").getTime(), d.getTimeInMillisFrom(tz));
@@ -335,10 +336,10 @@ public class DayTest extends CopeAssert
 		override(new Clock.Strategy(){
 			@Override public long currentTimeMillis()
 			{
-				return new Day(1986, 4, 26).getTimeInMillisFrom(TimeZone.getTimeZone("Etc/GMT"));
+				return new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT"));
 			}
 		});
-		assertEquals(new Day(1986, 4, 26), new Day(TimeZone.getTimeZone("Etc/GMT")));
+		assertEquals(new Day(1986, 4, 26), new Day(getTimeZone("Etc/GMT")));
 	}
 
 
