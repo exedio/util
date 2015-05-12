@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MILLISECOND;
@@ -112,7 +113,7 @@ public final class Day implements Serializable, Comparable<Day>
 		check(   1,   31, day,   "day"  );
 
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
-		c.setTimeZone(TimeZone.getTimeZone("Etc/GMT"));
+		c.setTimeZone(getTimeZone("Etc/GMT"));
 		this.year = c.get(YEAR);
 		this.month = c.get(MONTH)+1;
 		this.day = c.get(DAY_OF_MONTH);
@@ -193,7 +194,7 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public Day add(final int days)
 	{
-		final GregorianCalendar cal = getGregorianCalendar(TimeZone.getTimeZone("Etc/GMT"));
+		final GregorianCalendar cal = getGregorianCalendar(getTimeZone("Etc/GMT"));
 		cal.add(DATE, days);
 		return new Day(cal);
 	}
