@@ -33,6 +33,16 @@
 	</target>
 	
 	<target name="test.run" depends="test.compile">
+		<runtest name="moscow"  userTimezone="Europe/Moscow" />
+		<runtest name="berlin"  userTimezone="Europe/Berlin" />
+		<runtest name="canada"  userTimezone="Canada/Mountain" />
+		<runtest name="pacific" userTimezone="Pacific/Kiritimati" />
+	</target>
+
+	<macrodef name="runtest">
+		<attribute name="name" />
+		<attribute name="userTimezone" />
+		<sequential>
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
 		<junit fork="yes"
@@ -52,10 +62,12 @@
 				<pathelement location="lib/cglib-nodep.jar" />
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<test name="com.exedio.cope.util.AllTests" todir="build/testresults" outfile="cope-util" />
+			<sysproperty key="user.timezone" value="@{userTimezone}" />
+			<test name="com.exedio.cope.util.AllTests" todir="build/testresults" outfile="cope-util-@{name}" />
 			<assertions><enable/></assertions>
 		</junit>
-	</target>
+		</sequential>
+	</macrodef>
 	
 	<target name="test" depends="test.run" />
 	
