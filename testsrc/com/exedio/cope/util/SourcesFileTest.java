@@ -25,36 +25,31 @@ import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TemporaryFolder;
 
 public class SourcesFileTest extends CopeAssert
 {
-	private File file;
+	private final TemporaryFolder folder = new TemporaryFolder();
 
-	@Before public final void setUp() throws IOException
-	{
-		file = File.createTempFile(SourcesFileTest.class.getName(), ".properties");
-	}
-
-	@After public final void tearDown()
-	{
-		if(file.exists())
-			StrictFile.delete(file);
-	}
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+	@Rule public RuleChain chain = RuleChain.outerRule(folder);
 
 	@Test public final void testIt() throws IOException
 	{
+		final File file = folder.newFile("file");
 		final Properties p = new Properties();
 		p.setProperty("testKey1", "testValue1");
 		p.setProperty("testKey2", "testValue2");
-		store(p);
+		store(p, file);
 
 		final Source s = load(file);
 		try
@@ -84,8 +79,9 @@ public class SourcesFileTest extends CopeAssert
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
-	@Test public final void testNotExists()
+	@Test public final void testNotExists() throws IOException
 	{
+		final File file = folder.newFile("file");
 		StrictFile.delete(file);
 		try
 		{
@@ -99,7 +95,7 @@ public class SourcesFileTest extends CopeAssert
 		}
 	}
 
-	private void store(final Properties p) throws IOException
+	private static void store(final Properties p, final File file) throws IOException
 	{
 		try(FileOutputStream s = new FileOutputStream(file))
 		{
