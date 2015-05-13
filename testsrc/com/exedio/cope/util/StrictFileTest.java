@@ -26,29 +26,24 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TemporaryFolder;
 
 public class StrictFileTest extends CopeAssert
 {
-	File f;
+	private final TemporaryFolder folder = new TemporaryFolder();
 
-	@Before public final void setUp() throws IOException
-	{
-		f = File.createTempFile(StrictFileTest.class.getName(), "tmp");
-	}
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+	@Rule public RuleChain chain = RuleChain.outerRule(folder);
 
-	@After public final void tearDown()
+	@Test public final void testDelete() throws IOException
 	{
-		if(f.exists())
-			delete(f);
-	}
-
-	@Test public final void testDelete()
-	{
+		final File f = folder.newFile("file");
 		delete(f);
 		try
 		{
@@ -61,8 +56,9 @@ public class StrictFileTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testMkdir()
+	@Test public final void testMkdir() throws IOException
 	{
+		final File f = folder.newFile("file");
 		delete(f);
 		mkdir(f);
 		try
@@ -76,8 +72,9 @@ public class StrictFileTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testMkdirs()
+	@Test public final void testMkdirs() throws IOException
 	{
+		final File f = folder.newFile("file");
 		delete(f);
 		mkdirs(f);
 		try
@@ -91,9 +88,10 @@ public class StrictFileTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testRenameTo()
+	@Test public final void testRenameTo() throws IOException
 	{
-		final File f2 = new File(f.getAbsolutePath()+"-rename");
+		final File f = folder.newFile("file");
+		final File f2 = folder.newFile("file2");
 		renameTo(f, f2);
 		try
 		{
@@ -104,6 +102,5 @@ public class StrictFileTest extends CopeAssert
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
-		delete(f2);
 	}
 }
