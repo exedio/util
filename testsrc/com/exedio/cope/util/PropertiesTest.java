@@ -27,13 +27,19 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TemporaryFolder;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesTest extends CopeAssert
 {
+	private final TemporaryFolder folder = new TemporaryFolder();
+
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+	@Rule public RuleChain chain = RuleChain.outerRule(folder);
+
 	static class TestProperties extends MyProperties
 	{
 		final boolean boolFalse = value("boolFalse", false);
@@ -123,25 +129,8 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
-	File file1;
-	File file2;
-
-	@Before public final void setUp() throws IOException
-	{
-		file1 = File.createTempFile(PropertiesTest.class.getName(), ".tmp");
-		file2 = File.createTempFile(PropertiesTest.class.getName(), ".tmp");
-	}
-
-	@After public final void tearDown()
-	{
-		if(!file1.delete())
-			System.err.println("could not delete " + file1);
-		if(!file2.delete())
-			System.err.println("could not delete " + file2);
-	}
-
 	@SuppressWarnings("unused")
-	@Test public final void testIt()
+	@Test public final void testIt() throws IOException
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -200,6 +189,7 @@ public class PropertiesTest extends CopeAssert
 			minimal.ensureEquality(minimal1);
 			minimal1.ensureEquality(minimal);
 		}
+		final File file1 = folder.newFile("file1");
 		{
 			final java.util.Properties p = copy(pminimal);
 			p.setProperty("boolFalse", "true");
@@ -415,6 +405,7 @@ public class PropertiesTest extends CopeAssert
 				"file", null,
 				"property file in wrong.file.missing not set.");
 
+		final File file2 = folder.newFile("file2");
 		assertInconsistent(pminimal,
 				"inconsistent.file",
 				"file", file2.getPath(),
