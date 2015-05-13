@@ -20,8 +20,6 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
-import static com.exedio.cope.util.Clock.clearOverride;
-import static com.exedio.cope.util.Clock.override;
 import static com.exedio.cope.util.Day.valueOf;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
@@ -31,6 +29,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.junit.ClockRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,11 +42,17 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 @SuppressWarnings("unused")
 public class DayTest extends CopeAssert
 {
+	private final ClockRule clock = new ClockRule();
+
+	@Rule public RuleChain chain = RuleChain.outerRule(clock);
+
 	@Test
 	public void printDefaultTimeZone()
 	{
@@ -333,7 +338,7 @@ public class DayTest extends CopeAssert
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test public void currentDay()
 	{
-		override(new Clock.Strategy(){
+		clock.override(new Clock.Strategy(){
 			@Override public long currentTimeMillis()
 			{
 				return new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT"));
@@ -352,10 +357,5 @@ public class DayTest extends CopeAssert
 	@After public void resetTimeZone()
 	{
 		TimeZone.setDefault(defaultTimeZone);
-	}
-
-	@After public void clearClock()
-	{
-		clearOverride();
 	}
 }

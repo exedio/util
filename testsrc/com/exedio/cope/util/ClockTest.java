@@ -19,26 +19,30 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
-import static com.exedio.cope.util.Clock.clearOverride;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
 import static com.exedio.cope.util.Clock.newDate;
-import static com.exedio.cope.util.Clock.override;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
+import com.exedio.cope.util.junit.ClockRule;
 import java.util.Date;
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ClockTest
 {
+	private final ClockRule clock = new ClockRule();
+
+	@Rule public RuleChain chain = RuleChain.outerRule(clock);
+
 	@Test public void overrideNull()
 	{
 		assertClear();
 
 		try
 		{
-			override(null);
+			clock.override(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -51,7 +55,7 @@ public class ClockTest
 	@Test public void testIt()
 	{
 		final MockStrategy ms = new MockStrategy();
-		override(ms);
+		clock.override(ms);
 		assertEquals(444, currentTimeMillis());
 		assertEquals(1, ms.currentTimeMillisCount);
 
@@ -61,7 +65,7 @@ public class ClockTest
 		assertEquals(new Date(444), newDate());
 		assertEquals(3, ms.currentTimeMillisCount);
 
-		clearOverride();
+		clock.clear();
 		assertClear();
 	}
 
@@ -69,7 +73,7 @@ public class ClockTest
 	{
 		assertClear();
 
-		clearOverride();
+		clock.clear();
 		assertClear();
 	}
 
@@ -104,10 +108,5 @@ public class ClockTest
 			final Date after = new Date();
 			assertWithin(before, after, date);
 		}
-	}
-
-	@After public void clearClock()
-	{
-		clearOverride();
 	}
 }
