@@ -51,6 +51,7 @@ public class DayTest extends CopeAssert
 {
 	private final ClockRule clock = new ClockRule();
 
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 	@Rule public RuleChain chain = RuleChain.outerRule(clock);
 
 	@Test

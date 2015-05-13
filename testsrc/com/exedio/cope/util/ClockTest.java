@@ -25,6 +25,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,6 +35,7 @@ public class ClockTest
 {
 	private final ClockRule clock = new ClockRule();
 
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 	@Rule public RuleChain chain = RuleChain.outerRule(clock);
 
 	@Test public void overrideNull()
