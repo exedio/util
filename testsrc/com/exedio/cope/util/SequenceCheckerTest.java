@@ -23,7 +23,6 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,11 +33,6 @@ public class SequenceCheckerTest extends CopeAssert
 	@Before public final void setUp()
 	{
 		sc = new SequenceChecker(5);
-	}
-
-	@After public final void tearDown()
-	{
-		sc = null;
 	}
 
 	@Test public final void testInOrder()
