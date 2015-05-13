@@ -30,6 +30,7 @@ import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.junit.ClockRule;
+import com.exedio.cope.util.junit.TimeZoneDefaultRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,8 +41,6 @@ import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -50,9 +49,10 @@ import org.junit.rules.RuleChain;
 public class DayTest extends CopeAssert
 {
 	private final ClockRule clock = new ClockRule();
+	private final TimeZoneDefaultRule timeZoneDefault = new TimeZoneDefaultRule();
 
 	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public RuleChain chain = RuleChain.outerRule(clock);
+	@Rule public RuleChain chain = RuleChain.outerRule(clock).around(timeZoneDefault);
 
 	@Test
 	public void printDefaultTimeZone()
@@ -175,7 +175,7 @@ public class DayTest extends CopeAssert
 	@Deprecated // OK testing deprecated API
 	public void conversionDateDeprecated() throws ParseException
 	{
-		TimeZone.setDefault(getTimeZone("Europe/Berlin"));
+		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
 		final Day summer = new Day(2005, 9, 23);
@@ -213,7 +213,7 @@ public class DayTest extends CopeAssert
 	@Test
 	public void conversionDateGMT() throws ParseException
 	{
-		TimeZone.setDefault(getTimeZone("Europe/Berlin"));
+		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final TimeZone tz = getTimeZone("Etc/GMT");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
 
@@ -346,17 +346,5 @@ public class DayTest extends CopeAssert
 			}
 		});
 		assertEquals(new Day(1986, 4, 26), new Day(getTimeZone("Etc/GMT")));
-	}
-
-
-	private TimeZone defaultTimeZone;
-
-	@Before public void saveTimeZone()
-	{
-		defaultTimeZone = TimeZone.getDefault();
-	}
-	@After public void resetTimeZone()
-	{
-		TimeZone.setDefault(defaultTimeZone);
 	}
 }
