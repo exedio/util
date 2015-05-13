@@ -25,7 +25,7 @@
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="ch.qos.logback" name="logback-classic" rev="1.1.2" conf="build->default" />
-		<dependency org="junit" name="junit" rev="4.9" conf="build->default,sources">
+		<dependency org="junit" name="junit" rev="4.10" conf="build->default,sources">
 			<exclude org="org.hamcrest" module="hamcrest-core" />
 		</dependency>
 		<dependency org="org.easymock" name="easymock" rev="3.0" conf="build->default">
