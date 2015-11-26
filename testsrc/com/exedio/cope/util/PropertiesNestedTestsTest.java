@@ -140,7 +140,7 @@ public class PropertiesNestedTestsTest
 			@Override
 			public String toString()
 			{
-				return name;
+				return name + Integer.toString(System.identityHashCode(this), 36);
 			}
 		};
 	}
