@@ -80,7 +80,7 @@ public class PrefixSourceTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		final MockSource ms = new MockSource(false, "description");
 		final PrefixSource ps = (PrefixSource)wrap(ms, "prefix.");
@@ -114,7 +114,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertSame(ms, wrap(ms, ""));
 	}
 
-	@Test public final void testNull()
+	@Test public void testNull()
 	{
 		final MockSource ms = new MockSource(true, null);
 		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
@@ -149,7 +149,7 @@ public class PrefixSourceTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testFail()
+	@Test public void testFail()
 	{
 		try
 		{

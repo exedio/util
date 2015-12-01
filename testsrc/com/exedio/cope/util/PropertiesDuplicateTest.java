@@ -41,7 +41,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testDuplicate()
+	@Test public void testDuplicate()
 	{
 		try
 		{
@@ -74,7 +74,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	};
 
 	@SuppressWarnings("unused")
-	@Test public final void testSimpleNestedEquals()
+	@Test public void testSimpleNestedEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -97,7 +97,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testSimpleNestedStartsWith()
+	@Test public void testSimpleNestedStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -120,7 +120,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testNestedSimpleEquals()
+	@Test public void testNestedSimpleEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -143,7 +143,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testNestedSimpleStartsWith()
+	@Test public void testNestedSimpleStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -166,7 +166,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testNestedNestedEquals()
+	@Test public void testNestedNestedEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -189,7 +189,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testNestedNestedStartsWith()
+	@Test public void testNestedNestedStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -212,7 +212,7 @@ public class PropertiesDuplicateTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testNestedNestedStartsWith2()
+	@Test public void testNestedNestedStartsWith2()
 	{
 		class Props extends MyProperties
 		{

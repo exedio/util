@@ -216,7 +216,7 @@ public class SequenceCheckerTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testException()
+	@Test public void testException()
 	{
 		try
 		{

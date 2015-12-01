@@ -47,7 +47,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testSupports()
+	@Test public void testSupports()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
 			@Override public void run(final JobContext ctx)
@@ -74,7 +74,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@Test public final void testStopIfRequested()
+	@Test public void testStopIfRequested()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
 			@Override public void run(final JobContext ctx)
@@ -97,7 +97,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@Test public final void testRequestedToStop()
+	@Test public void testRequestedToStop()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
 			@Override public void run(final JobContext ctx)
@@ -120,7 +120,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@Test public final void testProgress()
+	@Test public void testProgress()
 	{
 		assertEquals(1, InterrupterJobContextAdapter.run(null, new Body(){
 			@Override public void run(final JobContext ctx)
@@ -139,7 +139,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@Test public final void testProgressDelta()
+	@Test public void testProgressDelta()
 	{
 		assertEquals(5, InterrupterJobContextAdapter.run(null, new Body(){
 			@Override public void run(final JobContext ctx)

@@ -26,7 +26,7 @@ import org.junit.Test;
 
 public class JobContextsEmptyTest extends CopeAssert
 {
-	@Test public final void test()
+	@Test public void test()
 	{
 		assertFalse(requestedToStop(JobContexts.EMPTY));
 	}

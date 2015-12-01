@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public class PropertiesSourceTest extends CopeAssert
 {
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey", "testValue");

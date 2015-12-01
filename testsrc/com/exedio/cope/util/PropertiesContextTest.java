@@ -42,7 +42,7 @@ public class PropertiesContextTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testContext()
+	@Test public void testContext()
 	{
 		assertContext("y", "${x}");
 		assertContext("bucket", "${eimer}");

@@ -35,7 +35,7 @@ import org.junit.Test;
 public class ColorDecimalAlphaTest extends CopeAssert
 {
 	@Ignore
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		for(int alphaPercent = 0; alphaPercent<=100; alphaPercent++)
 		{

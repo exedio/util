@@ -38,7 +38,7 @@ public class PropertiesContextNullTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testContext()
+	@Test public void testContext()
 	{
 		assertContext("${x}");
 		assertContext("${eimer}");

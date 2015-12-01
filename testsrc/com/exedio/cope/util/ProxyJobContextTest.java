@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public class ProxyJobContextTest extends CopeAssert
 {
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		final ProxyJobContext c = new ProxyJobContext(new EmptyJobContext());
 
@@ -44,7 +44,7 @@ public class ProxyJobContextTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testNull()
+	@Test public void testNull()
 	{
 		try
 		{

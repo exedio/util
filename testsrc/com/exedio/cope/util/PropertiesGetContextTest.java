@@ -44,7 +44,7 @@ public class PropertiesGetContextTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testGetContext()
+	@Test public void testGetContext()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -91,7 +91,7 @@ public class PropertiesGetContextTest extends CopeAssert
 	}
 
 	@Deprecated
-	@Test public final void testGetContextDeprecated()
+	@Test public void testGetContextDeprecated()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");

@@ -199,7 +199,7 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testDefaults()
+	@Test public void testDefaults()
 	{
 		final java.util.Properties source = new java.util.Properties();
 
@@ -225,7 +225,7 @@ public class PropertiesNestedTest extends CopeAssert
 		assertEquals(12, drinner.drinner2);
 	}
 
-	@Test public final void testSet()
+	@Test public void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer1", "1009");
@@ -255,7 +255,7 @@ public class PropertiesNestedTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
-	@Test public final void testWrong()
+	@Test public void testWrong()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedO.inner1", "109x");
@@ -285,7 +285,7 @@ public class PropertiesNestedTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
-	@Test public final void testWrongDrinner()
+	@Test public void testWrongDrinner()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedO.nestedI.drinner1", "19x");

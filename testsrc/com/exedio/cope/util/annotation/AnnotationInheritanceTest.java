@@ -31,7 +31,7 @@ import org.junit.Test;
  */
 public class AnnotationInheritanceTest extends CopeAssert
 {
-	@Test public final void testIt() throws NoSuchFieldException, NoSuchMethodException
+	@Test public void testIt() throws NoSuchFieldException, NoSuchMethodException
 	{
 		assertAnno("BothSuperClassDeclared", "BothSuperClassInherited", BothSuper.class);
 		assertAnno("BothSuperFieldDeclared", "BothSuperFieldInherited", field(BothSuper.class));

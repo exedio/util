@@ -29,7 +29,7 @@ import org.junit.Test;
 
 public class HexTest extends CopeAssert
 {
-	@Test public final void testDecodeHelper()
+	@Test public void testDecodeHelper()
 	{
 		assertEquals(0x00, Hex.decodeLower('0'));
 		assertEquals(0x09, Hex.decodeLower('9'));
@@ -56,7 +56,7 @@ public class HexTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		assertIt("000ff0aa", new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa});
 		assertIt("0123456789abcdef", new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef});

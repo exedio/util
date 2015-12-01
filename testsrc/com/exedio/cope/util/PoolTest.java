@@ -32,7 +32,7 @@ import org.junit.Test;
 
 public class PoolTest extends CopeAssert
 {
-	@Test public final void testSimple()
+	@Test public void testSimple()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -70,7 +70,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	@Test public final void testOverflow()
+	@Test public void testOverflow()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -109,7 +109,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@Test public final void testPrecendence()
+	@Test public void testPrecendence()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -196,7 +196,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@Test public final void testIdleInitial()
+	@Test public void testIdleInitial()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -218,7 +218,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	@Test public final void testIdleInitialNotFull()
+	@Test public void testIdleInitialNotFull()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -240,7 +240,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	@Test public final void testIsValidOnPut()
+	@Test public void testIsValidOnPut()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -274,7 +274,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@Test public final void testFlush()
+	@Test public void testFlush()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -313,7 +313,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@Test public final void testNoPool()
+	@Test public void testNoPool()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -346,7 +346,7 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@Test public final void testValidOnGet()
+	@Test public void testValidOnGet()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -381,7 +381,7 @@ public class PoolTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public final void testErrorDeprecated()
+	@Test public void testErrorDeprecated()
 	{
 		try
 		{
@@ -425,7 +425,7 @@ public class PoolTest extends CopeAssert
 
 	@SuppressWarnings("unused")
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public final void testError()
+	@Test public void testError()
 	{
 		try
 		{

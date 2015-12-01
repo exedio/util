@@ -35,7 +35,7 @@ public class CastTest extends CopeAssert
 	private static final String string1 = "string1";
 	private static final Object string1Object = string1;
 
-	@Test public final void testVerboseCast()
+	@Test public void testVerboseCast()
 	{
 		assertNull(verboseCast(String.class, null));
 		assertSame(string1, verboseCast(String.class, string1Object));
@@ -70,7 +70,7 @@ public class CastTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testCastElements()
+	@Test public void testCastElements()
 	{
 		final List<String> strings = Arrays.asList(string1);
 		final List<String> strings2 = Arrays.asList(string1, string1);

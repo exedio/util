@@ -116,7 +116,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 	};
 
-	@Test public final void testFail()
+	@Test public void testFail()
 	{
 		assertSame(null, iterator(null, null));
 		assertSame(null, iterator(null, CONTEXT_FAIL));
@@ -124,7 +124,7 @@ public class JobContextsIteratorTest extends CopeAssert
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, CONTEXT_FAIL));
 	}
 
-	@Test public final void testImmediateStop()
+	@Test public void testImmediateStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
@@ -143,7 +143,7 @@ public class JobContextsIteratorTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public final void testLaterStop()
+	@Test public void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
@@ -182,7 +182,7 @@ public class JobContextsIteratorTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public final void testNoStop()
+	@Test public void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);

@@ -26,7 +26,7 @@ import org.junit.Test;
 @SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersVainTest extends CopeAssert
 {
-	@Test public final void test()
+	@Test public void test()
 	{
 		assertFalse(Interrupters.VAIN_INTERRUPTER.isRequested());
 	}

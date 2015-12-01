@@ -27,12 +27,12 @@ import org.junit.Test;
 
 public class TimeZoneStrictTest extends CopeAssert
 {
-	@Test public final void ok()
+	@Test public void ok()
 	{
 		assertEquals("Europe/Berlin", getTimeZone("Europe/Berlin").getID());
 	}
 
-	@Test public final void wrongID()
+	@Test public void wrongID()
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public class TimeZoneStrictTest extends CopeAssert
 		}
 	}
 
-	@Test public final void emptyID()
+	@Test public void emptyID()
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class TimeZoneStrictTest extends CopeAssert
 		}
 	}
 
-	@Test public final void nullID()
+	@Test public void nullID()
 	{
 		try
 		{

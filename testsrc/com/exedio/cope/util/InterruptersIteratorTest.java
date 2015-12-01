@@ -68,7 +68,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		}
 	};
 
-	@Test public final void testFail()
+	@Test public void testFail()
 	{
 		assertSame(null, iterator(null, null));
 		assertSame(null, iterator(null, INTERRUPTER_FAIL));
@@ -76,7 +76,7 @@ public class InterruptersIteratorTest extends CopeAssert
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, INTERRUPTER_FAIL));
 	}
 
-	@Test public final void testImmediateInterrupt()
+	@Test public void testImmediateInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);
@@ -95,7 +95,7 @@ public class InterruptersIteratorTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public final void testLaterInterrupt()
+	@Test public void testLaterInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);
@@ -134,7 +134,7 @@ public class InterruptersIteratorTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public final void testNoInterrupt()
+	@Test public void testNoInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);

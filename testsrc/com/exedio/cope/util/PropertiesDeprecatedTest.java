@@ -97,7 +97,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		}
 	}
 
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");

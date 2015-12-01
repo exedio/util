@@ -37,7 +37,7 @@ public class XMLEncoderTest extends TestCase
 		}
 	}
 
-	@Test public final void testEncode()
+	@Test public void testEncode()
 	{
 		assertEquals(null, XMLEncoder.encode(null));
 		assertIt("", "");

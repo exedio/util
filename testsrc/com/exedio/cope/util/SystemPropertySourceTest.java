@@ -29,7 +29,7 @@ import org.junit.Test;
 
 public class SystemPropertySourceTest extends CopeAssert
 {
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		try
 		{
@@ -56,7 +56,7 @@ public class SystemPropertySourceTest extends CopeAssert
 	}
 
 	@Deprecated // OK: testing deprecated api
-	@Test public final void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertSame(SYSTEM_PROPERTY_SOURCE, Properties.getSystemPropertySource());
 	}

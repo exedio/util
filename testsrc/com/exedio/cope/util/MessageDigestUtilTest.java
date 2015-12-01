@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class MessageDigestUtilTest extends CopeAssert
 {
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("MD5", MessageDigestUtil.getInstance("MD5").getAlgorithm());
 		try

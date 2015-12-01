@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public class EmptySourceTest extends CopeAssert
 {
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

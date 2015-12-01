@@ -30,7 +30,7 @@ import org.junit.Test;
 
 public class PoolWithCounterTest extends CopeAssert
 {
-	@Test public final void testNormal()
+	@Test public void testNormal()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -55,7 +55,7 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 2, 2);
 	}
 
-	@Test public final void testInvalidOnGet()
+	@Test public void testInvalidOnGet()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -77,7 +77,7 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 2, 1);
 	}
 
-	@Test public final void testInvalidOnPut()
+	@Test public void testInvalidOnPut()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -95,7 +95,7 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 1, 1);
 	}
 
-	@Test public final void testCreateFails()
+	@Test public void testCreateFails()
 	{
 		final Factory f = new Factory(asList(new Pooled()));
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -114,7 +114,7 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 0, 0);
 	}
 
-	@Test public final void testDisposeFails()
+	@Test public void testDisposeFails()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();

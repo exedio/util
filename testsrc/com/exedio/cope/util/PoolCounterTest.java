@@ -30,7 +30,7 @@ import org.junit.Test;
 
 public class PoolCounterTest extends CopeAssert
 {
-	@Test public final void testIt()
+	@Test public void testIt()
 	{
 		final PoolCounter c = new PoolCounter(1,2);
 
@@ -81,7 +81,7 @@ public class PoolCounterTest extends CopeAssert
 		assertIt(c2, 3, 3); assertIt(p21,1, 0, 1, 2, 2, 66); assertIt(p22,2, 1, 2, 2, 1,33);
 	}
 
-	@Test public final void testExtend()
+	@Test public void testExtend()
 	{
 		final PoolCounter c = new PoolCounter(1,2,4,6);
 		{
@@ -211,7 +211,7 @@ public class PoolCounterTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unused")
-	@Test public final void testFail()
+	@Test public void testFail()
 	{
 		try
 		{
