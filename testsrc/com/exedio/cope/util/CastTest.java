@@ -39,7 +39,10 @@ public class CastTest extends CopeAssert
 	{
 		assertNull(verboseCast(String.class, null));
 		assertSame(string1, verboseCast(String.class, string1Object));
+	}
 
+	@Test public void testVerboseCastClassNull()
+	{
 		try
 		{
 			verboseCast(null, string1);
@@ -49,6 +52,10 @@ public class CastTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
+	}
+
+	@Test public void testVerboseCastAllNull()
+	{
 		try
 		{
 			verboseCast(null, null);
@@ -58,7 +65,10 @@ public class CastTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
+	}
 
+	@Test public void testVerboseCastWrongCast()
+	{
 		try
 		{
 			verboseCast(Integer.class, string1);
@@ -80,7 +90,11 @@ public class CastTest extends CopeAssert
 		assertEquals(strings, castElements(String.class, strings)); // TODO should be same
 		assertEquals(strings2, castElements(String.class, strings2)); // TODO should be same
 		assertEquals(nulls, castElements(String.class, nulls)); // TODO should be same
+	}
 
+	@Test public void testCastElementsClassNull()
+	{
+		final List<String> strings = Arrays.asList(string1);
 		try
 		{
 			castElements(null, strings);
@@ -90,8 +104,16 @@ public class CastTest extends CopeAssert
 		{
 			assertEquals(null, e.getMessage());
 		}
-		assertNull(castElements(null, null));
+	}
 
+	@Test public void testCastElementsAllNull()
+	{
+		assertNull(castElements(null, null));
+	}
+
+	@Test public void testCastElementsWrongCast()
+	{
+		final List<String> strings = Arrays.asList(string1);
 		try
 		{
 			castElements(Integer.class, strings);
