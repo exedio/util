@@ -97,7 +97,6 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();

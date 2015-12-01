@@ -26,7 +26,6 @@ import org.junit.Test;
 
 public class JobContextsEmptyTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void test()
 	{
 		assertFalse(requestedToStop(JobContexts.EMPTY));

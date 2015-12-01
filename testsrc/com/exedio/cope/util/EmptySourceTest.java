@@ -27,7 +27,6 @@ import org.junit.Test;
 
 public class EmptySourceTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		try

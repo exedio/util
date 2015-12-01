@@ -47,7 +47,6 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testSupports()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
@@ -75,7 +74,6 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testStopIfRequested()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
@@ -99,7 +97,6 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testRequestedToStop()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
@@ -123,7 +120,6 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testProgress()
 	{
 		assertEquals(1, InterrupterJobContextAdapter.run(null, new Body(){
@@ -143,7 +139,6 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		}));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testProgressDelta()
 	{
 		assertEquals(5, InterrupterJobContextAdapter.run(null, new Body(){

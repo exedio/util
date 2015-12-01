@@ -25,7 +25,6 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class TimeZoneStrictTest extends CopeAssert
 {
 	@Test public final void ok()

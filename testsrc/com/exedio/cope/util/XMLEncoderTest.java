@@ -37,7 +37,6 @@ public class XMLEncoderTest extends TestCase
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testEncode()
 	{
 		assertEquals(null, XMLEncoder.encode(null));

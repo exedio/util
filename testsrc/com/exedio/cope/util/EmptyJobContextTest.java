@@ -29,7 +29,6 @@ import org.junit.Test;
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class EmptyJobContextTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final EmptyJobContext c = new EmptyJobContext();
@@ -46,7 +45,6 @@ public class EmptyJobContextTest extends CopeAssert
 		c.setCompleteness(0.5);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testStop()
 	{
 		final EmptyJobContext c = new EmptyJobContext(){

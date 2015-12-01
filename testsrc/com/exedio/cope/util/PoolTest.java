@@ -32,7 +32,6 @@ import org.junit.Test;
 
 public class PoolTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testSimple()
 	{
 		final Pooled c1 = new Pooled();
@@ -71,7 +70,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testOverflow()
 	{
 		final Pooled c1 = new Pooled();
@@ -111,7 +109,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testPrecendence()
 	{
 		final Pooled c1 = new Pooled();
@@ -199,7 +196,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testIdleInitial()
 	{
 		final Pooled c1 = new Pooled();
@@ -222,7 +218,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testIdleInitialNotFull()
 	{
 		final Pooled c1 = new Pooled();
@@ -245,7 +240,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(1);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testIsValidOnPut()
 	{
 		final Pooled c1 = new Pooled();
@@ -280,7 +274,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testFlush()
 	{
 		final Pooled c1 = new Pooled();
@@ -320,7 +313,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testNoPool()
 	{
 		final Pooled c1 = new Pooled();
@@ -354,7 +346,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testValidOnGet()
 	{
 		final Pooled c1 = new Pooled();
@@ -389,7 +380,6 @@ public class PoolTest extends CopeAssert
 		f.assertV(2);
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test public final void testErrorDeprecated()
 	{
@@ -433,7 +423,7 @@ public class PoolTest extends CopeAssert
 		newPool(f, 0, 0);
 	}
 
-	@SuppressWarnings({"unused","static-method"})
+	@SuppressWarnings("unused")
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public final void testError()
 	{

@@ -44,7 +44,6 @@ public class PropertiesGetContextTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testGetContext()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
@@ -91,7 +90,6 @@ public class PropertiesGetContextTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Deprecated
 	@Test public final void testGetContextDeprecated()
 	{

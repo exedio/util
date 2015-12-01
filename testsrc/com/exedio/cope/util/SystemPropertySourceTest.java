@@ -29,7 +29,6 @@ import org.junit.Test;
 
 public class SystemPropertySourceTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		try
@@ -56,7 +55,6 @@ public class SystemPropertySourceTest extends CopeAssert
 		assertEquals("SystemPropertySource", SYSTEM_PROPERTY_SOURCE.toString());
 	}
 
-	@SuppressWarnings("static-method")
 	@Deprecated // OK: testing deprecated api
 	@Test public final void testDeprecated()
 	{

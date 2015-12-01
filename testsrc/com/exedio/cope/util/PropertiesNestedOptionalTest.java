@@ -173,7 +173,6 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testDefaults()
 	{
 		final java.util.Properties source = new java.util.Properties();
@@ -192,7 +191,6 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		assertNull(outer.nestedTrue);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testDefaultsNested()
 	{
 		final java.util.Properties source = new java.util.Properties();
@@ -219,7 +217,6 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 		assertEquals(102, innerTrue.inner2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();

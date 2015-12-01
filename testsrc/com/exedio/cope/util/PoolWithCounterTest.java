@@ -30,7 +30,6 @@ import org.junit.Test;
 
 public class PoolWithCounterTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testNormal()
 	{
 		final Pooled c1 = new Pooled();
@@ -56,7 +55,6 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 2, 2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testInvalidOnGet()
 	{
 		final Pooled c1 = new Pooled();
@@ -79,7 +77,6 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 2, 1);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testInvalidOnPut()
 	{
 		final Pooled c1 = new Pooled();
@@ -98,7 +95,6 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 1, 1);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testCreateFails()
 	{
 		final Factory f = new Factory(asList(new Pooled()));
@@ -118,7 +114,6 @@ public class PoolWithCounterTest extends CopeAssert
 		assertIt(cp, 0, 0);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testDisposeFails()
 	{
 		final Pooled c1 = new Pooled();

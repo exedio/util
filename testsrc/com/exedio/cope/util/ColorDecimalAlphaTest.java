@@ -34,7 +34,6 @@ import org.junit.Test;
  */
 public class ColorDecimalAlphaTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Ignore
 	@Test public final void testIt()
 	{

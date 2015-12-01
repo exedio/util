@@ -27,7 +27,6 @@ import org.junit.Test;
 
 public class PropertiesSourceTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final java.util.Properties p = new java.util.Properties();

@@ -116,7 +116,6 @@ public class JobContextsIteratorTest extends CopeAssert
 		}
 	};
 
-	@SuppressWarnings("static-method")
 	@Test public final void testFail()
 	{
 		assertSame(null, iterator(null, null));
@@ -125,7 +124,6 @@ public class JobContextsIteratorTest extends CopeAssert
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, CONTEXT_FAIL));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testImmediateStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -144,7 +142,6 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	@Test public final void testLaterStop()
 	{
@@ -184,7 +181,6 @@ public class JobContextsIteratorTest extends CopeAssert
 		verify(ctx);
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	@Test public final void testNoStop()
 	{

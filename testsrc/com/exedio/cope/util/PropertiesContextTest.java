@@ -42,7 +42,6 @@ public class PropertiesContextTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testContext()
 	{
 		assertContext("y", "${x}");

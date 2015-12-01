@@ -27,7 +27,6 @@ import org.junit.Test;
 
 public class ProxyJobContextTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final ProxyJobContext c = new ProxyJobContext(new EmptyJobContext());
@@ -44,7 +43,7 @@ public class ProxyJobContextTest extends CopeAssert
 		c.setCompleteness(0.5);
 	}
 
-	@SuppressWarnings({"unused","static-method"})
+	@SuppressWarnings("unused")
 	@Test public final void testNull()
 	{
 		try

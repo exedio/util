@@ -32,7 +32,6 @@ import org.junit.Test;
 
 public class SourcesUrlTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final URL url = SourcesUrlTest.class.getResource("sourcesUrlTest.properties");
@@ -64,7 +63,6 @@ public class SourcesUrlTest extends CopeAssert
 		assertEquals(url.toString(), s.toString());
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testNotExists() throws MalformedURLException
 	{
 		try
@@ -79,7 +77,6 @@ public class SourcesUrlTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testNull()
 	{
 		try

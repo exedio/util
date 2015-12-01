@@ -80,7 +80,6 @@ public class PrefixSourceTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final MockSource ms = new MockSource(false, "description");
@@ -115,7 +114,6 @@ public class PrefixSourceTest extends CopeAssert
 		assertSame(ms, wrap(ms, ""));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testNull()
 	{
 		final MockSource ms = new MockSource(true, null);
@@ -150,7 +148,7 @@ public class PrefixSourceTest extends CopeAssert
 		assertNull(wrap(null, ""));
 	}
 
-	@SuppressWarnings({"unused","static-method"})
+	@SuppressWarnings("unused")
 	@Test public final void testFail()
 	{
 		try

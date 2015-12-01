@@ -28,7 +28,6 @@ import org.junit.Test;
 
 public class MessageDigestUtilTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		assertEquals("MD5", MessageDigestUtil.getInstance("MD5").getAlgorithm());

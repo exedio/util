@@ -64,7 +64,6 @@ public class BeforeAndAfterTest extends CopeAssert
 		assertEquals(true, tomorrow.after(today));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testCombiAssert()
 	{
 		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));

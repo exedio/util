@@ -68,7 +68,6 @@ public class InterruptersIteratorTest extends CopeAssert
 		}
 	};
 
-	@SuppressWarnings("static-method")
 	@Test public final void testFail()
 	{
 		assertSame(null, iterator(null, null));
@@ -77,7 +76,6 @@ public class InterruptersIteratorTest extends CopeAssert
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, INTERRUPTER_FAIL));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testImmediateInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -96,7 +94,6 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	@Test public final void testLaterInterrupt()
 	{
@@ -136,7 +133,6 @@ public class InterruptersIteratorTest extends CopeAssert
 		verify(interrupter);
 	}
 
-	@SuppressWarnings("static-method")
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	@Test public final void testNoInterrupt()
 	{

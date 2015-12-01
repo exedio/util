@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Locale;
 import org.junit.Test;
 
-@SuppressWarnings("static-method")
 public class HexTest extends CopeAssert
 {
 	@Test public final void testDecodeHelper()

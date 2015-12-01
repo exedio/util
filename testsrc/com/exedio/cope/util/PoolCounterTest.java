@@ -30,7 +30,6 @@ import org.junit.Test;
 
 public class PoolCounterTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public final void testIt()
 	{
 		final PoolCounter c = new PoolCounter(1,2);
@@ -82,7 +81,6 @@ public class PoolCounterTest extends CopeAssert
 		assertIt(c2, 3, 3); assertIt(p21,1, 0, 1, 2, 2, 66); assertIt(p22,2, 1, 2, 2, 1,33);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public final void testExtend()
 	{
 		final PoolCounter c = new PoolCounter(1,2,4,6);
@@ -212,7 +210,7 @@ public class PoolCounterTest extends CopeAssert
 		assertTrue("isConsistent", p.isConsistent());
 	}
 
-	@SuppressWarnings({"unused","static-method"})
+	@SuppressWarnings("unused")
 	@Test public final void testFail()
 	{
 		try
