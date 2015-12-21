@@ -19,9 +19,16 @@
 package com.exedio.cope.util;
 
 import java.io.File;
+import java.io.IOException;
 
 public final class StrictFile
 {
+	public static void createNewFile(File file) throws IOException
+	{
+		if(!file.createNewFile())
+			throw failure(file);
+	}
+
 	public static void delete(final File file)
 	{
 		if(!file.delete())
@@ -43,6 +50,12 @@ public final class StrictFile
 	public static void renameTo(final File file, final File dest)
 	{
 		if(!file.renameTo(dest))
+			throw failure(file);
+	}
+
+	public static void setLastModified(final File file, final long time)
+	{
+		if(!file.setLastModified(time))
 			throw failure(file);
 	}
 
