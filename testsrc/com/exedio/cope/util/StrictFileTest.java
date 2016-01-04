@@ -18,10 +18,12 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.StrictFile.createNewFile;
 import static com.exedio.cope.util.StrictFile.delete;
 import static com.exedio.cope.util.StrictFile.mkdir;
 import static com.exedio.cope.util.StrictFile.mkdirs;
 import static com.exedio.cope.util.StrictFile.renameTo;
+import static com.exedio.cope.util.StrictFile.setLastModified;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
@@ -40,6 +42,32 @@ public class StrictFileTest extends CopeAssert
 
 	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 	@Rule public RuleChain chain = RuleChain.outerRule(folder);
+
+	@Test public void testCreateNewFile() throws IOException
+	{
+		final File f = new File(folder.getRoot(), "file");
+		assertEquals(false, f.exists());
+
+		createNewFile(f);
+		assertEquals(true, f.exists());
+	}
+
+	@Test public void testCreateNewFileFails() throws IOException
+	{
+		final File f = folder.newFile("file");
+		assertEquals(true, f.exists());
+
+		try
+		{
+			createNewFile(f);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(f.getAbsolutePath(), e.getMessage());
+		}
+		assertEquals(true, f.exists());
+	}
 
 	@Test public final void testDelete() throws IOException
 	{
@@ -102,5 +130,32 @@ public class StrictFileTest extends CopeAssert
 		{
 			assertEquals(f.getAbsolutePath(), e.getMessage());
 		}
+	}
+
+	@Test public void testSetLastModified() throws IOException
+	{
+		final File f = folder.newFile("file");
+		assertEquals(true, f.exists());
+
+		setLastModified(f, 555000);
+		assertEquals(true, f.exists());
+		assertEquals(555000, f.lastModified());
+	}
+
+	@Test public void testSetLastModifiedFails()
+	{
+		final File f = new File(folder.getRoot(), "file");
+		assertEquals(false, f.exists());
+
+		try
+		{
+			setLastModified(f, 555000);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(f.getAbsolutePath(), e.getMessage());
+		}
+		assertEquals(false, f.exists());
 	}
 }
