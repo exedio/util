@@ -38,7 +38,7 @@ public class PropertiesTest extends CopeAssert
 	private final TemporaryFolder folder = new TemporaryFolder();
 
 	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public RuleChain chain = RuleChain.outerRule(folder);
+	@Rule public final RuleChain chain = RuleChain.outerRule(folder);
 
 	static class TestProperties extends MyProperties
 	{

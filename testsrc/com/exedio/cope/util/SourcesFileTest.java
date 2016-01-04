@@ -41,7 +41,7 @@ public class SourcesFileTest extends CopeAssert
 	private final TemporaryFolder folder = new TemporaryFolder();
 
 	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public RuleChain chain = RuleChain.outerRule(folder);
+	@Rule public final RuleChain chain = RuleChain.outerRule(folder);
 
 	@Test public final void testIt() throws IOException
 	{

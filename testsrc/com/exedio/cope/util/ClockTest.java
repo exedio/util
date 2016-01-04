@@ -36,7 +36,7 @@ public class ClockTest
 	private final ClockRule clock = new ClockRule();
 
 	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public RuleChain chain = RuleChain.outerRule(clock);
+	@Rule public final RuleChain chain = RuleChain.outerRule(clock);
 
 	@Test public void overrideNull()
 	{

@@ -52,7 +52,7 @@ public class DayTest extends CopeAssert
 	private final TimeZoneDefaultRule timeZoneDefault = new TimeZoneDefaultRule();
 
 	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public RuleChain chain = RuleChain.outerRule(clock).around(timeZoneDefault);
+	@Rule public final RuleChain chain = RuleChain.outerRule(clock).around(timeZoneDefault);
 
 	@Test
 	public void printDefaultTimeZone()
