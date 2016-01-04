@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public final class StrictFile
 {
-	public static void createNewFile(File file) throws IOException
+	public static void createNewFile(final File file) throws IOException
 	{
 		if(!file.createNewFile())
 			throw failure(file);
