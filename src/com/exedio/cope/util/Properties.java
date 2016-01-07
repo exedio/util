@@ -401,18 +401,23 @@ public class Properties
 				catch(final NumberFormatException e)
 				{
 					throw newException(key,
-							"must be an integer" +
-							(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", " +
+							mustBe() +
 							"but was '" + s + '\'',
 							e);
 				}
 
 				if(value<minimum)
 					throw newException(key,
-							"must be an integer" +
-							(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", " +
+							mustBe() +
 							"but was " + value);
 			}
+		}
+
+		private String mustBe()
+		{
+			return
+				"must be an integer" +
+				(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", ";
 		}
 
 		IntField(final String key, final IntField template)
