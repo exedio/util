@@ -285,13 +285,13 @@ public class PropertiesTest extends CopeAssert
 		assertWrong(pminimal,
 				"wrong.bool.true",
 				"boolFalse", "True",
-				"property boolFalse in wrong.bool.true has invalid value," +
-					" expected >true< or >false<, but got >True<.");
+				"property boolFalse in wrong.bool.true " +
+				"must be either 'true' or 'false', but was 'True'");
 		assertWrong(pminimal,
 				"wrong.bool.false",
 				"boolFalse", "falsE",
-				"property boolFalse in wrong.bool.false has invalid value," +
-					" expected >true< or >false<, but got >falsE<.");
+				"property boolFalse in wrong.bool.false " +
+				"must be either 'true' or 'false', but was 'falsE'");
 		assertInconsistent(pminimal,
 				"inconsistent.bool",
 				"boolFalse", "true",
@@ -312,18 +312,18 @@ public class PropertiesTest extends CopeAssert
 		assertWrong(pminimal,
 				"wrong.intAny.noNumber",
 				"intAny", "" + (Integer.MAX_VALUE + 1l),
-				"property intAny in wrong.intAny.noNumber has invalid value," +
-				" expected an integer, but got >" + (Integer.MAX_VALUE + 1l) + "<.");
+				"property intAny in wrong.intAny.noNumber " +
+				"must be an integer, but was '" + (Integer.MAX_VALUE + 1l) + "'");
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",
 				"int10", "4",
-				"property int10 in wrong.int.tooSmall has invalid value," +
-				" expected an integer greater or equal 5, but got 4.");
+				"property int10 in wrong.int.tooSmall " +
+				"must be an integer greater or equal 5, but was 4");
 		assertWrong(pminimal,
 				"wrong.int.noNumber",
 				"int10", "10x",
-				"property int10 in wrong.int.noNumber has invalid value," +
-				" expected an integer greater or equal 5, but got >10x<.");
+				"property int10 in wrong.int.noNumber " +
+				"must be an integer greater or equal 5, but was '10x'");
 		assertInconsistent(pminimal,
 				"inconsistent.int",
 				"int10", "88",
@@ -336,11 +336,11 @@ public class PropertiesTest extends CopeAssert
 		assertWrong(pminimal,
 				"wrong.stringMandatory.missing",
 				"stringMandatory", null,
-				"property stringMandatory in wrong.stringMandatory.missing not set and no default value specified.");
+				"property stringMandatory in wrong.stringMandatory.missing must be specified as there is no default");
 		assertWrong(pminimal,
 				"wrong.stringHidden.missing",
 				"stringHidden", null,
-				"property stringHidden in wrong.stringHidden.missing not set and no default value specified.");
+				"property stringHidden in wrong.stringHidden.missing must be specified as there is no default");
 		assertInconsistent(pminimal,
 				"inconsistent.stringMandatory",
 				"stringMandatory", "stringMandatory.inconsistentValue",
@@ -365,23 +365,28 @@ public class PropertiesTest extends CopeAssert
 		assertWrong(pminimal,
 				"wrong.dayMandatory.missing",
 				"dayMandatory", null,
-				"property dayMandatory in wrong.dayMandatory.missing not set and no default value specified.");
+				"property dayMandatory in wrong.dayMandatory.missing " +
+				"must be specified as there is no default");
 		assertWrong(pminimal,
 				"wrong.dayMandatory.invalidFormat",
 				"dayMandatory", "no-date-set",
-				"property dayMandatory in wrong.dayMandatory.invalidFormat has invalid value, expected a day of format yyyy-mm-dd but got >no-date-set<.");
+				"property dayMandatory in wrong.dayMandatory.invalidFormat " +
+				"must be a day formatted as yyyy-mm-dd, but was 'no-date-set'");
 		assertWrong(pminimal,
 				"wrong.dayMandatory.invalidYear",
 				"dayMandatory", "200-04-04",
-				"property dayMandatory in wrong.dayMandatory.invalidYear has invalid value, expected a day of format yyyy-mm-dd but got >200-04-04<.");
+				"property dayMandatory in wrong.dayMandatory.invalidYear " +
+				"must be a day formatted as yyyy-mm-dd, but was '200-04-04'");
 		assertWrong(pminimal,
 				"wrong.dayMandatory.invalidMonth",
 				"dayMandatory", "2000-40-04",
-				"property dayMandatory in wrong.dayMandatory.invalidMonth has invalid value, expected a day of format yyyy-mm-dd but got >2000-40-04<.");
+				"property dayMandatory in wrong.dayMandatory.invalidMonth " +
+				"must be a day formatted as yyyy-mm-dd, but was '2000-40-04'");
 		assertWrong(pminimal,
 				"wrong.dayMandatory.invalidDay",
 				"dayMandatory", "2000-04-40",
-				"property dayMandatory in wrong.dayMandatory.invalidDay has invalid value, expected a day of format yyyy-mm-dd but got >2000-04-40<.");
+				"property dayMandatory in wrong.dayMandatory.invalidDay " +
+				"must be a day formatted as yyyy-mm-dd, but was '2000-04-40'");
 		assertInconsistent(pminimal,
 				"inconsistent.dayMandatory",
 				"dayMandatory", "3000-01-01",
@@ -403,7 +408,8 @@ public class PropertiesTest extends CopeAssert
 		assertWrong(pminimal,
 				"wrong.file.missing",
 				"file", null,
-				"property file in wrong.file.missing not set.");
+				"property file in wrong.file.missing " +
+				"must be specified");
 
 		final File file2 = folder.newFile("file2");
 		assertInconsistent(pminimal,

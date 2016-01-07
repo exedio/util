@@ -268,7 +268,7 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			final String detail = "has invalid value, expected an integer greater or equal 51, but got >109x<.";
+			final String detail = "must be an integer greater or equal 51, but was '109x'";
 			assertEquals(
 					"property nestedO.inner1 in someDescription " + detail,
 					e.getMessage());
@@ -298,7 +298,7 @@ public class PropertiesNestedTest extends CopeAssert
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			final String detail = "has invalid value, expected an integer greater or equal 1, but got >19x<.";
+			final String detail = "must be an integer greater or equal 1, but was '19x'";
 			assertEquals(
 					"property nestedO.nestedI.drinner1 in someDescription " + detail,
 					e.getMessage());

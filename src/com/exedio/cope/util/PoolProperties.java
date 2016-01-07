@@ -47,8 +47,8 @@ public final class PoolProperties extends Properties
 		if(idleInitial>idleLimit)
 			throw newException(
 					idleInitialKey,
-					"must not be greater than " + idleLimitKey + ", " +
-					"but was " + idleInitial + " and " + idleLimit);
+					"must be less or equal " + idleLimitKey + '=' + idleLimit + ", " +
+					"but was " + idleInitial);
 	}
 
 	public int getIdleInitial()

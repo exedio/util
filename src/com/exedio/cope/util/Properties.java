@@ -309,8 +309,8 @@ public class Properties
 					this.value = false;
 				else
 					throw newException(key,
-							"has invalid value, expected >true< or >false<, " +
-							"but got >" + s + "<.");
+							"must be either 'true' or 'false', " +
+							"but was '" + s + '\'');
 			}
 		}
 
@@ -401,18 +401,17 @@ public class Properties
 				catch(final NumberFormatException e)
 				{
 					throw newException(key,
-							"has invalid value, " +
-							"expected an integer" +
+							"must be an integer" +
 							(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", " +
-							"but got >" + s + "<.",
+							"but was '" + s + '\'',
 							e);
 				}
 
 				if(value<minimum)
 					throw newException(key,
-							"has invalid value, " +
-							"expected an integer greater or equal " + minimum + ", " +
-							"but got " + value + '.');
+							"must be an integer" +
+							(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", " +
+							"but was " + value);
 			}
 		}
 
@@ -493,7 +492,7 @@ public class Properties
 			{
 				if(defaultValue==null)
 					throw newException(key,
-							"not set and no default value specified.");
+							"must be specified as there is no default");
 				value = defaultValue;
 			}
 			else
@@ -513,9 +512,8 @@ public class Properties
 				catch(final IllegalArgumentException e)
 				{
 					throw newException(key,
-							"has invalid value, " +
-							"expected a day of format yyyy-mm-dd " +
-							"but got >" + s + "<.",
+							"must be a day formatted as yyyy-mm-dd, " +
+							"but was '" + s + '\'',
 							e);
 				}
 			}
@@ -604,7 +602,7 @@ public class Properties
 			{
 				if(defaultValue==null)
 					throw newException(key,
-							"not set and no default value specified.");
+							"must be specified as there is no default");
 				else
 					this.value = defaultValue;
 			}
@@ -698,7 +696,7 @@ public class Properties
 			final String s = resolve(key);
 
 			if(s==null)
-				throw newException(key, "not set.");
+				throw newException(key, "must be specified");
 
 			this.value = new File(s);
 		}
