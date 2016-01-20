@@ -2,26 +2,19 @@
 <project name="ivy" default="copy">
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
-		
-		<!-- TODO move mapping into copy task below, using the firstmatchmapper in ant 1.8.0 -->
-		<move todir="artifacts/lib">
-			<globmapper from="*-jar.jar" to="*.jar" />
-			<fileset dir="artifacts/lib">
-				<include name="*-jar.jar" />
-			</fileset>
-		</move>
-		<move todir="artifacts/lib">
-			<globmapper from="*-dist.tar.gz" to="*.tar.gz" />
-			<fileset dir="artifacts/lib">
-				<include name="*-dist.tar.gz" />
-			</fileset>
-		</move>
-		
+
+		<delete dir="../lib">
+			<include name="*" />
+		</delete>
 		<copy overwrite="true" todir="../lib">
+			<firstmatchmapper>
+				<globmapper from="*-jar.jar" to="*.jar" />
+				<globmapper from="*-dist.tar.gz" to="*.tar.gz" />
+				<globmapper from="*" to="*" />
+			</firstmatchmapper>
 			<fileset dir="artifacts/lib">
-				<!--exclude name="example.jar" /-->
 			</fileset>
 		</copy>
-		
+
 	</target>
 </project>
