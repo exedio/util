@@ -126,6 +126,7 @@
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/slf4j-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
+				<pathelement location="${basedir}/lib/easymock.jar" />
 			</auxclasspath>
 		</findbugs>
 	</target>
