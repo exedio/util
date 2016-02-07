@@ -4,13 +4,13 @@
 
 	<property file="local.properties" />
 	<property file="project.properties" />
-	
+
 	<import>
 		<fileset dir="macros">
 			<include name="*.xml" />
 		</fileset>
 	</import>
-	
+
 	<target name="compile">
 		<compile srcdir="src">
 			<classpath>
@@ -19,7 +19,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="test.compile" depends="compile">
 		<compile srcdir="testsrc">
 			<classpath>
@@ -31,7 +31,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="test.run" depends="test.compile">
 		<runtest name="moscow"  userTimezone="Europe/Moscow" />
 		<runtest name="berlin"  userTimezone="Europe/Berlin" />
@@ -68,9 +68,9 @@
 		</junit>
 		</sequential>
 	</macrodef>
-	
+
 	<target name="test" depends="test.run" />
-	
+
 	<target name="jar" depends="compile">
 		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
 			<manifest>
@@ -84,7 +84,7 @@
 		</jar>
 		<plot file="build/exedio-cope-util.jar" />
 	</target>
-	
+
 	<target name="jar.src">
 		<mkdir dir="build" />
 		<zip destfile="build/exedio-cope-util-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
@@ -93,7 +93,7 @@
 			</zipfileset>
 		</zip>
 	</target>
-	
+
 	<target name="clean">
 		<delete dir="build" />
 		<delete dir="api" /><!-- not created anymore-->
@@ -110,7 +110,7 @@
 			</myClasspath>
 		</api>
 	</target>
-	
+
 	<target name="findbugs" depends="compile, test.compile, findbugs.taskdef">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
@@ -130,8 +130,8 @@
 			</auxclasspath>
 		</findbugs>
 	</target>
-	
-	
+
+
 	<target name="build" depends="compile, test, jar, api" />
 	<target name="all" depends="build, jar.src, findbugs" />
 
@@ -147,5 +147,5 @@
 			</filterset>
 		</copy>
 	</target>
-	
+
 </project>
