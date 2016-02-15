@@ -20,8 +20,6 @@ package com.exedio.cope.util;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,37 +66,23 @@ public final class Pool<E>
 	 * @deprecated Use {@link #Pool(Factory, PoolProperties, PoolCounter)} instead.
 	 */
 	@Deprecated
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
 	{
-		this(factory, PoolProperties.factory(50).create(new Properties.Source(){
+		this(
+				factory,
+				source(idleLimit, idleInitial),
+				counter);
+	}
 
-			private static final String LIMIT   = "idleLimit";
-			private static final String INITIAL = "idleInitial";
-
-			@Override
-			public String get(final String key)
-			{
-				if(LIMIT.equals(key))
-					return String.valueOf(idleLimit);
-				else if(INITIAL.equals(key))
-					return String.valueOf(idleInitial);
-				else
-					return null;
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return Arrays.asList(LIMIT, INITIAL);
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return "Pool#Pool(Factory, int, int, PoolCounter)";
-			}
-		}), counter);
+	@Deprecated
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	private static PoolProperties source(final int idleLimit, final int idleInitial)
+	{
+		final java.util.Properties props = new java.util.Properties();
+		props.setProperty("idleLimit", String.valueOf(idleLimit));
+		props.setProperty("idleInitial", String.valueOf(idleInitial));
+		return PoolProperties.factory(50).create(
+				Sources.view(props, "Pool#Pool(Factory, int, int, PoolCounter)"));
 	}
 
 	public Pool(final Factory<E> factory, final PoolProperties properties, final PoolCounter counter)
