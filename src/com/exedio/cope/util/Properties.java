@@ -144,22 +144,6 @@ public class Properties
 		String getDescription();
 	}
 
-	/**
-	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
-	 */
-	@Deprecated
-	public static final Source SYSTEM_PROPERTY_SOURCE = Sources.SYSTEM_PROPERTIES;
-
-	/**
-	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
-	 */
-	@Deprecated
-	public static final Source getSystemPropertySource()
-	{
-		return SYSTEM_PROPERTY_SOURCE;
-	}
-
-
 	public abstract class Field
 	{
 		final String key;
@@ -988,6 +972,21 @@ public class Properties
 			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context.getDescription());
 
 		return result;
+	}
+
+	/**
+	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
+	 */
+	@Deprecated
+	public static final Source SYSTEM_PROPERTY_SOURCE = Sources.SYSTEM_PROPERTIES;
+
+	/**
+	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
+	 */
+	@Deprecated
+	public static final Source getSystemPropertySource()
+	{
+		return SYSTEM_PROPERTY_SOURCE;
 	}
 
 	/**
