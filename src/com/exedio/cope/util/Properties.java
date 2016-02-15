@@ -144,12 +144,6 @@ public class Properties
 		String getDescription();
 	}
 
-	/**
-	 * @deprecated Use {@link Sources#EMPTY} instead
-	 */
-	@Deprecated
-	public static final Source EMPTY_SOURCE = Sources.EMPTY;
-
 	public static final Source SYSTEM_PROPERTY_SOURCE = new SystemPropertySource();
 
 	private static final class SystemPropertySource implements Source
@@ -980,6 +974,12 @@ public class Properties
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link Sources#EMPTY} instead
+	 */
+	@Deprecated
+	public static final Source EMPTY_SOURCE = Sources.EMPTY;
 
 	/**
 	 * @deprecated Use {@link #Properties(Source, Source)} instead.
