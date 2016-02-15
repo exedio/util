@@ -144,43 +144,14 @@ public class Properties
 		String getDescription();
 	}
 
-	public static final Source SYSTEM_PROPERTY_SOURCE = new SystemPropertySource();
-
-	private static final class SystemPropertySource implements Source
-	{
-		SystemPropertySource()
-		{
-			// empty
-		}
-
-		@Override
-		public String get(final String key)
-		{
-			Sources.checkKey(key);
-			return System.getProperty(key);
-		}
-
-		@Override
-		public Collection<String> keySet()
-		{
-			return null;
-		}
-
-		@Override
-		public String getDescription()
-		{
-			return "java.lang.System.getProperty";
-		}
-
-		@Override
-		public String toString()
-		{
-			return getClass().getSimpleName();
-		}
-	}
+	/**
+	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
+	 */
+	@Deprecated
+	public static final Source SYSTEM_PROPERTY_SOURCE = Sources.SYSTEM_PROPERTIES;
 
 	/**
-	 * @deprecated Use {@link #SYSTEM_PROPERTY_SOURCE} instead.
+	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
 	 */
 	@Deprecated
 	public static final Source getSystemPropertySource()

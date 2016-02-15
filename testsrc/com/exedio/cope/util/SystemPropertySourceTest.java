@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
+import static com.exedio.cope.util.Sources.SYSTEM_PROPERTIES;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
@@ -33,7 +33,7 @@ public class SystemPropertySourceTest extends CopeAssert
 	{
 		try
 		{
-			SYSTEM_PROPERTY_SOURCE.get(null);
+			SYSTEM_PROPERTIES.get(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -42,22 +42,23 @@ public class SystemPropertySourceTest extends CopeAssert
 		}
 		try
 		{
-			SYSTEM_PROPERTY_SOURCE.get("");
+			SYSTEM_PROPERTIES.get("");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key must not be empty", e.getMessage());
 		}
-		assertEquals(null, SYSTEM_PROPERTY_SOURCE.get("xxx"));
-		assertNull(SYSTEM_PROPERTY_SOURCE.keySet());
-		assertEquals("java.lang.System.getProperty", SYSTEM_PROPERTY_SOURCE.getDescription());
-		assertEquals("SystemPropertySource", SYSTEM_PROPERTY_SOURCE.toString());
+		assertEquals(null, SYSTEM_PROPERTIES.get("xxx"));
+		assertNull(SYSTEM_PROPERTIES.keySet());
+		assertEquals("java.lang.System.getProperty", SYSTEM_PROPERTIES.getDescription());
+		assertEquals("SystemPropertySource", SYSTEM_PROPERTIES.toString());
 	}
 
 	@Deprecated // OK: testing deprecated api
 	@Test public void testDeprecated()
 	{
-		assertSame(SYSTEM_PROPERTY_SOURCE, Properties.getSystemPropertySource());
+		assertSame(SYSTEM_PROPERTIES, Properties.getSystemPropertySource());
+		assertSame(SYSTEM_PROPERTIES, Properties.SYSTEM_PROPERTY_SOURCE);
 	}
 }

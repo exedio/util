@@ -149,6 +149,43 @@ public final class Sources
 		return CascadeSource.cascade(sources);
 	}
 
+
+	public static final Source SYSTEM_PROPERTIES = new SystemPropertySource();
+
+	private static final class SystemPropertySource implements Source
+	{
+		SystemPropertySource()
+		{
+			// empty
+		}
+
+		@Override
+		public String get(final String key)
+		{
+			Sources.checkKey(key);
+			return System.getProperty(key);
+		}
+
+		@Override
+		public Collection<String> keySet()
+		{
+			return null;
+		}
+
+		@Override
+		public String getDescription()
+		{
+			return "java.lang.System.getProperty";
+		}
+
+		@Override
+		public String toString()
+		{
+			return getClass().getSimpleName();
+		}
+	}
+
+
 	/**
 	 * Checks a key to be valid for calling {@link com.exedio.cope.util.Properties.Source#get(String)}.
 	 */
