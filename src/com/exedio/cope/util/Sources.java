@@ -32,6 +32,41 @@ import java.util.Properties;
 
 public final class Sources
 {
+	public static final Source EMPTY = new EmptySource();
+
+	private static final class EmptySource implements Source
+	{
+		EmptySource()
+		{
+			// empty
+		}
+
+		@Override
+		public String get(final String key)
+		{
+			checkKey(key);
+			return null;
+		}
+
+		@Override
+		public Collection<String> keySet()
+		{
+			return Collections.<String>emptyList();
+		}
+
+		@Override
+		public String getDescription()
+		{
+			return "empty";
+		}
+
+		@Override
+		public String toString()
+		{
+			return getClass().getSimpleName();
+		}
+	}
+
 	public static final Source view(final Properties properties, final String description)
 	{
 		return new Source(){

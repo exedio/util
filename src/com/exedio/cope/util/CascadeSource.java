@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
+import static com.exedio.cope.util.Sources.EMPTY;
 
 import com.exedio.cope.util.Properties.Source;
 import java.util.Collection;
@@ -35,7 +35,7 @@ final class CascadeSource
 
 		switch(sources.length)
 		{
-			case  0: return EMPTY_SOURCE;
+			case  0: return EMPTY;
 			case  1: return sources[0];
 			default:	return new Cascade(sources);
 		}

@@ -144,42 +144,11 @@ public class Properties
 		String getDescription();
 	}
 
-
-	public static final Source EMPTY_SOURCE = new EmptySource();
-
-	private static final class EmptySource implements Source
-	{
-		EmptySource()
-		{
-			// empty
-		}
-
-		@Override
-		public String get(final String key)
-		{
-			Sources.checkKey(key);
-			return null;
-		}
-
-		@Override
-		public Collection<String> keySet()
-		{
-			return Collections.<String>emptyList();
-		}
-
-		@Override
-		public String getDescription()
-		{
-			return "empty";
-		}
-
-		@Override
-		public String toString()
-		{
-			return getClass().getSimpleName();
-		}
-	}
-
+	/**
+	 * @deprecated Use {@link Sources#EMPTY} instead
+	 */
+	@Deprecated
+	public static final Source EMPTY_SOURCE = Sources.EMPTY;
 
 	public static final Source SYSTEM_PROPERTY_SOURCE = new SystemPropertySource();
 

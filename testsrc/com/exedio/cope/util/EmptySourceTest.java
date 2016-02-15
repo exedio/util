@@ -18,8 +18,9 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
+import static com.exedio.cope.util.Sources.EMPTY;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
@@ -31,7 +32,7 @@ public class EmptySourceTest extends CopeAssert
 	{
 		try
 		{
-			EMPTY_SOURCE.get(null);
+			EMPTY.get(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -40,17 +41,23 @@ public class EmptySourceTest extends CopeAssert
 		}
 		try
 		{
-			EMPTY_SOURCE.get("");
+			EMPTY.get("");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("key must not be empty", e.getMessage());
 		}
-		assertEquals(null, EMPTY_SOURCE.get("xxx"));
-		assertUnmodifiable(EMPTY_SOURCE.keySet());
-		assertEquals(list(), EMPTY_SOURCE.keySet());
-		assertEquals("empty", EMPTY_SOURCE.getDescription());
-		assertEquals("EmptySource", EMPTY_SOURCE.toString());
+		assertEquals(null, EMPTY.get("xxx"));
+		assertUnmodifiable(EMPTY.keySet());
+		assertEquals(list(), EMPTY.keySet());
+		assertEquals("empty", EMPTY.getDescription());
+		assertEquals("EmptySource", EMPTY.toString());
+	}
+
+	@Deprecated // OK: testing deprecated API
+	@Test public void testDeprecated()
+	{
+		assertSame(Properties.EMPTY_SOURCE, EMPTY);
 	}
 }

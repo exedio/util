@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
 import static org.junit.Assert.assertEquals;
@@ -117,7 +116,7 @@ public class CascadeSourceTest
 
 	@Test public void empty()
 	{
-		assertSame(EMPTY_SOURCE, cascade());
+		assertSame(Sources.EMPTY, cascade());
 	}
 
 	@Test public void singleton()

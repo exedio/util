@@ -458,7 +458,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("properties", e.getMessage());
 		}
-		new Pool<Pooled>(f, PoolProperties.factory(50).create(Properties.EMPTY_SOURCE), null);
+		new Pool<Pooled>(f, PoolProperties.factory(50).create(Sources.EMPTY), null);
 	}
 
 	static class Factory implements Pool.Factory<Pooled>
