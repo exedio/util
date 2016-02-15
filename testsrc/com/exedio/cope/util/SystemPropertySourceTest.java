@@ -59,6 +59,7 @@ public class SystemPropertySourceTest extends CopeAssert
 	@Test public void testDeprecated()
 	{
 		assertSame(SYSTEM_PROPERTIES, Properties.getSystemPropertySource());
+		assertSame(SYSTEM_PROPERTIES, Properties.getSystemPropertyContext());
 		assertSame(SYSTEM_PROPERTIES, Properties.SYSTEM_PROPERTY_SOURCE);
 	}
 }

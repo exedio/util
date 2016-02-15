@@ -986,16 +986,16 @@ public class Properties
 	@Deprecated
 	public static final Source getSystemPropertySource()
 	{
-		return SYSTEM_PROPERTY_SOURCE;
+		return Sources.SYSTEM_PROPERTIES;
 	}
 
 	/**
-	 * @deprecated Use {@link #getSystemPropertySource()} instead
+	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
 	 */
 	@Deprecated
 	public static final Source getSystemPropertyContext()
 	{
-		return getSystemPropertySource();
+		return Sources.SYSTEM_PROPERTIES;
 	}
 
 	/**
