@@ -39,9 +39,9 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 	IllegalPropertiesException(final String prefix, final String sourceDescription, final IllegalPropertiesException cause)
 	{
 		super(cause);
-		this.key = requireNonNull(prefix + cause.key, "key");
+		this.key = prefix + cause.key;
 		this.sourceDescription = sourceDescription;
-		this.detail = requireNonNull(cause.detail, "detail");
+		this.detail = cause.detail;
 	}
 
 	public String getKey()
