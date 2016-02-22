@@ -21,7 +21,6 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
-import static com.exedio.cope.junit.CopeAssert.map;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
@@ -55,8 +53,6 @@ public class PropertiesTest
 		final Day dayMandatory = value("dayMandatory", (Day) null);
 		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
 		final File file = valueFile("file");
-		@SuppressWarnings("deprecation")
-		final MapField map = fieldMap("map");
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
@@ -91,7 +87,6 @@ public class PropertiesTest
 					dayMandatoryF,
 					dayOptionalF,
 					fileF,
-					map
 			}), getFields());
 
 			assertEquals("boolFalse", boolFalseF.getKey());
@@ -102,7 +97,6 @@ public class PropertiesTest
 			assertEquals("stringHidden", stringHiddenF.getKey());
 			assertEquals("stringHiddenOptional", stringHiddenOptionalF.getKey());
 			assertEquals("file", fileF.getKey());
-			assertEquals("map", map.getKey());
 			assertEquals("dayMandatory", dayMandatoryF.getKey());
 			assertEquals("dayOptional", dayOptionalF.getKey());
 
@@ -115,7 +109,6 @@ public class PropertiesTest
 			assertEquals(null, stringHiddenF.getDefaultValue());
 			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValue());
 			assertEquals(null, fileF.getDefaultValue());
-			assertEquals(null, map.getDefaultValue());
 			assertEquals(null, dayMandatoryF.getDefaultValue());
 			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
 
@@ -127,7 +120,6 @@ public class PropertiesTest
 			assertEquals(true, stringHiddenF.hasHiddenValue());
 			assertEquals(true, stringHiddenOptionalF.hasHiddenValue());
 			assertEquals(false, fileF.hasHiddenValue());
-			assertEquals(false, map.hasHiddenValue());
 			assertEquals(false, dayMandatoryF.hasHiddenValue());
 			assertEquals(false, dayOptionalF.hasHiddenValue());
 		}
@@ -163,10 +155,6 @@ public class PropertiesTest
 		assertEquals(new File("file.minimalValue"), minimal.file);
 		assertEquals(new File("file.minimalValue"), minimal.fileF.get());
 		assertEquals(new File("file.minimalValue"), minimal.fileF.getValue());
-		assertEqualsUnmodifiable(map(), minimal.map.get());
-		assertEquals(new java.util.Properties(), mapValue(minimal.map));
-		assertEqualsUnmodifiable(map(), (Map<?,?>)minimal.map.getValue());
-		assertEquals(null, minimal.map.get("explicitKey1"));
 		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
 		assertEquals(new Day(1009,7,13), minimal.dayOptional);
 		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.getValue());
@@ -182,7 +170,6 @@ public class PropertiesTest
 		assertEquals(true, minimal.stringHiddenF.isSpecified());
 		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
 		assertEquals(true, minimal.fileF.isSpecified());
-		assertEquals(false, minimal.map.isSpecified());
 		assertEquals(true, minimal.dayMandatoryF.isSpecified());
 		assertEquals(false, minimal.dayOptionalF.isSpecified());
 
@@ -213,8 +200,6 @@ public class PropertiesTest
 			p.setProperty("stringHidden", "stringHidden.explicitValue");
 			p.setProperty("stringHiddenOptional", "stringHiddenOptional.explicitValue");
 			p.setProperty("file", file1.getPath());
-			p.setProperty("map.explicitKey1", "map.explicitValue1");
-			p.setProperty("map.explicitKey2", "map.explicitValue2");
 			p.setProperty("dayMandatory", "2000-11-4");
 			p.setProperty("dayOptional", "2001-3-31");
 
@@ -244,17 +229,6 @@ public class PropertiesTest
 			assertEquals(new Day(2001,3,31), tp.dayOptionalF.get());
 			assertEquals(file1, tp.fileF.get());
 			assertEquals(file1, tp.fileF.getValue());
-			final java.util.Properties mapExpected = new java.util.Properties();
-			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
-			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
-			assertEqualsUnmodifiable(mapExpected, tp.map.get());
-			assertEquals(mapExpected, mapValue(tp.map));
-			assertEqualsUnmodifiable(
-					map("explicitKey1", "map.explicitValue1", "explicitKey2", "map.explicitValue2"),
-					(Map<?,?>)tp.map.getValue());
-			assertEquals("map.explicitValue1", tp.map.get("explicitKey1"));
-			assertEquals("map.explicitValue2", tp.map.get("explicitKey2"));
-			assertEquals(null, tp.map.get("explicitKeyNone"));
 
 			assertEquals(true, tp.boolFalseF.isSpecified());
 			assertEquals(true, tp.boolTrueF.isSpecified());
@@ -264,7 +238,6 @@ public class PropertiesTest
 			assertEquals(true, tp.stringHiddenF.isSpecified());
 			assertEquals(true, tp.stringHiddenOptionalF.isSpecified());
 			assertEquals(true, tp.fileF.isSpecified());
-			assertEquals(false, tp.map.isSpecified()); // TODO
 			assertEquals(true, tp.dayMandatoryF.isSpecified());
 			assertEquals(true, tp.dayOptionalF.isSpecified());
 		}
@@ -290,7 +263,7 @@ public class PropertiesTest
 				"dayMandatory, " +
 				"dayOptional, " +
 				"file] " +
-				"or one starting with [map.].");
+				"or one starting with [].");
 			assertFails(() ->
 				tp.ensureValidity("otherKey"),
 				IllegalArgumentException.class,
@@ -306,7 +279,7 @@ public class PropertiesTest
 				"dayMandatory, " +
 				"dayOptional, " +
 				"file] " +
-				"or one starting with [map., otherKey].");
+				"or one starting with [otherKey].");
 		}
 
 		// boolean
@@ -457,15 +430,6 @@ public class PropertiesTest
 					" expected " + file1.getPath() + " but got " + file2.getPath() + ".",
 				"inconsistent initialization for file between inconsistent.file and minimal," +
 					" expected " + file2.getPath() + " but got " + file1.getPath() + ".");
-
-		// Map
-		assertInconsistent(pminimal,
-				"inconsistent.map",
-				"map.inconsistentKey", "map.inconsistentValue",
-				"inconsistent initialization for map between minimal and inconsistent.map," +
-					" expected {} but got {inconsistentKey=map.inconsistentValue}.",
-				"inconsistent initialization for map between inconsistent.map and minimal," +
-					" expected {inconsistentKey=map.inconsistentValue} but got {}.");
 	}
 
 	@SuppressWarnings("unused")
@@ -530,12 +494,6 @@ public class PropertiesTest
 	private static java.util.Properties copy(final java.util.Properties source)
 	{
 		return (java.util.Properties)source.clone();
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	private static java.util.Properties mapValue(final Properties.MapField mapField)
-	{
-		return mapField.mapValue();
 	}
 
 	static void assertThrowsIllegalProperties(

@@ -43,10 +43,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
@@ -806,123 +804,6 @@ public class Properties
 	}
 
 
-	/**
-	 * @deprecated MapField seems to be a bad idea and is considered for removal
-	 * @see #value(String, Factory)
-	 */
-	@Deprecated
-	protected final MapField fieldMap(final String key)
-	{
-		return new MapField(key);
-	}
-
-	public final class MapField extends Field
-	{
-		private final Map<String, String> value;
-
-		/**
-		 * @deprecated Use {@link Properties#fieldMap(String)} instead
-		 */
-		@Deprecated
-		public MapField(final String key)
-		{
-			super(true, key);
-
-			final Collection<String> keySet = source.keySet(); // TODO should not depend on keySet
-			if(keySet==null)
-			{
-				value = Collections.emptyMap();
-				return;
-			}
-
-			final LinkedHashMap<String, String> map = new LinkedHashMap<>();
-			final String prefix = key + '.';
-			final int prefixLength = prefix.length();
-			for(final String currentKey : keySet)
-			{
-				if(currentKey.startsWith(prefix))
-					map.put(currentKey.substring(prefixLength), resolve(currentKey));
-			}
-			value =
-					map.isEmpty()
-					? Collections.emptyMap()
-					: Collections.unmodifiableMap(map);
-		}
-
-		MapField(final String key, final MapField template)
-		{
-			super(false, key);
-			this.value = template.value;
-		}
-
-		@Override
-		public Object getDefaultValue()
-		{
-			return null;
-		}
-
-		@Override
-		public boolean isSpecified()
-		{
-			return false;
-		}
-
-		@Override
-		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // value is unmodifiable
-		public Object getValue()
-		{
-			return value;
-		}
-
-		/**
-		 * Never returns null.
-		 */
-		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // value is unmodifiable
-		public Map<String, String> get()
-		{
-			return value;
-		}
-
-		public String get(final String key)
-		{
-			return value.get(key);
-		}
-
-		// ------------------- deprecated stuff -------------------
-
-		/**
-		 * Never returns null.
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		@SuppressWarnings("UseOfPropertiesAsHashtable")
-		public java.util.Properties mapValue()
-		{
-			final java.util.Properties result = new java.util.Properties();
-			result.putAll(value);
-			return result;
-		}
-
-		/**
-		 * @deprecated Use {@link #get(String)} instead
-		 */
-		@Deprecated
-		public String getValue(final String key)
-		{
-			return get(key);
-		}
-
-		/**
-		 * @deprecated Use {@link #mapValue()} instead
-		 */
-		@Deprecated
-		public java.util.Properties getMapValue()
-		{
-			return mapValue();
-		}
-	}
-
-
 	protected final <E extends Enum<E>> E value(final String key, final Class<E> valueClass)
 	{
 		return value(key, valueClass, null);
@@ -1292,8 +1173,6 @@ public class Properties
 			new StringField(key, (StringField)field);
 		else if(field instanceof FileField)
 			new FileField(key, (FileField)field);
-		else if(field instanceof MapField)
-			new MapField(key, (MapField)field);
 		else
 			throw new RuntimeException(field.getClass().getName());
 	}
@@ -1316,33 +1195,14 @@ public class Properties
 
 		final TreeSet<String> result = new TreeSet<>();
 		final HashSet<String> allowedValues = new HashSet<>();
-		final ArrayList<String> allowedPrefixes = new ArrayList<>();
 
 		for(final Field field : fields)
-		{
-			if(field instanceof MapField)
-				allowedPrefixes.add(field.key+'.');
-			else
-				allowedValues.add(field.key);
-		}
+			allowedValues.add(field.key);
 
 		for(final String key : keySet)
-		{
 			if(!allowedValues.contains(key))
-			{
-				boolean error = true;
-				for(final String allowedPrefix : allowedPrefixes)
-				{
-					if(key.startsWith(allowedPrefix))
-					{
-						error = false;
-						break;
-					}
-				}
-				if(error)
-					result.add(key);
-			}
-		}
+				result.add(key);
+
 		return Collections.unmodifiableSet(result);
 	}
 
@@ -1356,12 +1216,7 @@ public class Properties
 		final ArrayList<String> allowedPrefixes = new ArrayList<>();
 
 		for(final Field field : fields)
-		{
-			if(field instanceof MapField)
-				allowedPrefixes.add(field.key+'.');
-			else
-				allowedValues.add(field.key);
-		}
+			allowedValues.add(field.key);
 
 		if(prefixes!=null)
 			allowedPrefixes.addAll(asList(prefixes));
@@ -1384,8 +1239,7 @@ public class Properties
 					// maintain order of fields lost in allowedValues
 					final ArrayList<String> allowedValueList = new ArrayList<>();
 					for(final Field field : fields)
-						if(!(field instanceof MapField))
-							allowedValueList.add(field.key);
+						allowedValueList.add(field.key);
 
 					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " is not allowed, but only one of " + allowedValueList + " or one starting with " + allowedPrefixes + '.');
 				}

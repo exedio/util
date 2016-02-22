@@ -45,8 +45,6 @@ public class PropertiesDeprecatedTest
 		final StringField stringHidden = new StringField("stringHidden", true);
 		@SuppressWarnings("deprecation")
 		final FileField file = fieldFile("file");
-		@SuppressWarnings("deprecation")
-		final MapField map = fieldMap("map");
 
 		TestProperties(final java.util.Properties source)
 		{
@@ -64,7 +62,6 @@ public class PropertiesDeprecatedTest
 					stringOptional,
 					stringHidden,
 					file,
-					map,
 			}), getFields());
 
 			assertEquals("boolFalse", boolFalse.getKey());
@@ -74,7 +71,6 @@ public class PropertiesDeprecatedTest
 			assertEquals("stringOptional", stringOptional.getKey());
 			assertEquals("stringHidden", stringHidden.getKey());
 			assertEquals("file", file.getKey());
-			assertEquals("map", map.getKey());
 
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
@@ -84,7 +80,6 @@ public class PropertiesDeprecatedTest
 			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
 			assertEquals(null, stringHidden.getDefaultValue());
 			assertEquals(null, file.getDefaultValue());
-			assertEquals(null, map.getDefaultValue());
 
 			assertEquals(false, boolFalse.hasHiddenValue());
 			assertEquals(false, boolTrue.hasHiddenValue());
@@ -93,7 +88,6 @@ public class PropertiesDeprecatedTest
 			assertEquals(false, stringOptional.hasHiddenValue());
 			assertEquals(true, stringHidden.hasHiddenValue());
 			assertEquals(false, file.hasHiddenValue());
-			assertEquals(false, map.hasHiddenValue());
 		}
 
 		@SuppressWarnings("deprecation")
