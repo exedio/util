@@ -173,17 +173,17 @@ public class Properties
 
 		public abstract Object getDefaultValue();
 
-		/**
-		 * Never returns null.
-		 */
-		public abstract Object getValue();
-
-		public abstract boolean isSpecified();
-
 		public boolean hasHiddenValue()
 		{
 			return false;
 		}
+
+		public abstract boolean isSpecified();
+
+		/**
+		 * Never returns null.
+		 */
+		public abstract Object getValue();
 	}
 
 
@@ -215,17 +215,17 @@ public class Properties
 			final String s = resolve(key);
 			if(s==null)
 			{
-				this.specified = false;
-				this.value = defaultValue;
+				specified = false;
+				value = defaultValue;
 			}
 			else
 			{
-				this.specified = true;
+				specified = true;
 
 				if(s.equals("true"))
-					this.value = true;
+					value = true;
 				else if(s.equals("false"))
-					this.value = false;
+					value = false;
 				else
 					throw newException(key,
 							"must be either 'true' or 'false', " +
@@ -423,9 +423,9 @@ public class Properties
 
 	public final class DayField extends Field
 	{
+		private final Day defaultValue;
 		private final boolean specified;
 		private final Day value;
-		private final Day defaultValue;
 
 		DayField(final String key, final Day defaultValue)
 		{
@@ -438,6 +438,7 @@ public class Properties
 				if(defaultValue==null)
 					throw newException(key,
 							"must be specified as there is no default");
+
 				specified = false;
 				value = defaultValue;
 			}
@@ -555,18 +556,17 @@ public class Properties
 			final String s = resolve(key);
 			if(s==null)
 			{
-				this.specified = false;
-
 				if(defaultValue==null)
 					throw newException(key,
 							"must be specified as there is no default");
-				else
-					this.value = defaultValue;
+
+				specified = false;
+				value = defaultValue;
 			}
 			else
 			{
-				this.specified = true;
-				this.value = s;
+				specified = true;
+				value = s;
 			}
 		}
 
@@ -583,6 +583,12 @@ public class Properties
 		public Object getDefaultValue()
 		{
 			return defaultValue;
+		}
+
+		@Override
+		public boolean hasHiddenValue()
+		{
+			return hideValue;
 		}
 
 		@Override
@@ -603,12 +609,6 @@ public class Properties
 		public String get()
 		{
 			return value;
-		}
-
-		@Override
-		public boolean hasHiddenValue()
-		{
-			return hideValue;
 		}
 
 		// ------------------- deprecated stuff -------------------
@@ -661,11 +661,10 @@ public class Properties
 			super(true, key);
 
 			final String s = resolve(key);
-
 			if(s==null)
 				throw newException(key, "must be specified");
 
-			this.value = new File(s);
+			value = new File(s);
 		}
 
 		FileField(final String key, final FileField template)
@@ -698,12 +697,6 @@ public class Properties
 		public File get()
 		{
 			return value;
-		}
-
-		@Override
-		public boolean hasHiddenValue()
-		{
-			return false;
 		}
 
 		// ------------------- deprecated stuff -------------------
