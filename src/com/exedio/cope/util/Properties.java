@@ -837,6 +837,31 @@ public class Properties
 	}
 
 
+	protected final <E extends Enum<E>> E value(final String key, final Class<E> valueClass)
+	{
+		return value(key, valueClass, null);
+	}
+
+	protected final <E extends Enum<E>> E value(final String key, final E defaultValue)
+	{
+		return value(key, defaultValue.getDeclaringClass(), defaultValue.name());
+	}
+
+	private <E extends Enum<E>> E value(
+			final String key,
+			final Class<E> valueClass,
+			final String defaultName)
+	{
+		final String value = value(key, defaultName);
+		for(final E result : valueClass.getEnumConstants())
+			if(value.equals(result.name()))
+				return result;
+		throw newException(key,
+				"must be one of " + Arrays.asList(valueClass.getEnumConstants()) + ", " +
+				"but was '" + value + '\'');
+	}
+
+
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();
