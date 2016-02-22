@@ -26,7 +26,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -728,7 +730,7 @@ public class Properties
 
 	public final class MapField extends Field
 	{
-		private final java.util.Properties value;
+		private final Map<String, String> value;
 
 		/**
 		 * @deprecated Use {@link Properties#fieldMap(String)} instead
@@ -738,19 +740,25 @@ public class Properties
 		{
 			super(true, key);
 
-			value = new java.util.Properties();
-
 			final Collection<String> keySet = source.keySet(); // TODO should not depend on keySet
 			if(keySet==null)
+			{
+				value = Collections.<String, String>emptyMap();
 				return;
+			}
 
+			final LinkedHashMap<String, String> map = new LinkedHashMap<>();
 			final String prefix = key + '.';
 			final int prefixLength = prefix.length();
 			for(final String currentKey : keySet)
 			{
 				if(currentKey.startsWith(prefix))
-					value.put(currentKey.substring(prefixLength), resolve(currentKey));
+					map.put(currentKey.substring(prefixLength), resolve(currentKey));
 			}
+			value =
+					map.isEmpty()
+					? Collections.<String, String>emptyMap()
+					: Collections.unmodifiableMap(map);
 		}
 
 		MapField(final String key, final MapField template)
@@ -780,14 +788,26 @@ public class Properties
 		/**
 		 * Never returns null.
 		 */
-		public java.util.Properties mapValue()
+		public Map<String, String> get()
 		{
 			return value;
 		}
 
+		/**
+		 * Never returns null.
+		 * @deprecated Use {@link #get()} instead
+		 */
+		@Deprecated
+		public java.util.Properties mapValue()
+		{
+			final java.util.Properties result = new java.util.Properties();
+			result.putAll(value);
+			return result;
+		}
+
 		public String getValue(final String key)
 		{
-			return value.getProperty(key);
+			return value.get(key);
 		}
 
 		// ------------------- deprecated stuff -------------------

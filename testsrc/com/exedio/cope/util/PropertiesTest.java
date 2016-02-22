@@ -27,6 +27,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -159,8 +160,9 @@ public class PropertiesTest extends CopeAssert
 		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptionalF.getValue());
 		assertEquals(new File("file.minimalValue"), minimal.file.get());
 		assertEquals(new File("file.minimalValue"), minimal.file.getValue());
+		assertEqualsUnmodifiable(map(), minimal.map.get());
 		assertEquals(new java.util.Properties(), minimal.map.mapValue());
-		assertEquals(new java.util.Properties(), minimal.map.getValue());
+		assertEqualsUnmodifiable(map(), (Map<?,?>)minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
 		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
 		assertEquals(new Day(1009,7,13), minimal.dayOptional);
@@ -233,8 +235,11 @@ public class PropertiesTest extends CopeAssert
 			final java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
+			assertEqualsUnmodifiable(mapExpected, tp.map.get());
 			assertEquals(mapExpected, tp.map.mapValue());
-			assertEquals(mapExpected, tp.map.getValue());
+			assertEqualsUnmodifiable(
+					map("explicitKey1", "map.explicitValue1", "explicitKey2", "map.explicitValue2"),
+					(Map<?,?>)tp.map.getValue());
 			assertEquals("map.explicitValue1", tp.map.getValue("explicitKey1"));
 			assertEquals("map.explicitValue2", tp.map.getValue("explicitKey2"));
 			assertEquals(null, tp.map.getValue("explicitKeyNone"));
