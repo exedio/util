@@ -161,7 +161,7 @@ public class PropertiesTest extends CopeAssert
 		assertEquals(new File("file.minimalValue"), minimal.file.get());
 		assertEquals(new File("file.minimalValue"), minimal.file.getValue());
 		assertEqualsUnmodifiable(map(), minimal.map.get());
-		assertEquals(new java.util.Properties(), minimal.map.mapValue());
+		assertEquals(new java.util.Properties(), mapValue(minimal.map));
 		assertEqualsUnmodifiable(map(), (Map<?,?>)minimal.map.getValue());
 		assertEquals(null, minimal.map.getValue("explicitKey1"));
 		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
@@ -236,7 +236,7 @@ public class PropertiesTest extends CopeAssert
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
 			assertEqualsUnmodifiable(mapExpected, tp.map.get());
-			assertEquals(mapExpected, tp.map.mapValue());
+			assertEquals(mapExpected, mapValue(tp.map));
 			assertEqualsUnmodifiable(
 					map("explicitKey1", "map.explicitValue1", "explicitKey2", "map.explicitValue2"),
 					(Map<?,?>)tp.map.getValue());
@@ -548,5 +548,11 @@ public class PropertiesTest extends CopeAssert
 	private static final java.util.Properties copy(final java.util.Properties source)
 	{
 		return (java.util.Properties)source.clone();
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	private static java.util.Properties mapValue(final Properties.MapField mapField)
+	{
+		return mapField.mapValue();
 	}
 }
