@@ -279,6 +279,28 @@ public class PropertiesTest extends CopeAssert
 						"file] " +
 						"or one starting with [map.].", e.getMessage());
 			}
+			try
+			{
+				tp.ensureValidity("otherKey");
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals(
+						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
+						"boolFalse, " +
+						"boolTrue, " +
+						"intAny, " +
+						"int10, " +
+						"stringMandatory, " +
+						"stringOptional, " +
+						"stringHidden, " +
+						"stringHiddenOptional, " +
+						"dayMandatory, " +
+						"dayOptional, " +
+						"file] " +
+						"or one starting with [map., otherKey].", e.getMessage());
+			}
 		}
 
 		// boolean
