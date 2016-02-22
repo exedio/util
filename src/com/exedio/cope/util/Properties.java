@@ -147,12 +147,10 @@ public class Properties
 	public abstract class Field
 	{
 		final String key;
-		private final boolean specified;
 
 		Field(final boolean top, final String key)
 		{
 			this.key = key;
-			this.specified = source.get(key)!=null;
 
 			if(key==null)
 				throw new NullPointerException("key");
@@ -180,10 +178,7 @@ public class Properties
 		 */
 		public abstract Object getValue();
 
-		public final boolean isSpecified()
-		{
-			return specified;
-		}
+		public abstract boolean isSpecified();
 
 		public boolean hasHiddenValue()
 		{
@@ -205,6 +200,7 @@ public class Properties
 	public final class BooleanField extends Field
 	{
 		private final boolean defaultValue;
+		private final boolean specified;
 		private final boolean value;
 
 		/**
@@ -218,9 +214,14 @@ public class Properties
 
 			final String s = resolve(key);
 			if(s==null)
+			{
+				this.specified = false;
 				this.value = defaultValue;
+			}
 			else
 			{
+				this.specified = true;
+
 				if(s.equals("true"))
 					this.value = true;
 				else if(s.equals("false"))
@@ -236,6 +237,7 @@ public class Properties
 		{
 			super(false, key);
 			this.defaultValue = template.defaultValue;
+			this.specified = template.specified;
 			this.value = template.value;
 		}
 
@@ -243,6 +245,12 @@ public class Properties
 		public Object getDefaultValue()
 		{
 			return Boolean.valueOf(defaultValue);
+		}
+
+		@Override
+		public boolean isSpecified()
+		{
+			return specified;
 		}
 
 		@Override
@@ -291,6 +299,7 @@ public class Properties
 	public final class IntField extends Field
 	{
 		private final int defaultValue;
+		private final boolean specified;
 		private final int value;
 		private final int minimum;
 
@@ -309,9 +318,14 @@ public class Properties
 
 			final String s = resolve(key);
 			if(s==null)
+			{
+				specified = false;
 				value = defaultValue;
+			}
 			else
 			{
+				specified = true;
+
 				try
 				{
 					value = Integer.parseInt(s);
@@ -342,6 +356,7 @@ public class Properties
 		{
 			super(false, key);
 			this.defaultValue = template.defaultValue;
+			this.specified = template.specified;
 			this.value = template.value;
 			this.minimum = template.minimum;
 		}
@@ -350,6 +365,12 @@ public class Properties
 		public Object getDefaultValue()
 		{
 			return Integer.valueOf(defaultValue);
+		}
+
+		@Override
+		public boolean isSpecified()
+		{
+			return specified;
 		}
 
 		@Override
@@ -402,6 +423,7 @@ public class Properties
 
 	public final class DayField extends Field
 	{
+		private final boolean specified;
 		private final Day value;
 		private final Day defaultValue;
 
@@ -416,10 +438,12 @@ public class Properties
 				if(defaultValue==null)
 					throw newException(key,
 							"must be specified as there is no default");
+				specified = false;
 				value = defaultValue;
 			}
 			else
 			{
+				specified = true;
 				try
 				{
 					final Matcher matcher = DAY_PATTERN.matcher(s);
@@ -446,6 +470,7 @@ public class Properties
 		{
 			super(false, key);
 			this.defaultValue = template.defaultValue;
+			this.specified = template.specified;
 			this.value = template.value;
 		}
 
@@ -453,6 +478,12 @@ public class Properties
 		public Day getDefaultValue()
 		{
 			return defaultValue;
+		}
+
+		@Override
+		public boolean isSpecified()
+		{
+			return specified;
 		}
 
 		@Override
@@ -490,6 +521,7 @@ public class Properties
 	{
 		private final String defaultValue;
 		private final boolean hideValue;
+		private final boolean specified;
 		private final String value;
 
 		/**
@@ -523,6 +555,8 @@ public class Properties
 			final String s = resolve(key);
 			if(s==null)
 			{
+				this.specified = false;
+
 				if(defaultValue==null)
 					throw newException(key,
 							"must be specified as there is no default");
@@ -530,7 +564,10 @@ public class Properties
 					this.value = defaultValue;
 			}
 			else
+			{
+				this.specified = true;
 				this.value = s;
+			}
 		}
 
 		StringField(final String key, final StringField template)
@@ -538,6 +575,7 @@ public class Properties
 			super(false, key);
 			this.defaultValue = template.defaultValue;
 			this.hideValue = template.hideValue;
+			this.specified = template.specified;
 			this.value = template.value;
 		}
 
@@ -545,6 +583,12 @@ public class Properties
 		public Object getDefaultValue()
 		{
 			return defaultValue;
+		}
+
+		@Override
+		public boolean isSpecified()
+		{
+			return specified;
 		}
 
 		@Override
@@ -637,6 +681,12 @@ public class Properties
 		}
 
 		@Override
+		public boolean isSpecified()
+		{
+			return true;
+		}
+
+		@Override
 		public File getValue()
 		{
 			return value;
@@ -720,6 +770,12 @@ public class Properties
 		public Object getDefaultValue()
 		{
 			return null;
+		}
+
+		@Override
+		public boolean isSpecified()
+		{
+			return false;
 		}
 
 		@Override
