@@ -54,6 +54,7 @@ public class PropertiesTest extends CopeAssert
 		final Day dayMandatory = value("dayMandatory", (Day) null);
 		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
 		final FileField file = fieldFile("file");
+		@SuppressWarnings("deprecation")
 		final MapField map = fieldMap("map");
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)

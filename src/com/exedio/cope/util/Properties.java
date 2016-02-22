@@ -723,6 +723,11 @@ public class Properties
 	}
 
 
+	/**
+	 * @deprecated MapField seems to be a bad idea and is considered for removal
+	 * @see #value(String, Factory)
+	 */
+	@Deprecated
 	protected final MapField fieldMap(final String key)
 	{
 		return new MapField(key);
