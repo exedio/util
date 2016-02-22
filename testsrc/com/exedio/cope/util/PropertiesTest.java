@@ -131,8 +131,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unused")
-	@Test public final void testIt() throws IOException
+	@Test public void testIt() throws IOException
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -466,7 +465,11 @@ public class PropertiesTest extends CopeAssert
 					" expected {} but got {inconsistentKey=map.inconsistentValue}.",
 				"inconsistent initialization for map between inconsistent.map and minimal," +
 					" expected {inconsistentKey=map.inconsistentValue} but got {}.");
+	}
 
+	@SuppressWarnings("unused")
+	@Test public void testSourceNull()
+	{
 		try
 		{
 			new Properties((Properties.Source)null);
