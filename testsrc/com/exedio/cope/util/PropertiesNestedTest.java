@@ -223,6 +223,13 @@ public class PropertiesNestedTest extends CopeAssert
 		drinner.assertIt();
 		assertEquals(11, drinner.drinner1);
 		assertEquals(12, drinner.drinner2);
+
+		assertEquals(false, outer.outer1F.isSpecified());
+		assertEquals(false, outer.outer2F.isSpecified());
+		assertEquals(false, outer.nestedInner1.isSpecified());
+		assertEquals(false, outer.nestedInner2.isSpecified());
+		assertEquals(false, outer.nestedDrinner1.isSpecified());
+		assertEquals(false, outer.nestedDrinner2.isSpecified());
 	}
 
 	@Test public void testSet()
@@ -252,6 +259,13 @@ public class PropertiesNestedTest extends CopeAssert
 		drinner.assertIt();
 		assertEquals(19, drinner.drinner1);
 		assertEquals(12, drinner.drinner2);
+
+		assertEquals(true,  outer.outer1F.isSpecified());
+		assertEquals(false, outer.outer2F.isSpecified());
+		assertEquals(true,  outer.nestedInner1.isSpecified());
+		assertEquals(false, outer.nestedInner2.isSpecified());
+		assertEquals(true,  outer.nestedDrinner1.isSpecified());
+		assertEquals(false, outer.nestedDrinner2.isSpecified());
 	}
 
 	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
