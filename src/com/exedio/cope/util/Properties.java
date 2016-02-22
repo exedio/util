@@ -805,7 +805,16 @@ public class Properties
 			return result;
 		}
 
+		/**
+		 * @deprecated Use {@link #get(String)} instead
+		 */
+		@Deprecated
 		public String getValue(final String key)
+		{
+			return get(key);
+		}
+
+		public String get(final String key)
 		{
 			return value.get(key);
 		}

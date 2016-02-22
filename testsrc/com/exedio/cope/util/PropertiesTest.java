@@ -163,7 +163,7 @@ public class PropertiesTest extends CopeAssert
 		assertEqualsUnmodifiable(map(), minimal.map.get());
 		assertEquals(new java.util.Properties(), mapValue(minimal.map));
 		assertEqualsUnmodifiable(map(), (Map<?,?>)minimal.map.getValue());
-		assertEquals(null, minimal.map.getValue("explicitKey1"));
+		assertEquals(null, minimal.map.get("explicitKey1"));
 		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
 		assertEquals(new Day(1009,7,13), minimal.dayOptional);
 		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.getValue());
@@ -240,9 +240,9 @@ public class PropertiesTest extends CopeAssert
 			assertEqualsUnmodifiable(
 					map("explicitKey1", "map.explicitValue1", "explicitKey2", "map.explicitValue2"),
 					(Map<?,?>)tp.map.getValue());
-			assertEquals("map.explicitValue1", tp.map.getValue("explicitKey1"));
-			assertEquals("map.explicitValue2", tp.map.getValue("explicitKey2"));
-			assertEquals(null, tp.map.getValue("explicitKeyNone"));
+			assertEquals("map.explicitValue1", tp.map.get("explicitKey1"));
+			assertEquals("map.explicitValue2", tp.map.get("explicitKey2"));
+			assertEquals(null, tp.map.get("explicitKeyNone"));
 
 			assertEquals(true, tp.boolFalseF.isSpecified());
 			assertEquals(true, tp.boolTrueF.isSpecified());
