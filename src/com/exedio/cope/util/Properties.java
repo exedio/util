@@ -793,6 +793,13 @@ public class Properties
 			return value;
 		}
 
+		public String get(final String key)
+		{
+			return value.get(key);
+		}
+
+		// ------------------- deprecated stuff -------------------
+
 		/**
 		 * Never returns null.
 		 * @deprecated Use {@link #get()} instead
@@ -813,13 +820,6 @@ public class Properties
 		{
 			return get(key);
 		}
-
-		public String get(final String key)
-		{
-			return value.get(key);
-		}
-
-		// ------------------- deprecated stuff -------------------
 
 		/**
 		 * @deprecated Use {@link #mapValue()} instead
