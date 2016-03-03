@@ -68,10 +68,10 @@ public final class Day implements Serializable, Comparable<Day>
 	private final int month;
 	private final int day;
 
-   /**
-    * Creates a new <tt>Day</tt> object,
-    * that represents today.
-    */
+	/**
+	 * Creates a new <tt>Day</tt> object,
+	 * that represents today.
+	 */
 	public Day(final TimeZone zone)
 	{
 		this(Clock.currentTimeMillis(), zone);
