@@ -67,7 +67,7 @@ public final class Sources
 		}
 	}
 
-	public static final Source view(final Properties properties, final String description)
+	public static Source view(final Properties properties, final String description)
 	{
 		return new Source(){
 			@Override
@@ -100,13 +100,13 @@ public final class Sources
 		};
 	}
 
-	public static final Source load(final File file)
+	public static Source load(final File file)
 	{
 		return view(loadProperties(file), file.getAbsolutePath());
 	}
 
 	@SuppressWarnings("resource") // OK: closed by loadPropertiesAndClose
-	public static final Properties loadProperties(final File file)
+	public static Properties loadProperties(final File file)
 	{
 		try
 		{
@@ -118,7 +118,7 @@ public final class Sources
 		}
 	}
 
-	public static final Source load(final URL url)
+	public static Source load(final URL url)
 	{
 		try
 		{
