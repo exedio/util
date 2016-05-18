@@ -1,4 +1,5 @@
 job-jenkins:
   script:
+  - "docker images"
   - "gem install ant"
   - "ant clean jenkins"
