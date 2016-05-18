@@ -1,4 +1,4 @@
 job-jenkins:
-  image: java:1.8
+  image: java:openjdk-8-jdk
   script:
   - "ant clean jenkins"
