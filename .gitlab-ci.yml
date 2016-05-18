@@ -1,2 +1,4 @@
 job-jenkins:
-  script: "ant clean jenkins"
+  script:
+  - "gem install ant"
+  - "ant clean jenkins"
