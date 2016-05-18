@@ -1,5 +1,4 @@
 job-jenkins:
+  image: java:1.8
   script:
-  - "docker images"
-  - "gem install ant"
   - "ant clean jenkins"
