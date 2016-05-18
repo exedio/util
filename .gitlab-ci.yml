@@ -1,0 +1,2 @@
+job-jenkins:
+  script: "ant clean jenkins"
