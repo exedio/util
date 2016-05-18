@@ -1,4 +1,5 @@
 job-jenkins:
   image: java:openjdk-8-jdk
   script:
+  - "sudo apt-get install ant"
   - "ant clean jenkins"
