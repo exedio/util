@@ -1,5 +1,7 @@
 job-jenkins:
   image: java:openjdk-8-jdk
   script:
-  - "gem install ant"
+  - "java -version"
+  - "convert -version"
+  - "ant -version"
   - "ant clean jenkins"
