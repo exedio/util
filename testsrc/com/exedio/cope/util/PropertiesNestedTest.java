@@ -97,13 +97,7 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		static Factory<Inner> factory()
 		{
-			return new Factory<Inner>()
-			{
-				@Override public Inner create(final Source source)
-				{
-					return new Inner(source);
-				}
-			};
+			return source -> new Inner(source);
 		}
 
 		final int inner1 = value("inner1", 101, 51);
@@ -112,7 +106,7 @@ public class PropertiesNestedTest extends CopeAssert
 		final IntField nestedDrinner1 = (IntField)forKey("nestedI.drinner1");
 		final IntField nestedDrinner2 = (IntField)forKey("nestedI.drinner2");
 
-		Inner(final Source source)
+		private Inner(final Source source)
 		{
 			super(source);
 		}
@@ -157,19 +151,13 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		static Factory<Drinner> factory()
 		{
-			return new Factory<Drinner>()
-			{
-				@Override public Drinner create(final Source source)
-				{
-					return new Drinner(source);
-				}
-			};
+			return source -> new Drinner(source);
 		}
 
 		final int drinner1 = value("drinner1", 11, 1);
 		final int drinner2 = value("drinner2", 12, 2);
 
-		Drinner(final Source source)
+		private Drinner(final Source source)
 		{
 			super(source);
 		}

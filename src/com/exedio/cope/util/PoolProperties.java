@@ -25,15 +25,7 @@ public final class PoolProperties extends Properties
 
 	public static Factory<PoolProperties> factory(final int idleLimitDefault)
 	{
-		return new Factory<PoolProperties>()
-		{
-			@Override
-			@SuppressWarnings("synthetic-access")
-			public PoolProperties create(final Source source)
-			{
-				return new PoolProperties(source, idleLimitDefault);
-			}
-		};
+		return source -> new PoolProperties(source, idleLimitDefault);
 	}
 
 	private PoolProperties(final Source source, final int idleLimitDefault)

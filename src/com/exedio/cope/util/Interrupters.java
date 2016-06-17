@@ -26,23 +26,7 @@ public final class Interrupters
 	 * @deprecated Use {@link JobContexts#EMPTY} instead.
 	 */
 	@Deprecated
-	public static final Interrupter VAIN_INTERRUPTER = new Vain();
-
-	@Deprecated
-	private static final class Vain implements Interrupter
-	{
-		@Override
-		@Deprecated // needed for jdk 1.5
-		public boolean isRequested()
-		{
-			return false;
-		}
-
-		Vain()
-		{
-			// make constructor non-private
-		}
-	}
+	public static final Interrupter VAIN_INTERRUPTER = () -> false;
 
 
 	// iterator ---------------

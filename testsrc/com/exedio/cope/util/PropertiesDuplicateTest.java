@@ -64,14 +64,8 @@ public class PropertiesDuplicateTest extends CopeAssert
 		}
 	}
 
-	static final Properties.Factory<Nested> factory = new Properties.Factory<Nested>()
-	{
-		@Override
-		public Nested create(final Properties.Source source)
-		{
-			return new Nested(source);
-		}
-	};
+	static final Properties.Factory<Nested> factory =
+			source -> new Nested(source);
 
 	@SuppressWarnings("unused")
 	@Test public void testSimpleNestedEquals()

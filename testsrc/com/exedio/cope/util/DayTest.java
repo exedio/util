@@ -339,12 +339,7 @@ public class DayTest extends CopeAssert
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test public void currentDay()
 	{
-		clock.override(new Clock.Strategy(){
-			@Override public long currentTimeMillis()
-			{
-				return new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT"));
-			}
-		});
+		clock.override(() -> new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT")));
 		assertEquals(new Day(1986, 4, 26), new Day(getTimeZone("Etc/GMT")));
 	}
 }

@@ -59,14 +59,10 @@ public class InterruptersIteratorTest extends CopeAssert
 		}
 	};
 
-	private static final Interrupter INTERRUPTER_FAIL = new Interrupter()
-	{
-		@Override
-		public boolean isRequested()
+	private static final Interrupter INTERRUPTER_FAIL = () ->
 		{
 			throw new RuntimeException();
-		}
-	};
+		};
 
 	@Test public void testFail()
 	{

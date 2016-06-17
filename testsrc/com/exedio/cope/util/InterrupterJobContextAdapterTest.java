@@ -21,7 +21,6 @@ package com.exedio.cope.util;
 import static junit.framework.Assert.assertEquals;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
@@ -49,8 +48,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 
 	@Test public void testSupports()
 	{
-		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
-			@Override public void run(final JobContext ctx)
+		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
 			{
 				assertEquals(false, ctx.supportsMessage());
 				assertEquals(true,  ctx.supportsProgress());
@@ -58,12 +56,11 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 				ctx.setMessage("hallo");
 				ctx.setCompleteness(0.5);
 			}
-		}));
+		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
 
-		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			@Override public void run(final JobContext ctx)
+		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, ctx ->
 			{
 				assertEquals(false, ctx.supportsMessage());
 				assertEquals(true,  ctx.supportsProgress());
@@ -71,22 +68,20 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 				ctx.setMessage("hallo");
 				ctx.setCompleteness(0.5);
 			}
-		}));
+		));
 	}
 
 	@Test public void testStopIfRequested()
 	{
-		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
-			@Override public void run(final JobContext ctx)
+		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
 			{
 				ctx.stopIfRequested();
 			}
-		}));
+		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
 
-		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			@Override public void run(final JobContext ctx)
+		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, ctx ->
 			{
 				assertEquals(0, interruptor.isRequestedCount);
 				ctx.stopIfRequested();
@@ -94,22 +89,20 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 				ctx.stopIfRequested();
 				assertEquals(2, interruptor.isRequestedCount);
 			}
-		}));
+		));
 	}
 
 	@Test public void testRequestedToStop()
 	{
-		assertEquals(0, InterrupterJobContextAdapter.run(null, new Body(){
-			@Override public void run(final JobContext ctx)
+		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
 			{
 				assertEquals(false, ctx.requestedToStop());
 			}
-		}));
+		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
 
-		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			@Override public void run(final JobContext ctx)
+		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, ctx ->
 			{
 				assertEquals(0, interruptor.isRequestedCount);
 				assertEquals(false, ctx.requestedToStop());
@@ -117,44 +110,32 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 				assertEquals(false, ctx.requestedToStop());
 				assertEquals(2, interruptor.isRequestedCount);
 			}
-		}));
+		));
 	}
 
 	@Test public void testProgress()
 	{
-		assertEquals(1, InterrupterJobContextAdapter.run(null, new Body(){
-			@Override public void run(final JobContext ctx)
-			{
-				ctx.incrementProgress();
-			}
-		}));
+		assertEquals(1, InterrupterJobContextAdapter.run(null,
+				ctx -> ctx.incrementProgress()
+		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
 
-		assertEquals(1, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			@Override public void run(final JobContext ctx)
-			{
-				ctx.incrementProgress();
-			}
-		}));
+		assertEquals(1, InterrupterJobContextAdapter.run(interruptor,
+				ctx -> ctx.incrementProgress()
+		));
 	}
 
 	@Test public void testProgressDelta()
 	{
-		assertEquals(5, InterrupterJobContextAdapter.run(null, new Body(){
-			@Override public void run(final JobContext ctx)
-			{
-				ctx.incrementProgress(5);
-			}
-		}));
+		assertEquals(5, InterrupterJobContextAdapter.run(null,
+				ctx -> ctx.incrementProgress(5)
+		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
 
-		assertEquals(5, InterrupterJobContextAdapter.run(interruptor, new Body(){
-			@Override public void run(final JobContext ctx)
-			{
-				ctx.incrementProgress(5);
-			}
-		}));
+		assertEquals(5, InterrupterJobContextAdapter.run(interruptor,
+				ctx -> ctx.incrementProgress(5)
+		));
 	}
 }

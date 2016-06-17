@@ -86,16 +86,10 @@ public class PropertiesNestedTestsTest
 
 		static Factory<Inner> factory()
 		{
-			return new Factory<Inner>()
-			{
-				@Override public Inner create(final Source source)
-				{
-					return new Inner(source);
-				}
-			};
+			return source -> new Inner(source);
 		}
 
-		Inner(final Source source)
+		private Inner(final Source source)
 		{
 			super(source);
 		}
@@ -114,16 +108,10 @@ public class PropertiesNestedTestsTest
 
 		static Factory<Drinner> factory()
 		{
-			return new Factory<Drinner>()
-			{
-				@Override public Drinner create(final Source source)
-				{
-					return new Drinner(source);
-				}
-			};
+			return source -> new Drinner(source);
 		}
 
-		Drinner(final Source source)
+		private Drinner(final Source source)
 		{
 			super(source);
 		}
