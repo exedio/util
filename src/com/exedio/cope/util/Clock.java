@@ -40,6 +40,7 @@ public final class Clock
 			: System.currentTimeMillis();
 	}
 
+	@FunctionalInterface
 	public interface Strategy
 	{
 		long currentTimeMillis();

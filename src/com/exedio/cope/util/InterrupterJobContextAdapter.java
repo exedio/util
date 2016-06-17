@@ -28,6 +28,7 @@ public final class InterrupterJobContextAdapter
 		return ctx.getProgressAndClose();
 	}
 
+	@FunctionalInterface
 	public interface Body
 	{
 		void run(JobContext ctx);

@@ -877,6 +877,7 @@ public class Properties
 		return new PropertiesField<>(this, key, factory);
 	}
 
+	@FunctionalInterface
 	public static interface Factory<T extends Properties>
 	{
 		T create(Source source);

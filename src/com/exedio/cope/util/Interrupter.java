@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+@FunctionalInterface
 public interface Interrupter
 {
 	/**
