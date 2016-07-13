@@ -22,7 +22,7 @@ timestamps
 				sh "${antHome}/bin/ant -version"
 
 				stage 'Build'
-				sh "${antHome}/bin/ant clean jenkins \"-Dbuild.tag=TODO build.tag\" -Dinstrument.verify=true -Dfindbugs.output=xml -Dcobertura.output=xml"
+				sh "${antHome}/bin/ant clean jenkins \"-Dbuild.revision=TODO build.revision\" \"-Dbuild.tag=TODO build.tag\" -Dfindbugs.output=xml"
 
 				stage 'Publish'
 				step([$class: 'FindBugsPublisher', pattern: 'build/findbugs.xml', unstableTotalAll: '0'])
