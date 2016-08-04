@@ -25,7 +25,7 @@ timestamps
 				sh "${antHome}/bin/ant clean jenkins \"-Dbuild.revision=TODO build.revision\" \"-Dbuild.tag=TODO build.tag\" -Dfindbugs.output=xml"
 
 				stage 'Publish'
-				step([$class: 'FindBugsPublisher', pattern: 'build/findbugs.xml', unstableTotalAll: '0'])
+				step([$class: 'FindBugsPublisher', unstableTotalAll: '0', pattern: 'build/findbugs.xml'])
 				step([$class: 'WarningsPublisher', unstableTotalAll: '0', canComputeNew: false, canResolveRelativePaths: false, consoleParsers: [[parserName: 'Java Compiler (javac)']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''])
 				archive 'build/success/*'
 
