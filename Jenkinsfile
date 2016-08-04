@@ -26,7 +26,7 @@ timestamps
 
 				stage 'Publish'
 				step([$class: 'FindBugsPublisher', pattern: 'build/findbugs.xml', unstableTotalAll: '0'])
-				step([$class: 'WarningsPublisher', canComputeNew: false, canResolveRelativePaths: false, consoleParsers: [[parserName: 'Java Compiler (javac)']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''])
+				step([$class: 'WarningsPublisher', unstableTotalAll: '0', canComputeNew: false, canResolveRelativePaths: false, consoleParsers: [[parserName: 'Java Compiler (javac)']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''])
 				archive 'build/success/*'
 
 				if (!'SUCCESS'.equals(currentBuild.result))
