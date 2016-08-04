@@ -12,12 +12,9 @@ timestamps
 				checkout scm
 
 				stage 'Config'
-				sh "java -version"
-
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				def antHome = tool 'Ant version 1.8.2'
-
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"
 
