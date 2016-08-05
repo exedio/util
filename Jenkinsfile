@@ -32,10 +32,10 @@ timestamps
 						' BUILD_ID -${BUILD_ID}-'
 
 				stage 'Build'
-				sh "${antHome}/bin/ant clean jenkins " +
-						'"-Dbuild.revision=${BUILD_NUMBER}" ' +
-						'"-Dbuild.tag=git ${BRANCH_NAME} ${GIT_COMMIT} ${GIT_TREE} jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}" ' +
-						'-Dfindbugs.output=xml'
+				sh "${antHome}/bin/ant clean jenkins" +
+						' "-Dbuild.revision=${BUILD_NUMBER}"' +
+						' "-Dbuild.tag=git ${BRANCH_NAME} ${GIT_COMMIT} ${GIT_TREE} jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' -Dfindbugs.output=xml'
 
 				stage 'Publish'
 				step([$class: 'WarningsPublisher',
