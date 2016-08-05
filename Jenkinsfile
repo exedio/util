@@ -10,6 +10,8 @@ timestamps
 			{
 				stage 'Checkout'
 				checkout scm
+				sh 'git rev-parse HEAD > GIT_COMMIT'
+				env.GIT_COMMIT = readFile('GIT_COMMIT').trim()
 
 				stage 'Config'
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
@@ -18,6 +20,7 @@ timestamps
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"
 				sh 'echo' +
+						' GIT_COMMIT -${GIT_COMMIT}-' +
 						' BRANCH_NAME -${BRANCH_NAME}-' +
 						' CHANGE_ID -${CHANGE_ID}-' +
 						' CHANGE_URL -${CHANGE_URL}-' +
