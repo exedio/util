@@ -17,10 +17,13 @@ timestamps
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				def antHome = tool 'Ant version 1.8.2'
+				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
+
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"
 				sh 'echo' +
 						' GIT_COMMIT -${GIT_COMMIT}-' +
+						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
 						' BRANCH_NAME -${BRANCH_NAME}-' +
 						' CHANGE_ID -${CHANGE_ID}-' +
 						' CHANGE_URL -${CHANGE_URL}-' +
@@ -30,8 +33,8 @@ timestamps
 
 				stage 'Build'
 				sh "${antHome}/bin/ant clean jenkins " +
-						'"-Dbuild.revision=TODO build.revision" ' +
-						'"-Dbuild.tag=TODO build.tag" ' +
+						'"-Dbuild.revision=${BUILD_NUMBER}" ' +
+						'"-Dbuild.tag=git ${BRANCH_NAME} ${GIT_COMMIT} jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}" ' +
 						'-Dfindbugs.output=xml'
 
 				stage 'Publish'
