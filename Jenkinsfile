@@ -26,7 +26,10 @@ timestamps
 						' BUILD_ID -${BUILD_ID}-'
 
 				stage 'Build'
-				sh "${antHome}/bin/ant clean jenkins \"-Dbuild.revision=TODO build.revision\" \"-Dbuild.tag=TODO build.tag\" -Dfindbugs.output=xml"
+				sh '${antHome}/bin/ant clean jenkins ' +
+						'"-Dbuild.revision=TODO build.revision" ' +
+						'"-Dbuild.tag=TODO build.tag" ' +
+						'-Dfindbugs.output=xml'
 
 				stage 'Publish'
 				step([$class: 'WarningsPublisher', unstableTotalAll: '0', canComputeNew: false, canResolveRelativePaths: true, consoleParsers: [[parserName: 'Java Compiler (javac)']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''])
