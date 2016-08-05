@@ -28,9 +28,6 @@ timestamps
 						' GIT_TREE -${GIT_TREE}-' +
 						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
 						' BRANCH_NAME -${BRANCH_NAME}-' +
-						' CHANGE_ID -${CHANGE_ID}-' +
-						' CHANGE_URL -${CHANGE_URL}-' +
-						' CHANGE_TARGET -${CHANGE_TARGET}-' +
 						' BUILD_NUMBER -${BUILD_NUMBER}-' +
 						' BUILD_ID -${BUILD_ID}-'
 
