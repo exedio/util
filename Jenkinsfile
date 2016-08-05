@@ -26,7 +26,7 @@ timestamps
 						' BUILD_ID -${BUILD_ID}-'
 
 				stage 'Build'
-				sh '${antHome}/bin/ant clean jenkins ' +
+				sh "${antHome}/bin/ant clean jenkins " +
 						'"-Dbuild.revision=TODO build.revision" ' +
 						'"-Dbuild.tag=TODO build.tag" ' +
 						'-Dfindbugs.output=xml'
