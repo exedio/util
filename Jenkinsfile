@@ -12,6 +12,8 @@ timestamps
 				checkout scm
 				sh 'git rev-parse HEAD > GIT_COMMIT'
 				env.GIT_COMMIT = readFile('GIT_COMMIT').trim()
+				sh "git cat-file -p HEAD | grep '^tree ' | sed -e 's/^tree //' > GIT_TREE"
+				env.GIT_TREE = readFile('GIT_TREE').trim()
 
 				stage 'Config'
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
@@ -23,6 +25,7 @@ timestamps
 				sh "${antHome}/bin/ant -version"
 				sh 'echo' +
 						' GIT_COMMIT -${GIT_COMMIT}-' +
+						' GIT_TREE -${GIT_TREE}-' +
 						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
 						' BRANCH_NAME -${BRANCH_NAME}-' +
 						' CHANGE_ID -${CHANGE_ID}-' +
