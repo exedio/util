@@ -17,7 +17,13 @@ timestamps
 				def antHome = tool 'Ant version 1.8.2'
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"
-				sh 'echo BRANCH_NAME ${BRANCH_NAME} CHANGE_ID ${CHANGE_ID} CHANGE_URL ${CHANGE_URL} CHANGE_TARGET ${CHANGE_TARGET} BUILD_NUMBER ${BUILD_NUMBER} BUILD_ID ${BUILD_ID}'
+				sh 'echo' +
+						' BRANCH_NAME -${BRANCH_NAME}-' +
+						' CHANGE_ID -${CHANGE_ID}-' +
+						' CHANGE_URL -${CHANGE_URL}-' +
+						' CHANGE_TARGET -${CHANGE_TARGET}-' +
+						' BUILD_NUMBER -${BUILD_NUMBER}-' +
+						' BUILD_ID -${BUILD_ID}-'
 
 				stage 'Build'
 				sh "${antHome}/bin/ant clean jenkins \"-Dbuild.revision=TODO build.revision\" \"-Dbuild.tag=TODO build.tag\" -Dfindbugs.output=xml"
