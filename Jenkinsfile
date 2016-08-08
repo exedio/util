@@ -39,13 +39,22 @@ timestamps
 
 				stage 'Publish'
 				step([$class: 'WarningsPublisher',
-						unstableTotalAll: '0',
-						canComputeNew: false,
+						canComputeNew: true,
 						canResolveRelativePaths: true,
-						consoleParsers: [[parserName: 'Java Compiler (javac)']]])
-				step([$class: 'FindBugsPublisher',
+						consoleParsers: [[parserName: 'Java Compiler (javac)']],
+						defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: '',
 						unstableTotalAll: '0',
-						pattern: 'build/findbugs.xml'])
+						usePreviousBuildAsReference: false,
+						useStableBuildAsReference: false])
+				step([$class: 'FindBugsPublisher',
+						canComputeNew: true,
+						defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '',
+						isRankActivated: false,
+						pattern: 'build/findbugs.xml',
+						unHealthy: '',
+						unstableTotalAll: '0',
+						usePreviousBuildAsReference: false,
+						useStableBuildAsReference: false])
 				archive 'build/success/*'
 			}
 		}
