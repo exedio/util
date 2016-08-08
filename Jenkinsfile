@@ -75,9 +75,10 @@ timestamps
 					[$class: 'RequesterRecipientProvider']
 			])
 			//TODO details
-			step([$class            : 'Mailer',
+			step([$class: 'Mailer',
 					recipients: to,
-					attachLog         : true])
+					attachLog: true,
+					notifyEveryUnstableBuild: true])
 
 			if ('SUCCESS'.equals(currentBuild.result))
 			{
