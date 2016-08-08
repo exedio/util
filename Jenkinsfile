@@ -65,7 +65,7 @@ timestamps
 			])
 			//TODO details
 			step([$class            : 'Mailer',
-					recipientProviders: to,
+					recipients: to,
 					attachLog         : true])
 
 			if ('SUCCESS'.equals(currentBuild.result))
