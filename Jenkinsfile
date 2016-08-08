@@ -58,7 +58,7 @@ timestamps
 				archive 'build/success/*'
 			}
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			//todo handle script returned exit code 143
 			throw e;
@@ -80,7 +80,7 @@ timestamps
 					attachLog: true,
 					notifyEveryUnstableBuild: true])
 
-			if ('SUCCESS'.equals(currentBuild.result))
+			if('SUCCESS'.equals(currentBuild.result))
 			{
 				echo("Delete working dir after SUCCESS");
 				deleteDir()
