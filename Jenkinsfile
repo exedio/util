@@ -66,7 +66,9 @@ timestamps
 		finally
 		{
 			// because junit failure aborts ant
-			step([$class: 'JUnitResultArchiver', testResults: 'build/testresults/*.xml'])
+			step([$class: 'JUnitResultArchiver',
+					allowEmptyResults: false,
+					testResults: 'build/testresults/*.xml'])
 
 			def to = emailextrecipients([
 					[$class: 'CulpritsRecipientProvider'],
