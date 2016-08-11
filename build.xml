@@ -152,8 +152,7 @@
 		<loadfile property="javaheader" srcFile="javaheader.txt"/>
 		<replaceregexp match="(/\*.*\*/.*)??^package " flags="sm" replace="${javaheader}${line.separator}package ">
 			<fileset dir=".">
-				<include name="src/**/*.java"/>
-				<include name="testsrc/**/*.java"/>
+				<include name="**/*.java" />
 			</fileset>
 		</replaceregexp>
 	</target>
