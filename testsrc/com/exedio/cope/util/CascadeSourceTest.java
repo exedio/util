@@ -20,11 +20,13 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
+import java.util.HashSet;
 import java.util.Properties;
 import org.junit.Test;
 
@@ -52,6 +54,7 @@ public class CascadeSourceTest
 		assertEquals("value2a", s.get("key2a"));
 		assertEquals("value2b", s.get("key2b"));
 		assertEquals("value12-1", s.get("key12"));
+		assertEquals(new HashSet<>(asList("key1a", "key1b", "key2a", "key2b", "key12")), s.keySet());
 		assertEquals("description1 / description2", s.getDescription());
 		assertEquals("description1 / description2", s.toString());
 
