@@ -54,6 +54,7 @@ public class CascadeSourceTest
 		assertEquals("value2a", s.get("key2a"));
 		assertEquals("value2b", s.get("key2b"));
 		assertEquals("value12-1", s.get("key12"));
+		assertEquals(null, s.get("keyx"));
 		assertEquals(new HashSet<>(asList("key1a", "key1b", "key2a", "key2b", "key12")), s.keySet());
 		assertEquals("description1 / description2", s.getDescription());
 		assertEquals("description1 / description2", s.toString());
