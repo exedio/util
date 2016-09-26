@@ -24,10 +24,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Properties;
 
 public final class Sources
@@ -80,10 +78,7 @@ public final class Sources
 			@Override
 			public Collection<String> keySet()
 			{
-				final ArrayList<String> result = new ArrayList<>();
-				for(final Enumeration<?> names = properties.propertyNames(); names.hasMoreElements(); )
-					result.add((String)names.nextElement());
-				return Collections.unmodifiableList(result);
+				return Collections.unmodifiableSet(properties.stringPropertyNames());
 			}
 
 			@Override

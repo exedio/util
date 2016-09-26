@@ -19,10 +19,12 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Sources.view;
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
+import java.util.HashSet;
 import org.junit.Test;
 
 public class PropertiesSourceTest extends CopeAssert
@@ -52,7 +54,7 @@ public class PropertiesSourceTest extends CopeAssert
 		}
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue", s.get("testKey"));
-		assertEquals(list("testKey"), s.keySet());
+		assertEquals(new HashSet<>(asList("testKey")), s.keySet());
 		assertUnmodifiable(s.keySet());
 		assertEquals("testDescription", s.getDescription());
 		assertEquals("testDescription", s.toString());
