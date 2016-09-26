@@ -37,7 +37,7 @@ final class CascadeSource
 		{
 			case  0: return EMPTY;
 			case  1: return sources[0];
-			default:	return new Cascade(sources);
+			default: return new Cascade(sources);
 		}
 	}
 
