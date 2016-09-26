@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
-<project name="cope util" default="build" basedir=".">
+<project name="cope util" default="build" basedir="."
+			xmlns:jacoco="antlib:org.jacoco.ant">
 
 	<property file="local.properties" />
 	<property file="project.properties" />
@@ -132,8 +133,44 @@
 	</target>
 
 
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+		<classpath path="lib/org.jacoco.ant.jar"/>
+		<classpath path="lib/org.jacoco.agent.jar"/>
+		<classpath path="lib/org.jacoco.report.jar"/>
+		<classpath path="lib/org.jacoco.core.jar"/>
+		<classpath path="lib/asm-debug-all.jar"/>
+	</taskdef>
+
+	<target name="jacoco" depends="test.compile" unless="skip.jacoco">
+		<mkdir dir="build/jacocotestresults" />
+		<mkdir dir="build/jacocotesttmpdir" />
+		<jacoco:coverage destfile="build/jacoco.exec">
+			<junit fork="yes"
+					haltonerror="true" haltonfailure="true"
+					showoutput="true" printsummary="true">
+				<formatter type="brief" usefile="false" />
+				<formatter type="xml" />
+				<classpath>
+					<pathelement location="build/classes/src" />
+					<pathelement location="build/classes/testsrc" />
+					<pathelement location="lib/slf4j-api.jar" />
+					<pathelement location="lib/logback-core.jar" />
+					<pathelement location="lib/logback-classic.jar" />
+					<pathelement location="lib/junit.jar" />
+					<pathelement location="lib/cpsuite.jar" />
+					<pathelement location="lib/easymock.jar" />
+					<pathelement location="lib/cglib-nodep.jar" />
+				</classpath>
+				<sysproperty key="java.io.tmpdir" value="${basedir}/build/jacocotesttmpdir" />
+				<test name="com.exedio.cope.util.AllTests" todir="build/jacocotestresults" outfile="cope-util-@{name}" />
+				<assertions><enable/></assertions>
+			</junit>
+		</jacoco:coverage>
+	</target>
+
+
 	<target name="build" depends="compile, test, jar, api" />
-	<target name="all" depends="build, jar.src, findbugs" />
+	<target name="all" depends="build, jar.src, findbugs, jacoco" />
 
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">

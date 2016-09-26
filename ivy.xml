@@ -34,6 +34,7 @@
 		<dependency org="org.easymock" name="easymock" rev="3.0" conf="build->default">
 			<exclude org="org.objenesis" name="objenesis" />
 		</dependency>
+		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.7.6.201602180812" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
 	</dependencies>
 </ivy-module>
