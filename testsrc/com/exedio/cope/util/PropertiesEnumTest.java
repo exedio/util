@@ -20,10 +20,10 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.list;
-import static com.exedio.cope.util.PropertiesEnumTest.AnEnum.BETA;
-import static com.exedio.cope.util.PropertiesEnumTest.AnEnum.GAMMA;
-import static com.exedio.cope.util.PropertiesEnumTest.AnEnum.MANDATORY;
-import static com.exedio.cope.util.PropertiesEnumTest.AnEnum.OPTIONAL;
+import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.BETA;
+import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.GAMMA;
+import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.MANDATORY;
+import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.OPTIONAL;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
@@ -37,7 +37,7 @@ public class PropertiesEnumTest
 {
 	@Test public void testMinimal()
 	{
-		final SomeProps props = new SomeProps(minimal());
+		final MyProps props = new MyProps(minimal());
 		props.assertIt();
 
 		assertEquals(MANDATORY, props.mandatory);
@@ -53,7 +53,7 @@ public class PropertiesEnumTest
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", "BETA");
 		p.setProperty("optional", "GAMMA");
-		final SomeProps props = new SomeProps(p);
+		final MyProps props = new MyProps(p);
 		props.assertIt();
 
 		assertEquals(BETA,  props.mandatory);
@@ -86,14 +86,14 @@ public class PropertiesEnumTest
 	}
 
 
-	enum AnEnum { MANDATORY, OPTIONAL, ALPHA, BETA, GAMMA }
+	enum MyEnum { MANDATORY, OPTIONAL, ALPHA, BETA, GAMMA }
 
-	static class SomeProps extends MyProperties
+	static class MyProps extends MyProperties
 	{
-		final AnEnum mandatory = value("mandatory", AnEnum.class);
-		final AnEnum optional  = value("optional" , AnEnum.OPTIONAL);
+		final MyEnum mandatory = value("mandatory", MyEnum.class);
+		final MyEnum optional  = value("optional" , MyEnum.OPTIONAL);
 
-		SomeProps(final java.util.Properties source)
+		MyProps(final java.util.Properties source)
 		{
 			super(view(source, "sourceDescription"));
 		}
@@ -132,7 +132,7 @@ public class PropertiesEnumTest
 
 		try
 		{
-			new SomeProps(wrongProps);
+			new MyProps(wrongProps);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -142,7 +142,7 @@ public class PropertiesEnumTest
 		}
 	}
 
-	private static final java.util.Properties minimal()
+	private static java.util.Properties minimal()
 	{
 		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("mandatory", "MANDATORY");
