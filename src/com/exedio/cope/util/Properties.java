@@ -19,6 +19,8 @@
 package com.exedio.cope.util;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -859,6 +861,21 @@ public class Properties
 		throw newException(key,
 				"must be one of " + Arrays.asList(valueClass.getEnumConstants()) + ", " +
 				"but was '" + value + '\'');
+	}
+
+	protected final Charset value(final String key, final Charset defaultValue)
+	{
+		final String value = value(key, defaultValue!=null ? defaultValue.name() : null);
+		try
+		{
+			return Charset.forName(value);
+		}
+		catch(final UnsupportedCharsetException e)
+		{
+			throw newException(key,
+					"must be one of Charset.availableCharsets(), " +
+					"but was '" + value + '\'', e);
+		}
 	}
 
 
