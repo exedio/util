@@ -19,7 +19,6 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
-import static com.exedio.cope.junit.CopeAssert.list;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.BETA;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.GAMMA;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.MANDATORY;
@@ -104,7 +103,7 @@ public class PropertiesEnumTest
 
 		void assertIt()
 		{
-			assertEquals(list(), getTests());
+			assertEquals(asList(), getTests());
 			assertEqualsUnmodifiable(asList(mandatoryF, optionalF), getFields());
 
 			assertEquals("mandatory", mandatoryF.getKey());
