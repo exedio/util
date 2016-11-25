@@ -21,6 +21,8 @@ package com.exedio.cope.util;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.time.ZoneId;
+import java.time.zone.ZoneRulesException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -874,6 +876,21 @@ public class Properties
 		{
 			throw newException(key,
 					"must be one of Charset.availableCharsets(), " +
+					"but was '" + value + '\'', e);
+		}
+	}
+
+	protected final ZoneId value(final String key, final ZoneId defaultValue)
+	{
+		final String value = value(key, defaultValue!=null ? defaultValue.getId() : null);
+		try
+		{
+			return ZoneId.of(value);
+		}
+		catch(final ZoneRulesException e)
+		{
+			throw newException(key,
+					"must be one of ZoneId.getAvailableZoneIds(), " +
 					"but was '" + value + '\'', e);
 		}
 	}
