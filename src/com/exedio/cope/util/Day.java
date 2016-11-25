@@ -26,6 +26,7 @@ import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -248,6 +249,34 @@ public final class Day implements Serializable, Comparable<Day>
 
 		return 0;
 	}
+
+
+	// java.time
+
+	/**
+	 * @see Date#toInstant()
+	 */
+	public LocalDate toLocalDate()
+	{
+		return LocalDate.of(year, month, day);
+	}
+
+	public static LocalDate toLocalDate(final Day day)
+	{
+		return day!=null ? day.toLocalDate() : null;
+	}
+
+	/**
+	 * @see Date#from(java.time.Instant)
+	 */
+	public static Day from(final LocalDate localDate)
+	{
+		return
+				localDate!=null
+				? new Day(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth())
+				: null;
+	}
+
 
 	@Override
 	public String toString()

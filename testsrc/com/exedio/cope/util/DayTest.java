@@ -34,6 +34,8 @@ import com.exedio.cope.util.junit.TimeZoneDefaultRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -341,5 +343,21 @@ public class DayTest extends CopeAssert
 	{
 		clock.override(() -> new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT")));
 		assertEquals(new Day(1986, 4, 26), new Day(getTimeZone("Etc/GMT")));
+	}
+
+	@Test public void javaTime()
+	{
+		final LocalDate ldy = LocalDate.of(2016, Month.NOVEMBER, 25);
+		final Day day = new Day(2016, 11, 25);
+
+		assertEquals("2016-11-25", ldy.toString());
+		assertEquals("2016/11/25", day.toString());
+
+		assertEquals(ldy, day.toLocalDate());
+		assertEquals(ldy, Day.toLocalDate(day));
+		assertEquals(day, Day.from(ldy));
+
+		assertEquals(null, Day.toLocalDate(null));
+		assertEquals(null, Day.from(null));
 	}
 }
