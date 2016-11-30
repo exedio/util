@@ -43,47 +43,47 @@ public class CounterTest extends CopeAssert
 			System.out.println("---------------"+N+"-"+j);
 			{
 				countNaked = 0;
-				final long start = System.currentTimeMillis();
+				final long start = System.nanoTime();
 				for(int i = 0; i<N; i++)
 				{
 					countNaked++;
 				}
-				final long elapsed = System.currentTimeMillis()-start;
-				System.out.println("-------naked        " + elapsed);
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------naked        " + elapsed/1_000_000);
 			}
 			{
 				countVolatile = 0;
-				final long start = System.currentTimeMillis();
+				final long start = System.nanoTime();
 				for(int i = 0; i<N; i++)
 				{
 					countVolatile++;
 				}
-				final long elapsed = System.currentTimeMillis()-start;
-				System.out.println("-------volatile     " + elapsed);
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------volatile     " + elapsed/1_000_000);
 			}
 			{
 				countVolatileObject = new VolatileLong();
-				final long start = System.currentTimeMillis();
+				final long start = System.nanoTime();
 				for(int i = 0; i<N; i++)
 				{
 					countVolatileObject.inc();
 				}
-				final long elapsed = System.currentTimeMillis()-start;
-				System.out.println("-------volatileObj  " + elapsed);
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------volatileObj  " + elapsed/1_000_000);
 			}
 			{
 				atomic.set(0);
-				final long start = System.currentTimeMillis();
+				final long start = System.nanoTime();
 				for(int i = 0; i<N; i++)
 				{
 					atomic.incrementAndGet();
 				}
-				final long elapsed = System.currentTimeMillis()-start;
-				System.out.println("-------atomic       " + elapsed);
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------atomic       " + elapsed/1_000_000);
 			}
 			{
 				countNaked = 0;
-				final long start = System.currentTimeMillis();
+				final long start = System.nanoTime();
 				for(int i = 0; i<N; i++)
 				{
 					synchronized(lock)
@@ -91,8 +91,8 @@ public class CounterTest extends CopeAssert
 						countNaked++;
 					}
 				}
-				final long elapsed = System.currentTimeMillis()-start;
-				System.out.println("-------synchronized " + elapsed);
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------synchronized " + elapsed/1_000_000);
 			}
 		}
 	}
