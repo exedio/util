@@ -20,6 +20,9 @@ package com.exedio.cope.util;
 
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Clock;
+import java.time.Instant;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -110,6 +113,64 @@ public class CounterTest extends CopeAssert
 		void inc()
 		{
 			value++;
+		}
+	}
+
+	@Ignore
+	@SuppressWarnings({"unused", "static-method"})
+	@Test public final void testNow()
+	{
+		final int N = 10_000_000;
+		for(int j = 0; j<2; j++)
+		{
+			System.out.println("---------------"+N+"-"+j);
+			{
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					System.currentTimeMillis();
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------System.currentTimeMillis() " + elapsed/1_000_000);
+			}
+			{
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					new Date();
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------new Date()                 " + elapsed/1_000_000);
+			}
+			{
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					Instant.now();
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------Instant.now()              " + elapsed/1_000_000);
+			}
+			{
+				final Clock clock = Clock.systemUTC();
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					Instant.now(clock);
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------Instant.now(clockUTC)      " + elapsed/1_000_000);
+			}
+			{
+				final Clock clock = Clock.systemDefaultZone();
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					Instant.now(clock);
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------Instant.now(clockDefault)  " + elapsed/1_000_000);
+			}
 		}
 	}
 }
