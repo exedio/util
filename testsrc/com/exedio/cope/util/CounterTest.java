@@ -37,7 +37,7 @@ public class CounterTest extends CopeAssert
 	@Ignore
 	@Test public final void testCount()
 	{
-		final int N = 10000000;
+		final int N = 10_000_000;
 		for(int j = 0; j<2; j++)
 		{
 			System.out.println("---------------"+N+"-"+j);
