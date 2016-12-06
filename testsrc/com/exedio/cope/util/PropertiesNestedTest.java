@@ -35,7 +35,7 @@ public class PropertiesNestedTest extends CopeAssert
 	{
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
-		final Inner nested = value("nestedO", Inner.factory());
+		final Inner nested = value("nestedO", Inner::new);
 		final IntField nestedInner1 = (IntField)forKey("nestedO.inner1");
 		final IntField nestedInner2 = (IntField)forKey("nestedO.inner2");
 		final IntField nestedDrinner1 = (IntField)forKey("nestedO.nestedI.drinner1");
@@ -95,22 +95,13 @@ public class PropertiesNestedTest extends CopeAssert
 
 	static class Inner extends MyProperties
 	{
-		/**
-		 * Cannot use method reference Inner::new because of bug in javac 1.8.0_111.
-		 * http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842
-		 */
-		static Factory<Inner> factory()
-		{
-			return source -> new Inner(source);
-		}
-
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
-		final Drinner nested = value("nestedI", Drinner.factory());
+		final Drinner nested = value("nestedI", Drinner::new);
 		final IntField nestedDrinner1 = (IntField)forKey("nestedI.drinner1");
 		final IntField nestedDrinner2 = (IntField)forKey("nestedI.drinner2");
 
-		private Inner(final Source source)
+		Inner(final Source source)
 		{
 			super(source);
 		}
@@ -153,15 +144,10 @@ public class PropertiesNestedTest extends CopeAssert
 
 	static class Drinner extends MyProperties
 	{
-		static Factory<Drinner> factory()
-		{
-			return source -> new Drinner(source);
-		}
-
 		final int drinner1 = value("drinner1", 11, 1);
 		final int drinner2 = value("drinner2", 12, 2);
 
-		private Drinner(final Source source)
+		Drinner(final Source source)
 		{
 			super(source);
 		}
