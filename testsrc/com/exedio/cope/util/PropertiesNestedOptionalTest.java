@@ -34,8 +34,8 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 	{
 		final int outer = value("outer", 1001, 501);
 
-		final InnerProperties nestedFalse = value("nestedFalse", false, InnerProperties.factory());
-		final InnerProperties nestedTrue  = value("nestedTrue",  true,  InnerProperties.factory());
+		final InnerProperties nestedFalse = value("nestedFalse", false, InnerProperties::new);
+		final InnerProperties nestedTrue  = value("nestedTrue",  true,  InnerProperties::new);
 
 		final BooleanField nestedFalseEnable = (BooleanField)forKey("nestedFalse");
 		final IntField nestedFalseInner1 = (IntField)forKey("nestedFalse.inner1");
@@ -129,15 +129,10 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 
 	static class InnerProperties extends MyProperties
 	{
-		static Factory<InnerProperties> factory()
-		{
-			return source -> new InnerProperties(source);
-		}
-
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
 
-		private InnerProperties(final Source source)
+		InnerProperties(final Source source)
 		{
 			super(source);
 		}
