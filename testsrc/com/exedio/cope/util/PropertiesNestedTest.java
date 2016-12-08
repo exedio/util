@@ -95,6 +95,10 @@ public class PropertiesNestedTest extends CopeAssert
 
 	static class Inner extends MyProperties
 	{
+		/**
+		 * Cannot use method reference Inner::new because of bug in javac 1.8.0_111.
+		 * http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842
+		 */
 		static Factory<Inner> factory()
 		{
 			return source -> new Inner(source);
