@@ -41,7 +41,7 @@ public class CounterTest extends CopeAssert
 	@Test public final void testCount()
 	{
 		final int N = 10_000_000;
-		for(int j = 0; j<2; j++)
+		for(int j = 0; j<8; j++)
 		{
 			System.out.println("---------------"+N+"-"+j);
 			{

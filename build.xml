@@ -66,6 +66,7 @@
 			<sysproperty key="user.timezone" value="@{userTimezone}" />
 			<test name="com.exedio.cope.util.AllTests" todir="build/testresults" outfile="cope-util-@{name}" />
 			<assertions><enable/></assertions>
+			<!--jvmarg value="-Xcomp" /--><!-- for performance tests -->
 		</junit>
 		</sequential>
 	</macrodef>
