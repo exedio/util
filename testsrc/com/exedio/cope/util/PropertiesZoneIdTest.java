@@ -37,7 +37,7 @@ public class PropertiesZoneIdTest
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
 
-		assertEquals(of("Europe/Berlin"),   props.mandatory);
+		assertEquals(of("Europe/Berlin"), props.mandatory);
 		assertEquals(of("Europe/Moscow"), props.optional);
 		assertEquals("Europe/Berlin", props.mandatoryF.getValue());
 		assertEquals("Europe/Moscow", props.optionalF .getValue());
