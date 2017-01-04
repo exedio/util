@@ -18,10 +18,14 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.time.Duration;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.time.zone.ZoneRulesException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -893,6 +897,36 @@ public class Properties
 					"must be one of ZoneId.getAvailableZoneIds(), " +
 					"but was '" + value + '\'', e);
 		}
+	}
+
+	protected final Duration value(
+			final String key,
+			final Duration defaultValue,
+			final Duration minimum)
+	{
+		requireNonNull(minimum, "minimum");
+		if(defaultValue!=null && defaultValue.compareTo(minimum)<0)
+			throw new IllegalArgumentException(
+					"default of " +  key + " must not be smaller than minimum of " + minimum + ", " +
+					"but was " + defaultValue);
+
+		final String value = value(key, defaultValue!=null ? defaultValue.toString() : null);
+		final Duration result;
+		try
+		{
+			result = Duration.parse(value);
+		}
+		catch(final DateTimeParseException e)
+		{
+			throw newException(key,
+					"must be a duration, but was '" + value + '\'', e);
+		}
+
+		if(result.compareTo(minimum)<0)
+			throw newException(key,
+					"must be a duration greater or equal " + minimum + ", but was " + result);
+
+		return result;
 	}
 
 
