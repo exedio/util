@@ -19,6 +19,7 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Sources.view;
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
@@ -26,7 +27,6 @@ import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
@@ -77,7 +77,7 @@ public class PropertiesTest extends CopeAssert
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(list(), getTests());
-			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					boolFalseF,
 					boolTrueF,
 					intAnyF,

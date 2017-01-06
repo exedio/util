@@ -18,13 +18,13 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import org.junit.Test;
@@ -113,7 +113,7 @@ public class PropertiesGetContextTest extends CopeAssert
 			@Override
 			public Collection<String> keySet()
 			{
-				return Collections.unmodifiableList(Arrays.asList("a", "a1"));
+				return Collections.unmodifiableList(asList("a", "a1"));
 			}
 
 			@Override

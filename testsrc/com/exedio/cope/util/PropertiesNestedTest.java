@@ -19,13 +19,13 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Sources.view;
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Arrays;
 import org.junit.Test;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
@@ -53,7 +53,7 @@ public class PropertiesNestedTest extends CopeAssert
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(list(), getTests());
-			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					outer1F,
 					outer2F,
 					nestedInner1,
@@ -122,7 +122,7 @@ public class PropertiesNestedTest extends CopeAssert
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(list(), getTests());
-			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					inner1F,
 					inner2F,
 					nestedDrinner1,
@@ -172,7 +172,7 @@ public class PropertiesNestedTest extends CopeAssert
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(list(), getTests());
-			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					drinner1F,
 					drinner2F,
 			}), getFields());

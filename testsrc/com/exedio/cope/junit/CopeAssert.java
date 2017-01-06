@@ -18,6 +18,7 @@
 
 package com.exedio.cope.junit;
 
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
@@ -29,7 +30,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -66,32 +66,32 @@ public abstract class CopeAssert
 
 	public static final void assertContains(final Object o1, final Object o2, final Collection<?> actual)
 	{
-		assertContainsList(Arrays.asList(new Object[]{o1, o2}), actual);
+		assertContainsList(asList(new Object[]{o1, o2}), actual);
 	}
 
 	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
 	{
-		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3}), actual);
+		assertContainsList(asList(new Object[]{o1, o2, o3}), actual);
 	}
 
 	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
 	{
-		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4}), actual);
+		assertContainsList(asList(new Object[]{o1, o2, o3, o4}), actual);
 	}
 
 	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<?> actual)
 	{
-		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5}), actual);
+		assertContainsList(asList(new Object[]{o1, o2, o3, o4, o5}), actual);
 	}
 
 	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Collection<?> actual)
 	{
-		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6}), actual);
+		assertContainsList(asList(new Object[]{o1, o2, o3, o4, o5, o6}), actual);
 	}
 
 	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Collection<?> actual)
 	{
-		assertContainsList(Arrays.asList(new Object[]{o1, o2, o3, o4, o5, o6, o7}), actual);
+		assertContainsList(asList(new Object[]{o1, o2, o3, o4, o5, o6, o7}), actual);
 	}
 
 	public static final void assertContainsUnmodifiable(final Collection<?> actual)
@@ -126,7 +126,7 @@ public abstract class CopeAssert
 
 	public static final List<Object> list(final Object... o)
 	{
-		return Arrays.asList(o);
+		return asList(o);
 	}
 
 	public static final Map<Object, Object> map()

@@ -20,13 +20,13 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Cast.castElements;
 import static com.exedio.cope.util.Cast.verboseCast;
+import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
@@ -82,9 +82,9 @@ public class CastTest extends CopeAssert
 
 	@Test public void testCastElements()
 	{
-		final List<String> strings = Arrays.asList(string1);
-		final List<String> strings2 = Arrays.asList(string1, string1);
-		final List<String> nulls = Arrays.asList(string1, null);
+		final List<String> strings = asList(string1);
+		final List<String> strings2 = asList(string1, string1);
+		final List<String> nulls = asList(string1, null);
 
 		assertNull(castElements(String.class, null));
 		assertEquals(strings, castElements(String.class, strings)); // TODO should be same
@@ -94,7 +94,7 @@ public class CastTest extends CopeAssert
 
 	@Test public void testCastElementsClassNull()
 	{
-		final List<String> strings = Arrays.asList(string1);
+		final List<String> strings = asList(string1);
 		try
 		{
 			castElements(null, strings);
@@ -113,7 +113,7 @@ public class CastTest extends CopeAssert
 
 	@Test public void testCastElementsWrongCast()
 	{
-		final List<String> strings = Arrays.asList(string1);
+		final List<String> strings = asList(string1);
 		try
 		{
 			castElements(Integer.class, strings);

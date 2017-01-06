@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
@@ -28,7 +29,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.time.zone.ZoneRulesException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -865,7 +865,7 @@ public class Properties
 			if(value.equals(result.name()))
 				return result;
 		throw newException(key,
-				"must be one of " + Arrays.asList(valueClass.getEnumConstants()) + ", " +
+				"must be one of " + asList(valueClass.getEnumConstants()) + ", " +
 				"but was '" + value + '\'');
 	}
 
@@ -1049,7 +1049,7 @@ public class Properties
 		}
 
 		if(prefixes!=null)
-			allowedPrefixes.addAll(Arrays.asList(prefixes));
+			allowedPrefixes.addAll(asList(prefixes));
 
 		for(final String key : source.keySet())
 		{
