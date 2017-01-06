@@ -106,7 +106,7 @@ public class PrefixSourceTest extends CopeAssert
 		{
 			assertEquals("key", e.getMessage());
 		}
-		assertEqualsUnmodifiable(list("one", "two", ""), ps.keySet());
+		assertEqualsUnmodifiable(asList("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 		assertEquals("toString(description) (prefix prefix.)", ps.toString());
 
@@ -200,7 +200,7 @@ public class PrefixSourceTest extends CopeAssert
 				s.getDescription());
 		assertEquals("inner.outer.one/val", s.get("one"));
 		assertEquals("inner.outer.two/val", s.get("two"));
-		assertEquals(list("one", "two"), s.keySet());
+		assertEquals(asList("one", "two"), s.keySet());
 	}
 
 	@Test public void nestConstructor()
@@ -212,6 +212,6 @@ public class PrefixSourceTest extends CopeAssert
 				s.getDescription());
 		assertEquals("inner.outer.one/val", s.get("one"));
 		assertEquals("inner.outer.two/val", s.get("two"));
-		assertEquals(list("one", "two"), s.keySet());
+		assertEquals(asList("one", "two"), s.keySet());
 	}
 }

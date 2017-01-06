@@ -55,7 +55,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEqualsUnmodifiable(list(), getTests());
+			assertEqualsUnmodifiable(asList(), getTests());
 			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					boolFalse,
 					boolTrue,

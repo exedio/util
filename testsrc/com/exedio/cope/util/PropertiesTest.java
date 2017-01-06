@@ -76,7 +76,7 @@ public class PropertiesTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEqualsUnmodifiable(list(), getTests());
+			assertEqualsUnmodifiable(asList(), getTests());
 			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					boolFalseF,
 					boolTrueF,

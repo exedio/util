@@ -124,11 +124,6 @@ public abstract class CopeAssert
 		assertContains(o1, o2, o3, o4, actual);
 	}
 
-	public static final List<Object> list(final Object... o)
-	{
-		return asList(o);
-	}
-
 	public static final Map<Object, Object> map()
 	{
 		return Collections.<Object, Object>emptyMap();
