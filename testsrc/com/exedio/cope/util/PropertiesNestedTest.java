@@ -52,7 +52,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEquals(list(), getTests());
+			assertEqualsUnmodifiable(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					outer1F,
 					outer2F,
@@ -121,7 +121,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEquals(list(), getTests());
+			assertEqualsUnmodifiable(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					inner1F,
 					inner2F,
@@ -171,7 +171,7 @@ public class PropertiesNestedTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEquals(list(), getTests());
+			assertEqualsUnmodifiable(list(), getTests());
 			assertEqualsUnmodifiable(Arrays.asList(new Properties.Field[]{
 					drinner1F,
 					drinner2F,

@@ -99,7 +99,7 @@ public class PropertiesZoneIdTest
 
 		void assertIt()
 		{
-			assertEquals(asList(), getTests());
+			assertEqualsUnmodifiable(asList(), getTests());
 			assertEqualsUnmodifiable(asList(mandatoryF, optionalF), getFields());
 
 			assertEquals("mandatory", mandatoryF.getKey());
