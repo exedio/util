@@ -21,7 +21,15 @@ package com.exedio.cope.util;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.time.Duration;
@@ -36,7 +44,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -72,11 +82,11 @@ public class Properties
 	}
 
 	/**
-	 * This default implementation returns an empty list.
+	 * This default implementation returns {@link #getProbes()}.
 	 */
 	public List<? extends Callable<?>> getTests()
 	{
-		return Collections.emptyList();
+		return getProbes();
 	}
 
 	public final List<Field> getFields()
@@ -942,7 +952,10 @@ public class Properties
 
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
-		return new PropertiesField<>(this, key, factory);
+		final PropertiesField<T> result = new PropertiesField<>(this, key, factory);
+		for(final Prober prober : result.value.probers)
+			probers.add(prober.prefix(key));
+		return result;
 	}
 
 	@FunctionalInterface
@@ -954,7 +967,7 @@ public class Properties
 	public static final class PropertiesField<T extends Properties>
 	{
 		private final String key;
-		private final T value;
+		final T value;
 
 		PropertiesField(final Properties properties, final String key, final Factory<T> factory)
 		{
@@ -1103,6 +1116,167 @@ public class Properties
 						" between " + sourceDescription + " and " + other.sourceDescription +
 						(thisHideValue ? "." : "," + " expected " + thisValue + " but got " + otherValue + '.'));
 		}
+	}
+
+
+	// probe
+
+	private static final class Prober implements Callable<Object>
+	{
+		private final Properties instance;
+		private final Method method;
+		private final String name;
+
+		Prober(final Properties instance, final Method method, final Probe ann)
+		{
+			this.instance = instance;
+			this.method = method;
+			this.name = name(method, ann);
+
+			if((method.getModifiers() & Modifier.STATIC)!=0)
+				throw new IllegalArgumentException(
+						"@Probe method must be non-static: " + method);
+			if(method.getParameterCount()!=0)
+				throw new IllegalArgumentException(
+						"@Probe method must have no parameters: " + method);
+		}
+
+		private static String name(final Method method, final Probe ann)
+		{
+			final String override = ann.name();
+			return override.isEmpty() ? stripProbeName(method.getName()) : override;
+		}
+
+		Prober prefix(final String key)
+		{
+			return new Prober(this, key);
+		}
+
+		Prober(final Prober template, final String prefix)
+		{
+			this.instance = template.instance;
+			this.method = template.method;
+			this.name = prefix + '.' + template.name;
+		}
+
+		@Override
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+		public Object call() throws Exception
+		{
+			method.setAccessible(true);
+			try
+			{
+				return method.invoke(instance);
+			}
+			catch(final InvocationTargetException e)
+			{
+				final Throwable target = e.getTargetException();
+				if(target instanceof Exception)
+					throw (Exception)target;
+				else if(target instanceof Error)
+					throw (Error)target;
+				else
+					throw e;
+			}
+		}
+
+		@Override
+		public String toString()
+		{
+			return name;
+		}
+
+		static void add(final TreeMap<String,Prober> probers, final Prober prober)
+		{
+			final Prober collision = probers.putIfAbsent(prober.name, prober);
+			if(collision!=null)
+			{
+				final Prober a;
+				final Prober b;
+				if(collision.method.getName().compareTo(prober.method.getName())>0)
+				{
+					a = prober;
+					b = collision;
+				}
+				else
+				{
+					a = collision;
+					b = prober;
+				}
+				throw new IllegalArgumentException(
+						"@Probe method has duplicate name '" + prober.name + "': " +
+						a.method + " vs. " + b.method);
+			}
+		}
+	}
+
+	static final String stripProbeName(final String name)
+	{
+		final String PREFIX = "probe";
+		if(name.length()<=PREFIX.length() ||
+			!name.startsWith(PREFIX) ||
+			Character.isLowerCase(name.charAt(PREFIX.length())))
+			return name;
+
+		return name.substring(PREFIX.length());
+	}
+
+	final ArrayList<Prober> probers = initProbes(this);
+
+	static final ArrayList<Prober> initProbes(final Properties instance)
+	{
+		final ArrayList<Prober> result = new ArrayList<>();
+
+		final ArrayList<Class<?>> classes = new ArrayList<>();
+		for(
+				Class<?> clazz = instance.getClass();
+				!Properties.class.equals(clazz);
+				clazz = clazz.getSuperclass())
+			classes.add(clazz);
+
+		for(final ListIterator<Class<?>> i = classes.listIterator(classes.size()); i.hasPrevious(); )
+		{
+			final Class<?> clazz = i.previous();
+			final TreeMap<String,Prober> classMethods = new TreeMap<>();
+			for(final Method method : clazz.getDeclaredMethods())
+			{
+				final Probe ann = method.getAnnotation(Probe.class);
+				if(ann!=null)
+					Prober.add(classMethods, new Prober(instance, method, ann));
+			}
+			result.addAll(classMethods.values());
+		}
+
+		return result;
+	}
+
+	/**
+	 * Declares a method to be a probe.
+	 * Probes are returned by {@link #getProbes()}.
+	 * Probe methods must not be static and must have no parameters.
+	 */
+	@Target(ElementType.METHOD)
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface Probe
+	{
+		/**
+		 * Specifies the name of the test.
+		 * Defaults to the name of the method, stripped of prefix "probe" if present.
+		 * Names must be unique within a class.
+		 */
+		String name() default "";
+	}
+
+	/**
+	 * Returns all probes of this properties instance.
+	 * Probes are methods annotated by {@link Probe}.
+	 * The result includes probes of super classes and probes of
+	 * {@link #value(String, Factory) nested} properties.
+	 * @see #getTests()
+	 */
+	public final List<? extends Callable<?>> getProbes()
+	{
+		return Collections.unmodifiableList(probers);
 	}
 
 	// ------------------- deprecated stuff -------------------
