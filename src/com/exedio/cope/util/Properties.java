@@ -83,7 +83,9 @@ public class Properties
 
 	/**
 	 * This default implementation returns {@link #getProbes()}.
+	 * @deprecated Use {@link Probe} instead
 	 */
+	@Deprecated
 	public List<? extends Callable<?>> getTests()
 	{
 		return getProbes();
