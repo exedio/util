@@ -59,6 +59,7 @@ public class PropertiesNestedTestsTest
 		final Callable<?> test2 = test("outerTest2");
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public List<Callable<?>> getTests()
 		{
 			return asList(test1, test2);
@@ -79,6 +80,7 @@ public class PropertiesNestedTestsTest
 		final Callable<?> test2 = test("innerTest2");
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public List<Callable<?>> getTests()
 		{
 			return asList(test1, test2);
@@ -101,6 +103,7 @@ public class PropertiesNestedTestsTest
 		final Callable<?> test2 = test("drinnerTest2");
 
 		@Override
+		@SuppressWarnings("deprecation")
 		public List<Callable<?>> getTests()
 		{
 			return asList(test1, test2);

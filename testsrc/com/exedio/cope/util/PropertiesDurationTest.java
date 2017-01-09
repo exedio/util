@@ -125,7 +125,7 @@ public class PropertiesDurationTest
 
 		void assertIt()
 		{
-			assertEqualsUnmodifiable(asList(), getTests());
+			assertEqualsUnmodifiable(asList(), getProbes());
 			assertEqualsUnmodifiable(asList(mandatoryF, optionalF), getFields());
 
 			assertEquals("mandatory", mandatoryF.getKey());

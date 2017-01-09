@@ -38,7 +38,7 @@ public class PropertiesProbeRunTest
 		final List<? extends Callable<?>> probes = props.getProbes();
 
 		assertUnmodifiable(probes);
-		assertEqualsUnmodifiable(probes, props.getTests());
+		assertEqualsUnmodifiable(probes, props.getProbes());
 		assertEquals(7, probes.size());
 
 		final Callable<?> probeReturn = probes.get(0);

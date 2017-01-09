@@ -70,7 +70,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 
 		void assertDisabled()
 		{
-			assertEqualsUnmodifiable(asList(), getTests());
+			assertEqualsUnmodifiable(asList(), getProbes());
 			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					outerF,
 					nestedFalseEnable,
@@ -90,7 +90,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 
 		void assertEnabled()
 		{
-			assertEqualsUnmodifiable(asList(), getTests());
+			assertEqualsUnmodifiable(asList(), getProbes());
 			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					outerF,
 					nestedFalseEnable,
@@ -142,7 +142,7 @@ public class PropertiesNestedOptionalTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEqualsUnmodifiable(asList(), getTests());
+			assertEqualsUnmodifiable(asList(), getProbes());
 			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					inner1F,
 					inner2F,

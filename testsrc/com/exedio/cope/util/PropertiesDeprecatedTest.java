@@ -55,7 +55,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 
 		void assertIt()
 		{
-			assertEqualsUnmodifiable(asList(), getTests());
+			assertEqualsUnmodifiable(asList(), getProbes());
 			assertEqualsUnmodifiable(asList(new Properties.Field[]{
 					boolFalse,
 					boolTrue,
@@ -95,6 +95,12 @@ public class PropertiesDeprecatedTest extends CopeAssert
 			assertEquals(false, file.hasHiddenValue());
 			assertEquals(false, map.hasHiddenValue());
 		}
+
+		@SuppressWarnings("deprecation")
+		void assertItDeprecated()
+		{
+			assertEqualsUnmodifiable(asList(), getTests());
+		}
 	}
 
 	@Test public void testIt()
@@ -106,5 +112,6 @@ public class PropertiesDeprecatedTest extends CopeAssert
 
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
 		minimal.assertIt();
+		minimal.assertItDeprecated();
 	}
 }
