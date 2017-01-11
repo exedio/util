@@ -1129,6 +1129,7 @@ public class Properties
 		private final Method method;
 		private final String name;
 
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Prober(final Properties instance, final Method method, final Probe ann)
 		{
 			this.instance = instance;
@@ -1141,6 +1142,7 @@ public class Properties
 			if(method.getParameterCount()!=0)
 				throw new IllegalArgumentException(
 						"@Probe method must have no parameters: " + method);
+			method.setAccessible(true);
 		}
 
 		private static String name(final Method method, final Probe ann)
@@ -1162,10 +1164,8 @@ public class Properties
 		}
 
 		@Override
-		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		public Object call() throws Exception
 		{
-			method.setAccessible(true);
 			try
 			{
 				return method.invoke(instance);
