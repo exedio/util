@@ -105,6 +105,48 @@ public class AnnotationRepeatableTest extends CopeAssert
 	}
 
 
+	@RepeatableContainer({
+		@RepeatableContent("oneC"),
+		@RepeatableContent("twoC")
+	})
+	@RepeatableContent("top")
+	class ContainerAndTop
+	{
+		// empty
+	}
+	@Test public void testContainerAndTop()
+	{
+		final Class<?> clazz = ContainerAndTop.class;
+		assertEquals("top", value(clazz.getDeclaredAnnotation(content)));
+		assertEquals("top", value(clazz.getAnnotation(content)));
+		assertEquals(asList("oneC", "twoC"), value(clazz.getDeclaredAnnotation(container)));
+		assertEquals(asList("oneC", "twoC"), value(clazz.getAnnotation(container)));
+		assertEquals(asList("oneC", "twoC", "top"), value(clazz.getDeclaredAnnotationsByType(content)));
+		assertEquals(asList("oneC", "twoC", "top"), value(clazz.getAnnotationsByType(content)));
+	}
+
+
+	@RepeatableContent("top")
+	@RepeatableContainer({
+		@RepeatableContent("oneC"),
+		@RepeatableContent("twoC")
+	})
+	class ContainerAndTopReverse
+	{
+		// empty
+	}
+	@Test public void testContainerAndTopReverse()
+	{
+		final Class<?> clazz = ContainerAndTopReverse.class;
+		assertEquals("top", value(clazz.getDeclaredAnnotation(content)));
+		assertEquals("top", value(clazz.getAnnotation(content)));
+		assertEquals(asList("oneC", "twoC"), value(clazz.getDeclaredAnnotation(container)));
+		assertEquals(asList("oneC", "twoC"), value(clazz.getAnnotation(container)));
+		assertEquals(asList("top", "oneC", "twoC"), value(clazz.getDeclaredAnnotationsByType(content)));
+		assertEquals(asList("top", "oneC", "twoC"), value(clazz.getAnnotationsByType(content)));
+	}
+
+
 
 	private static String value(final RepeatableContent anno)
 	{
