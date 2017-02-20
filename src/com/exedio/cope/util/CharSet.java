@@ -36,7 +36,18 @@ public final class CharSet implements Serializable
 	public static final CharSet HEX_LOWER = new CharSet('0', '9', 'a', 'f');
 	public static final CharSet NUMERIC = new CharSet('0', '9');
 	public static final CharSet DOMAIN = new CharSet('-', '.', '0', '9', 'a', 'z');
-	public static final CharSet EMAIL  = new CharSet('-', '.', '0', '9', '@', 'Z', '_', '_', 'a', 'z');
+	/**
+	 * allows only characters commonly used in email addresses; this is the same character set as previously available
+	 * as <code>CharSet.EMAIL</code>; please note that valid characters like + and &amp; are not allowed in this charset
+	 */
+	public static final CharSet EMAIL_RESTRICTIVE = new CharSet('-', '.', '0', '9', '@', 'Z', '_', '_', 'a', 'z');
+	/** allows only 7bit ASCII email characters (RFC5322/5321 without quoted strings and comments) */
+	public static final CharSet EMAIL_ASCII  = new CharSet('!', '!', '#', '\'', '*', '+', '-', '9', '=', '=', '?', 'Z', '^', '~');
+	/** {@link #EMAIL_ASCII} plus all characters beyond 7bit ASCII */
+	public static final CharSet EMAIL_INTERNATIONAL = new CharSet('!', '!', '#', '\'', '*', '+', '-', '9', '=', '=', '?', 'Z', '^', '~', '\u0080', '\uffff');
+	/** @deprecated use one of {@link #EMAIL_RESTRICTIVE}, {@link #EMAIL_ASCII}, or {@link #EMAIL_INTERNATIONAL} instead */
+	@Deprecated
+	public static final CharSet EMAIL = EMAIL_RESTRICTIVE;
 
 	private final char[] set;
 

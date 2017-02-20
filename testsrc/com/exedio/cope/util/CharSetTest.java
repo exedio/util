@@ -198,17 +198,32 @@ public class CharSetTest extends CopeAssert
 	@Test public void emailInvalid()
 	{
 		final String invalid = "\n\t \"(),:;<>[\\]";
-		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL, invalid));
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, invalid));
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_ASCII, invalid));
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, invalid));
 	}
 
 	@Test public void emailValid()
 	{
-		assertEquals("", getInvalidCharacters(CharSet.EMAIL, "AZaz0123456789!#$%&'*+-/=?^_`{|}~"));
+		assertEquals("!#$%&'*+/=?^`{|}~", getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_ASCII, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
 	}
 
-	@Test public void emailValidRfc6531()
+	@Test public void emailInternationalCharacters()
 	{
-		assertEquals("", getInvalidCharacters(CharSet.EMAIL, "\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u20ac"));
+		final String international = "\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u20ac\u00e0\u00e8\u00e9\u00ea\u0436";
+		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, international));
+		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_ASCII, international));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, international));
+	}
+
+	@Test public void emailNonUtf16()
+	{
+		final String nonUtf16 = new String(Character.toChars(0x1F600));
+		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, nonUtf16));
+		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_ASCII, nonUtf16));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, nonUtf16));
 	}
 
 	private static String getInvalidCharacters(final CharSet charSet, final String s)
