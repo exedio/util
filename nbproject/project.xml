@@ -41,6 +41,18 @@
                 <action name="test">
                     <target>test</target>
                 </action>
+                <action name="test.single">
+                    <target>test</target>
+                    <context>
+                        <property>test</property>
+                        <folder>testsrc</folder>
+                        <pattern>.*\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
                 <action name="rebuild">
                     <target>clean</target>
                     <target>build</target>
