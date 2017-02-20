@@ -119,7 +119,7 @@ public class StrictFileTest extends CopeAssert
 	@Test public final void testRenameTo() throws IOException
 	{
 		final File f = folder.newFile("file");
-		final File f2 = folder.newFile("file2");
+		final File f2 = new File(folder.getRoot(), "file2");
 		renameTo(f, f2);
 		try
 		{
