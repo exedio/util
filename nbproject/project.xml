@@ -11,6 +11,11 @@
             <properties/>
             <folders>
                 <source-folder>
+                    <label>cope util</label>
+                    <location>.</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>src</label>
                     <type>java</type>
                     <location>src</location>
@@ -20,11 +25,6 @@
                     <label>testsrc</label>
                     <type>java</type>
                     <location>testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>cope util</label>
-                    <location>.</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
             </folders>
@@ -42,6 +42,18 @@
                     <target>test</target>
                 </action>
                 <action name="test.single">
+                    <target>test</target>
+                    <context>
+                        <property>test</property>
+                        <folder>testsrc</folder>
+                        <pattern>.*\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
+                <action name="run.single.method">
                     <target>test</target>
                     <context>
                         <property>test</property>
@@ -80,13 +92,19 @@
                     <ide-action name="test"/>
                 </context-menu>
             </view>
+            <subprojects/>
         </general-data>
-        <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
+        <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/4">
             <compilation-unit>
                 <package-root>src</package-root>
+                <classpath mode="compile">lib/findbugs-annotations.jar;lib/slf4j-api.jar</classpath>
+                <source-level>1.8</source-level>
+            </compilation-unit>
+            <compilation-unit>
                 <package-root>testsrc</package-root>
-                <classpath mode="compile">lib/junit.jar</classpath>
-                <source-level>1.5</source-level>
+                <unit-tests/>
+                <classpath mode="compile">src;lib/findbugs-annotations.jar;lib/slf4j-api.jar;lib/junit.jar;lib/cpsuite.jar;lib/easymock.jar</classpath>
+                <source-level>1.8</source-level>
             </compilation-unit>
         </java-data>
     </configuration>
