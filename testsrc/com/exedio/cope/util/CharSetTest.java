@@ -194,4 +194,34 @@ public class CharSetTest extends CopeAssert
 			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), reserialize(
 			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), 96));
 	}
+
+	@Test public void emailInvalid()
+	{
+		final String invalid = "\n\t \"(),:;<>[\\]";
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL, invalid));
+	}
+
+	@Test public void emailValid()
+	{
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL, "AZaz0123456789!#$%&'*+-/=?^_`{|}~"));
+	}
+
+	@Test public void emailValidRfc6531()
+	{
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL, "\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u20ac"));
+	}
+
+	private static String getInvalidCharacters(final CharSet charSet, final String s)
+	{
+		final StringBuilder sb = new StringBuilder();
+		for (int i=0; i<s.length(); i++)
+		{
+			final char c = s.charAt(i);
+			if (!charSet.contains(c))
+			{
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
 }
