@@ -64,7 +64,8 @@
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<sysproperty key="user.timezone" value="@{userTimezone}" />
-			<test name="${test}" todir="build/testresults" outfile="cope-util-@{name}" />
+			<test name="${test}" methods="${method}" todir="build/testresults" outfile="cope-util-@{name}" if="method" />
+			<test name="${test}"                     todir="build/testresults" outfile="cope-util-@{name}" unless="method" />
 			<assertions><enable/></assertions>
 			<!--jvmarg value="-Xcomp" /--><!-- for performance tests -->
 		</junit>
