@@ -118,8 +118,8 @@ public class PropertiesProbeCollectTest
 
 	static class Outer extends Properties
 	{
-		final Inner inner1 = value("inner1", Inner::new);
-		final Inner inner2 = value("inner2", Inner::new);
+		final Inner inner1 = valnp("inner1", Inner::new);
+		final Inner inner2 = valnp("inner2", Inner::new);
 
 		@Probe String probeA() { return "resultOuterA"; }
 		@Probe String probeB() { return "resultOuterB"; }
@@ -129,8 +129,8 @@ public class PropertiesProbeCollectTest
 
 	static class Inner extends Properties
 	{
-		final Drinner drinner1 = value("drinner1", Drinner::new);
-		final Drinner drinner2 = value("drinner2", Drinner::new);
+		final Drinner drinner1 = valnp("drinner1", Drinner::new);
+		final Drinner drinner2 = valnp("drinner2", Drinner::new);
 
 		@Probe String probeA() { return "resultInnerA"; }
 		@Probe String probeB() { return "resultInnerB"; }

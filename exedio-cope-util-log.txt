@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Properties: workaround for javac problem with method value(String, Factory):
+		error: reference to value is ambiguous
+	Use new method valnp instead.
 * Properties do support Duration
 * Day#toLocalDate/from(LocalDate) added
 * requires JDK 1.8.0_60
