@@ -1241,7 +1241,13 @@ public class Properties
 					for(final Field field : fields)
 						allowedValueList.add(field.key);
 
-					throw new IllegalArgumentException("property " + key + " in " + sourceDescription + " is not allowed, but only one of " + allowedValueList + " or one starting with " + allowedPrefixes + '.');
+					final StringBuilder bf = new StringBuilder();
+					bf.append("property ").append(key).
+						append(" in ").append(sourceDescription).
+						append(" is not allowed, but only one of ").append(allowedValueList).
+						append(" or one starting with ").append(allowedPrefixes).
+						append('.');
+					throw new IllegalArgumentException(bf.toString());
 				}
 			}
 		}
