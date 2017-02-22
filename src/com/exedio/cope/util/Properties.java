@@ -1244,9 +1244,10 @@ public class Properties
 					final StringBuilder bf = new StringBuilder();
 					bf.append("property ").append(key).
 						append(" in ").append(sourceDescription).
-						append(" is not allowed, but only one of ").append(allowedValueList).
-						append(" or one starting with ").append(allowedPrefixes).
-						append('.');
+						append(" is not allowed, but only one of ").append(allowedValueList);
+					if(!allowedPrefixes.isEmpty())
+						bf.append(" or one starting with ").append(allowedPrefixes);
+					bf.append('.');
 					throw new IllegalArgumentException(bf.toString());
 				}
 			}

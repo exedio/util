@@ -262,8 +262,7 @@ public class PropertiesTest
 				"stringHiddenOptional, " +
 				"dayMandatory, " +
 				"dayOptional, " +
-				"file] " +
-				"or one starting with [].");
+				"file].");
 			assertFails(() ->
 				tp.ensureValidity("otherKey"),
 				IllegalArgumentException.class,
