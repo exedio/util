@@ -162,6 +162,8 @@ public class CharSetTest extends CopeAssert
 		assertRegexp("^[-, -\\u{fc}]*$"  , new CharSet(' ', '\u00fc')); // uuml
 		assertRegexp("^[-, -\\u{abcd}]*$", new CharSet(' ', '\uabcd'));
 		assertRegexp("^[-, -\\u{ffff}]*$", new CharSet(' ', '\uffff'));
+		assertRegexp("^[[.left-square-bracket.]-[.right-square-bracket.]]*$", new CharSet('[', ']'));
+		assertRegexp("^[-,[.comma.]-.]*$", new CharSet(',', '.'));
 	}
 
 	private static void assertEqualsStrict(final CharSet cs1, final CharSet cs2)

@@ -222,6 +222,9 @@ public final class CharSet implements Serializable
 			case '\r': bf.append("[.carriage-return.]"); break;
 			case '\b': bf.append("[.backspace.]");       break;
 			case  '~': bf.append("[.tilde.]");           break;
+			case  ',': bf.append("[.comma.]");           break;
+			case  '[': bf.append("[.left-square-bracket.]"); break;
+			case  ']': bf.append("[.right-square-bracket.]"); break;
 			default:
 			{
 				if(c<' ' || c>127)
