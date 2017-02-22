@@ -176,11 +176,85 @@ public final class CharSet implements Serializable
 		return bf.toString();
 	}
 
+	CharSet invert()
+	{
+		final char[] temp = new char[set.length+2];
+		int invertIndex = 0;
+		if (set[0]!='\0')
+		{
+			temp[invertIndex++] = '\0';
+			temp[invertIndex++] = (char) (set[0]-1);
+		}
+		for(int i = 1; i<set.length-1; i+=2)
+		{
+			temp[invertIndex++] = (char) (set[i]+1);
+			temp[invertIndex++] = (char) (set[i+1]-1);
+		}
+		if (set[set.length-1]!='\uFFFF')
+		{
+			temp[invertIndex++] = (char) (set[set.length-1]+1);
+			temp[invertIndex++] = '\uFFFF';
+		}
+		if (invertIndex==0)
+		{
+			return null;
+		}
+		else if (invertIndex==temp.length)
+		{
+			return new CharSet(temp);
+		}
+		else
+		{
+			final char[] cut = Arrays.copyOf(temp, invertIndex);
+			return new CharSet(cut);
+		}
+	}
+
+	CharSet restrictTo7BitAscii()
+	{
+		final char[] temp = Arrays.copyOf(set, set.length);
+		int i;
+		for(i = 0; i<temp.length; i+=2)
+		{
+			if (temp[i]>'\u007F')
+			{
+				break;
+			}
+			if (temp[i+1]>'\u007F')
+			{
+				temp[i+1] = '\u007F';
+			}
+		}
+		if (i==0)
+		{
+			return null;
+		}
+		else if (i==temp.length)
+		{
+			return new CharSet(temp);
+		}
+		else
+		{
+			final char[] cut = Arrays.copyOf(temp, i);
+			return new CharSet(cut);
+		}
+	}
+
 	public String getRegularExpression()
 	{
 		// ^[0-9,a-z,A-Z]*$
 		final StringBuilder bf = new StringBuilder();
-		bf.append("^[");
+		bf.append("^");
+		bf.append(getRegularExpressionCharacterClass());
+		bf.append("*$");
+		return bf.toString();
+	}
+
+	private StringBuilder getRegularExpressionCharacterClass()
+	{
+		// [0-9,a-z,A-Z]
+		final StringBuilder bf = new StringBuilder();
+		bf.append("[");
 
 		boolean prependComma = false;
 
@@ -218,8 +292,19 @@ public final class CharSet implements Serializable
 			}
 		}
 
-		bf.append("]*$");
-		return bf.toString();
+		bf.append("]");
+		return bf;
+	}
+
+	public String getRegularExpressionForInvalid7BitChars()
+	{
+		final CharSet inverted = invert();
+		if (inverted==null)
+			return null;
+		final CharSet restricted = inverted.restrictTo7BitAscii();
+		if (restricted==null)
+			return null;
+		return restricted.getRegularExpressionCharacterClass().toString();
 	}
 
 	private static void append(final StringBuilder bf, final char c)

@@ -239,4 +239,30 @@ public class CharSetTest extends CopeAssert
 		}
 		return sb.toString();
 	}
+
+	@Test public void invert()
+	{
+		assertEquals(null, new CharSet('\0', '\uffff').invert());
+		assertEquals(new CharSet('G', '\uffff'), new CharSet('\0', 'F').invert());
+		assertEquals(new CharSet('\0', 'E'), new CharSet('F', '\uffff').invert());
+		assertEquals(new CharSet('\0', 'A', 'Z', '\uffff'), new CharSet('B', 'Y').invert());
+		assertEquals(new CharSet('\0', '3', '5', 'A', 'Z', '\uffff'), new CharSet('4', '4', 'B', 'Y').invert());
+	}
+
+	@Test public void restrict()
+	{
+		assertEquals(new CharSet('a', 'z'), new CharSet('a', 'z').restrictTo7BitAscii());
+		assertEquals(new CharSet('a', 'f', 'h', 'm'), new CharSet('a', 'f', 'h', 'm').restrictTo7BitAscii());
+		assertEquals(new CharSet('\0', '\u007f'), new CharSet('\0', '\uffff').restrictTo7BitAscii());
+		assertEquals(new CharSet('0', '9', 'A', 'Z'), new CharSet('0', '9', 'A', 'Z', '\u00e4', '\u00e4').restrictTo7BitAscii());
+		assertEquals(new CharSet('0', '9', 'A', '\u007f'), new CharSet('0', '9', 'A', '\u00e4', '\u00f6', '\u00fc').restrictTo7BitAscii());
+		assertEquals(CharSet.EMAIL_ASCII, CharSet.EMAIL_INTERNATIONAL.restrictTo7BitAscii());
+		assertEquals(null, new CharSet('\u00e4', '\u00f6').restrictTo7BitAscii());
+	}
+
+	@Test public void invertedRegexp()
+	{
+		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
+		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", CharSet.EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
+	}
 }
