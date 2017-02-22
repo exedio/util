@@ -942,9 +942,26 @@ public class Properties
 	}
 
 
+	/**
+	 * If calling this method causes javac problem:
+	 * {@code error: reference to value is ambiguous},
+	 * use {@link #valnp(String, Factory)} instead.
+	 */
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();
+	}
+
+	/**
+	 * Replacement for {@link #value(String, Factory)} to avoid javac problem:
+	 * <p>
+	 * {@code error: reference to value is ambiguous}
+	 * <p>
+	 * http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842
+	 */
+	protected final <T extends Properties> T valnp(final String key, final Factory<T> factory)
+	{
+		return value(key, factory);
 	}
 
 	protected final <T extends Properties> T value(final String key, final boolean enabledDefault, final Factory<T> factory)
