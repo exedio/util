@@ -549,7 +549,7 @@ public class PropertiesTest extends CopeAssert
 		}
 	}
 
-	private static final java.util.Properties copy(final java.util.Properties source)
+	private static java.util.Properties copy(final java.util.Properties source)
 	{
 		return (java.util.Properties)source.clone();
 	}

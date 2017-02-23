@@ -146,7 +146,7 @@ public class CalendarTest
 		return result;
 	}
 
-	private static final Date date(final String s) throws ParseException
+	private static Date date(final String s) throws ParseException
 	{
 		return df().parse(s);
 	}

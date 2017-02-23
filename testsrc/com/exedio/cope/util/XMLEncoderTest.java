@@ -23,7 +23,7 @@ import org.junit.Test;
 
 public class XMLEncoderTest extends TestCase
 {
-	private static final void assertIt(final String expected, final String actual)
+	private static void assertIt(final String expected, final String actual)
 	{
 		assertEquals(expected, XMLEncoder.encode(actual));
 		final StringBuilder bf = new StringBuilder();

@@ -84,7 +84,7 @@ public class PropertiesContextTest extends CopeAssert
 		}
 	}
 
-	private static final TestProperties getContext(final String raw)
+	private static TestProperties getContext(final String raw)
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("aKey", raw);
@@ -127,7 +127,7 @@ public class PropertiesContextTest extends CopeAssert
 		return minimal;
 	}
 
-	private static final void assertContext(final String replaced, final String raw)
+	private static void assertContext(final String replaced, final String raw)
 	{
 		assertEquals(replaced, getContext(raw).aField);
 	}

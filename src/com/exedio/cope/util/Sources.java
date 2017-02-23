@@ -125,7 +125,7 @@ public final class Sources
 		}
 	}
 
-	private static final Properties loadPropertiesAndClose(final InputStream stream) throws IOException
+	private static Properties loadPropertiesAndClose(final InputStream stream) throws IOException
 	{
 		final Properties result = new Properties();
 		try

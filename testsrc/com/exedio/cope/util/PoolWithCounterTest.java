@@ -206,7 +206,7 @@ public class PoolWithCounterTest extends CopeAssert
 		}
 	}
 
-	private static final void assertIt(final Pool<Pooled> pool, final int getCounter, final int putCounter)
+	private static void assertIt(final Pool<Pooled> pool, final int getCounter, final int putCounter)
 	{
 		final PoolCounter poolCounter = pool.getInfo().getCounter();
 		assertEquals(getCounter, poolCounter.getGetCounter());
