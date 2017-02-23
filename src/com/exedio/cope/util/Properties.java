@@ -267,7 +267,7 @@ public class Properties
 		@Override
 		public Object getDefaultValue()
 		{
-			return Boolean.valueOf(defaultValue);
+			return defaultValue;
 		}
 
 		@Override
@@ -279,7 +279,7 @@ public class Properties
 		@Override
 		public Boolean getValue()
 		{
-			return Boolean.valueOf(value);
+			return value;
 		}
 
 		public boolean get()
@@ -387,7 +387,7 @@ public class Properties
 		@Override
 		public Object getDefaultValue()
 		{
-			return Integer.valueOf(defaultValue);
+			return defaultValue;
 		}
 
 		@Override
@@ -399,7 +399,7 @@ public class Properties
 		@Override
 		public Integer getValue()
 		{
-			return Integer.valueOf(value);
+			return value;
 		}
 
 		public int getMinimum()
