@@ -169,7 +169,7 @@ public final class CharSet implements Serializable
 	@Override
 	public String toString()
 	{
-		final StringBuffer bf = new StringBuffer();
+		final StringBuilder bf = new StringBuilder();
 		bf.append('[');
 		bf.append(set[0]).
 			append('-').
