@@ -35,25 +35,25 @@ public class MapContainsTest extends CopeAssert
 	@Test public void hashMap()
 	{
 		assertMap(
-				new HashMap<String, String>(),
+				new HashMap<>(),
 				"alpha", "beta", "nullKey", "notAdded");
 	}
 	@Test public void treeMap()
 	{
 		assertMap(
-				new TreeMap<String, String>(),
+				new TreeMap<>(),
 				"alpha", "beta", "nullKey", "notAdded");
 	}
 	@Test public void hashMapOfEnum()
 	{
 		assertMap(
-				new HashMap<KeyEnum, String>(),
+				new HashMap<>(),
 				KeyEnum.alpha, KeyEnum.beta, KeyEnum.nullKey, KeyEnum.notAdded);
 	}
 	@Test public void enumMap()
 	{
 		assertMap(
-				new EnumMap<KeyEnum,String>(KeyEnum.class),
+				new EnumMap<>(KeyEnum.class),
 				KeyEnum.alpha, KeyEnum.beta, KeyEnum.nullKey, KeyEnum.notAdded);
 	}
 

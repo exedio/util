@@ -441,7 +441,7 @@ public class PoolTest extends CopeAssert
 	{
 		try
 		{
-			new Pool<Pooled>((Factory)null, null, null);
+			new Pool<>((Factory)null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -451,14 +451,14 @@ public class PoolTest extends CopeAssert
 		final Factory f = new Factory(Arrays.<Pooled>asList());
 		try
 		{
-			new Pool<Pooled>(f, null, null);
+			new Pool<>(f, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("properties", e.getMessage());
 		}
-		new Pool<Pooled>(f, PoolProperties.factory(50).create(Sources.EMPTY), null);
+		new Pool<>(f, PoolProperties.factory(50).create(Sources.EMPTY), null);
 	}
 
 	static class Factory implements Pool.Factory<Pooled>
