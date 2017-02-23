@@ -49,7 +49,7 @@ public final class Sources
 		@Override
 		public Collection<String> keySet()
 		{
-			return Collections.<String>emptyList();
+			return Collections.emptyList();
 		}
 
 		@Override

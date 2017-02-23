@@ -769,7 +769,7 @@ public class Properties
 			final Collection<String> keySet = source.keySet(); // TODO should not depend on keySet
 			if(keySet==null)
 			{
-				value = Collections.<String, String>emptyMap();
+				value = Collections.emptyMap();
 				return;
 			}
 
@@ -783,7 +783,7 @@ public class Properties
 			}
 			value =
 					map.isEmpty()
-					? Collections.<String, String>emptyMap()
+					? Collections.emptyMap()
 					: Collections.unmodifiableMap(map);
 		}
 

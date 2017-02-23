@@ -392,7 +392,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(Arrays.<Pooled>asList());
+		final Factory f = new Factory(Arrays.asList());
 		try
 		{
 			newPool(null, -1, 0);
@@ -448,7 +448,7 @@ public class PoolTest extends CopeAssert
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(Arrays.<Pooled>asList());
+		final Factory f = new Factory(Arrays.asList());
 		try
 		{
 			new Pool<>(f, null, null);

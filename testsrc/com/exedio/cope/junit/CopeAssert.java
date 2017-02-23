@@ -56,7 +56,7 @@ public abstract class CopeAssert
 
 	public static final void assertContains(final Collection<?> actual)
 	{
-		assertContainsList(Collections.<Object>emptyList(), actual);
+		assertContainsList(Collections.emptyList(), actual);
 	}
 
 	public static final void assertContains(final Object o, final Collection<?> actual)
@@ -126,12 +126,12 @@ public abstract class CopeAssert
 
 	public static final Map<Object, Object> map()
 	{
-		return Collections.<Object, Object>emptyMap();
+		return Collections.emptyMap();
 	}
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1)
 	{
-		return Collections.<Object, Object>singletonMap(key1, value1);
+		return Collections.singletonMap(key1, value1);
 	}
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
