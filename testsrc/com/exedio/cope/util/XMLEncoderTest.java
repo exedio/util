@@ -18,10 +18,12 @@
 
 package com.exedio.cope.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class XMLEncoderTest extends TestCase
+public class XMLEncoderTest
 {
 	private static void assertIt(final String expected, final String actual)
 	{
