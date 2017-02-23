@@ -384,7 +384,7 @@ public class PoolTest
 	{
 		try
 		{
-			newPool((Factory)null, 0, 0);
+			newPool(null, 0, 0);
 			fail();
 		}
 		catch(final NullPointerException e)

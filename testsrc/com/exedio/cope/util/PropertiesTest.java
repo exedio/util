@@ -473,7 +473,7 @@ public class PropertiesTest
 	{
 		try
 		{
-			new Properties((Properties.Source)null);
+			new Properties(null);
 			fail();
 		}
 		catch(final NullPointerException e)
