@@ -244,14 +244,15 @@ public class Properties
 			{
 				specified = true;
 
-				if(s.equals("true"))
-					value = true;
-				else if(s.equals("false"))
-					value = false;
-				else
-					throw newException(key,
-							"must be either 'true' or 'false', " +
-							"but was '" + s + '\'');
+				switch(s)
+				{
+					case "true" : value = true;  break;
+					case "false": value = false; break;
+					default:
+						throw newException(key,
+								"must be either 'true' or 'false', " +
+										"but was '" + s + '\'');
+				}
 			}
 		}
 
