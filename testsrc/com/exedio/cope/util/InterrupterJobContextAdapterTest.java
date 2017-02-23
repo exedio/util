@@ -31,7 +31,6 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	private static final class MockInterrupter implements Interrupter
 	{
 		int isRequestedCount = 0;
-		boolean isRequestedResult = false;
 
 		MockInterrupter()
 		{
@@ -42,7 +41,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 		public boolean isRequested()
 		{
 			isRequestedCount++;
-			return isRequestedResult;
+			return false;
 		}
 	}
 
