@@ -92,6 +92,6 @@ public class ThreeValuedLogicTest
 	{
 		True,
 		False,
-		Unknown;
+		Unknown
 	}
 }
