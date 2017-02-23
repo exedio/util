@@ -98,7 +98,7 @@ public class PropertiesProbeRunTest
 		@Probe String probe10Return() { return "probeReturnResult"; }
 		@Probe int    probe20Primit() { return 777; }
 		@Probe String probe30Null()   { return null; }
-		@Probe void   probe40Void()   { /** empty */ }
+		@Probe void   probe40Void()   { /* empty */ }
 		@Probe String probe50Excp()   throws IOException { throw new IOException("probeExcp"); }
 		@Probe String probe60Error()  { throw new AssertionError("probeError"); }
 		@Probe String probe70Throw()  throws MyThrowable { throw new MyThrowable(); }
