@@ -251,7 +251,7 @@ public class PropertiesProbeCollectTest
 		return result;
 	}
 
-	private static Wrapper wrap(final String name, final String result) throws Exception
+	private static Wrapper wrap(final String name, final String result)
 	{
 		return new Wrapper(name, "result" + result);
 	}
