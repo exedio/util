@@ -978,7 +978,7 @@ public class Properties
 	}
 
 	@FunctionalInterface
-	public static interface Factory<T extends Properties>
+	public interface Factory<T extends Properties>
 	{
 		T create(Source source);
 	}
