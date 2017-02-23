@@ -62,6 +62,7 @@ public final class EqualsAssert
 		}
 	}
 
+	@SuppressWarnings({"EqualsWithItself", "ObjectEqualsNull", "LiteralAsArgToStringEquals"})
 	@SuppressFBWarnings({"EC_NULL_ARG","SA_LOCAL_SELF_COMPARISON"})
 	private static void assertEqualsSpecial(final Object object)
 	{

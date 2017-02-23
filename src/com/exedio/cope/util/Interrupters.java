@@ -43,7 +43,7 @@ public final class Interrupters
 				iterator,
 				interrupter!=null
 				? new AssertionErrorJobContext() {
-					@Deprecated // needed for jdk 1.5
+					@SuppressWarnings("deprecation") // needed for idea
 					@Override public boolean requestedToStop()
 					{
 						return interrupter.isRequested();

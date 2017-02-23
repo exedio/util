@@ -47,6 +47,7 @@ public class EmptyJobContextTest
 	@Test public void testStop()
 	{
 		final EmptyJobContext c = new EmptyJobContext(){
+			@SuppressWarnings("deprecation") // needed for idea
 			@Override @Deprecated public boolean requestedToStop()
 			{
 				return true;

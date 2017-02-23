@@ -85,7 +85,7 @@ public class PropertiesEnumTest
 	}
 
 
-	enum MyEnum { MANDATORY, OPTIONAL, ALPHA, BETA, GAMMA }
+	enum MyEnum { MANDATORY, OPTIONAL, @SuppressWarnings("unused") ALPHA, BETA, GAMMA }
 
 	static class MyProps extends MyProperties
 	{

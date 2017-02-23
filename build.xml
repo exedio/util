@@ -3,6 +3,7 @@
 <project name="cope util" default="build" basedir="."
 			xmlns:jacoco="antlib:org.jacoco.ant">
 
+	<!--suppress AntMissingPropertiesFileInspection -->
 	<property file="local.properties" />
 	<property file="project.properties" />
 

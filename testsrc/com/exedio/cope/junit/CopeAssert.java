@@ -144,6 +144,7 @@ public final class CopeAssert
 		return result;
 	}
 
+	@SuppressWarnings("SuspiciousMethodCalls")
 	public static <T> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
@@ -151,13 +152,13 @@ public final class CopeAssert
 			c.add(null);
 			fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			c.addAll(Collections.singleton(null));
 			fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 
 		if(!c.isEmpty())
 		{
@@ -167,25 +168,25 @@ public final class CopeAssert
 				c.clear();
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.remove(o);
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.removeAll(Collections.singleton(o));
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.retainAll(Collections.emptyList());
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 
 			final Iterator<?> iterator = c.iterator();
 			try
@@ -194,7 +195,7 @@ public final class CopeAssert
 				iterator.remove();
 				fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 		}
 
 		if(c instanceof List<?>)
@@ -208,7 +209,7 @@ public final class CopeAssert
 					l.set(0, null);
 					fail("should have thrown UnsupportedOperationException");
 				}
-				catch(final UnsupportedOperationException e) {/*OK*/}
+				catch(final UnsupportedOperationException ignored) {/*OK*/}
 			}
 		}
 	}
@@ -270,6 +271,7 @@ public final class CopeAssert
 		}
 	}
 
+	@SuppressWarnings({"UnusedReturnValue", "ResultOfMethodCallIgnored"})
 	public static <R> R waitForKey(final R o)
 	{
 		System.out.println("WAITING FOR KEY");

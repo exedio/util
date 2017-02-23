@@ -214,6 +214,7 @@ public class PoolCounterTest
 	{
 		try
 		{
+			//noinspection OverlyStrongTypeCast
 			new PoolCounter((int[])null);
 			fail();
 		}

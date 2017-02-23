@@ -26,10 +26,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@SuppressWarnings({"FieldCanBeLocal", "NonAtomicOperationOnVolatileField"})
 public class CounterTest
 {
-	@SuppressWarnings("unused")
+	@SuppressWarnings({"unused", "FieldAccessedSynchronizedAndUnsynchronized"})
 	private long countNaked;
+	@SuppressWarnings("VolatileLongOrDoubleField")
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long countVolatile;
 	private VolatileLong countVolatileObject = null;
@@ -101,6 +103,7 @@ public class CounterTest
 
 	private static final class VolatileLong
 	{
+		@SuppressWarnings("VolatileLongOrDoubleField")
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 		private volatile long value = 0;
 

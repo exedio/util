@@ -20,7 +20,7 @@ package com.exedio.cope.util.annotation;
 
 class HeadSub extends HeadSuper
 {
-	@SuppressWarnings("hiding")
+	@SuppressWarnings({"hiding", "unused"})
 	int field = 0;
 
 	@Override

@@ -37,6 +37,7 @@ public class EmptyJobContext implements JobContext
 	 * if {@link #requestedToStop()} returns <i>true</i>.
 	 */
 	@Override
+	@SuppressWarnings("deprecation") // needed for idea
 	public void stopIfRequested() throws JobStop
 	{
 		if(requestedToStop())

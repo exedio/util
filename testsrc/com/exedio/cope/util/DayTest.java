@@ -255,6 +255,7 @@ public class DayTest
 		assertEquals(new Day(2005, 2, 17), new Day(2005,  2, 22).add(-5));
 	}
 	@Test
+	@SuppressWarnings("RedundantCast")
 	public void valueOfNull()
 	{
 		assertNull(valueOf((Date)null, (TimeZone)null));

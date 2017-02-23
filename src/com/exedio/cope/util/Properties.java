@@ -65,6 +65,7 @@ public class Properties
 	final String sourceDescription;
 	private final Source context;
 
+	@SuppressWarnings("deprecation") // needed for idea
 	public Properties(final Source source)
 	{
 		this(source, null);
@@ -172,6 +173,7 @@ public class Properties
 	{
 		final String key;
 
+		@SuppressWarnings("ThisEscapedInObjectConstruction")
 		Field(final boolean top, final String key)
 		{
 			this.key = key;
@@ -211,6 +213,7 @@ public class Properties
 	}
 
 
+	@SuppressWarnings("deprecation") // needed for idea
 	protected final boolean value(final String key, final boolean defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -315,6 +318,7 @@ public class Properties
 	}
 
 
+	@SuppressWarnings("deprecation") // needed for idea
 	protected final int value(final String key, final int defaultValue, final int minimum)
 	{
 		return field(key, defaultValue, minimum).get();
@@ -444,6 +448,7 @@ public class Properties
 	}
 
 
+	@SuppressWarnings("deprecation") // needed for idea
 	protected final Day value(final String key, final Day defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -537,6 +542,7 @@ public class Properties
 	}
 
 
+	@SuppressWarnings("deprecation") // needed for idea
 	protected final String value(final String key, final String defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -684,6 +690,7 @@ public class Properties
 	}
 
 
+	@SuppressWarnings("deprecation") // needed for idea
 	protected final File valueFile(final String key)
 	{
 		return fieldFile(key).get();
@@ -858,6 +865,7 @@ public class Properties
 		 * @deprecated Use {@link #get()} instead
 		 */
 		@Deprecated
+		@SuppressWarnings("UseOfPropertiesAsHashtable")
 		public java.util.Properties mapValue()
 		{
 			final java.util.Properties result = new java.util.Properties();
@@ -975,6 +983,7 @@ public class Properties
 	 * {@code error: reference to value is ambiguous},
 	 * use {@link #valnp(String, Factory)} instead.
 	 */
+	@SuppressWarnings("deprecation") // needed for idea
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();
@@ -1020,6 +1029,7 @@ public class Properties
 		private final String key;
 		final T value;
 
+		@SuppressWarnings("ThisEscapedInObjectConstruction")
 		PropertiesField(final Properties properties, final String key, final Factory<T> factory)
 		{
 			this.key = key;
@@ -1066,7 +1076,7 @@ public class Properties
 	}
 
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({"unused", "ResultOfObjectAllocationIgnored"})
 	final void copy(final String key, final Field field)
 	{
 		if(field instanceof BooleanField)
@@ -1310,6 +1320,7 @@ public class Properties
 		return name.substring(PREFIX.length());
 	}
 
+	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	final ArrayList<Prober> probers = initProbes(this);
 
 	static final ArrayList<Prober> initProbes(final Properties instance)

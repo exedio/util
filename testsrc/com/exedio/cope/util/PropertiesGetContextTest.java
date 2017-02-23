@@ -33,6 +33,7 @@ public class PropertiesGetContextTest
 {
 	static class TestProperties extends MyProperties
 	{
+		@SuppressWarnings("unused")
 		@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 		final String stringMandatory = value("stringMandatory", (String)null);
 
@@ -74,9 +75,11 @@ public class PropertiesGetContextTest
 				throw new RuntimeException();
 			}
 		};
+		@SuppressWarnings("deprecation") // needed for idea
 		final TestProperties properties = new TestProperties(pcontext, "context", context);
 		assertSame(context, properties.getContext());
 
+		@SuppressWarnings("deprecation") // needed for idea
 		final TestProperties none = new TestProperties(pcontext, "none", null);
 		try
 		{

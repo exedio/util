@@ -43,6 +43,7 @@ public class MapContainsTest
 				new TreeMap<>(),
 				"alpha", "beta", "nullKey", "notAdded");
 	}
+	@SuppressWarnings("MapReplaceableByEnumMap")
 	@Test public void hashMapOfEnum()
 	{
 		assertMap(

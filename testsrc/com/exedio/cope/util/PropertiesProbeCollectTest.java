@@ -163,7 +163,7 @@ public class PropertiesProbeCollectTest
 				wrap(props.getProbes()));
 	}
 
-	@SuppressWarnings("static-method")
+	@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 	static class Upper extends Properties
 	{
@@ -174,6 +174,7 @@ public class PropertiesProbeCollectTest
 		Upper() { super(Sources.EMPTY); }
 	}
 
+	@SuppressWarnings("MethodOverridesInaccessibleMethodOfSuper")
 	static class Lower extends Upper
 	{
 		@Probe String probeA() { return "resultLowerA"; }
@@ -195,7 +196,7 @@ public class PropertiesProbeCollectTest
 
 	static class Private extends Properties
 	{
-		@SuppressWarnings("static-method")
+		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		@Probe private String probePrivate() { return "resultPrivate"; }
 

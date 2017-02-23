@@ -27,6 +27,7 @@ import org.junit.Test;
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesDuplicateTest
 {
+	@SuppressWarnings("unused")
 	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class DuplicateProperties extends MyProperties
 	{

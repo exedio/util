@@ -20,6 +20,7 @@ package com.exedio.cope.util.annotation;
 
 @AnnoDeclared("HeadSuperClassDeclared")
 @AnnoInherited("HeadSuperClassInherited")
+@SuppressWarnings("unused")
 class HeadSuper
 {
 	@AnnoDeclared("HeadSuperFieldDeclared")

@@ -20,6 +20,7 @@ package com.exedio.cope.util.annotation;
 
 @AnnoDeclared("BothSuperClassDeclared")
 @AnnoInherited("BothSuperClassInherited")
+@SuppressWarnings("unused")
 class BothSuper
 {
 	@AnnoDeclared("BothSuperFieldDeclared")

@@ -326,6 +326,7 @@ public final class CharSet implements Serializable
 		return restricted.getRegularExpressionCharacterClass().toString();
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	private static void append(final StringBuilder bf, final char c)
 	{
 		switch(c)
