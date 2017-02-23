@@ -48,9 +48,9 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		@SuppressWarnings("deprecation")
 		final MapField map = new MapField("map");
 
-		TestProperties(final java.util.Properties source, final String sourceDescription)
+		TestProperties(final java.util.Properties source)
 		{
-			super(view(source, sourceDescription));
+			super(view(source, "minimal"));
 		}
 
 		void assertIt()
@@ -110,7 +110,7 @@ public class PropertiesDeprecatedTest extends CopeAssert
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
 		pminimal.setProperty("file", "file.minimalValue");
 
-		final TestProperties minimal = new TestProperties(pminimal, "minimal");
+		final TestProperties minimal = new TestProperties(pminimal);
 		minimal.assertIt();
 		minimal.assertItDeprecated();
 	}

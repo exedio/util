@@ -32,9 +32,9 @@ public class PropertiesContextNullTest extends CopeAssert
 	{
 		final String aField = value("aKey", (String)null);
 
-		TestProperties(final java.util.Properties source, final String sourceDescription)
+		TestProperties(final java.util.Properties source)
 		{
-			super(view(source, sourceDescription));
+			super(view(source, "minimal"));
 		}
 	}
 
@@ -60,7 +60,7 @@ public class PropertiesContextNullTest extends CopeAssert
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("aKey", raw);
-		return new TestProperties(pminimal, "minimal");
+		return new TestProperties(pminimal);
 	}
 
 	private static void assertContext(final String raw)

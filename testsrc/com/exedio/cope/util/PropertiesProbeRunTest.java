@@ -101,7 +101,7 @@ public class PropertiesProbeRunTest
 		@Probe void   probe40Void()   { /** empty */ }
 		@Probe String probe50Excp()   throws IOException { throw new IOException("probeExcp"); }
 		@Probe String probe60Error()  { throw new AssertionError("probeError"); }
-		@Probe String probe70Throw()  throws MyThrowable { throw new MyThrowable("probeThrow"); }
+		@Probe String probe70Throw()  throws MyThrowable { throw new MyThrowable(); }
 
 		MyProps() { super(Sources.EMPTY); }
 	}
@@ -110,9 +110,9 @@ public class PropertiesProbeRunTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		MyThrowable(final String message)
+		MyThrowable()
 		{
-			super(message);
+			super("probeThrow");
 		}
 	}
 }
