@@ -1041,6 +1041,8 @@ public class Properties
 			new BooleanField(key, (BooleanField)field);
 		else if(field instanceof IntField)
 			new IntField(key, (IntField)field);
+		else if(field instanceof DayField)
+			new DayField(key, (DayField)field);
 		else if(field instanceof StringField)
 			new StringField(key, (StringField)field);
 		else if(field instanceof FileField)
