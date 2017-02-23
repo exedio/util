@@ -79,7 +79,7 @@ public class ThreeValuedLogicTest
 		final Value absorber;
 		final Value identity;
 
-		private Operator(
+		Operator(
 				final Value absorber,
 				final Value identity)
 		{
