@@ -142,7 +142,7 @@ public abstract class CopeAssert
 		return result;
 	}
 
-	public static final <T extends Object> void assertUnmodifiable(final Collection<T> c)
+	public static final <T> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
 		{
