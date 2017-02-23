@@ -52,8 +52,7 @@ final class CascadeSource
 
 			// make a copy to avoid modifications afterwards
 			this.sources = new Source[sources.length];
-			for(int i = 0; i<sources.length; i++)
-				this.sources[i] = sources[i];
+			System.arraycopy(sources, 0, this.sources, 0, sources.length);
 		}
 
 		@Override

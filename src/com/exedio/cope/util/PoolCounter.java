@@ -88,8 +88,7 @@ public final class PoolCounter
 	private static int[] copy(final int[] array)
 	{
 		final int[] result = new int[array.length];
-		for(int i = 0; i<array.length; i++)
-			result[i] = array[i];
+		System.arraycopy(array, 0, result, 0, array.length);
 		return result;
 	}
 
