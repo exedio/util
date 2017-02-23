@@ -73,9 +73,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public void testStopIfRequested()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
-			{
-				ctx.stopIfRequested();
-			}
+				ctx.stopIfRequested()
 		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
@@ -94,9 +92,7 @@ public class InterrupterJobContextAdapterTest extends CopeAssert
 	@Test public void testRequestedToStop()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
-			{
-				assertEquals(false, ctx.requestedToStop());
-			}
+				assertEquals(false, ctx.requestedToStop())
 		));
 
 		final MockInterrupter interruptor = new MockInterrupter();
