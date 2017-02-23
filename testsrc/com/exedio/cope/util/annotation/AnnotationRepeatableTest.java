@@ -169,6 +169,6 @@ public class AnnotationRepeatableTest extends CopeAssert
 		return anno!=null ? value(anno.value()) : null;
 	}
 
-	private static Class<RepeatableContent> content = RepeatableContent.class;
-	private static Class<RepeatableContainer> container = RepeatableContainer.class;
+	private static final Class<RepeatableContent> content = RepeatableContent.class;
+	private static final Class<RepeatableContainer> container = RepeatableContainer.class;
 }

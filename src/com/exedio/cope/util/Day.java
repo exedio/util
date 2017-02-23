@@ -200,7 +200,7 @@ public final class Day implements Serializable, Comparable<Day>
 		return new Day(cal);
 	}
 
-	private static TimeZone GMT = getTimeZone("Etc/GMT");
+	private static final TimeZone GMT = getTimeZone("Etc/GMT");
 
 
 	@Override
