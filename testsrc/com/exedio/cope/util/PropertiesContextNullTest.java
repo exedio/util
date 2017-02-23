@@ -60,8 +60,7 @@ public class PropertiesContextNullTest extends CopeAssert
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("aKey", raw);
-		final TestProperties minimal = new TestProperties(pminimal, "minimal");
-		return minimal;
+		return new TestProperties(pminimal, "minimal");
 	}
 
 	private static void assertContext(final String raw)
