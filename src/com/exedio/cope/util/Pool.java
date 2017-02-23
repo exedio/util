@@ -222,11 +222,7 @@ public final class Pool<E>
 				{
 					factory.dispose(e);
 				}
-				catch(final Exception ex)
-				{
-					log.error("on flushing pool", ex);
-				}
-				catch(final AssertionError ex)
+				catch(final Exception | AssertionError ex)
 				{
 					log.error("on flushing pool", ex);
 				}
