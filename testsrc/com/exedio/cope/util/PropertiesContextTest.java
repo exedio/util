@@ -35,9 +35,9 @@ public class PropertiesContextTest
 		final String aField = value("aKey", (String)null);
 
 		@Deprecated
-		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
+		TestProperties(final java.util.Properties source, final Source context)
 		{
-			super(getSource(source, sourceDescription), context);
+			super(getSource(source, "minimal"), context);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class PropertiesContextTest
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("aKey", raw);
-		final TestProperties minimal = new TestProperties(pminimal, "minimal", new Properties.Source(){
+		final TestProperties minimal = new TestProperties(pminimal, new Properties.Source(){
 
 			@Override
 			public String get(final String key)
