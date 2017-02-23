@@ -194,4 +194,75 @@ public class CharSetTest extends CopeAssert
 			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), reserialize(
 			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), 96));
 	}
+
+	@Test public void emailInvalid()
+	{
+		final String invalid = "\n\t \"(),:;<>[\\]";
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, invalid));
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_ASCII, invalid));
+		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, invalid));
+	}
+
+	@Test public void emailValid()
+	{
+		assertEquals("!#$%&'*+/=?^`{|}~", getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_ASCII, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+	}
+
+	@Test public void emailInternationalCharacters()
+	{
+		final String international = "\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u20ac\u00e0\u00e8\u00e9\u00ea\u0436";
+		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, international));
+		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_ASCII, international));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, international));
+	}
+
+	@Test public void emailNonUtf16()
+	{
+		final String nonUtf16 = new String(Character.toChars(0x1F600));
+		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, nonUtf16));
+		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_ASCII, nonUtf16));
+		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, nonUtf16));
+	}
+
+	private static String getInvalidCharacters(final CharSet charSet, final String s)
+	{
+		final StringBuilder sb = new StringBuilder();
+		for (int i=0; i<s.length(); i++)
+		{
+			final char c = s.charAt(i);
+			if (!charSet.contains(c))
+			{
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+
+	@Test public void invert()
+	{
+		assertEquals(null, new CharSet('\0', '\uffff').invert());
+		assertEquals(new CharSet('G', '\uffff'), new CharSet('\0', 'F').invert());
+		assertEquals(new CharSet('\0', 'E'), new CharSet('F', '\uffff').invert());
+		assertEquals(new CharSet('\0', 'A', 'Z', '\uffff'), new CharSet('B', 'Y').invert());
+		assertEquals(new CharSet('\0', '3', '5', 'A', 'Z', '\uffff'), new CharSet('4', '4', 'B', 'Y').invert());
+	}
+
+	@Test public void restrict()
+	{
+		assertEquals(new CharSet('a', 'z'), new CharSet('a', 'z').restrictTo7BitAscii());
+		assertEquals(new CharSet('a', 'f', 'h', 'm'), new CharSet('a', 'f', 'h', 'm').restrictTo7BitAscii());
+		assertEquals(new CharSet('\0', '\u007f'), new CharSet('\0', '\uffff').restrictTo7BitAscii());
+		assertEquals(new CharSet('0', '9', 'A', 'Z'), new CharSet('0', '9', 'A', 'Z', '\u00e4', '\u00e4').restrictTo7BitAscii());
+		assertEquals(new CharSet('0', '9', 'A', '\u007f'), new CharSet('0', '9', 'A', '\u00e4', '\u00f6', '\u00fc').restrictTo7BitAscii());
+		assertEquals(CharSet.EMAIL_ASCII, CharSet.EMAIL_INTERNATIONAL.restrictTo7BitAscii());
+		assertEquals(null, new CharSet('\u00e4', '\u00f6').restrictTo7BitAscii());
+	}
+
+	@Test public void invertedRegexp()
+	{
+		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
+		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", CharSet.EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
+	}
 }

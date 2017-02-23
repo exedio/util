@@ -36,7 +36,18 @@ public final class CharSet implements Serializable
 	public static final CharSet HEX_LOWER = new CharSet('0', '9', 'a', 'f');
 	public static final CharSet NUMERIC = new CharSet('0', '9');
 	public static final CharSet DOMAIN = new CharSet('-', '.', '0', '9', 'a', 'z');
-	public static final CharSet EMAIL  = new CharSet('-', '.', '0', '9', '@', 'Z', '_', '_', 'a', 'z');
+	/**
+	 * allows only characters commonly used in email addresses; this is the same character set as previously available
+	 * as <code>CharSet.EMAIL</code>; please note that valid characters like + and &amp; are not allowed in this charset
+	 */
+	public static final CharSet EMAIL_RESTRICTIVE = new CharSet('-', '.', '0', '9', '@', 'Z', '_', '_', 'a', 'z');
+	/** allows only 7bit ASCII email characters (RFC5322/5321 without quoted strings and comments) */
+	public static final CharSet EMAIL_ASCII  = new CharSet('!', '!', '#', '\'', '*', '+', '-', '9', '=', '=', '?', 'Z', '^', '~');
+	/** {@link #EMAIL_ASCII} plus all characters beyond 7bit ASCII */
+	public static final CharSet EMAIL_INTERNATIONAL = new CharSet('!', '!', '#', '\'', '*', '+', '-', '9', '=', '=', '?', 'Z', '^', '~', '\u0080', '\uffff');
+	/** @deprecated use one of {@link #EMAIL_RESTRICTIVE}, {@link #EMAIL_ASCII}, or {@link #EMAIL_INTERNATIONAL} instead */
+	@Deprecated
+	public static final CharSet EMAIL = EMAIL_RESTRICTIVE;
 
 	private final char[] set;
 
@@ -165,11 +176,85 @@ public final class CharSet implements Serializable
 		return bf.toString();
 	}
 
+	CharSet invert()
+	{
+		final char[] temp = new char[set.length+2];
+		int invertIndex = 0;
+		if (set[0]!='\0')
+		{
+			temp[invertIndex++] = '\0';
+			temp[invertIndex++] = (char) (set[0]-1);
+		}
+		for(int i = 1; i<set.length-1; i+=2)
+		{
+			temp[invertIndex++] = (char) (set[i]+1);
+			temp[invertIndex++] = (char) (set[i+1]-1);
+		}
+		if (set[set.length-1]!='\uFFFF')
+		{
+			temp[invertIndex++] = (char) (set[set.length-1]+1);
+			temp[invertIndex++] = '\uFFFF';
+		}
+		if (invertIndex==0)
+		{
+			return null;
+		}
+		else if (invertIndex==temp.length)
+		{
+			return new CharSet(temp);
+		}
+		else
+		{
+			final char[] cut = Arrays.copyOf(temp, invertIndex);
+			return new CharSet(cut);
+		}
+	}
+
+	CharSet restrictTo7BitAscii()
+	{
+		final char[] temp = Arrays.copyOf(set, set.length);
+		int i;
+		for(i = 0; i<temp.length; i+=2)
+		{
+			if (temp[i]>'\u007F')
+			{
+				break;
+			}
+			if (temp[i+1]>'\u007F')
+			{
+				temp[i+1] = '\u007F';
+			}
+		}
+		if (i==0)
+		{
+			return null;
+		}
+		else if (i==temp.length)
+		{
+			return new CharSet(temp);
+		}
+		else
+		{
+			final char[] cut = Arrays.copyOf(temp, i);
+			return new CharSet(cut);
+		}
+	}
+
 	public String getRegularExpression()
 	{
 		// ^[0-9,a-z,A-Z]*$
 		final StringBuilder bf = new StringBuilder();
-		bf.append("^[");
+		bf.append("^");
+		bf.append(getRegularExpressionCharacterClass());
+		bf.append("*$");
+		return bf.toString();
+	}
+
+	private StringBuilder getRegularExpressionCharacterClass()
+	{
+		// [0-9,a-z,A-Z]
+		final StringBuilder bf = new StringBuilder();
+		bf.append("[");
 
 		boolean prependComma = false;
 
@@ -207,8 +292,19 @@ public final class CharSet implements Serializable
 			}
 		}
 
-		bf.append("]*$");
-		return bf.toString();
+		bf.append("]");
+		return bf;
+	}
+
+	public String getRegularExpressionForInvalid7BitChars()
+	{
+		final CharSet inverted = invert();
+		if (inverted==null)
+			return null;
+		final CharSet restricted = inverted.restrictTo7BitAscii();
+		if (restricted==null)
+			return null;
+		return restricted.getRegularExpressionCharacterClass().toString();
 	}
 
 	private static void append(final StringBuilder bf, final char c)
