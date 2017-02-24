@@ -53,7 +53,7 @@ public class NumberFormatConcurrencyParseTest extends CopeAssert
 		private final NumberFormat format;
 		private final String expected;
 
-		public DFThread(final NumberFormat format, final String string) throws ParseException
+		DFThread(final NumberFormat format, final String string) throws ParseException
 		{
 			this.format = format;
 			//this.format = NumberFormat.getInstance(Locale.ENGLISH);

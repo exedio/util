@@ -54,7 +54,7 @@ public class DateFormatConcurrencyTest extends CopeAssert
 		private final DateFormat format;
 		private final String expected;
 
-		public DFThread(final DateFormat format, final String string) throws ParseException
+		DFThread(final DateFormat format, final String string) throws ParseException
 		{
 			this.format = format;
 			//this.format = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.ENGLISH);

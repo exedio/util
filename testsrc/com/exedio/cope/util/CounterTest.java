@@ -105,7 +105,7 @@ public class CounterTest extends CopeAssert
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 		private volatile long value = 0;
 
-		public VolatileLong()
+		VolatileLong()
 		{
 			// TODO Auto-generated constructor stub
 		}
