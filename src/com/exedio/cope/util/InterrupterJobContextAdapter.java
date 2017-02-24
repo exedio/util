@@ -21,7 +21,7 @@ package com.exedio.cope.util;
 public final class InterrupterJobContextAdapter
 {
 	@Deprecated
-	public static final int run(final Interrupter interrupter, final Body body)
+	public static int run(final Interrupter interrupter, final Body body)
 	{
 		final Adapter ctx = new Adapter(interrupter);
 		body.run(ctx);
