@@ -25,4 +25,9 @@ final class JobContextDeprecated
 	{
 		return ctx.requestedToStop();
 	}
+
+	private JobContextDeprecated()
+	{
+		// prevent instantiation
+	}
 }
