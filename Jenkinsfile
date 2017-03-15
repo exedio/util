@@ -82,8 +82,8 @@ timestamps
 								.axis().skipZero().crop()
 								.plot().type(CoverageType.LINE).value(CoverageValue.MISSED).color(Color.ORANGE),
 						execPattern: 'build/jacoco.exec',
-						classPattern: 'build/classes/src/**',
-						sourcePattern: 'src/**'])
+						classPattern: 'build/classes/src',
+						sourcePattern: 'src'])
 				archive 'build/success/*'
 			}
 		}
