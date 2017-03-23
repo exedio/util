@@ -252,32 +252,7 @@ public final class CharSet implements Serializable
 
 	CharSet restrictTo7BitAscii()
 	{
-		final char[] temp = Arrays.copyOf(set, set.length);
-		int i;
-		for(i = 0; i<temp.length; i+=2)
-		{
-			if (temp[i]>'\u007F')
-			{
-				break;
-			}
-			if (temp[i+1]>'\u007F')
-			{
-				temp[i+1] = '\u007F';
-			}
-		}
-		if (i==0)
-		{
-			return null;
-		}
-		else if (i==temp.length)
-		{
-			return new CharSet(temp);
-		}
-		else
-		{
-			final char[] cut = Arrays.copyOf(temp, i);
-			return new CharSet(cut);
-		}
+		return remove('\u0080', '\uFFFF');
 	}
 
 	public String getRegularExpression()
