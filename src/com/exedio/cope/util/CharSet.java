@@ -19,7 +19,9 @@
 package com.exedio.cope.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public final class CharSet implements Serializable
 {
@@ -174,6 +176,44 @@ public final class CharSet implements Serializable
 		bf.append(']');
 
 		return bf.toString();
+	}
+
+	public CharSet remove(final char from, final char to)
+	{
+		if (from>to) throw new IllegalArgumentException(from+">"+to);
+		final List<char[]> areas = new ArrayList<>();
+		for (int i=0; i<set.length; i+=2)
+		{
+			char setFrom = set[i];
+			char setTo = set[i+1];
+			if (from<=setFrom && to>=setTo)
+			{
+				// removal area includes all at this area
+				// drop
+				continue;
+			}
+			else if (to<setFrom || from>setTo)
+			{
+				// removal area and this area don't overlap
+				areas.add(new char[]{setFrom, setTo});
+				continue;
+			}
+			if (setFrom<=from-1)
+				areas.add(new char[]{setFrom, (char)(from-1)});
+			if (to+1<=setTo)
+				areas.add(new char[]{(char)(to+1), setTo});
+		}
+		if (areas.isEmpty())
+			return null;
+		final char[] newSet = new char[areas.size()*2];
+		int i=0;
+		for (char[] area: areas)
+		{
+			newSet[i++] = area[0];
+			newSet[i++] = area[1];
+		}
+		if (i!=newSet.length) throw new RuntimeException();
+		return new CharSet(newSet);
 	}
 
 	CharSet invert()
