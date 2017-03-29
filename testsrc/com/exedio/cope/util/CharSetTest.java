@@ -265,4 +265,18 @@ public class CharSetTest extends CopeAssert
 		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
 		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", CharSet.EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
 	}
+
+	@Test public void remove()
+	{
+		assertEquals(new CharSet('a', 'c'), new CharSet('a', 'c').remove('d', 'f'));
+		assertEquals(new CharSet('d', 'f'), new CharSet('d', 'f').remove('a', 'c'));
+		assertEquals(new CharSet('a', 'a', 'c', 'c'), new CharSet('a', 'c').remove('b', 'b'));
+		assertEquals(null, new CharSet('a', 'c').remove('a', 'c'));
+		assertEquals(new CharSet('k', 's'), new CharSet('f', 's').remove('a', 'j'));
+		assertEquals(new CharSet('a', 'e'), new CharSet('a', 'j').remove('f', 's'));
+		assertEquals(new CharSet('0', '1', '8', '9'), new CharSet('0', '1', '3', '6', '8', '9').remove('3', '6'));
+		assertEquals(new CharSet('0', '1', '8', '9'), new CharSet('0', '1', '3', '6', '8', '9').remove('2', '7'));
+		assertEquals(new CharSet('0', '0', '9', '9'), new CharSet('0', '1', '3', '6', '8', '9').remove('1', '8'));
+		assertEquals(null, new CharSet('0', '1', '3', '6', '8', '9').remove('0', '9'));
+	}
 }

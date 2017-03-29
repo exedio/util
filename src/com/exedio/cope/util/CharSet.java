@@ -19,7 +19,9 @@
 package com.exedio.cope.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public final class CharSet implements Serializable
 {
@@ -176,6 +178,44 @@ public final class CharSet implements Serializable
 		return bf.toString();
 	}
 
+	public CharSet remove(final char from, final char to)
+	{
+		if (from>to) throw new IllegalArgumentException(from+">"+to);
+		final List<char[]> areas = new ArrayList<>();
+		for (int i=0; i<set.length; i+=2)
+		{
+			char setFrom = set[i];
+			char setTo = set[i+1];
+			if (from<=setFrom && to>=setTo)
+			{
+				// removal area includes all at this area
+				// drop
+				continue;
+			}
+			else if (to<setFrom || from>setTo)
+			{
+				// removal area and this area don't overlap
+				areas.add(new char[]{setFrom, setTo});
+				continue;
+			}
+			if (setFrom<=from-1)
+				areas.add(new char[]{setFrom, (char)(from-1)});
+			if (to+1<=setTo)
+				areas.add(new char[]{(char)(to+1), setTo});
+		}
+		if (areas.isEmpty())
+			return null;
+		final char[] newSet = new char[areas.size()*2];
+		int i=0;
+		for (char[] area: areas)
+		{
+			newSet[i++] = area[0];
+			newSet[i++] = area[1];
+		}
+		if (i!=newSet.length) throw new RuntimeException();
+		return new CharSet(newSet);
+	}
+
 	CharSet invert()
 	{
 		final char[] temp = new char[set.length+2];
@@ -212,32 +252,7 @@ public final class CharSet implements Serializable
 
 	CharSet restrictTo7BitAscii()
 	{
-		final char[] temp = Arrays.copyOf(set, set.length);
-		int i;
-		for(i = 0; i<temp.length; i+=2)
-		{
-			if (temp[i]>'\u007F')
-			{
-				break;
-			}
-			if (temp[i+1]>'\u007F')
-			{
-				temp[i+1] = '\u007F';
-			}
-		}
-		if (i==0)
-		{
-			return null;
-		}
-		else if (i==temp.length)
-		{
-			return new CharSet(temp);
-		}
-		else
-		{
-			final char[] cut = Arrays.copyOf(temp, i);
-			return new CharSet(cut);
-		}
+		return remove('\u0080', '\uFFFF');
 	}
 
 	public String getRegularExpression()
