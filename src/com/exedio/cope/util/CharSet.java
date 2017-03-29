@@ -184,8 +184,8 @@ public final class CharSet implements Serializable
 		final List<char[]> areas = new ArrayList<>();
 		for (int i=0; i<set.length; i+=2)
 		{
-			char setFrom = set[i];
-			char setTo = set[i+1];
+			final char setFrom = set[i];
+			final char setTo = set[i+1];
 			if (from<=setFrom && to>=setTo)
 			{
 				// removal area includes all at this area
@@ -207,7 +207,7 @@ public final class CharSet implements Serializable
 			return null;
 		final char[] newSet = new char[areas.size()*2];
 		int i=0;
-		for (char[] area: areas)
+		for (final char[] area: areas)
 		{
 			newSet[i++] = area[0];
 			newSet[i++] = area[1];
