@@ -80,6 +80,30 @@ public class CharSetTest extends CopeAssert
 			assertEquals("inconsistent character set, character 'M' on position 3 is less than character 'N' on position 2", e.getMessage());
 		}
 	}
+	@Test public void inconsistentOverlapping()
+	{
+		try
+		{
+			new CharSet('A', 'C', 'C', 'F');
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("???", e.getMessage());
+		}
+	}
+	@Test public void inconsistentNoDistance()
+	{
+		try
+		{
+			new CharSet('A', 'C', 'D', 'F');
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("???", e.getMessage());
+		}
+	}
 	@Test public void simple()
 	{
 		final CharSet cs = new CharSet('C', 'C');
