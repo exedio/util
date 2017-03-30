@@ -38,7 +38,7 @@ public class CharSetTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("inconsistent character set, character 'A' on position 1 is less character 'Z' on position 0", e.getMessage());
+			assertEquals("inconsistent character set, character 'A' on position 1 is less than character 'Z' on position 0", e.getMessage());
 		}
 	}
 	@SuppressWarnings("unused")
@@ -51,7 +51,7 @@ public class CharSetTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("inconsistent character set, character 'A' on position 1 is less character 'B' on position 0", e.getMessage());
+			assertEquals("inconsistent character set, character 'A' on position 1 is less than character 'B' on position 0", e.getMessage());
 		}
 	}
 	@SuppressWarnings("unused")
@@ -64,7 +64,7 @@ public class CharSetTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("inconsistent character set, character 'B' on position 2 is less character 'C' on position 1", e.getMessage());
+			assertEquals("inconsistent character set, character 'B' on position 2 is less than character 'C' on position 1", e.getMessage());
 		}
 	}
 	@SuppressWarnings("unused")
@@ -77,7 +77,7 @@ public class CharSetTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("inconsistent character set, character 'M' on position 3 is less character 'N' on position 2", e.getMessage());
+			assertEquals("inconsistent character set, character 'M' on position 3 is less than character 'N' on position 2", e.getMessage());
 		}
 	}
 	@Test public void simple()

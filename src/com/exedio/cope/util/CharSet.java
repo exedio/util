@@ -92,7 +92,7 @@ public final class CharSet implements Serializable
 		{
 			final char c = set[i];
 			if(cp>c)
-				throw new IllegalArgumentException("inconsistent character set, character '" + c + "' on position " + i + " is less character '" + cp + "' on position " + (i-1));
+				throw new IllegalArgumentException("inconsistent character set, character '" + c + "' on position " + i + " is less than character '" + cp + "' on position " + (i-1));
 			cp = c;
 		}
 
