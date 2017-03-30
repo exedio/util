@@ -80,6 +80,7 @@ public class CharSetTest extends CopeAssert
 			assertEquals("inconsistent character set, character 'M' on position 3 is less than character 'N' on position 2", e.getMessage());
 		}
 	}
+	@SuppressWarnings("unused")
 	@Test public void inconsistentOverlapping()
 	{
 		try
@@ -92,6 +93,7 @@ public class CharSetTest extends CopeAssert
 			assertEquals("inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'C' on position 2", e.getMessage());
 		}
 	}
+	@SuppressWarnings("unused")
 	@Test public void inconsistentNoDistance()
 	{
 		try
