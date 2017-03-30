@@ -87,13 +87,21 @@ public final class CharSet implements Serializable
 	{
 		assert set.length%2==0;
 
-		char cp = set[0];
-		for(int i = 1; i<set.length; i++)
+		char endOfLastArea = 0;
+		for(int i = 0; i<set.length; i+=2)
 		{
-			final char c = set[i];
-			if(cp>c)
-				throw new IllegalArgumentException("inconsistent character set, character '" + c + "' on position " + i + " is less character '" + cp + "' on position " + (i-1));
-			cp = c;
+			final char areaStart = set[i];
+			final char areaEnd = set[i+1];
+			if (areaStart>areaEnd)
+				throw new IllegalArgumentException("inconsistent character set, character '" + areaEnd + "' on position " + (i+1) + " is less than character '" + areaStart + "' on position " + i);
+			if (i>0)
+			{
+				if (endOfLastArea>=areaStart)
+					throw new IllegalArgumentException("inconsistent character set, the character area extending to '" + endOfLastArea + "' on position " + (i-1) + " overlaps with the area starting with character '" + areaStart + "' on position " + i);
+				if (endOfLastArea+1==areaStart)
+					throw new IllegalArgumentException("inconsistent character set, no distance between character '" + endOfLastArea + "' on position " + (i-1) + " and character '" + areaStart + "' on position " + i);
+			}
+			endOfLastArea = areaEnd;
 		}
 
 		this.set = set;
