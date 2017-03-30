@@ -59,12 +59,12 @@ public class CharSetTest extends CopeAssert
 	{
 		try
 		{
-			new CharSet('A', 'C', 'B', 'A');
+			new CharSet('A', 'C', 'B', 'X');
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("inconsistent character set, character 'B' on position 2 is less than character 'C' on position 1", e.getMessage());
+			assertEquals("inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'B' on position 2", e.getMessage());
 		}
 	}
 	@SuppressWarnings("unused")
@@ -89,7 +89,7 @@ public class CharSetTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("???", e.getMessage());
+			assertEquals("inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'C' on position 2", e.getMessage());
 		}
 	}
 	@Test public void inconsistentNoDistance()
@@ -101,7 +101,7 @@ public class CharSetTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("???", e.getMessage());
+			assertEquals("inconsistent character set, no distance between character 'C' on position 1 and character 'D' on position 2", e.getMessage());
 		}
 	}
 	@Test public void simple()
