@@ -113,7 +113,7 @@ final class CascadeSource
 				else
 					result.append(" / ");
 
-				result.append(source.toString());
+				result.append(source);
 			}
 			return result.toString();
 		}

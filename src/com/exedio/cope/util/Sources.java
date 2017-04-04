@@ -121,7 +121,7 @@ public final class Sources
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException("property url " + url.toString() + " not found.", e);
+			throw new RuntimeException("property url " + url + " not found.", e);
 		}
 	}
 
