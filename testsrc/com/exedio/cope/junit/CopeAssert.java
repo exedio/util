@@ -38,9 +38,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public abstract class CopeAssert
+public final class CopeAssert
 {
-	public static final void assertContainsList(final List<?> expected, final Collection<?> actual)
+	public static void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{
 		if(expected==null && actual==null)
 			return;
@@ -54,87 +54,87 @@ public abstract class CopeAssert
 			fail("expected "+expected+", but was "+actual);
 	}
 
-	public static final void assertContains(final Collection<?> actual)
+	public static void assertContains(final Collection<?> actual)
 	{
 		assertContainsList(Collections.emptyList(), actual);
 	}
 
-	public static final void assertContains(final Object o, final Collection<?> actual)
+	public static void assertContains(final Object o, final Collection<?> actual)
 	{
 		assertContainsList(Collections.singletonList(o), actual);
 	}
 
-	public static final void assertContains(final Object o1, final Object o2, final Collection<?> actual)
+	public static void assertContains(final Object o1, final Object o2, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2), actual);
 	}
 
-	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
+	public static void assertContains(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3), actual);
 	}
 
-	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
+	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4), actual);
 	}
 
-	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<?> actual)
+	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4, o5), actual);
 	}
 
-	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Collection<?> actual)
+	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4, o5, o6), actual);
 	}
 
-	public static final void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Collection<?> actual)
+	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4, o5, o6, o7), actual);
 	}
 
-	public static final void assertContainsUnmodifiable(final Collection<?> actual)
+	public static void assertContainsUnmodifiable(final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(actual);
 	}
 
-	public static final void assertContainsUnmodifiable(final Object o, final Collection<?> actual)
+	public static void assertContainsUnmodifiable(final Object o, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o, actual);
 	}
 
-	public static final void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<?> actual)
+	public static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, actual);
 	}
 
-	public static final void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
+	public static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, o3, actual);
 	}
 
-	public static final void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
+	public static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, o3, o4, actual);
 	}
 
-	public static final Map<Object, Object> map()
+	public static Map<Object, Object> map()
 	{
 		return Collections.emptyMap();
 	}
 
-	public static final Map<Object, Object> map(final Object key1, final Object value1)
+	public static Map<Object, Object> map(final Object key1, final Object value1)
 	{
 		return Collections.singletonMap(key1, value1);
 	}
 
-	public static final Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
+	public static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
 	{
 		final HashMap<Object, Object> result = new HashMap<>();
 		result.put(key1, value1);
@@ -142,7 +142,7 @@ public abstract class CopeAssert
 		return result;
 	}
 
-	public static final <T> void assertUnmodifiable(final Collection<T> c)
+	public static <T> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
 		{
@@ -211,13 +211,13 @@ public abstract class CopeAssert
 		}
 	}
 
-	public static final void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
+	public static void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
 	}
 
-	public static final void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
+	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
@@ -227,7 +227,7 @@ public abstract class CopeAssert
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
-	public static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	public static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		final String message =
@@ -240,7 +240,7 @@ public abstract class CopeAssert
 	}
 
 	@SuppressWarnings("unchecked")
-	public static final <S> S reserialize(final S value, final int maxSize)
+	public static <S> S reserialize(final S value, final int maxSize)
 	{
 		if(value==null)
 			throw new NullPointerException();
@@ -268,7 +268,7 @@ public abstract class CopeAssert
 		}
 	}
 
-	public static final <R> R waitForKey(final R o)
+	public static <R> R waitForKey(final R o)
 	{
 		System.out.println("WAITING FOR KEY");
 		try
@@ -282,8 +282,14 @@ public abstract class CopeAssert
 		return o;
 	}
 
-	public static final void waitForKey()
+	public static void waitForKey()
 	{
 		waitForKey(null);
+	}
+
+
+	private CopeAssert()
+	{
+		// prevent instantiation
 	}
 }

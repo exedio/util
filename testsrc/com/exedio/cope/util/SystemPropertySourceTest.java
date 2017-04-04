@@ -24,10 +24,9 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class SystemPropertySourceTest extends CopeAssert
+public class SystemPropertySourceTest
 {
 	@Test public void testIt()
 	{

@@ -18,16 +18,16 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.HashSet;
 import org.junit.Test;
 
-public class PropertiesSourceTest extends CopeAssert
+public class PropertiesSourceTest
 {
 	@Test public void testIt()
 	{

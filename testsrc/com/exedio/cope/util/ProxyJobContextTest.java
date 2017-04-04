@@ -22,10 +22,9 @@ import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class ProxyJobContextTest extends CopeAssert
+public class ProxyJobContextTest
 {
 	@Test public void testIt()
 	{

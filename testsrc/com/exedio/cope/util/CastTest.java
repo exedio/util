@@ -26,11 +26,10 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.List;
 import org.junit.Test;
 
-public class CastTest extends CopeAssert
+public class CastTest
 {
 	private static final String string1 = "string1";
 	private static final Object string1Object = string1;

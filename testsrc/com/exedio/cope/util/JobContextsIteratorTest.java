@@ -28,13 +28,12 @@ import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import org.junit.Test;
 
-public class JobContextsIteratorTest extends CopeAssert
+public class JobContextsIteratorTest
 {
 	private static final Iterator<String> ITERATOR_FAIL = new Iterator<String>()
 	{

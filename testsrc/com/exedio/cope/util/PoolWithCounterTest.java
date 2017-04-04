@@ -23,12 +23,11 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
 
-public class PoolWithCounterTest extends CopeAssert
+public class PoolWithCounterTest
 {
 	@Test public void testNormal()
 	{

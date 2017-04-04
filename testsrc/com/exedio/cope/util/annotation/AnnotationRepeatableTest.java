@@ -21,7 +21,6 @@ package com.exedio.cope.util.annotation;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -29,7 +28,7 @@ import org.junit.Test;
 /**
  * Test my understanding of repeatable annotations.
  */
-public class AnnotationRepeatableTest extends CopeAssert
+public class AnnotationRepeatableTest
 {
 	@RepeatableContent("one")
 	class One

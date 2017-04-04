@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Clock;
 import java.time.Instant;
@@ -27,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CounterTest extends CopeAssert
+public class CounterTest
 {
 	@SuppressWarnings("unused")
 	private long countNaked;

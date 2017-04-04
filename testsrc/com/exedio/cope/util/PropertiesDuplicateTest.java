@@ -21,12 +21,11 @@ package com.exedio.cope.util;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
-public class PropertiesDuplicateTest extends CopeAssert
+public class PropertiesDuplicateTest
 {
 	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class DuplicateProperties extends MyProperties

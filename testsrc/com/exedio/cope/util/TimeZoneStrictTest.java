@@ -22,10 +22,9 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class TimeZoneStrictTest extends CopeAssert
+public class TimeZoneStrictTest
 {
 	@Test public void ok()
 	{

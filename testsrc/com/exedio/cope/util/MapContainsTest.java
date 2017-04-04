@@ -20,7 +20,6 @@ package com.exedio.cope.util;
 
 import static junit.framework.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +29,7 @@ import org.junit.Test;
 /**
  * Characterization test for EnumMap and containsKey.
  */
-public class MapContainsTest extends CopeAssert
+public class MapContainsTest
 {
 	@Test public void hashMap()
 	{

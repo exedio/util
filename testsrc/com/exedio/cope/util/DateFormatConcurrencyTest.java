@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import java.util.Locale;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class DateFormatConcurrencyTest extends CopeAssert
+public class DateFormatConcurrencyTest
 {
 	@Ignore
 	@Test public void torment() throws ParseException, InterruptedException

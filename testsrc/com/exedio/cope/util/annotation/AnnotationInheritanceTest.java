@@ -20,7 +20,6 @@ package com.exedio.cope.util.annotation;
 
 import static junit.framework.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -29,7 +28,7 @@ import org.junit.Test;
 /**
  * Test my understanding of annotation inheritance.
  */
-public class AnnotationInheritanceTest extends CopeAssert
+public class AnnotationInheritanceTest
 {
 	@Test public void testIt() throws NoSuchFieldException, NoSuchMethodException
 	{

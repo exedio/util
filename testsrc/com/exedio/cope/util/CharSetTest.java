@@ -18,15 +18,15 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class CharSetTest extends CopeAssert
+public class CharSetTest
 {
 	@SuppressWarnings("unused")
 	@Test public void inconsistent1()

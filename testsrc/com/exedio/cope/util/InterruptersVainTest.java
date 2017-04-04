@@ -20,11 +20,10 @@ package com.exedio.cope.util;
 
 import static junit.framework.Assert.assertFalse;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation") // OK: testing deprecated api
-public class InterruptersVainTest extends CopeAssert
+public class InterruptersVainTest
 {
 	@Test public void test()
 	{

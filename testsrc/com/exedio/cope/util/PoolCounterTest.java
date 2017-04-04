@@ -23,12 +23,11 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
 
-public class PoolCounterTest extends CopeAssert
+public class PoolCounterTest
 {
 	@Test public void testIt()
 	{

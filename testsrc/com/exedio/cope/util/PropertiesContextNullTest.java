@@ -21,12 +21,11 @@ package com.exedio.cope.util;
 import static com.exedio.cope.util.Sources.view;
 import static junit.framework.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
-public class PropertiesContextNullTest extends CopeAssert
+public class PropertiesContextNullTest
 {
 	static class TestProperties extends MyProperties
 	{

@@ -18,12 +18,13 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.assertContains;
+import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -36,7 +37,7 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TemporaryFolder;
 
-public class SourcesFileTest extends CopeAssert
+public class SourcesFileTest
 {
 	private final TemporaryFolder folder = new TemporaryFolder();
 

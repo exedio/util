@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Day.valueOf;
@@ -29,7 +30,6 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.junit.ClockRule;
 import com.exedio.cope.util.junit.TimeZoneDefaultRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -49,7 +49,7 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 @SuppressWarnings("unused")
-public class DayTest extends CopeAssert
+public class DayTest
 {
 	private final ClockRule clock = new ClockRule();
 	private final TimeZoneDefaultRule timeZoneDefault = new TimeZoneDefaultRule();

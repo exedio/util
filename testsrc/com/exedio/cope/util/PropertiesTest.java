@@ -18,12 +18,13 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
+import static com.exedio.cope.junit.CopeAssert.map;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +35,7 @@ import org.junit.rules.RuleChain;
 import org.junit.rules.TemporaryFolder;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
-public class PropertiesTest extends CopeAssert
+public class PropertiesTest
 {
 	private final TemporaryFolder folder = new TemporaryFolder();
 

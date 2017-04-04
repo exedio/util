@@ -27,7 +27,6 @@ import static com.exedio.cope.util.StrictFile.setLastModified;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +35,7 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TemporaryFolder;
 
-public class StrictFileTest extends CopeAssert
+public class StrictFileTest
 {
 	private final TemporaryFolder folder = new TemporaryFolder();
 

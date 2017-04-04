@@ -22,12 +22,11 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.Locale;
 import org.junit.Test;
 
-public class HexTest extends CopeAssert
+public class HexTest
 {
 	@Test public void testDecodeHelper()
 	{

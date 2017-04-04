@@ -20,7 +20,6 @@ package com.exedio.cope.util;
 
 import static junit.framework.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import org.junit.Ignore;
@@ -32,7 +31,7 @@ import org.junit.Test;
  * Especially regarding rounding issues between the 0.00 - 1.00 syntax
  * of CSS and the bytes stores in {@link java.awt.Color Color}.
  */
-public class ColorDecimalAlphaTest extends CopeAssert
+public class ColorDecimalAlphaTest
 {
 	@Ignore
 	@Test public void testIt()

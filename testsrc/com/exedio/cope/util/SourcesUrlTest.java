@@ -18,19 +18,20 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.assertContains;
+import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import org.junit.Test;
 
-public class SourcesUrlTest extends CopeAssert
+public class SourcesUrlTest
 {
 	@Test public void testIt()
 	{
