@@ -33,10 +33,10 @@ public final class Clock
 
 	public static long currentTimeMillis()
 	{
-		final Strategy source = Clock.strategy;
+		final Strategy strategy = Clock.strategy;
 		return
-			(source!=null)
-			? source.currentTimeMillis()
+			(strategy!=null)
+			? strategy.currentTimeMillis()
 			: System.currentTimeMillis();
 	}
 

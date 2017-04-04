@@ -157,7 +157,7 @@ public final class Sources
 		@Override
 		public String get(final String key)
 		{
-			Sources.checkKey(key);
+			checkKey(key);
 			return System.getProperty(key);
 		}
 
