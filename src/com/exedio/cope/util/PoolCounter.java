@@ -238,8 +238,8 @@ public final class PoolCounter
 
 		public int getLoss()
 		{
-			final int getCounter = PoolCounter.this.get;
-			return (getCounter==0) ? 0 : ((100*destroy)/getCounter);
+			final int get = PoolCounter.this.get;
+			return (get==0) ? 0 : ((100*destroy)/get);
 		}
 	}
 }
