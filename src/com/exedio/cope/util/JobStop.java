@@ -43,6 +43,6 @@ public class JobStop extends RuntimeException
 	@Deprecated
 	public JobStop()
 	{
-		super();
+		// empty
 	}
 }
