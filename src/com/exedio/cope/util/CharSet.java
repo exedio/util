@@ -266,11 +266,7 @@ public final class CharSet implements Serializable
 	public String getRegularExpression()
 	{
 		// ^[0-9,a-z,A-Z]*$
-		final StringBuilder bf = new StringBuilder();
-		bf.append("^");
-		bf.append(getRegularExpressionCharacterClass());
-		bf.append("*$");
-		return bf.toString();
+		return "^" + getRegularExpressionCharacterClass() + "*$";
 	}
 
 	private StringBuilder getRegularExpressionCharacterClass()
