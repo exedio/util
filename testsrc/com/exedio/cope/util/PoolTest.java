@@ -24,7 +24,6 @@ import static junit.framework.Assert.assertSame;
 import static junit.framework.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
@@ -391,7 +390,7 @@ public class PoolTest
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(Arrays.asList());
+		final Factory f = new Factory(asList());
 		try
 		{
 			newPool(null, -1, 0);
@@ -447,7 +446,7 @@ public class PoolTest
 		{
 			assertEquals("factory", e.getMessage());
 		}
-		final Factory f = new Factory(Arrays.asList());
+		final Factory f = new Factory(asList());
 		try
 		{
 			new Pool<>(f, null, null);

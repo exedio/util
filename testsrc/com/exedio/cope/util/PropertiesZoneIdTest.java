@@ -86,7 +86,7 @@ public class PropertiesZoneIdTest
 	static class MyProps extends MyProperties
 	{
 		final ZoneId mandatory = value("mandatory", (ZoneId)null);
-		final ZoneId optional  = value("optional" , ZoneId.of("Europe/Moscow"));
+		final ZoneId optional  = value("optional" , of("Europe/Moscow"));
 
 		MyProps(final java.util.Properties source)
 		{

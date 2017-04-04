@@ -90,7 +90,7 @@ public class PropertiesEnumTest
 	static class MyProps extends MyProperties
 	{
 		final MyEnum mandatory = value("mandatory", MyEnum.class);
-		final MyEnum optional  = value("optional" , MyEnum.OPTIONAL);
+		final MyEnum optional  = value("optional" , OPTIONAL);
 
 		MyProps(final java.util.Properties source)
 		{

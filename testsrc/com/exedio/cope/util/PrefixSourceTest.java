@@ -117,7 +117,7 @@ public class PrefixSourceTest
 	@Test public void testNull()
 	{
 		final MockSource ms = new MockSource(true, null);
-		final PrefixSource ps = (PrefixSource)PrefixSource.wrap(ms, "prefix.");
+		final PrefixSource ps = (PrefixSource)wrap(ms, "prefix.");
 
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
