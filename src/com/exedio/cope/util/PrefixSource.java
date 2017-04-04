@@ -28,7 +28,7 @@ public final class PrefixSource implements Source
 {
 	public static Source wrap(final Source source, final String prefix)
 	{
-		if(prefix==null || prefix.length()==0)
+		if(prefix==null || prefix.isEmpty())
 			return source;
 
 		if(source instanceof PrefixSource)
@@ -49,7 +49,7 @@ public final class PrefixSource implements Source
 			throw new NullPointerException("source");
 		if(prefix==null)
 			throw new NullPointerException("prefix");
-		if(prefix.length()==0)
+		if(prefix.isEmpty())
 			throw new IllegalArgumentException("prefix");
 		this.source = source;
 		this.prefix = prefix;

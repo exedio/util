@@ -176,7 +176,7 @@ public class Properties
 
 			if(key==null)
 				throw new NullPointerException("key");
-			if(key.length()==0)
+			if(key.isEmpty())
 				throw new RuntimeException("key must not be empty.");
 			if(detectDuplicateKeys.put(key, this)!=null)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');

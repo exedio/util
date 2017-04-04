@@ -188,7 +188,7 @@ public final class Sources
 	{
 		if(key==null)
 			throw new NullPointerException("key");
-		if(key.length()==0)
+		if(key.isEmpty())
 			throw new IllegalArgumentException("key must not be empty");
 	}
 
