@@ -131,7 +131,7 @@ public class CascadeSourceTest
 
 	@Test public void exposeArray()
 	{
-		final Source[] sources = new Source[]{
+		final Source[] sources = {
 				view(new Properties(), "description1"),
 				view(new Properties(), "description2")};
 
