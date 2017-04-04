@@ -310,7 +310,7 @@ public class DayTest extends CopeAssert
 		assertEquals(0, cal.get(Calendar.HOUR_OF_DAY));
 		assertEquals(0, cal.get(Calendar.AM_PM));
 		assertEquals(day, cal.get(Calendar.DAY_OF_MONTH));
-		assertEquals(month, cal.get(Calendar.MONDAY));
+		assertEquals(month, cal.get(Calendar.MONTH));
 		assertEquals(year, cal.get(Calendar.YEAR));
 		assertEquals(1, cal.get(Calendar.ERA));
 		assertEquals(actual, valueOf(cal));
