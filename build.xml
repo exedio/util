@@ -44,6 +44,7 @@
 		<attribute name="name" />
 		<attribute name="userTimezone" />
 		<sequential>
+		<echo message="@{userTimezone} (@{name})" />
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
 		<junit fork="yes"
