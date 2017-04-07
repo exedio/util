@@ -24,8 +24,8 @@ import static com.exedio.cope.util.StrictFile.mkdir;
 import static com.exedio.cope.util.StrictFile.mkdirs;
 import static com.exedio.cope.util.StrictFile.renameTo;
 import static com.exedio.cope.util.StrictFile.setLastModified;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;

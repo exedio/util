@@ -21,9 +21,9 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
