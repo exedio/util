@@ -40,7 +40,7 @@ public final class CharSet implements Serializable
 	public static final CharSet DOMAIN = new CharSet('-', '.', '0', '9', 'a', 'z');
 	/**
 	 * allows only characters commonly used in email addresses; this is the same character set as previously available
-	 * as <code>CharSet.EMAIL</code>; please note that valid characters like + and &amp; are not allowed in this charset
+	 * as {@code CharSet.EMAIL}; please note that valid characters like + and &amp; are not allowed in this charset
 	 */
 	public static final CharSet EMAIL_RESTRICTIVE = new CharSet('-', '.', '0', '9', '@', 'Z', '_', '_', 'a', 'z');
 	/** allows only 7bit ASCII email characters (RFC5322/5321 without quoted strings and comments) */
