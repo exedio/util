@@ -40,6 +40,7 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -179,7 +180,7 @@ public class DayTest
 	public void conversionDateDeprecated() throws ParseException
 	{
 		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
 
 		final Day summer = new Day(2005, 9, 23);
 		final Day winter = new Day(2005, 2, 22);
@@ -198,7 +199,7 @@ public class DayTest
 	public void conversionDateBerlin() throws ParseException
 	{
 		final TimeZone tz = getTimeZone("Europe/Berlin");
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
 
 		final Day summer = new Day(2005, 9, 23);
 		final Day winter = new Day(2005, 2, 22);
@@ -218,7 +219,7 @@ public class DayTest
 	{
 		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final TimeZone tz = getTimeZone("Etc/GMT");
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
 
 		final Day summer = new Day(2005, 9, 23);
 		final Day winter = new Day(2005, 2, 22);
@@ -236,7 +237,7 @@ public class DayTest
 	@Test
 	public void conversionMillis() throws ParseException
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
 		final TimeZone tz = getTimeZone("Europe/Berlin"); // TODO use GMT
 
 		final Day d = new Day(2005, 9, 23);

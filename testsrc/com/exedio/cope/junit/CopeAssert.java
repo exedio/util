@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public final class CopeAssert
@@ -229,7 +230,7 @@ public final class CopeAssert
 
 	public static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.ENGLISH);
 		final String message =
 			"expected date within " + df.format(expectedBefore) +
 			" and " + df.format(expectedAfter) +

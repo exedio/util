@@ -140,7 +140,7 @@ public class CalendarTest
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("'TZ'Z yyyy/MM/dd-HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("'TZ'Z yyyy/MM/dd-HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(TimeZoneStrict.getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;
