@@ -181,7 +181,7 @@ public final class CopeAssert
 			catch(final UnsupportedOperationException e) {/*OK*/}
 			try
 			{
-				c.retainAll(Collections.EMPTY_LIST);
+				c.retainAll(Collections.emptyList());
 				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(final UnsupportedOperationException e) {/*OK*/}
