@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -241,7 +242,7 @@ public final class CopeAssert
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <S> S reserialize(final S value, final int maxSize)
+	public static <S extends Serializable> S reserialize(final S value, final int maxSize)
 	{
 		if(value==null)
 			throw new NullPointerException();
