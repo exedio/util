@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.map;
 import static com.exedio.cope.util.Sources.view;
@@ -212,6 +213,7 @@ public class PropertiesTest
 
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
+			assertContainsUnmodifiable(tp.getOrphanedKeys());
 
 			assertEquals(true, tp.boolFalse);
 			assertEquals(false, tp.boolTrue);
@@ -264,6 +266,7 @@ public class PropertiesTest
 			p.setProperty("wrongKey.zack", "somethingZack");
 			final TestProperties tp = new TestProperties(p, "wrongkey");
 			assertEquals("wrongkey", tp.getSource());
+			assertContainsUnmodifiable("wrongKey.zack", tp.getOrphanedKeys());
 			tp.ensureValidity("wrongKey");
 			try
 			{

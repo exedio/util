@@ -46,7 +46,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1093,10 +1095,46 @@ public class Properties
 		return new IllegalPropertiesException(key, source.getDescription(), detail, cause);
 	}
 
+	public final Set<String> getOrphanedKeys()
+	{
+		final Collection<String> keySet = source.keySet();
+		if(keySet==null)
+			return null;
+
+		final TreeSet<String> result = new TreeSet<>();
+		final HashSet<String> allowedValues = new HashSet<>();
+		final ArrayList<String> allowedPrefixes = new ArrayList<>();
+
+		for(final Field field : fields)
+		{
+			if(field instanceof MapField)
+				allowedPrefixes.add(field.key+'.');
+			else
+				allowedValues.add(field.key);
+		}
+
+		for(final String key : source.keySet())
+		{
+			if(!allowedValues.contains(key))
+			{
+				boolean error = true;
+				for(final String allowedPrefix : allowedPrefixes)
+				{
+					if(key.startsWith(allowedPrefix))
+					{
+						error = false;
+						break;
+					}
+				}
+				if(error)
+					result.add(key);
+			}
+		}
+		return Collections.unmodifiableSet(result);
+	}
+
 	public final void ensureValidity(final String... prefixes)
 	{
-		// TODO make a method Collection<String> getOrphanedKeys() from this method
-
 		final Collection<String> keySet = source.keySet();
 		if(keySet==null)
 			return;
