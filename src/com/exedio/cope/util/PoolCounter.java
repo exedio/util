@@ -40,8 +40,8 @@ public final class PoolCounter
 	private final int[] destroyA;
 	private int count;
 
-	int get = 0;
-	int put = 0;
+	private int get = 0;
+	private int put = 0;
 
 	public PoolCounter()
 	{
@@ -156,36 +156,49 @@ public final class PoolCounter
 		{
 			final int count = this.count;
 			for(int i = 0; i<count; i++)
-				result.add(new Pool(idleLimitA[i], idleA[i], idleMaxA[i], createA[i], destroyA[i]));
+				result.add(new Pool(idleLimitA[i], idleA[i], idleMaxA[i], createA[i], destroyA[i], get, put));
 		}
 		return Collections.unmodifiableList(result);
 	}
 
 	public int getGetCounter()
 	{
-		return get;
+		synchronized(lock)
+		{
+			return get;
+		}
 	}
 
 	public int getPutCounter()
 	{
-		return put;
+		synchronized(lock)
+		{
+			return put;
+		}
 	}
 
-	public final class Pool
+	public static final class Pool
 	{
 		private final int idleLimit;
 		private final int idle;
 		private final int idleMax;
 		private final int create;
 		private final int destroy;
+		private final int get;
+		private final int put;
 
-		Pool(final int idleLimit, final int idle, final int idleMax, final int create, final int destroy)
+		Pool(
+				final int idleLimit, final int idle, final int idleMax,
+				final int create, final int destroy,
+				final int get, final int put)
 		{
 			this.idleLimit = idleLimit;
 			this.idle = idle;
 			this.idleMax = idleMax;
 			this.create = create;
 			this.destroy = destroy;
+			this.get = get;
+			this.put = put;
 
 			assert idleLimit>0;
 			assert idle>=0;
@@ -238,7 +251,6 @@ public final class PoolCounter
 
 		public int getLoss()
 		{
-			final int get = PoolCounter.this.get;
 			return (get==0) ? 0 : ((100*destroy)/get);
 		}
 	}
