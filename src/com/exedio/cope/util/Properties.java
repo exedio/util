@@ -214,6 +214,10 @@ public class Properties
 		return field(key, defaultValue).get();
 	}
 
+	/**
+	 * @deprecated Use {@link #value(String, boolean)} instead
+	 */
+	@Deprecated
 	protected final BooleanField field(final String key, final boolean defaultValue)
 	{
 		return new BooleanField(key, defaultValue);
@@ -314,6 +318,10 @@ public class Properties
 		return field(key, defaultValue, minimum).get();
 	}
 
+	/**
+	 * @deprecated Use {@link #value(String, int, int)} instead
+	 */
+	@Deprecated
 	protected final IntField field(final String key, final int defaultValue, final int minimum)
 	{
 		return new IntField(key, defaultValue, minimum);
@@ -439,6 +447,10 @@ public class Properties
 		return field(key, defaultValue).get();
 	}
 
+	/**
+	 * @deprecated Use {@link #value(String, Day)} instead
+	 */
+	@Deprecated
 	protected final DayField field(final String key, final Day defaultValue)
 	{
 		return new DayField(key, defaultValue);
@@ -533,6 +545,10 @@ public class Properties
 		return new StringField(key, defaultValue, true).get();
 	}
 
+	/**
+	 * @deprecated Use {@link #value(String, String)} instead
+	 */
+	@Deprecated
 	protected final StringField field(final String key, final String defaultValue)
 	{
 		return
@@ -970,6 +986,10 @@ public class Properties
 		return value(key, enabledDefault) ? field(key, factory).get() : null;
 	}
 
+	/**
+	 * @deprecated Use {@link #value(String, Factory)} instead
+	 */
+	@Deprecated
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
 		final PropertiesField<T> result = new PropertiesField<>(this, key, factory);
