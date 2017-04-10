@@ -232,6 +232,11 @@ public final class Pool<E>
 
 	public Info getInfo()
 	{
+		final int idleLevel;
+		synchronized(lock)
+		{
+			idleLevel = this.idleLevel;
+		}
 		return new Info(
 				idleLimit,
 				idleInitial,
