@@ -23,7 +23,6 @@ import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Day.valueOf;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
-import static java.util.Arrays.asList;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -297,8 +296,11 @@ public class DayTest
 				new Day(2005, 2, 23), reserialize(
 				new Day(2005, 2, 23), 80));
 		assertEquals(
-				asList(new Day(2007, 2, 23), new Day(2009, 8, 25)), reserialize(
-				asList(new Day(2007, 2, 23), new Day(2009, 8, 25)), 215));
+				new Day(2007, 2, 23), reserialize(
+				new Day(2007, 2, 23), 80));
+		assertEquals(
+				new Day(2009, 8, 25), reserialize(
+				new Day(2009, 8, 25), 80));
 	}
 
 	static final void assertGregorianCalendar(final int year, final int month, final int day, final Day actual, final TimeZone zone)
