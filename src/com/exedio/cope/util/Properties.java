@@ -682,6 +682,15 @@ public class Properties
 	}
 
 
+	protected final File valueFile(final String key)
+	{
+		return fieldFile(key).get();
+	}
+
+	/**
+	 * @deprecated Use {@link #valueFile(String)} instead
+	 */
+	@Deprecated
 	protected final FileField fieldFile(final String key)
 	{
 		return new FileField(key);

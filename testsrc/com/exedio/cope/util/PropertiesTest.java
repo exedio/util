@@ -54,7 +54,7 @@ public class PropertiesTest
 		final String stringHiddenOptional = valueHidden("stringHiddenOptional", "stringHiddenOptional.defaultValue");
 		final Day dayMandatory = value("dayMandatory", (Day) null);
 		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
-		final FileField file = fieldFile("file");
+		final File file = valueFile("file");
 		@SuppressWarnings("deprecation")
 		final MapField map = fieldMap("map");
 
@@ -73,6 +73,7 @@ public class PropertiesTest
 		final StringField stringHiddenOptionalF = (StringField)forKey("stringHiddenOptional");
 		final DayField dayMandatoryF = (DayField)forKey("dayMandatory");
 		final DayField dayOptionalF = (DayField)forKey("dayOptional");
+		final FileField fileF = (FileField)forKey("file");
 
 
 		void assertIt()
@@ -89,7 +90,7 @@ public class PropertiesTest
 					stringHiddenOptionalF,
 					dayMandatoryF,
 					dayOptionalF,
-					file,
+					fileF,
 					map
 			}), getFields());
 
@@ -100,7 +101,7 @@ public class PropertiesTest
 			assertEquals("stringOptional", stringOptionalF.getKey());
 			assertEquals("stringHidden", stringHiddenF.getKey());
 			assertEquals("stringHiddenOptional", stringHiddenOptionalF.getKey());
-			assertEquals("file", file.getKey());
+			assertEquals("file", fileF.getKey());
 			assertEquals("map", map.getKey());
 			assertEquals("dayMandatory", dayMandatoryF.getKey());
 			assertEquals("dayOptional", dayOptionalF.getKey());
@@ -113,7 +114,7 @@ public class PropertiesTest
 			assertEquals("stringOptional.defaultValue", stringOptionalF.getDefaultValue());
 			assertEquals(null, stringHiddenF.getDefaultValue());
 			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValue());
-			assertEquals(null, file.getDefaultValue());
+			assertEquals(null, fileF.getDefaultValue());
 			assertEquals(null, map.getDefaultValue());
 			assertEquals(null, dayMandatoryF.getDefaultValue());
 			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
@@ -125,7 +126,7 @@ public class PropertiesTest
 			assertEquals(false, stringOptionalF.hasHiddenValue());
 			assertEquals(true, stringHiddenF.hasHiddenValue());
 			assertEquals(true, stringHiddenOptionalF.hasHiddenValue());
-			assertEquals(false, file.hasHiddenValue());
+			assertEquals(false, fileF.hasHiddenValue());
 			assertEquals(false, map.hasHiddenValue());
 			assertEquals(false, dayMandatoryF.hasHiddenValue());
 			assertEquals(false, dayOptionalF.hasHiddenValue());
@@ -159,8 +160,9 @@ public class PropertiesTest
 		assertEquals("stringOptional.defaultValue", minimal.stringOptionalF.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHiddenF.getValue());
 		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptionalF.getValue());
-		assertEquals(new File("file.minimalValue"), minimal.file.get());
-		assertEquals(new File("file.minimalValue"), minimal.file.getValue());
+		assertEquals(new File("file.minimalValue"), minimal.file);
+		assertEquals(new File("file.minimalValue"), minimal.fileF.get());
+		assertEquals(new File("file.minimalValue"), minimal.fileF.getValue());
 		assertEqualsUnmodifiable(map(), minimal.map.get());
 		assertEquals(new java.util.Properties(), mapValue(minimal.map));
 		assertEqualsUnmodifiable(map(), (Map<?,?>)minimal.map.getValue());
@@ -179,7 +181,7 @@ public class PropertiesTest
 		assertEquals(false, minimal.stringOptionalF.isSpecified());
 		assertEquals(true, minimal.stringHiddenF.isSpecified());
 		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
-		assertEquals(true, minimal.file.isSpecified());
+		assertEquals(true, minimal.fileF.isSpecified());
 		assertEquals(false, minimal.map.isSpecified());
 		assertEquals(true, minimal.dayMandatoryF.isSpecified());
 		assertEquals(false, minimal.dayOptionalF.isSpecified());
@@ -231,8 +233,8 @@ public class PropertiesTest
 			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.get());
 			assertEquals(new Day(2001,3,31), tp.dayOptionalF.getValue());
 			assertEquals(new Day(2001,3,31), tp.dayOptionalF.get());
-			assertEquals(file1, tp.file.get());
-			assertEquals(file1, tp.file.getValue());
+			assertEquals(file1, tp.fileF.get());
+			assertEquals(file1, tp.fileF.getValue());
 			final java.util.Properties mapExpected = new java.util.Properties();
 			mapExpected.setProperty("explicitKey1", "map.explicitValue1");
 			mapExpected.setProperty("explicitKey2", "map.explicitValue2");
@@ -252,7 +254,7 @@ public class PropertiesTest
 			assertEquals(true, tp.stringOptionalF.isSpecified());
 			assertEquals(true, tp.stringHiddenF.isSpecified());
 			assertEquals(true, tp.stringHiddenOptionalF.isSpecified());
-			assertEquals(true, tp.file.isSpecified());
+			assertEquals(true, tp.fileF.isSpecified());
 			assertEquals(false, tp.map.isSpecified()); // TODO
 			assertEquals(true, tp.dayMandatoryF.isSpecified());
 			assertEquals(true, tp.dayOptionalF.isSpecified());
