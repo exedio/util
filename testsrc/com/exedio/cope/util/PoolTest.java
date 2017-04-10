@@ -72,6 +72,9 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		c1.assertV(2, 2, 0);
 		f.assertV(1);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testOverflow()
@@ -116,6 +119,9 @@ public class PoolTest
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 1, 1);
 		f.assertV(2);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testPrecendence()
@@ -216,6 +222,9 @@ public class PoolTest
 		c1.assertV(2, 2, 0);
 		c2.assertV(3, 3, 0);
 		f.assertV(2);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testIdleInitial()
@@ -241,6 +250,9 @@ public class PoolTest
 		assertEquals(1, cp.getInfo().getIdleLevel());
 		c1.assertV(1, 1, 0);
 		f.assertV(1);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testIdleInitialNotFull()
@@ -266,6 +278,9 @@ public class PoolTest
 		assertEquals(1, cp.getInfo().getIdleLevel());
 		c1.assertV(1, 1, 0);
 		f.assertV(1);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testIsValidOnPut()
@@ -279,6 +294,8 @@ public class PoolTest
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -286,6 +303,8 @@ public class PoolTest
 		// get and create
 		assertSame(c1, cp.get());
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -294,6 +313,8 @@ public class PoolTest
 		c1.isValidOnPut = false;
 		cp.put(c1);
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(1, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -301,6 +322,8 @@ public class PoolTest
 		// create new because no idle available
 		assertSame(c2, cp.get());
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(1, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
@@ -348,6 +371,9 @@ public class PoolTest
 		c1.assertV(0, 1, 1);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testNoPool()
@@ -385,6 +411,9 @@ public class PoolTest
 		c1.assertV(0, 1, 1);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
+
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
 	@Test public void testValidOnGet()
@@ -398,6 +427,8 @@ public class PoolTest
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -405,6 +436,8 @@ public class PoolTest
 		// get and create
 		assertSame(c1, cp.get());
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -412,6 +445,8 @@ public class PoolTest
 		// put into idle
 		cp.put(c1);
 		assertEquals(1, cp.getInfo().getIdleLevel());
+		assertEquals(0, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -420,6 +455,8 @@ public class PoolTest
 		c1.isValidOnGet = false;
 		assertSame(c2, cp.get());
 		assertEquals(0, cp.getInfo().getIdleLevel());
+		assertEquals(1, cp.getInfo().getInvalidOnGet());
+		assertEquals(0, cp.getInfo().getInvalidOnPut());
 		c1.assertV(1, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
