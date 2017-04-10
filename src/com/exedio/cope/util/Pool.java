@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,8 +60,8 @@ public final class Pool<E>
 	private final Object lock = new Object();
 
 	private final PoolCounter counter;
-	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") private volatile int invalidOnGet = 0;
-	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") private volatile int invalidOnPut = 0;
+	private final AtomicInteger invalidOnGet = new AtomicInteger(0);
+	private final AtomicInteger invalidOnPut = new AtomicInteger(0);
 
 	/**
 	 * @deprecated Use {@link #Pool(Factory, PoolProperties, PoolCounter)} instead.
@@ -142,7 +143,7 @@ public final class Pool<E>
 			if(factory.isValidOnGet(result))
 				break;
 
-			invalidOnGet++;
+			invalidOnGet.incrementAndGet();
 
 			result = null;
 		}
@@ -173,7 +174,7 @@ public final class Pool<E>
 
 		if(!factory.isValidOnPut(e))
 		{
-			invalidOnPut++;
+			invalidOnPut.incrementAndGet();
 			return;
 		}
 
@@ -241,8 +242,8 @@ public final class Pool<E>
 				idleLimit,
 				idleInitial,
 				idleLevel,
-				invalidOnGet,
-				invalidOnPut,
+				invalidOnGet.get(),
+				invalidOnPut.get(),
 				counter!=null ? new PoolCounter(counter) : null);
 	}
 
