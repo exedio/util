@@ -994,7 +994,7 @@ public class Properties
 
 	protected final <T extends Properties> T value(final String key, final boolean enabledDefault, final Factory<T> factory)
 	{
-		return value(key, enabledDefault) ? field(key, factory).get() : null;
+		return value(key, enabledDefault) ? value(key, factory) : null;
 	}
 
 	/**
