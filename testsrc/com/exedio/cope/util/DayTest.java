@@ -26,7 +26,6 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
@@ -332,14 +331,6 @@ public class DayTest
 		assertEquals(year, cal.getYear());
 		assertEquals(null, cal.getEon());
 		assertEquals(actual, valueOf(cal));
-	}
-
-	@SuppressFBWarnings("EC_UNRELATED_TYPES")
-	@Test public void testUnrelatedEquals()
-	{
-		final Day d = new Day(2005, 9, 23);
-		assertTrue(!d.equals("hallo"));
-		assertTrue(!d.equals(Integer.valueOf(22)));
 	}
 
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
