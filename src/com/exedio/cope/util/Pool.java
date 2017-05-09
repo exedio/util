@@ -103,6 +103,7 @@ public final class Pool<E>
 		this.idleFrom = 0;
 		this.idleTo = idleInitial<idleLimit ? idleInitial : 0;
 		for(int i = 0; i<idleInitial; i++)
+			//noinspection ConstantConditions OK: is not null if idleLimit>0
 			idle[i] = factory.create();
 
 		this.counter = counter;
