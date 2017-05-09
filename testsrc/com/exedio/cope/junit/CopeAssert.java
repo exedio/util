@@ -222,6 +222,27 @@ public final class CopeAssert
 
 	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
+		try
+		{
+			actual.put(null, null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
+		if(!actual.isEmpty())
+		{
+			try
+			{
+				actual.clear();
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
+			try
+			{
+				actual.remove(null);
+				fail("should have thrown UnsupportedOperationException");
+			}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
+		}
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
 		assertUnmodifiable(actual.entrySet());
