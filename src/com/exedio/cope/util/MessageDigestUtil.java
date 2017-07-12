@@ -27,6 +27,9 @@ import java.security.Security;
 
 public final class MessageDigestUtil
 {
+	/**
+	 * @throws IllegalAlgorithmException if {@code algorithm} does not specify a MessageDigest
+	 */
 	public static MessageDigest getInstance(final String algorithm)
 	{
 		requireNonNull(algorithm, "algorithm");
@@ -68,7 +71,7 @@ public final class MessageDigestUtil
 				}
 			}
 
-			throw new IllegalArgumentException(bf.toString(), e);
+			throw new IllegalAlgorithmException(algorithm, bf.toString(), e);
 		}
 	}
 
