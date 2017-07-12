@@ -977,6 +977,18 @@ public class Properties
 		return result;
 	}
 
+	protected final MessageDigestFactory valueMessageDigest(final String key, final String defaultValue)
+	{
+		try
+		{
+			return new MessageDigestFactory(value(key, defaultValue));
+		}
+		catch(final IllegalAlgorithmException e)
+		{
+			throw newException(key, "must specify a digest, but was '" + e.getAlgorithm() + '\'', e);
+		}
+	}
+
 
 	/**
 	 * If calling this method causes javac problem:
