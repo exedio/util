@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
@@ -27,6 +29,7 @@ public final class MessageDigestUtil
 {
 	public static MessageDigest getInstance(final String algorithm)
 	{
+		requireNonNull(algorithm, "algorithm");
 		try
 		{
 			return MessageDigest.getInstance(algorithm);
