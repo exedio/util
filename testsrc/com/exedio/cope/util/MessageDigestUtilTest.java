@@ -27,9 +27,13 @@ import org.junit.Test;
 
 public class MessageDigestUtilTest
 {
-	@Test public void testIt()
+	@Test public void testMD5()
 	{
 		assertEquals("MD5", MessageDigestUtil.getInstance("MD5").getAlgorithm());
+	}
+
+	@Test public void testNotFound()
+	{
 		try
 		{
 			MessageDigestUtil.getInstance("NIXUS");
@@ -39,6 +43,33 @@ public class MessageDigestUtilTest
 		{
 			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
+		}
+	}
+
+	@Test public void testEmpty()
+	{
+		try
+		{
+			MessageDigestUtil.getInstance("");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest , choose one of: "));
+			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
+		}
+	}
+
+	@Test public void testNull()
+	{
+		try
+		{
+			MessageDigestUtil.getInstance(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
 		}
 	}
 }
