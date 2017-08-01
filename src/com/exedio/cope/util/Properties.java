@@ -1020,12 +1020,18 @@ public class Properties
 					"must name a non-abstract class, " +
 					"but was " + classRaw.getName());
 
-		if(!superclass.isAssignableFrom(classRaw))
+		final Class<? extends T> clazz;
+		try
+		{
+			clazz = classRaw.asSubclass(superclass);
+		}
+		catch(final ClassCastException e)
+		{
 			throw newException(key,
 					"must name a subclass of " + superclass.getName() + ", " +
-					"but was " + classRaw.getName());
+					"but was " + classRaw.getName(), e);
+		}
 
-		final Class<? extends T> clazz = classRaw.asSubclass(superclass);
 		final Constructor<? extends T> constructor;
 		try
 		{
