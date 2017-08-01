@@ -72,21 +72,24 @@ public class PropertiesServiceTest
 	{
 		assertWrong(
 				"mandatory", "WRONG",
-				"must name a class, but was 'WRONG'");
+				"must name a class, but was 'WRONG'",
+				ClassNotFoundException.class);
 	}
 
 	@Test public void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
-				"must be specified as there is no default");
+				"must be specified as there is no default",
+				null);
 	}
 
 	@Test public void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
-				"must name a class, but was 'WRONG'");
+				"must name a class, but was 'WRONG'",
+				ClassNotFoundException.class);
 	}
 
 	@Test public void testWrongAbstract()
@@ -94,7 +97,8 @@ public class PropertiesServiceTest
 		final String name = WrongAbstract.class.getName();
 		assertWrong(
 				"mandatory", name,
-				"must name a non-abstract class, but was " + name);
+				"must name a non-abstract class, but was " + name,
+				null);
 	}
 	@SuppressWarnings({"EmptyClass", "AbstractClassNeverImplemented", "AbstractClassWithoutAbstractMethods"})
 	abstract static class WrongAbstract {}
@@ -104,7 +108,8 @@ public class PropertiesServiceTest
 		final String name = WrongSuperclass.class.getName();
 		assertWrong(
 				"mandatory", name,
-				"must name a subclass of " + MyService.class.getName() + ", but was " + name);
+				"must name a subclass of " + MyService.class.getName() + ", but was " + name,
+				ClassCastException.class);
 	}
 	@SuppressWarnings("EmptyClass")
 	static class WrongSuperclass {}
@@ -114,7 +119,8 @@ public class PropertiesServiceTest
 		final String name = WrongConstructor.class.getName();
 		assertWrong(
 				"mandatory", name,
-				"must name a class with a constructor with parameter java.lang.String, but was " + name);
+				"must name a class with a constructor with parameter java.lang.String, but was " + name,
+				NoSuchMethodException.class);
 	}
 	static class WrongConstructor extends MyService { WrongConstructor() {super(null);} }
 
@@ -172,7 +178,8 @@ public class PropertiesServiceTest
 	private static void assertWrong(
 			final String key,
 			final String value,
-			final String message)
+			final String message,
+			final Class<? extends Exception> cause)
 	{
 		final java.util.Properties wrongProps = minimal();
 		if(value!=null)
@@ -189,6 +196,9 @@ public class PropertiesServiceTest
 		{
 			assertEquals(key, e.getKey());
 			assertEquals(message, e.getDetail());
+
+			final Throwable actualCause = e.getCause();
+			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
 		}
 	}
 
