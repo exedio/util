@@ -27,6 +27,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -987,6 +988,56 @@ public class Properties
 		{
 			throw newException(key, "must specify a digest, but was '" + e.getAlgorithm() + '\'', e);
 		}
+	}
+
+	protected final <T,P> ServiceFactory<T,P> valueService(
+			final String key,
+			final Class<T> superclass,
+			final Class<P> parameterType)
+	{
+		return valueService(key, null, superclass, parameterType);
+	}
+
+	protected final <T,P> ServiceFactory<T,P> valueService(
+			final String key,
+			final String defaultValue,
+			final Class<T> superclass,
+			final Class<P> parameterType)
+	{
+		final String name = value(key, defaultValue);
+		final Class<?> classRaw;
+		try
+		{
+			classRaw = Class.forName(name);
+		}
+		catch(final ClassNotFoundException e)
+		{
+			throw newException(key, "must name a class, but was '" + name + '\'', e);
+		}
+
+		if(Modifier.isAbstract(classRaw.getModifiers()))
+			throw newException(key,
+					"must name a non-abstract class, " +
+					"but was " + classRaw.getName());
+
+		if(!superclass.isAssignableFrom(classRaw))
+			throw newException(key,
+					"must name a subclass of " + superclass.getName() + ", " +
+					"but was " + classRaw.getName());
+
+		final Class<? extends T> clazz = classRaw.asSubclass(superclass);
+		final Constructor<? extends T> constructor;
+		try
+		{
+			constructor = clazz.getDeclaredConstructor(parameterType);
+		}
+		catch(final NoSuchMethodException e)
+		{
+			throw newException(key,
+					"must name a class with a constructor with parameter " + parameterType.getName() + ", " +
+					"but was " + classRaw.getName(), e);
+		}
+		return new ServiceFactory<>(constructor);
 	}
 
 
