@@ -29,11 +29,12 @@ timestamps
 
 				def isRelease = env.BRANCH_NAME.toString().equals("master");
 
-				properties([[$class: 'jenkins.model.BuildDiscarderProperty',
-						strategy: [
-								$class               : 'LogRotator',
+				properties([
+						buildDiscarder(logRotator(
 								numToKeepStr         : isRelease ? '1000' : '15',
-								artifactNumToKeepStr : isRelease ? '1000' :  '2' ]]])
+								artifactNumToKeepStr : isRelease ? '1000' :  '2'
+						))
+				])
 
 				sh 'echo' +
 						' scmResult=' + scmResult +
@@ -48,15 +49,17 @@ timestamps
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dfindbugs.output=xml'
 
-				step([$class: 'WarningsPublisher',
+				warnings(
 						canComputeNew: true,
 						canResolveRelativePaths: true,
+						categoriesPattern: '',
 						consoleParsers: [[parserName: 'Java Compiler (javac)']],
 						defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: '',
 						unstableTotalAll: '0',
 						usePreviousBuildAsReference: false,
-						useStableBuildAsReference: false])
-				step([$class: 'FindBugsPublisher',
+						useStableBuildAsReference: false,
+				)
+				findbugs(
 						canComputeNew: true,
 						defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '',
 						isRankActivated: false,
@@ -64,7 +67,8 @@ timestamps
 						unHealthy: '',
 						unstableTotalAll: '0',
 						usePreviousBuildAsReference: false,
-						useStableBuildAsReference: false])
+						useStableBuildAsReference: false,
+				)
 				step([$class: 'JacocoPublisher',
 						changeBuildStatus: true,
 						minimumBranchCoverage: '30',
@@ -91,10 +95,10 @@ timestamps
 		finally
 		{
 			// because junit failure aborts ant
-			step([$class: 'JUnitResultArchiver',
+			junit(
 					allowEmptyResults: false,
-					testResults: 'build/testresults/*.xml'])
-
+					testResults: 'build/testresults/*.xml',
+			)
 			def to = emailextrecipients([
 					[$class: 'CulpritsRecipientProvider'],
 					[$class: 'RequesterRecipientProvider']
