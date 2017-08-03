@@ -16,11 +16,8 @@ timestamps
 				echo("Delete working dir before build")
 				deleteDir()
 
-				checkout scm
-				sh 'git rev-parse HEAD > GIT_COMMIT'
-				env.GIT_COMMIT = readFile('GIT_COMMIT').trim()
-				sh "git cat-file -p HEAD | grep '^tree ' | sed -e 's/^tree //' > GIT_TREE"
-				env.GIT_TREE = readFile('GIT_TREE').trim()
+				def scmResult = checkout scm
+				computeGitTree(scmResult)
 
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
@@ -39,8 +36,7 @@ timestamps
 								artifactNumToKeepStr : isRelease ? '1000' :  '2' ]]])
 
 				sh 'echo' +
-						' GIT_COMMIT -${GIT_COMMIT}-' +
-						' GIT_TREE -${GIT_TREE}-' +
+						' scmResult=' + scmResult +
 						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
 						' BRANCH_NAME -${BRANCH_NAME}-' +
 						' BUILD_NUMBER -${BUILD_NUMBER}-' +
@@ -49,7 +45,7 @@ timestamps
 
 				sh "${antHome}/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
-						' "-Dbuild.tag=git ${BRANCH_NAME} ${GIT_COMMIT} ${GIT_TREE} jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dfindbugs.output=xml'
 
 				step([$class: 'WarningsPublisher',
@@ -131,4 +127,10 @@ def abortable(Closure body)
 			return
 		throw e;
 	}
+}
+
+def computeGitTree(scmResult)
+{
+	sh "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //' > .git/jenkins-head-tree"
+	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
 }
