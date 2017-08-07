@@ -20,14 +20,19 @@ package com.exedio.cope.util;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+import java.util.Objects;
 
 public final class ServiceFactory<T,P>
 {
 	private final Constructor<? extends T> constructor;
+	private final Properties properties;
 
-	ServiceFactory(final Constructor<? extends T> constructor)
+	ServiceFactory(
+			final Constructor<? extends T> constructor,
+			final Properties properties)
 	{
 		this.constructor = constructor;
+		this.properties = properties;
 		constructor.setAccessible(true);
 	}
 
@@ -40,7 +45,10 @@ public final class ServiceFactory<T,P>
 	{
 		try
 		{
-			return constructor.newInstance(parameter);
+			return
+					properties!=null
+					? constructor.newInstance(parameter, properties)
+					: constructor.newInstance(parameter);
 		}
 		catch(final ReflectiveOperationException e)
 		{
@@ -53,7 +61,8 @@ public final class ServiceFactory<T,P>
 	{
 		return
 				other instanceof ServiceFactory &&
-				constructor.equals(((ServiceFactory<?,?>)other).constructor);
+				constructor.equals(((ServiceFactory<?,?>)other).constructor) &&
+				Objects.equals(properties, ((ServiceFactory<?,?>)other).properties); // NOTE: Properties.equals is not (yet) implemented, so this works just for null/non-null and identity
 	}
 
 	@Override
@@ -62,6 +71,7 @@ public final class ServiceFactory<T,P>
 		return
 				constructor.hashCode() ^
 				Arrays.hashCode(constructor.getParameterTypes()) ^ // needed because Constructor#hashCode considers declaring class only
+				Objects.hashCode(properties) ^ // NOTE: Properties.hashCode is not (yet) implemented, so this works just for null/non-null and identity
 				926792354;
 	}
 

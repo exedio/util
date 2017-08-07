@@ -990,6 +990,18 @@ public class Properties
 		}
 	}
 
+	/**
+	 * Implementations of {@code superclass} to be instantiated by
+	 * {@link ServiceFactory#newInstance(Object)}
+	 * must have a suitable constructor:
+	 *
+	 * The type of the first parameter is specified by parameter {@code parameterType} of this method.
+	 * The type of the second parameter is specified by annotation @{@link ServiceProperties}
+	 * at the implementation class.
+	 * If there is no such annotation, the constructor must have one parameter only.
+	 * Please note that @{@link ServiceProperties} could be
+	 * {@link java.lang.annotation.Inherited inherited} from a superclass.
+	 */
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
 			final Class<T> superclass,
@@ -1032,18 +1044,80 @@ public class Properties
 					"but was " + classRaw.getName(), e);
 		}
 
+		final ServiceProperties propertiesAnnotation = classRaw.getAnnotation(ServiceProperties.class);
+		final Class<? extends Properties> propertiesClass;
+		final Properties properties;
+		if(propertiesAnnotation==null)
+		{
+			propertiesClass = null;
+			properties = null;
+		}
+		else
+		{
+			propertiesClass = propertiesAnnotation.value();
+
+			final Constructor<? extends Properties> constructor;
+			try
+			{
+				constructor = propertiesClass.getDeclaredConstructor(Source.class);
+			}
+			catch(final ReflectiveOperationException e)
+			{
+				throw newException(key,
+						"names a class " + classRaw.getName() + " " +
+						"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + ", " +
+						"which must have a constructor with parameter " + Source.class.getName(), e);
+			}
+			constructor.setAccessible(true);
+
+			properties = value(key, (Factory<Properties>)source ->
+			{
+				try
+				{
+					return constructor.newInstance(source);
+				}
+				catch(final InvocationTargetException e)
+				{
+					final Throwable target = e.getTargetException();
+					if(target instanceof RuntimeException)
+						throw (RuntimeException)target;
+					else
+						// TODO test
+						throw newException(key,
+								"names a class " + classRaw.getName() + " " +
+								"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + ", " +
+								"which must have a constructor with parameter " + Source.class.getName(), e);
+				}
+				catch(final ReflectiveOperationException e)
+				{
+					// TODO test
+					throw newException(key,
+							"names a class " + classRaw.getName() + " " +
+							"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + ", " +
+							"which must have a constructor with parameter " + Source.class.getName(), e);
+				}
+			});
+		}
+
 		final Constructor<? extends T> constructor;
 		try
 		{
-			constructor = clazz.getDeclaredConstructor(parameterType);
+			constructor =
+					propertiesClass!=null
+					? clazz.getDeclaredConstructor(parameterType, propertiesClass)
+					: clazz.getDeclaredConstructor(parameterType);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw newException(key,
-					"must name a class with a constructor with parameter " + parameterType.getName() + ", " +
+					"must name a class with a constructor with " +
+					(propertiesClass!=null
+							? "parameters " + parameterType.getName() + ',' + propertiesClass.getName()
+							: "parameter "  + parameterType.getName()
+					) + ", " +
 					"but was " + classRaw.getName(), e);
 		}
-		return new ServiceFactory<>(constructor);
+		return new ServiceFactory<>(constructor, properties);
 	}
 
 

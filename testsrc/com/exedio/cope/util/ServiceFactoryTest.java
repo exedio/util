@@ -27,17 +27,25 @@ public class ServiceFactoryTest
 {
 	@Test public void testEqualsHashCode() throws NoSuchMethodException
 	{
+		final Props props = new Props();
 		final ServiceFactory<MyService, String> one =
-				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class));
+				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class), null);
 
 		assertEqualsAndHash(one,
-				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class)));
+				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class), null));
 
-		assertNotEqualsAndHash(one,
-				new ServiceFactory<>(Two.class.getDeclaredConstructor(String.class)),
-				new ServiceFactory<>(Two.class.getDeclaredConstructor()),
-				new ServiceFactory<>(Three.class.getDeclaredConstructor(String.class)),
-				new ServiceFactory<>(Three.class.getDeclaredConstructor(Integer.class)));
+		final ServiceFactory<MyService, String> oneP =
+				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class), props);
+
+		assertEqualsAndHash(oneP,
+				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class), props));
+
+		assertNotEqualsAndHash(one, oneP,
+				new ServiceFactory<>(Two.class.getDeclaredConstructor(String.class), null),
+				new ServiceFactory<>(Two.class.getDeclaredConstructor(), null),
+				new ServiceFactory<>(Three.class.getDeclaredConstructor(String.class), null),
+				new ServiceFactory<>(Three.class.getDeclaredConstructor(Integer.class), null),
+				new ServiceFactory<>(One.class.getDeclaredConstructor(String.class), new Props()));
 	}
 
 
@@ -58,5 +66,9 @@ public class ServiceFactoryTest
 	{
 		Three(@SuppressWarnings("unused") final String parameter) {}
 		Three(@SuppressWarnings("unused") final Integer parameter) {}
+	}
+	static final class Props extends Properties
+	{
+		Props() { super(Sources.EMPTY); }
 	}
 }
