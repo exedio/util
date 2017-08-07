@@ -166,8 +166,8 @@ public class PropertiesServiceTest
 			assertEquals("mandatory", mandatoryF.getKey());
 			assertEquals("optional",  optionalF .getKey());
 
-			assertEquals(null,     mandatoryF.getDefaultValue());
-			assertEquals(TWO, optionalF .getDefaultValue());
+			assertEquals(null, mandatoryF.getDefaultValue());
+			assertEquals(TWO,  optionalF .getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
