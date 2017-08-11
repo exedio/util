@@ -174,7 +174,7 @@ public class PropertiesServiceTest
 		assertWrong(
 				"mandatory", name,
 				"names a class " + name + " " +
-				"annotated by @ServiceProperties(" + WrongNestedMissingProps.class.getName() + ", " +
+				"annotated by @ServiceProperties(" + WrongNestedMissingProps.class.getName() + "), " +
 				"which must have a constructor with parameter " + Properties.Source.class.getName(),
 				NoSuchMethodException.class);
 	}

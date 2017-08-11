@@ -1065,7 +1065,7 @@ public class Properties
 			{
 				throw newException(key,
 						"names a class " + classRaw.getName() + " " +
-						"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + ", " +
+						"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + "), " +
 						"which must have a constructor with parameter " + Source.class.getName(), e);
 			}
 			constructor.setAccessible(true);
@@ -1085,7 +1085,7 @@ public class Properties
 						// TODO test
 						throw newException(key,
 								"names a class " + classRaw.getName() + " " +
-								"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + ", " +
+								"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + "), " +
 								"which must have a constructor with parameter " + Source.class.getName(), e);
 				}
 				catch(final ReflectiveOperationException e)
@@ -1093,7 +1093,7 @@ public class Properties
 					// TODO test
 					throw newException(key,
 							"names a class " + classRaw.getName() + " " +
-							"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + ", " +
+							"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + "), " +
 							"which must have a constructor with parameter " + Source.class.getName(), e);
 				}
 			});
