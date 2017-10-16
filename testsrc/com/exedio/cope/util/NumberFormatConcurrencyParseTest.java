@@ -23,12 +23,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 public class NumberFormatConcurrencyParseTest
 {
-	@Ignore
+	@Disabled
 	@Test public void torment() throws ParseException, InterruptedException
 	{
 		final NumberFormat format = NumberFormat.getInstance(Locale.ENGLISH);

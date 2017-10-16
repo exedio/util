@@ -22,8 +22,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * This test evaluates, whether its ok to use {@link Color}
@@ -33,7 +33,7 @@ import org.junit.Test;
  */
 public class ColorDecimalAlphaTest
 {
-	@Ignore
+	@Disabled
 	@Test public void testIt()
 	{
 		for(int alphaPercent = 0; alphaPercent<=100; alphaPercent++)
@@ -49,7 +49,7 @@ public class ColorDecimalAlphaTest
 			System.out.println("" + alphaPercent + " " + alphaByte + "  " + alphaByteFromFloat + "  " + expectedDecimal + "  " + actualDecimal + "  " + alphaFloat);
 			final Color color = new Color(0.22f, 0.33f, 0.44f, alphaFloat);
 			assertEquals(alphaByte, color.getAlpha());
-			assertEquals(alphaFloat, color.getRGBComponents(null)[3], 0.0f);
+			assertEquals(alphaFloat, color.getRGBComponents(null)[3]);
 		}
 	}
 }

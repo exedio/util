@@ -43,19 +43,13 @@ import java.util.TimeZone;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(TimeZoneDefaultRule.class)
 @SuppressWarnings("unused")
 public class DayTest
 {
-	private final ClockRule clock = new ClockRule();
-	private final TimeZoneDefaultRule timeZoneDefault = new TimeZoneDefaultRule();
-
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public final RuleChain chain = RuleChain.outerRule(clock).around(timeZoneDefault);
-
 	@Test
 	public void printDefaultTimeZone()
 	{
@@ -175,7 +169,7 @@ public class DayTest
 	}
 	@Test
 	@Deprecated // OK testing deprecated API
-	public void conversionDateDeprecated() throws ParseException
+	public void conversionDateDeprecated(final TimeZoneDefaultRule timeZoneDefault) throws ParseException
 	{
 		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
@@ -213,7 +207,7 @@ public class DayTest
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)"), tz));
 	}
 	@Test
-	public void conversionDateGMT() throws ParseException
+	public void conversionDateGMT(final TimeZoneDefaultRule timeZoneDefault) throws ParseException
 	{
 		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final TimeZone tz = getTimeZone("Etc/GMT");
@@ -334,8 +328,9 @@ public class DayTest
 		assertEquals(actual, valueOf(cal));
 	}
 
+	@ExtendWith(ClockRule.Extension.class)
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
-	@Test public void currentDay()
+	@Test public void currentDay(final ClockRule clock)
 	{
 		clock.override(() -> new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT")));
 		assertEquals(new Day(1986, 4, 26), new Day(getTimeZone("Etc/GMT")));

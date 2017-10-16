@@ -25,20 +25,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(ClockRule.Extension.class)
 public class ClockTest
 {
-	private final ClockRule clock = new ClockRule();
-
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public final RuleChain chain = RuleChain.outerRule(clock);
-
-	@Test public void overrideNull()
+	@Test public void overrideNull(final ClockRule clock)
 	{
 		assertClear();
 
@@ -54,7 +48,7 @@ public class ClockTest
 		assertClear();
 	}
 
-	@Test public void testIt()
+	@Test public void testIt(final ClockRule clock)
 	{
 		final MockStrategy ms = new MockStrategy();
 		clock.override(ms);
@@ -71,7 +65,7 @@ public class ClockTest
 		assertClear();
 	}
 
-	@Test public void clearNotNeeded()
+	@Test public void clearNotNeeded(final ClockRule clock)
 	{
 		assertClear();
 

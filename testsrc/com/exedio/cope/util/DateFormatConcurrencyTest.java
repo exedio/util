@@ -24,12 +24,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 public class DateFormatConcurrencyTest
 {
-	@Ignore
+	@Disabled
 	@Test public void torment() throws ParseException, InterruptedException
 	{
 		final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.ENGLISH);

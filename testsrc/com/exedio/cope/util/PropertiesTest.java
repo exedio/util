@@ -30,19 +30,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.TemporaryFolder;
 
+@ExtendWith(TemporaryFolder.Extension.class)
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesTest
 {
-	private final TemporaryFolder folder = new TemporaryFolder();
-
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public final RuleChain chain = RuleChain.outerRule(folder);
-
 	static class TestProperties extends MyProperties
 	{
 		final boolean boolFalse = value("boolFalse", false);
@@ -134,7 +129,7 @@ public class PropertiesTest
 		}
 	}
 
-	@Test public void testIt() throws IOException
+	@Test public void testIt(final TemporaryFolder folder) throws IOException
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");

@@ -26,25 +26,19 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.TemporaryFolder;
 
+@ExtendWith(TemporaryFolder.Extension.class)
 public class SourcesFileTest
 {
-	private final TemporaryFolder folder = new TemporaryFolder();
-
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public final RuleChain chain = RuleChain.outerRule(folder);
-
-	@Test public final void testIt() throws IOException
+	@Test public final void testIt(final TemporaryFolder folder) throws IOException
 	{
 		final File file = folder.newFile("file");
 		final Properties p = new Properties();
@@ -80,7 +74,7 @@ public class SourcesFileTest
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
-	@Test public final void testNotExists() throws IOException
+	@Test public final void testNotExists(final TemporaryFolder folder) throws IOException
 	{
 		final File file = folder.newFile("file");
 		StrictFile.delete(file);

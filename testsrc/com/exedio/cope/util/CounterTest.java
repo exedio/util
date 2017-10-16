@@ -23,8 +23,8 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 @SuppressWarnings({"FieldCanBeLocal", "NonAtomicOperationOnVolatileField"})
 public class CounterTest
@@ -38,7 +38,7 @@ public class CounterTest
 	private final Object lock = new Object();
 	private final AtomicLong atomic = new AtomicLong();
 
-	@Ignore
+	@Disabled
 	@Test public final void testCount()
 	{
 		final int N = 10_000_000;
@@ -118,7 +118,7 @@ public class CounterTest
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@SuppressWarnings({"unused", "static-method"})
 	@Test public final void testNow()
 	{

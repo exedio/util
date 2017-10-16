@@ -23,10 +23,18 @@ import static java.util.TimeZone.setDefault;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.TimeZone;
-import org.junit.rules.ExternalResource;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
 
-public final class TimeZoneDefaultRule extends ExternalResource
+public final class TimeZoneDefaultRule implements AfterEachCallback, ParameterResolver
 {
+	private TimeZoneDefaultRule()
+	{
+		// just make private
+	}
+
 	private TimeZone backup;
 
 	public void set(final TimeZone zone)
@@ -41,9 +49,28 @@ public final class TimeZoneDefaultRule extends ExternalResource
 	}
 
 	@Override
-	protected void after()
+	public boolean supportsParameter(
+			final ParameterContext parameterContext,
+			final ExtensionContext extensionContext)
+	{
+		return TimeZoneDefaultRule.class==parameterContext.getParameter().getType();
+	}
+
+	@Override
+	public Object resolveParameter(
+			final ParameterContext parameterContext,
+			final ExtensionContext extensionContext)
+	{
+		return this;
+	}
+
+	@Override
+	public void afterEach(final ExtensionContext context)
 	{
 		if(backup!=null)
+		{
 			setDefault(backup);
+			backup = null;
+		}
 	}
 }

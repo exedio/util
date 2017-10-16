@@ -22,10 +22,18 @@ import static com.exedio.cope.util.Clock.clearOverride;
 
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Clock.Strategy;
-import org.junit.rules.ExternalResource;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolver;
 
-public final class ClockRule extends ExternalResource
+public final class ClockRule
 {
+	private ClockRule()
+	{
+		// just make private
+	}
+
 	@SuppressWarnings("static-method")
 	public void override(final Strategy strategy)
 	{
@@ -38,9 +46,33 @@ public final class ClockRule extends ExternalResource
 		clearOverride();
 	}
 
-	@Override
-	protected void after()
+	public static final class Extension implements AfterEachCallback, ParameterResolver
 	{
-		clearOverride();
+		private Extension()
+		{
+			// just make private
+		}
+
+		@Override
+		public boolean supportsParameter(
+				final ParameterContext parameterContext,
+				final ExtensionContext extensionContext)
+		{
+			return ClockRule.class==parameterContext.getParameter().getType();
+		}
+
+		@Override
+		public Object resolveParameter(
+				final ParameterContext parameterContext,
+				final ExtensionContext extensionContext)
+		{
+			return new ClockRule();
+		}
+
+		@Override
+		public void afterEach(final ExtensionContext context)
+		{
+			clearOverride();
+		}
 	}
 }

@@ -47,6 +47,7 @@ timestamps
 				sh "${antHome}/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' -Ddisable-ansi-colors=true' +
 						' -Dfindbugs.output=xml'
 
 				warnings(
@@ -97,7 +98,7 @@ timestamps
 			// because junit failure aborts ant
 			junit(
 					allowEmptyResults: false,
-					testResults: 'build/testresults/*.xml',
+					testResults: 'build/testresults/**/*.xml',
 			)
 			def to = emailextrecipients([
 					[$class: 'CulpritsRecipientProvider'],
