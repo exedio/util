@@ -215,12 +215,12 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public boolean after(final Day when)
 	{
-		return (compareTo(when)==1);
+		return compareTo(when) > 0;
 	}
 
 	public boolean before(final Day when)
 	{
-		return (compareTo(when)==-1);
+		return compareTo(when) < 0;
 	}
 
 	@Override
