@@ -233,6 +233,7 @@ public class SequenceCheckerTest
 		final SequenceChecker.Info sci = sc.getInfo();
 		try
 		{
+			//noinspection ResultOfMethodCallIgnored
 			sc.getFirstNumber();
 			fail();
 		}
@@ -242,6 +243,7 @@ public class SequenceCheckerTest
 		}
 		try
 		{
+			//noinspection ResultOfMethodCallIgnored
 			sc.getMaxNumber();
 			fail();
 		}

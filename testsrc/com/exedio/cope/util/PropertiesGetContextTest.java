@@ -83,6 +83,7 @@ public class PropertiesGetContextTest
 		final TestProperties none = new TestProperties(pcontext, "none", null);
 		try
 		{
+			//noinspection ResultOfMethodCallIgnored
 			none.getContext();
 			fail();
 		}
