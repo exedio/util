@@ -31,7 +31,7 @@ public final class TimeZoneDefaultRule extends ExternalResource
 
 	public void set(final TimeZone zone)
 	{
-		if(backup!=null)
+		if(backup==null)
 		{
 			backup = getDefault();
 			assertNotNull(backup);
