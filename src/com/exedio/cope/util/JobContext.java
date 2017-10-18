@@ -31,18 +31,18 @@ public interface JobContext
 {
 	/**
 	 * Checks, whether the job has been requested to stop.
-	 * You should call this method in reasonably short
+	 * The job should call this method in reasonably short
 	 * intervals.
 	 * If throws a {@link JobStop}, the job should stop
 	 * gracefully as soon as possible,
 	 * but all resources held should be released.
-	 * You may use {@link #requestedToStop()} instead, but it's not recommended.
+	 * The job may call {@link #requestedToStop()} instead, but it's not recommended.
 	 */
 	void stopIfRequested() throws JobStop;
 
 	/**
 	 * Checks, whether the job has been requested to stop.
-	 * You should call this method in reasonably short
+	 * The job should call this method in reasonably short
 	 * intervals.
 	 * If <i>true</i> is returned, the job should stop
 	 * gracefully as soon as possible,
