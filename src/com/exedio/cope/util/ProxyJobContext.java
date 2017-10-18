@@ -20,6 +20,8 @@ package com.exedio.cope.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
+
 /**
  * An proxy implementation of {@link JobContext}.
  *
@@ -44,6 +46,18 @@ public class ProxyJobContext implements JobContext
 	public void stopIfRequested() throws JobStop
 	{
 		target.stopIfRequested();
+	}
+
+	@Override
+	public Duration requestsDeferral()
+	{
+		return target.requestsDeferral();
+	}
+
+	@Override
+	public void sleepAndStopIfRequested(final Duration duration) throws JobStop
+	{
+		target.sleepAndStopIfRequested(duration);
 	}
 
 

@@ -18,6 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.Duration;
 import java.util.NoSuchElementException;
 
 public final class JobContexts
@@ -25,6 +28,70 @@ public final class JobContexts
 	// vain -------------------
 
 	public static final JobContext EMPTY = new EmptyJobContext();
+
+
+	// sleep ------------------
+
+	static void sleepAndStopIfRequestedPolling(
+			final JobContext ctx,
+			final Duration duration)
+			throws JobStop
+	{
+		requireNonNull(ctx, "ctx");
+		requireNonNull(duration, "duration");
+
+		ctx.stopIfRequested();
+
+		if(duration.isZero() || duration.isNegative())
+			return;
+
+		final long durationMillis = duration.toMillis(); // fails if too large for toMillis
+		if(durationMillis<=0)
+			return;
+
+		if(durationMillis<=STOP_POLLING_INTERVAL_MILLIS)
+		{
+			sleep(ctx, durationMillis);
+			return;
+		}
+
+		long now = System.nanoTime();
+		final long endNow = now + duration.toNanos(); // fails if too large for toNanos
+		do
+		{
+			if(now>=endNow)
+				return;
+
+			final long millisToWait = (endNow - now) / 1_000_000;
+			if(millisToWait<=0)
+				return;
+
+			if(millisToWait<=STOP_POLLING_INTERVAL_MILLIS)
+			{
+				sleep(ctx, millisToWait);
+				return;
+			}
+
+			sleep(ctx, STOP_POLLING_INTERVAL_MILLIS);
+			now = System.nanoTime();
+		}
+		while(true);
+	}
+
+	private static final long STOP_POLLING_INTERVAL_MILLIS = 100;
+
+	private static void sleep(final JobContext ctx, final long millis) throws JobStop
+	{
+		try
+		{
+			Thread.sleep(millis);
+		}
+		catch(final InterruptedException e)
+		{
+			throw new RuntimeException("sleep " + millis, e);
+		}
+		ctx.stopIfRequested();
+	}
 
 
 	// iterator ---------------

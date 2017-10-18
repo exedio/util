@@ -18,10 +18,14 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
+import static com.exedio.cope.util.JobContext.sleepAndStopIfRequested;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +44,63 @@ public class ProxyJobContextTest
 	{
 		c.stopIfRequested();
 		target.assertIt("stopIfRequested");
+	}
+	@Test void testRequestsDeferral()
+	{
+		target.requestsDeferral = Duration.ofSeconds(33);
+		assertEquals(Duration.ofSeconds(33), c.requestsDeferral());
+		target.assertIt("requestsDeferral");
+	}
+	@Test void testDeferOrStopIfRequestedPositive()
+	{
+		target.requestsDeferral = Duration.ofNanos(1);
+		deferOrStopIfRequested(c);
+		target.assertIt(
+				"stopIfRequested",
+				"requestsDeferral",
+				"sleepAndStopIfRequested(PT0.000000001S)",
+				"stopIfRequested");
+	}
+	@Test void testDeferOrStopIfRequestedZero()
+	{
+		target.requestsDeferral = Duration.ZERO;
+		deferOrStopIfRequested(c);
+		target.assertIt(
+				"stopIfRequested",
+				"requestsDeferral");
+	}
+	@Test void testDeferOrStopIfRequestedNegative()
+	{
+		target.requestsDeferral = Duration.ofNanos(-1);
+		deferOrStopIfRequested(c);
+		target.assertIt(
+				"stopIfRequested",
+				"requestsDeferral");
+	}
+	@Test void testSleepAndStopIfRequestedDirect()
+	{
+		c.sleepAndStopIfRequested(Duration.ofSeconds(44));
+		target.assertIt("sleepAndStopIfRequested(PT44S)");
+	}
+	@Test void testSleepAndStopIfRequestedPositive()
+	{
+		sleepAndStopIfRequested(c, Duration.ofNanos(1));
+		target.assertIt(
+				"stopIfRequested",
+				"sleepAndStopIfRequested(PT0.000000001S)",
+				"stopIfRequested");
+	}
+	@Test void testSleepAndStopIfRequestedZero()
+	{
+		sleepAndStopIfRequested(c, Duration.ZERO);
+		target.assertIt(
+				"stopIfRequested");
+	}
+	@Test void testSleepAndStopIfRequestedNegative()
+	{
+		sleepAndStopIfRequested(c, Duration.ofNanos(-1));
+		target.assertIt(
+				"stopIfRequested");
 	}
 	@Test void testSupportsMessage()
 	{
@@ -104,6 +165,21 @@ public class ProxyJobContextTest
 		public void stopIfRequested()
 		{
 			actual.add("stopIfRequested");
+		}
+
+		Duration requestsDeferral;
+		@Override
+		public Duration requestsDeferral()
+		{
+			actual.add("requestsDeferral");
+			assertNotNull(requestsDeferral, "requestsDeferral");
+			return requestsDeferral;
+		}
+
+		@Override
+		public void sleepAndStopIfRequested(final Duration duration)
+		{
+			actual.add("sleepAndStopIfRequested(" + duration + ")");
 		}
 
 		boolean supportsMessage = false;

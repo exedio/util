@@ -18,6 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.Duration;
+
 /**
  * An interface for controlling long-running jobs.
  * Instances of this interface are not required to work
@@ -36,8 +40,114 @@ public interface JobContext
 	 * If throws a {@link JobStop}, the job should stop
 	 * gracefully as soon as possible,
 	 * but all resources held should be released.
+	 * <p>
+	 * The job may call {@link #deferOrStopIfRequested(JobContext)} instead.
 	 */
 	void stopIfRequested() throws JobStop;
+
+	/**
+	 * Returns the duration the job has been requested to defer by its context.
+	 * This method is considered by {@link #deferOrStopIfRequested(JobContext) deferOrStopIfRequested}.
+	 * <p>
+	 * In general the job should not call this method,
+	 * but {@code deferOrStopIfRequested}.
+	 * <p>
+	 * The default implementation returns {@link Duration#ZERO zero}.
+	 */
+	default Duration requestsDeferral()
+	{
+		return Duration.ZERO;
+	}
+
+	/**
+	 * Defers the job, if the job is {@link #requestsDeferral() requested} to defer
+	 * by context {@code ctx}.
+	 * The job should call this method in reasonably short
+	 * intervals.
+	 * The job should expect {@code deferOrStopIfRequested} to block for an unspecified amount of time.
+	 * The job should not call {@code deferOrStopIfRequested} while holding valuable resources,
+	 * in particular locks.
+	 * <p>
+	 * Additionally checks, whether the job has been requested to stop or
+	 * becomes requested to stop while deferring and
+	 * throws a {@link JobStop} in such cases.
+	 * Therefore, by calling {@code deferOrStopIfRequested} the job fulfills its obligation
+	 * to call {@link #stopIfRequested()}.
+	 * <p>
+	 * This method calls {@link #sleepAndStopIfRequested(Duration)} for actually sleeping.
+	 */
+	static void deferOrStopIfRequested(final JobContext ctx) throws JobStop
+	{
+		requireNonNull(ctx, "ctx");
+		ctx.stopIfRequested();
+		final Duration deferral = ctx.requestsDeferral();
+		if(!deferral.isZero() && !deferral.isNegative())
+		{
+			ctx.sleepAndStopIfRequested(deferral);
+			ctx.stopIfRequested();
+		}
+	}
+
+	/**
+	 * Sleeps for the specified duration.
+	 * In contrast to {@link #deferOrStopIfRequested(JobContext)} this method actually waits
+	 * for the specified amount of time.
+	 * In contrast to {@link Thread#sleep(long) Thread.sleep} it aborts prematurely
+	 * by throwing a {@link JobStop},
+	 * if the the job has been requested to stop or
+	 * becomes requested to stop while sleeping.
+	 * <p>
+	 * In general the job should not call this method directly,
+	 * but only {@link #sleepAndStopIfRequested(JobContext, Duration)}.
+	 * Override this method for affecting (potentially long) sleeps.
+	 * For instance the job might temporarily release resources.
+	 * <p>
+	 * Calling this method with {@code duration} zero or negative
+	 * is equivalent to a call to {@link #stopIfRequested()}.
+	 * <p>
+	 * The default implementation
+	 * <a href="https://en.wikipedia.org/wiki/Polling_(computer_science)">polls</a>
+	 * {@link #stopIfRequested()} every 100 milliseconds.
+	 * Implementers are encouraged to provide a more efficient implementation.
+	 * The default implementation fails for {@code duration}s
+	 * too large for {@link Duration#toNanos()}, which is approximately 292 years.
+	 */
+	default void sleepAndStopIfRequested(final Duration duration) throws JobStop
+	{
+		JobContexts.sleepAndStopIfRequestedPolling(this, duration);
+	}
+
+	/**
+	 * Sleeps for the specified duration.
+	 * In contrast to {@link #deferOrStopIfRequested(JobContext)} this method actually waits
+	 * for the specified amount of time.
+	 * In contrast to {@link Thread#sleep(long) Thread.sleep} it aborts prematurely
+	 * by throwing a {@link JobStop},
+	 * if the the job has been requested to stop or
+	 * becomes requested to stop while sleeping.
+	 * <p>
+	 * The job may call this method, if the job itself (and not it context)
+	 * requires some time to elapse.
+	 * I contrast to {@link #stopIfRequested()} and {@link #deferOrStopIfRequested(JobContext)}
+	 * there is no obligation to call this method in reasonably short
+	 * intervals.
+	 * <p>
+	 * Calling this method with {@code duration} zero or negative
+	 * is equivalent to a call to {@link #stopIfRequested()}.
+	 * <p>
+	 * This method calls {@link #sleepAndStopIfRequested(Duration)} for actually sleeping.
+	 */
+	static void sleepAndStopIfRequested(final JobContext ctx, final Duration duration) throws JobStop
+	{
+		requireNonNull(ctx, "ctx");
+		requireNonNull(duration, "duration");
+		ctx.stopIfRequested();
+		if(!duration.isZero() && !duration.isNegative())
+		{
+			ctx.sleepAndStopIfRequested(duration);
+			ctx.stopIfRequested();
+		}
+	}
 
 
 	// message

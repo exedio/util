@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import java.time.Duration;
+
 /**
  * An implementation of {@link JobContext} where
  * all methods do fail with a
@@ -34,6 +36,18 @@ public class AssertionErrorJobContext implements JobContext
 	public void stopIfRequested()
 	{
 		throw new AssertionError();
+	}
+
+	@Override
+	public Duration requestsDeferral()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void sleepAndStopIfRequested(final Duration duration)
+	{
+		throw new AssertionError(duration);
 	}
 
 
