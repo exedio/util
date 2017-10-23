@@ -56,7 +56,7 @@ public interface JobContext
 	// message
 
 	/**
-	 *	Returns whether this context can process information transferred by
+	 * Returns whether this context can process information transferred by
 	 * {@link #setMessage(String)}.
 	 */
 	boolean supportsMessage();
@@ -75,7 +75,7 @@ public interface JobContext
 	// progress
 
 	/**
-	 *	Returns whether this context can process information transferred by
+	 * Returns whether this context can process information transferred by
 	 * {@link #incrementProgress()} and
 	 * {@link #incrementProgress(int)}.
 	 */
@@ -123,7 +123,7 @@ public interface JobContext
 	// completeness
 
 	/**
-	 *	Returns whether this context can process information transferred by
+	 * Returns whether this context can process information transferred by
 	 * {@link #setCompleteness(double)}.
 	 */
 	boolean supportsCompleteness();
