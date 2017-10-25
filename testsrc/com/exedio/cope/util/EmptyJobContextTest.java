@@ -18,9 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
@@ -33,7 +31,6 @@ public class EmptyJobContextTest
 		final EmptyJobContext c = new EmptyJobContext();
 
 		c.stopIfRequested();
-		assertEquals(false, requestedToStop(c));
 		assertEquals(false, c.supportsMessage());
 		assertEquals(false, c.supportsProgress());
 		assertEquals(false, c.supportsCompleteness());
@@ -42,27 +39,5 @@ public class EmptyJobContextTest
 		c.incrementProgress();
 		c.incrementProgress(5);
 		c.setCompleteness(0.5);
-	}
-
-	@Test void testStop()
-	{
-		final EmptyJobContext c = new EmptyJobContext(){
-			@SuppressWarnings("deprecation") // needed for idea
-			@Override @Deprecated public boolean requestedToStop()
-			{
-				return true;
-			}
-		};
-
-		assertEquals(true, requestedToStop(c));
-		try
-		{
-			c.stopIfRequested();
-			fail();
-		}
-		catch(final JobStop js)
-		{
-			assertEquals("requestedToStop", js.getMessage());
-		}
 	}
 }

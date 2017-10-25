@@ -33,25 +33,12 @@ package com.exedio.cope.util;
 public class EmptyJobContext implements JobContext
 {
 	/**
-	 * This default implementation throws a {@link JobStop},
-	 * if {@link #requestedToStop()} returns <i>true</i>.
+	 * This default implementation does nothing.
 	 */
 	@Override
-	@SuppressWarnings("deprecation") // needed for idea
 	public void stopIfRequested() throws JobStop
 	{
-		if(requestedToStop())
-			throw new JobStop("requestedToStop");
-	}
-
-	/**
-	 * This default implementation always returns <i>false</i>.
-	 */
-	@Override
-	@Deprecated
-	public boolean requestedToStop()
-	{
-		return false;
+		// empty
 	}
 
 

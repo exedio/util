@@ -46,13 +46,6 @@ public class ProxyJobContext implements JobContext
 		target.stopIfRequested();
 	}
 
-	@Override
-	@Deprecated
-	public boolean requestedToStop()
-	{
-		return target.requestedToStop();
-	}
-
 
 	// message
 

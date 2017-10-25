@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
@@ -72,8 +71,8 @@ public class JobContextsIteratorTest
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
 
-		requestedToStop(ctx);
-		expectLastCall().andReturn(Boolean.TRUE);
+		ctx.stopIfRequested();
+		expectLastCall().andThrow(new JobStop("whatever"));
 
 		replay(iterator);
 		replay(ctx);
@@ -91,16 +90,16 @@ public class JobContextsIteratorTest
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
 
-		requestedToStop(ctx);
-		expectLastCall().andReturn(Boolean.FALSE);
+		ctx.stopIfRequested();
+		expectLastCall();
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.TRUE);
 		iterator.next();
 		expectLastCall().andReturn("first");
 		iterator.next();
 		expectLastCall().andReturn("second");
-		requestedToStop(ctx);
-		expectLastCall().andReturn(Boolean.TRUE);
+		ctx.stopIfRequested();
+		expectLastCall().andThrow(new JobStop("whatever"));
 
 		replay(iterator);
 		replay(ctx);
@@ -130,16 +129,16 @@ public class JobContextsIteratorTest
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
 
-		requestedToStop(ctx);
-		expectLastCall().andReturn(Boolean.FALSE);
+		ctx.stopIfRequested();
+		expectLastCall();
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.TRUE);
 		iterator.next();
 		expectLastCall().andReturn("first");
 		iterator.next();
 		expectLastCall().andReturn("second");
-		requestedToStop(ctx);
-		expectLastCall().andReturn(Boolean.FALSE);
+		ctx.stopIfRequested();
+		expectLastCall();
 		iterator.hasNext();
 		expectLastCall().andReturn(Boolean.FALSE);
 		iterator.next();

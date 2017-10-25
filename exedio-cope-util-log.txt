@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* JobContext#requestedToStop dropped.
+	Was deprecated some long time ago.
+	This breaks backwards API compatibility.
 * @ServiceProperties added
 * Properties#valueService added
 * Properties#valueMessageDigest added

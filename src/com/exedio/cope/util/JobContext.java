@@ -36,21 +36,8 @@ public interface JobContext
 	 * If throws a {@link JobStop}, the job should stop
 	 * gracefully as soon as possible,
 	 * but all resources held should be released.
-	 * The job may call {@link #requestedToStop()} instead, but it's not recommended.
 	 */
 	void stopIfRequested() throws JobStop;
-
-	/**
-	 * Checks, whether the job has been requested to stop.
-	 * The job should call this method in reasonably short
-	 * intervals.
-	 * If <i>true</i> is returned, the job should stop
-	 * gracefully as soon as possible,
-	 * but all resources held should be released.
-	 * @deprecated It's recommended to use {@link #stopIfRequested()} instead.
-	 */
-	@Deprecated
-	boolean requestedToStop();
 
 
 	// message

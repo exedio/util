@@ -88,25 +88,6 @@ public class InterrupterJobContextAdapterTest
 		));
 	}
 
-	@Test void testRequestedToStop()
-	{
-		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
-				assertEquals(false, ctx.requestedToStop())
-		));
-
-		final MockInterrupter interruptor = new MockInterrupter();
-
-		assertEquals(0, InterrupterJobContextAdapter.run(interruptor, ctx ->
-			{
-				assertEquals(0, interruptor.isRequestedCount);
-				assertEquals(false, ctx.requestedToStop());
-				assertEquals(1, interruptor.isRequestedCount);
-				assertEquals(false, ctx.requestedToStop());
-				assertEquals(2, interruptor.isRequestedCount);
-			}
-		));
-	}
-
 	@Test void testProgress()
 	{
 		assertEquals(1, InterrupterJobContextAdapter.run(null,

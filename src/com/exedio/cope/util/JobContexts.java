@@ -63,7 +63,11 @@ public final class JobContexts
 		@Deprecated // Needed for jdk 1.5
 		public boolean hasNext()
 		{
-			if(ctx.requestedToStop())
+			try
+			{
+				ctx.stopIfRequested();
+			}
+			catch(final JobStop ignored)
 			{
 				requestedToStop = true;
 				return false;
@@ -73,7 +77,7 @@ public final class JobContexts
 		}
 
 		/**
-		 * Must not check {@link JobContext#requestedToStop()} here,
+		 * Must not call {@link JobContext#stopIfRequested()} here,
 		 * because {@link #hasNext()} may already have promised
 		 * to have one more element.
 		 */
@@ -87,7 +91,7 @@ public final class JobContexts
 		}
 
 		/**
-		 * Must not check {@link JobContext#requestedToStop()} here,
+		 * Must not call {@link JobContext#stopIfRequested()} here,
 		 * because {@link #hasNext()} may already have promised
 		 * to have one more element.
 		 */

@@ -62,16 +62,9 @@ public final class InterrupterJobContextAdapter
 		@Override
 		public void stopIfRequested() throws JobStop
 		{
-			if(requestedToStop())
-				throw new JobStop("requestedToStop");
-		}
-
-		@Override
-		@Deprecated // needed for jdk 1.5
-		public boolean requestedToStop()
-		{
 			assertNotClosed();
-			return interrupter!=null && interrupter.isRequested();
+			if(interrupter!=null && interrupter.isRequested())
+				throw new JobStop("Interrupter.isRequested");
 		}
 
 		// message

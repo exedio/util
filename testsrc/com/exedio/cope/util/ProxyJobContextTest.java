@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
@@ -41,15 +40,6 @@ public class ProxyJobContextTest
 	{
 		c.stopIfRequested();
 		target.assertIt("stopIfRequested");
-	}
-	@Test void testRequestedToStop()
-	{
-		assertEquals(false, requestedToStop(c));
-		target.assertIt("requestedToStop");
-
-		target.requestedToStop = true;
-		assertEquals(true, requestedToStop(c));
-		target.assertIt("requestedToStop");
 	}
 	@Test void testSupportsMessage()
 	{
@@ -114,16 +104,6 @@ public class ProxyJobContextTest
 		public void stopIfRequested()
 		{
 			actual.add("stopIfRequested");
-		}
-
-		boolean requestedToStop = false;
-		@Override
-		@Deprecated
-		@SuppressWarnings("deprecation") // needed for idea
-		public boolean requestedToStop()
-		{
-			actual.add("requestedToStop");
-			return requestedToStop;
 		}
 
 		boolean supportsMessage = false;

@@ -22,7 +22,7 @@ package com.exedio.cope.util;
 public interface Interrupter
 {
 	/**
-	 * @deprecated Use {@link JobContext#requestedToStop()} instead.
+	 * @deprecated Use {@link JobContext#stopIfRequested()} instead.
 	 */
 	@Deprecated
 	boolean isRequested();
