@@ -57,63 +57,7 @@ public class JobContextsIteratorTest
 		}
 	};
 
-	private static final JobContext CONTEXT_FAIL = new JobContext()
-	{
-		@Override
-		public void stopIfRequested()
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		@Deprecated
-		public boolean requestedToStop()
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public boolean supportsMessage()
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public void setMessage(final String message)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public boolean supportsProgress()
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public void incrementProgress()
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public void incrementProgress(final int delta)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public boolean supportsCompleteness()
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public void setCompleteness(final double completeness)
-		{
-			throw new RuntimeException();
-		}
-	};
+	private static final JobContext CONTEXT_FAIL = new AssertionErrorJobContext();
 
 	@Test public void testFail()
 	{
