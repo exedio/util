@@ -116,7 +116,7 @@ public class JobContextsIteratorTest
 		}
 		catch(final NoSuchElementException e)
 		{
-			assertEquals("requestedToStop", e.getMessage());
+			assertEquals("stopRequested: whatever", e.getMessage());
 		}
 
 		verify(iterator);

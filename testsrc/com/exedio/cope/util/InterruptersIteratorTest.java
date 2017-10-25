@@ -121,7 +121,7 @@ public class InterruptersIteratorTest
 		}
 		catch(final NoSuchElementException e)
 		{
-			assertEquals("requestedToStop", e.getMessage());
+			assertEquals("stopRequested: Interrupter.isRequested", e.getMessage());
 		}
 
 		verify(iterator);

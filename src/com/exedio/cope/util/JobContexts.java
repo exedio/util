@@ -46,6 +46,7 @@ public final class JobContexts
 		private final java.util.Iterator<E> iterator;
 		private final JobContext ctx;
 		private boolean stopRequested = false;
+		private String  stopRequestedMessage = null;
 
 		@Deprecated
 		Iterator(
@@ -67,9 +68,10 @@ public final class JobContexts
 			{
 				ctx.stopIfRequested();
 			}
-			catch(final JobStop ignored)
+			catch(final JobStop js)
 			{
 				stopRequested = true;
+				stopRequestedMessage = js.getMessage();
 				return false;
 			}
 
@@ -85,7 +87,7 @@ public final class JobContexts
 		public E next()
 		{
 			if(stopRequested)
-				throw new NoSuchElementException("requestedToStop");
+				throw new NoSuchElementException("stopRequested: " + stopRequestedMessage);
 
 			return iterator.next();
 		}
@@ -99,7 +101,7 @@ public final class JobContexts
 		public void remove()
 		{
 			if(stopRequested)
-				throw new NoSuchElementException("requestedToStop");
+				throw new NoSuchElementException("stopRequested: " + stopRequestedMessage);
 
 			iterator.remove();
 		}
