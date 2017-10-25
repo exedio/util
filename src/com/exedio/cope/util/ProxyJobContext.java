@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * An proxy implementation of {@link JobContext}.
  *
@@ -35,10 +37,7 @@ public class ProxyJobContext implements JobContext
 
 	public ProxyJobContext(final JobContext target)
 	{
-		this.target = target;
-
-		if(target==null)
-			throw new NullPointerException("target");
+		this.target = requireNonNull(target, "target");
 	}
 
 	@Override
