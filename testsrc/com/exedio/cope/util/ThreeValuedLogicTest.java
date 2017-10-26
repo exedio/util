@@ -53,8 +53,8 @@ public class ThreeValuedLogicTest
 			final Value expectedOr, final Value expectedAnd,
 			@SuppressWarnings("unused") final Value equal)
 	{
-		assertEquals("OR" , expectedOr , composite(Operator.OR , p, q));
-		assertEquals("AND", expectedAnd, composite(Operator.AND, p, q));
+		assertEquals(expectedOr,  composite(Operator.OR , p, q), "OR" );
+		assertEquals(expectedAnd, composite(Operator.AND, p, q), "AND");
 	}
 
 	private static Value composite(final Operator operator, final Value... arguments)

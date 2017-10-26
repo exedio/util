@@ -47,8 +47,8 @@ public final class CopeAssert
 		if(expected==null && actual==null)
 			return;
 
-		assertNotNull("expected null, but was " + actual, expected);
-		assertNotNull("expected " + expected + ", but was null", actual);
+		assertNotNull(expected, "expected null, but was " + actual);
+		assertNotNull(actual, "expected " + expected + ", but was null");
 
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
@@ -259,8 +259,8 @@ public final class CopeAssert
 			" and " + df.format(expectedAfter) +
 			", but was " + df.format(actual);
 
-		assertTrue(message, !expectedBefore.after(actual));
-		assertTrue(message, !expectedAfter.before(actual));
+		assertTrue(!expectedBefore.after(actual), message);
+		assertTrue(!expectedAfter.before(actual), message);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -277,7 +277,7 @@ public final class CopeAssert
 				s.writeObject(value);
 			}
 
-			assertTrue(String.valueOf(bos.size()), bos.size()<maxSize);
+			assertTrue(bos.size()<maxSize, String.valueOf(bos.size()));
 
 			final Object result;
 			try(ObjectInputStream s = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())))

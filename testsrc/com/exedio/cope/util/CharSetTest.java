@@ -111,7 +111,7 @@ public class CharSetTest
 	{
 		final CharSet cs = new CharSet('C', 'C');
 		assertRegexp("^[C]*$", cs);
-		assertEquals(cs.toString(), "[C-C]", cs.toString());
+		assertEquals("[C-C]", cs.toString(), cs.toString());
 		assertFalse(cs.contains('A'));
 		assertTrue(cs.contains('C'));
 		assertFalse(cs.contains('D'));
@@ -133,7 +133,7 @@ public class CharSetTest
 	{
 		final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
 		assertRegexp("^[C,M-O,m-o]*$", cs);
-		assertEquals(cs.toString(), "[C-C,M-O,m-o]", cs.toString());
+		assertEquals("[C-C,M-O,m-o]", cs.toString(), cs.toString());
 		assertFalse(cs.contains('A'));
 		assertTrue(cs.contains('C'));
 		assertFalse(cs.contains('D'));
@@ -210,7 +210,7 @@ public class CharSetTest
 	private static void assertRegexp(final String regularExpression, final CharSet cs)
 	{
 		final String actual = cs.getRegularExpression();
-		assertEquals(actual, regularExpression, actual);
+		assertEquals(regularExpression, actual, actual);
 	}
 	@Test public void serialize()
 	{

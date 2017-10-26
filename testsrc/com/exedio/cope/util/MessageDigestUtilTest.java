@@ -42,7 +42,7 @@ public class MessageDigestUtilTest
 		catch(final IllegalAlgorithmException e)
 		{
 			assertEquals("NIXUS", e.getAlgorithm());
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
+			assertTrue(e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "), e.getMessage());
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 	}
@@ -57,7 +57,7 @@ public class MessageDigestUtilTest
 		catch(final IllegalAlgorithmException e)
 		{
 			assertEquals("", e.getAlgorithm());
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest , choose one of: "));
+			assertTrue(e.getMessage().startsWith("no such MessageDigest , choose one of: "), e.getMessage());
 			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
 		}
 	}

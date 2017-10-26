@@ -251,12 +251,12 @@ public class SequenceCheckerTest
 		{
 			assertEquals("did not yet check first number", e.getMessage());
 		}
-		assertEquals("countInOrder",    0, sci.getInOrder());
-		assertEquals("countOutOfOrder", 0, sci.getOutOfOrder());
-		assertEquals("countDuplicate",  0, sci.getDuplicate());
-		assertEquals("countLost",       0, sci.getLost());
-		assertEquals("countLate",       0, sci.getLate());
-		assertEquals("countPending",    0, sci.getPending());
+		assertEquals(0, sci.getInOrder(),    "countInOrder");
+		assertEquals(0, sci.getOutOfOrder(), "countOutOfOrder");
+		assertEquals(0, sci.getDuplicate(),  "countDuplicate");
+		assertEquals(0, sci.getLost(),       "countLost");
+		assertEquals(0, sci.getLate(),       "countLate");
+		assertEquals(0, sci.getPending(),    "countPending");
 	}
 
 	private void assertIt(
@@ -269,15 +269,15 @@ public class SequenceCheckerTest
 			final int countLate,
 			final int countPending)
 	{
-		assertTrue(String.valueOf(countPending), countPending<sc.getCapacity());
+		assertTrue(countPending<sc.getCapacity(), String.valueOf(countPending));
 		final SequenceChecker.Info sci = sc.getInfo();
-		assertEquals("firstNumber",     firstNumber,     sc.getFirstNumber());
-		assertEquals("maxNumber",       maxNumber,       sc.getMaxNumber());
-		assertEquals("countInOrder",    countInOrder,    sci.getInOrder());
-		assertEquals("countOutOfOrder", countOutOfOrder, sci.getOutOfOrder());
-		assertEquals("countDuplicate",  countDuplicate,  sci.getDuplicate());
-		assertEquals("countLost",       countLost,       sci.getLost());
-		assertEquals("countLate",       countLate,       sci.getLate());
-		assertEquals("countPending",    countPending,    sci.getPending());
+		assertEquals(firstNumber,     sc.getFirstNumber(), "firstNumber");
+		assertEquals(maxNumber,       sc.getMaxNumber(),   "maxNumber");
+		assertEquals(countInOrder,    sci.getInOrder(),    "countInOrder");
+		assertEquals(countOutOfOrder, sci.getOutOfOrder(), "countOutOfOrder");
+		assertEquals(countDuplicate,  sci.getDuplicate(),  "countDuplicate");
+		assertEquals(countLost,       sci.getLost(),       "countLost");
+		assertEquals(countLate,       sci.getLate(),       "countLate");
+		assertEquals(countPending,    sci.getPending(),    "countPending");
 	}
 }

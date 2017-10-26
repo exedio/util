@@ -200,13 +200,13 @@ public class PoolCounterTest
 			final int createCounter, final int destroyCounter,
 			final int loss)
 	{
-		assertEquals("idleLimit", idleLimit, p.getIdleLimit());
-		assertEquals("idleCount", idleCount, p.getIdleCount());
-		assertEquals("idleCountMax", idleCountMax, p.getIdleCountMax());
-		assertEquals("createCounter", createCounter, p.getCreateCounter());
-		assertEquals("destroyCounter", destroyCounter, p.getDestroyCounter());
-		assertEquals("loss", loss, p.getLoss());
-		assertTrue("isConsistent", p.isConsistent());
+		assertEquals(idleLimit, p.getIdleLimit(), "idleLimit");
+		assertEquals(idleCount, p.getIdleCount(), "idleCount");
+		assertEquals(idleCountMax, p.getIdleCountMax(), "idleCountMax");
+		assertEquals(createCounter, p.getCreateCounter(), "createCounter");
+		assertEquals(destroyCounter, p.getDestroyCounter(), "destroyCounter");
+		assertEquals(loss, p.getLoss(), "loss");
+		assertTrue(p.isConsistent(), "isConsistent");
 	}
 
 	@SuppressWarnings("unused")
