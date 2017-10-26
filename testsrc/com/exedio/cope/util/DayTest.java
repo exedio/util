@@ -157,9 +157,8 @@ public class DayTest
 			assertEquals(null, e.getMessage());
 		}
 	}
-	@Test
 	@Deprecated // OK testing deprecated API
-	public void conversionDateDeprecated(final TimeZoneDefaultRule timeZoneDefault) throws ParseException
+	@Test void conversionDateDeprecated(final TimeZoneDefaultRule timeZoneDefault) throws ParseException
 	{
 		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
@@ -234,9 +233,8 @@ public class DayTest
 		assertEquals(new Day(2005, 2, 27), new Day(2005,  2, 22).add( 5));
 		assertEquals(new Day(2005, 2, 17), new Day(2005,  2, 22).add(-5));
 	}
-	@Test
 	@SuppressWarnings("RedundantCast")
-	public void valueOfNull()
+	@Test void valueOfNull()
 	{
 		assertNull(valueOf((Date)null, (TimeZone)null));
 		assertNull(valueOf((GregorianCalendar)null));
