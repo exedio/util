@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util.annotation;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;

@@ -22,8 +22,8 @@ import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static java.nio.charset.StandardCharsets.US_ASCII;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;

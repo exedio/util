@@ -20,7 +20,7 @@ package com.exedio.cope.util.junit;
 
 import static java.util.TimeZone.getDefault;
 import static java.util.TimeZone.setDefault;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.TimeZone;
 import org.junit.jupiter.api.extension.AfterEachCallback;

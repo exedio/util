@@ -24,7 +24,7 @@ import static com.exedio.cope.util.StrictFile.mkdir;
 import static com.exedio.cope.util.StrictFile.mkdirs;
 import static com.exedio.cope.util.StrictFile.renameTo;
 import static com.exedio.cope.util.StrictFile.setLastModified;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.File;

@@ -21,7 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
 import static com.exedio.cope.util.Clock.newDate;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;

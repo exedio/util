@@ -21,8 +21,8 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;

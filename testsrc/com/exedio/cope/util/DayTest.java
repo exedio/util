@@ -24,8 +24,8 @@ import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Day.valueOf;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
