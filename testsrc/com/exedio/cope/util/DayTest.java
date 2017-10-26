@@ -50,14 +50,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @SuppressWarnings("unused")
 public class DayTest
 {
-	@Test
-	public void printDefaultTimeZone()
+	@Test void printDefaultTimeZone()
 	{
 		final TimeZone d = TimeZone.getDefault();
 		System.out.println("Default TimeZone " + d.getID() + ' ' + d.getOffset(System.currentTimeMillis())/1000);
 	}
-	@Test
-	public void yearSmall()
+	@Test void yearSmall()
 	{
 		try
 		{
@@ -69,8 +67,7 @@ public class DayTest
 			assertEquals("year must be in range 1000..9999, but was: 999", e.getMessage());
 		}
 	}
-	@Test
-	public void yearLarge()
+	@Test void yearLarge()
 	{
 		try
 		{
@@ -82,8 +79,7 @@ public class DayTest
 			assertEquals("year must be in range 1000..9999, but was: 10000", e.getMessage());
 		}
 	}
-	@Test
-	public void monthSmall()
+	@Test void monthSmall()
 	{
 		try
 		{
@@ -95,8 +91,7 @@ public class DayTest
 			assertEquals("month must be in range 1..12, but was: 0", e.getMessage());
 		}
 	}
-	@Test
-	public void monthLarge()
+	@Test void monthLarge()
 	{
 		try
 		{
@@ -108,8 +103,7 @@ public class DayTest
 			assertEquals("month must be in range 1..12, but was: 32", e.getMessage());
 		}
 	}
-	@Test
-	public void daySmall()
+	@Test void daySmall()
 	{
 		try
 		{
@@ -121,8 +115,7 @@ public class DayTest
 			assertEquals("day must be in range 1..31, but was: 0", e.getMessage());
 		}
 	}
-	@Test
-	public void dayLarge()
+	@Test void dayLarge()
 	{
 		try
 		{
@@ -134,8 +127,7 @@ public class DayTest
 			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
 		}
 	}
-	@Test
-	public void getters() throws DatatypeConfigurationException
+	@Test void getters() throws DatatypeConfigurationException
 	{
 		final Day d = new Day(2005, 9, 23);
 		assertEquals(2005, d.getYear());
@@ -146,16 +138,14 @@ public class DayTest
 		assertXMLGregorianCalendar(2005, 9, 23, d);
 		assertEquals("2005/9/23", d.toString());
 	}
-	@Test
-	public void overflow()
+	@Test void overflow()
 	{
 		final Day d = new Day(2005, 2, 31);
 		assertEquals(2005, d.getYear());
 		assertEquals(3,    d.getMonth());
 		assertEquals(3,    d.getDay());
 	}
-	@Test
-	public void nullZone()
+	@Test void nullZone()
 	{
 		try
 		{
@@ -187,8 +177,7 @@ public class DayTest
 		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)")));
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)")));
 	}
-	@Test
-	public void conversionDateBerlin() throws ParseException
+	@Test void conversionDateBerlin() throws ParseException
 	{
 		final TimeZone tz = getTimeZone("Europe/Berlin");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
@@ -206,8 +195,7 @@ public class DayTest
 		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0100)"), tz));
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0100)"), tz));
 	}
-	@Test
-	public void conversionDateGMT(final TimeZoneDefaultRule timeZoneDefault) throws ParseException
+	@Test void conversionDateGMT(final TimeZoneDefaultRule timeZoneDefault) throws ParseException
 	{
 		timeZoneDefault.set(getTimeZone("Europe/Berlin"));
 		final TimeZone tz = getTimeZone("Etc/GMT");
@@ -226,8 +214,7 @@ public class DayTest
 		assertEquals(winter, valueOf(df.parse("2005-02-22 00:00:00.000 (+0000)"), tz));
 		assertEquals(winter, valueOf(df.parse("2005-02-22 23:59:59.999 (+0000)"), tz));
 	}
-	@Test
-	public void conversionMillis() throws ParseException
+	@Test void conversionMillis() throws ParseException
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (Z)", Locale.ENGLISH);
 		final TimeZone tz = getTimeZone("Europe/Berlin"); // TODO use GMT
@@ -239,8 +226,7 @@ public class DayTest
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000 (+0100)").getTime(), tz));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999 (+0100)").getTime(), tz));
 	}
-	@Test
-	public void add()
+	@Test void add()
 	{
 		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
 		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
@@ -256,8 +242,7 @@ public class DayTest
 		assertNull(valueOf((GregorianCalendar)null));
 		assertNull(valueOf((XMLGregorianCalendar)null));
 	}
-	@Test
-	public void equalsHash()
+	@Test void equalsHash()
 	{
 		final Day d = new Day(2005, 9, 23);
 		assertEqualsAndHash(d, new Day(2005, 9, 23));
@@ -266,8 +251,7 @@ public class DayTest
 				new Day(2005, 8, 23),
 				new Day(2005, 9, 22));
 	}
-	@Test
-	public void compare()
+	@Test void compare()
 	{
 		final Day d = new Day(2005, 9, 23);
 		// year
@@ -283,8 +267,7 @@ public class DayTest
 		assertEquals( 0, new Day(2005,  9, 23).compareTo(d));
 		assertEquals( 1, new Day(2005,  9, 24).compareTo(d));
 	}
-	@Test
-	public void serialize()
+	@Test void serialize()
 	{
 		assertEquals(
 				new Day(2005, 2, 23), reserialize(

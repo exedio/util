@@ -31,8 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesProbeRunTest
 {
-	@Test
-	public void test() throws Exception
+	@Test void test() throws Exception
 	{
 		final MyProps props = new MyProps();
 		final List<? extends Callable<?>> probes = props.getProbes();

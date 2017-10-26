@@ -25,8 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesProbeStripTest
 {
-	@Test
-	public void test()
+	@Test void test()
 	{
 		assertEquals("Zack",      stripProbeName("probeZack"));
 		assertEquals("1234",      stripProbeName("probe1234"));

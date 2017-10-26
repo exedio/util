@@ -30,8 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesProbeCollectTest
 {
-	@Test
-	public void testOrder() throws Exception
+	@Test void testOrder() throws Exception
 	{
 		final Order props = new Order();
 
@@ -55,8 +54,7 @@ public class PropertiesProbeCollectTest
 
 
 
-	@Test
-	public void testNested() throws Exception
+	@Test void testNested() throws Exception
 	{
 		final Outer outer = new Outer();
 		final Inner inner1 = outer.inner1;
@@ -148,8 +146,7 @@ public class PropertiesProbeCollectTest
 
 
 
-	@Test
-	public void testInheritance() throws Exception
+	@Test void testInheritance() throws Exception
 	{
 		final Lower props = new Lower();
 
@@ -184,8 +181,7 @@ public class PropertiesProbeCollectTest
 
 
 
-	@Test
-	public void testPrivate() throws Exception
+	@Test void testPrivate() throws Exception
 	{
 		final Private props = new Private();
 
@@ -205,8 +201,7 @@ public class PropertiesProbeCollectTest
 
 
 
-	@Test
-	public void testNonnamed() throws Exception
+	@Test void testNonnamed() throws Exception
 	{
 		final Nonnamed props = new Nonnamed();
 
@@ -224,8 +219,7 @@ public class PropertiesProbeCollectTest
 
 
 
-	@Test
-	public void testNamed() throws Exception
+	@Test void testNamed() throws Exception
 	{
 		final Named props = new Named();
 
