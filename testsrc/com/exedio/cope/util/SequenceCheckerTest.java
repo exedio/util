@@ -22,14 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
 
 public class SequenceCheckerTest
 {
 	SequenceChecker sc;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		sc = new SequenceChecker(5);
 	}

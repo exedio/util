@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -33,7 +33,7 @@ public class BeforeAndAfterTest
 	private Day tomorrow;
 	private Day yesterday;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		final GregorianCalendar calendar = new GregorianCalendar();
 		today = new Day(calendar);
