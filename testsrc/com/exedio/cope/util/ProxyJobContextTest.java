@@ -20,9 +20,12 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static com.exedio.cope.util.JobContext.sleepAndStopIfRequested;
+import static com.exedio.cope.util.ProxyJobContext.max;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.Assert.fail;
 
 import java.time.Duration;
@@ -244,5 +247,25 @@ public class ProxyJobContextTest
 		{
 			assertEquals("target", e.getMessage());
 		}
+	}
+	@Test void testMax()
+	{
+		final Duration a  = Duration.ofNanos(1);
+		final Duration b  = Duration.ofNanos(2);
+
+		assertSame(b, max(a, b));
+		assertSame(b, max(b, a));
+		assertSame(a, max(a, a));
+	}
+	@Test void testMaxEquals()
+	{
+		final Duration a1 = Duration.ofNanos(1);
+		final Duration a2 = Duration.ofNanos(1);
+		assertNotSame(a1, a2);
+		assertEquals(a1, a2);
+
+		assertSame(a1, max(a1, a1));
+		assertSame(a1, max(a1, a2));
+		assertSame(a2, max(a2, a1));
 	}
 }

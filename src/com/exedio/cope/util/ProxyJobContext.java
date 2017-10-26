@@ -48,10 +48,20 @@ public class ProxyJobContext implements JobContext
 		target.stopIfRequested();
 	}
 
+	/**
+	 * When overriding this method make sure you don't ignore the request
+	 * of the {@code target}.
+	 * You may want to use {@link #max(Duration, Duration)} for merging requests.
+	 */
 	@Override
 	public Duration requestsDeferral()
 	{
 		return target.requestsDeferral();
+	}
+
+	protected static final Duration max(final Duration a, final Duration b)
+	{
+		return a.compareTo(b)>=0 ? a : b;
 	}
 
 	@Override
