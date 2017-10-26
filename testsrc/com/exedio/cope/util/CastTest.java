@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -34,6 +35,7 @@ public class CastTest
 	private static final String string1 = "string1";
 	private static final Object string1Object = string1;
 
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test public void testVerboseCast()
 	{
 		assertNull(verboseCast(String.class, null));
