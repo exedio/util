@@ -38,7 +38,7 @@ import org.junit.rules.TemporaryFolder;
 @ExtendWith(TemporaryFolder.Extension.class)
 public class SourcesFileTest
 {
-	@Test public final void testIt(final TemporaryFolder folder) throws IOException
+	@Test final void testIt(final TemporaryFolder folder) throws IOException
 	{
 		final File file = folder.newFile("file");
 		final Properties p = new Properties();
@@ -74,7 +74,7 @@ public class SourcesFileTest
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
-	@Test public final void testNotExists(final TemporaryFolder folder) throws IOException
+	@Test final void testNotExists(final TemporaryFolder folder) throws IOException
 	{
 		final File file = folder.newFile("file");
 		StrictFile.delete(file);

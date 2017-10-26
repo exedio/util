@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesDurationTest
 {
-	@Test public void testMinimal()
+	@Test void testMinimal()
 	{
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
@@ -48,7 +48,7 @@ public class PropertiesDurationTest
 		assertFalse(props.optionalF .isSpecified());
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", "PT3H33M");
@@ -64,7 +64,7 @@ public class PropertiesDurationTest
 		assertTrue (props.optionalF .isSpecified());
 	}
 
-	@Test public void testSetMinimum()
+	@Test void testSetMinimum()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", "PT21M");
@@ -80,28 +80,28 @@ public class PropertiesDurationTest
 		assertTrue (props.optionalF .isSpecified());
 	}
 
-	@Test public void testMandatoryWrong()
+	@Test void testMandatoryWrong()
 	{
 		assertWrong(
 				"mandatory", "WRONG",
 				"must be a duration, but was 'WRONG'");
 	}
 
-	@Test public void testMandatoryUnspecified()
+	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
 				"must be specified as there is no default");
 	}
 
-	@Test public void testOptionalWrong()
+	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
 				"must be a duration, but was 'WRONG'");
 	}
 
-	@Test public void testOptionalMinimum()
+	@Test void testOptionalMinimum()
 	{
 		assertWrong(
 				"optional", "PT40M59.999999999S",
@@ -172,7 +172,7 @@ public class PropertiesDurationTest
 
 
 	@SuppressWarnings("unused")
-	@Test public void testMinimumNull()
+	@Test void testMinimumNull()
 	{
 		try
 		{
@@ -196,7 +196,7 @@ public class PropertiesDurationTest
 
 
 	@SuppressWarnings("unused")
-	@Test public void testDefaultViolatesMinimum()
+	@Test void testDefaultViolatesMinimum()
 	{
 		try
 		{
@@ -220,7 +220,7 @@ public class PropertiesDurationTest
 	}
 
 
-	@Test public void testDefaultEqualsMinimum()
+	@Test void testDefaultEqualsMinimum()
 	{
 		final PropsDefaultEqualsMinimum p = new PropsDefaultEqualsMinimum();
 		assertEquals(ofMinutes(5), p.d);

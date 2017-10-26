@@ -177,7 +177,7 @@ public class ProxyJobContextTest
 
 
 	@SuppressWarnings("unused")
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{

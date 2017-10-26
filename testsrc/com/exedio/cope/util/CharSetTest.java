@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class CharSetTest
 {
 	@SuppressWarnings("unused")
-	@Test public void inconsistent1()
+	@Test void inconsistent1()
 	{
 		try
 		{
@@ -43,7 +43,7 @@ public class CharSetTest
 		}
 	}
 	@SuppressWarnings("unused")
-	@Test public void inconsistent2()
+	@Test void inconsistent2()
 	{
 		try
 		{
@@ -56,7 +56,7 @@ public class CharSetTest
 		}
 	}
 	@SuppressWarnings("unused")
-	@Test public void inconsistent3()
+	@Test void inconsistent3()
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class CharSetTest
 		}
 	}
 	@SuppressWarnings("unused")
-	@Test public void inconsistent4()
+	@Test void inconsistent4()
 	{
 		try
 		{
@@ -82,7 +82,7 @@ public class CharSetTest
 		}
 	}
 	@SuppressWarnings("unused")
-	@Test public void inconsistentOverlapping()
+	@Test void inconsistentOverlapping()
 	{
 		try
 		{
@@ -95,7 +95,7 @@ public class CharSetTest
 		}
 	}
 	@SuppressWarnings("unused")
-	@Test public void inconsistentNoDistance()
+	@Test void inconsistentNoDistance()
 	{
 		try
 		{
@@ -107,7 +107,7 @@ public class CharSetTest
 			assertEquals("inconsistent character set, no distance between character 'C' on position 1 and character 'D' on position 2", e.getMessage());
 		}
 	}
-	@Test public void simple()
+	@Test void simple()
 	{
 		final CharSet cs = new CharSet('C', 'C');
 		assertRegexp("^[C]*$", cs);
@@ -129,7 +129,7 @@ public class CharSetTest
 			assertEquals(null, e.getMessage());
 		}
 	}
-	@Test public void complex()
+	@Test void complex()
 	{
 		final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
 		assertRegexp("^[C,M-O,m-o]*$", cs);
@@ -146,7 +146,7 @@ public class CharSetTest
 		assertTrue(cs.contains('o'));
 		assertFalse(cs.contains('q'));
 	}
-	@Test public void isSubsetOfAscii()
+	@Test void isSubsetOfAscii()
 	{
 		assertEquals(true , new CharSet('a', 'z')     .isSubsetOfAscii());
 
@@ -159,7 +159,7 @@ public class CharSetTest
 		assertEquals(true , new CharSet('\0', '\u007f').isSubsetOfAscii());
 		assertEquals(false, new CharSet('\0', '\u0080').isSubsetOfAscii());
 	}
-	@Test public void equals()
+	@Test void equals()
 	{
 		assertEqualsStrict(
 				new CharSet('A', 'A'),
@@ -174,7 +174,7 @@ public class CharSetTest
 				new CharSet('A', 'X', 'a', 'x'),
 				new CharSet('A', 'X', 'a', 'y'));
 	}
-	@Test public void regexp()
+	@Test void regexp()
 	{
 		assertRegexp("^[-,a-z]*$", new CharSet('-', '-', 'a', 'z'));
 		assertRegexp("^[-,(-)]*$", new CharSet('(', ')', '-', '-'));
@@ -212,7 +212,7 @@ public class CharSetTest
 		final String actual = cs.getRegularExpression();
 		assertEquals(regularExpression, actual, actual);
 	}
-	@Test public void serialize()
+	@Test void serialize()
 	{
 		assertEquals(
 			new CharSet('A', 'A'), reserialize(
@@ -222,7 +222,7 @@ public class CharSetTest
 			new CharSet('0', '9', 'A', 'Z', 'a', 'z'), 96));
 	}
 
-	@Test public void emailInvalid()
+	@Test void emailInvalid()
 	{
 		final String invalid = "\n\t \"(),:;<>[\\]";
 		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, invalid));
@@ -230,14 +230,14 @@ public class CharSetTest
 		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, invalid));
 	}
 
-	@Test public void emailValid()
+	@Test void emailValid()
 	{
 		assertEquals("!#$%&'*+/=?^`{|}~", getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
 		assertEquals("", getInvalidCharacters(CharSet.EMAIL_ASCII, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
 		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
 	}
 
-	@Test public void emailInternationalCharacters()
+	@Test void emailInternationalCharacters()
 	{
 		final String international = "\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u20ac\u00e0\u00e8\u00e9\u00ea\u0436";
 		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, international));
@@ -245,7 +245,7 @@ public class CharSetTest
 		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, international));
 	}
 
-	@Test public void emailNonUtf16()
+	@Test void emailNonUtf16()
 	{
 		final String nonUtf16 = new String(Character.toChars(0x1F600));
 		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, nonUtf16));
@@ -267,7 +267,7 @@ public class CharSetTest
 		return sb.toString();
 	}
 
-	@Test public void invert()
+	@Test void invert()
 	{
 		assertEquals(null, new CharSet('\0', '\uffff').invert());
 		assertEquals(new CharSet('G', '\uffff'), new CharSet('\0', 'F').invert());
@@ -276,7 +276,7 @@ public class CharSetTest
 		assertEquals(new CharSet('\0', '3', '5', 'A', 'Z', '\uffff'), new CharSet('4', '4', 'B', 'Y').invert());
 	}
 
-	@Test public void restrict()
+	@Test void restrict()
 	{
 		assertEquals(new CharSet('a', 'z'), new CharSet('a', 'z').restrictTo7BitAscii());
 		assertEquals(new CharSet('a', 'f', 'h', 'm'), new CharSet('a', 'f', 'h', 'm').restrictTo7BitAscii());
@@ -287,13 +287,13 @@ public class CharSetTest
 		assertEquals(null, new CharSet('\u00e4', '\u00f6').restrictTo7BitAscii());
 	}
 
-	@Test public void invertedRegexp()
+	@Test void invertedRegexp()
 	{
 		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
 		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", CharSet.EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
 	}
 
-	@Test public void remove()
+	@Test void remove()
 	{
 		assertEquals(new CharSet('a', 'c'), new CharSet('a', 'c').remove('d', 'f'));
 		assertEquals(new CharSet('d', 'f'), new CharSet('d', 'f').remove('a', 'c'));

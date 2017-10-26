@@ -80,7 +80,7 @@ public class PrefixSourceTest
 		}
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final MockSource ms = new MockSource(false, "description");
 		final PrefixSource ps = (PrefixSource)wrap(ms, "prefix.");
@@ -114,7 +114,7 @@ public class PrefixSourceTest
 		assertSame(ms, wrap(ms, ""));
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		final MockSource ms = new MockSource(true, null);
 		final PrefixSource ps = (PrefixSource)wrap(ms, "prefix.");
@@ -149,7 +149,7 @@ public class PrefixSourceTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		try
 		{
@@ -191,7 +191,7 @@ public class PrefixSourceTest
 		}
 	}
 
-	@Test public void nest()
+	@Test void nest()
 	{
 		final Source s =
 				wrap(wrap(new MockSource(false, "description"), "inner."), "outer.");
@@ -203,7 +203,7 @@ public class PrefixSourceTest
 		assertEquals(asList("one", "two"), s.keySet());
 	}
 
-	@Test public void nestConstructor()
+	@Test void nestConstructor()
 	{
 		final Source s =
 				new PrefixSource(new PrefixSource(new MockSource(false, "description"), "inner."), "outer.");

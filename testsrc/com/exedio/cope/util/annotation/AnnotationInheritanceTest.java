@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  */
 public class AnnotationInheritanceTest
 {
-	@Test public void testIt() throws NoSuchFieldException, NoSuchMethodException
+	@Test void testIt() throws NoSuchFieldException, NoSuchMethodException
 	{
 		assertAnno("BothSuperClassDeclared", "BothSuperClassInherited", BothSuper.class);
 		assertAnno("BothSuperFieldDeclared", "BothSuperFieldInherited", field(BothSuper.class));

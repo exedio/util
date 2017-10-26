@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class DateInstantTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		final Date date = new Date(5555);
 		final Instant instant = Instant.ofEpochMilli(5555);

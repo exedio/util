@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class JobContextsEmptyTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		assertFalse(requestedToStop(JobContexts.EMPTY));
 	}

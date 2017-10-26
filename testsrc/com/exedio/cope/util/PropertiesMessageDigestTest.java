@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesMessageDigestTest
 {
-	@Test public void testMinimal()
+	@Test void testMinimal()
 	{
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
@@ -76,7 +76,7 @@ public class PropertiesMessageDigestTest
 				encodeLower(sha.digest()));
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", "SHA-256");
@@ -97,21 +97,21 @@ public class PropertiesMessageDigestTest
 		assertEquals(96, props.optional .getLengthHex());
 	}
 
-	@Test public void testMandatoryWrong()
+	@Test void testMandatoryWrong()
 	{
 		assertWrong(
 				"mandatory", "WRONG",
 				"must specify a digest, but was 'WRONG'");
 	}
 
-	@Test public void testMandatoryUnspecified()
+	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
 				"must be specified as there is no default");
 	}
 
-	@Test public void testOptionalWrong()
+	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",

@@ -63,7 +63,7 @@ public class InterruptersIteratorTest
 			throw new RuntimeException();
 		};
 
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		assertSame(null, iterator(null, null));
 		assertSame(null, iterator(null, INTERRUPTER_FAIL));
@@ -71,7 +71,7 @@ public class InterruptersIteratorTest
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, INTERRUPTER_FAIL));
 	}
 
-	@Test public void testImmediateInterrupt()
+	@Test void testImmediateInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);
@@ -90,7 +90,7 @@ public class InterruptersIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public void testLaterInterrupt()
+	@Test void testLaterInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);
@@ -129,7 +129,7 @@ public class InterruptersIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public void testNoInterrupt()
+	@Test void testNoInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final Interrupter interrupter = createStrictMock(Interrupter.class);

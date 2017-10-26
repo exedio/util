@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class MessageDigestFactoryTest
 {
-	@Test public void algorithmNull()
+	@Test void algorithmNull()
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public class MessageDigestFactoryTest
 		}
 	}
 
-	@Test public void algorithmEmpty()
+	@Test void algorithmEmpty()
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class MessageDigestFactoryTest
 		}
 	}
 
-	@Test public void algorithmNotFound()
+	@Test void algorithmNotFound()
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public class MessageDigestFactoryTest
 		}
 	}
 
-	@Test public void testSHA512()
+	@Test void testSHA512()
 	{
 		final MessageDigestFactory mdf = new MessageDigestFactory("SHA-512");
 		assertEquals("SHA-512", mdf.getAlgorithm());
@@ -84,7 +84,7 @@ public class MessageDigestFactoryTest
 				mdf);
 	}
 
-	@Test public void testMD5()
+	@Test void testMD5()
 	{
 		final MessageDigestFactory mdf = new MessageDigestFactory("MD5");
 		assertEquals("MD5", mdf.getAlgorithm());
@@ -115,7 +115,7 @@ public class MessageDigestFactoryTest
 		assertEquals(empty, encodeLower(md.digest(new byte[0])));
 	}
 
-	@Test public void testDigestForEmptyByteSequenceCopied()
+	@Test void testDigestForEmptyByteSequenceCopied()
 	{
 		final MessageDigestFactory mdf = new MessageDigestFactory("MD5");
 		final byte[] digest = mdf.getDigestForEmptyByteSequence();
@@ -126,7 +126,7 @@ public class MessageDigestFactoryTest
 		assertEquals("d41d8cd98f00b204e9800998ecf8427e", encodeLower(mdf.getDigestForEmptyByteSequence()));
 	}
 
-	@Test public void testEquals()
+	@Test void testEquals()
 	{
 		assertEqualsAndHash(
 				new MessageDigestFactory("SHA-512"),
@@ -137,7 +137,7 @@ public class MessageDigestFactoryTest
 				new MessageDigestFactory("MD5"));
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		final MessageDigestFactory mdf = new MessageDigestFactory("MD5");
 		assertEquals("MD5", mdf.getAlgorithm());

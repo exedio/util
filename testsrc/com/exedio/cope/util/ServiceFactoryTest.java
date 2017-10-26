@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class ServiceFactoryTest
 {
-	@Test public void testEqualsHashCode() throws NoSuchMethodException
+	@Test void testEqualsHashCode() throws NoSuchMethodException
 	{
 		final Props props = new Props();
 		final ServiceFactory<MyService, String> one =

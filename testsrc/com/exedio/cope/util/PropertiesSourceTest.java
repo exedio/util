@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesSourceTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey", "testValue");

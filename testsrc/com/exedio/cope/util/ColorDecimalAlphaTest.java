@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Disabled;
 public class ColorDecimalAlphaTest
 {
 	@Disabled
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		for(int alphaPercent = 0; alphaPercent<=100; alphaPercent++)
 		{

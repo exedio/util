@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class EmptyJobContextTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final EmptyJobContext c = new EmptyJobContext();
 
@@ -44,7 +44,7 @@ public class EmptyJobContextTest
 		c.setCompleteness(0.5);
 	}
 
-	@Test public void testStop()
+	@Test void testStop()
 	{
 		final EmptyJobContext c = new EmptyJobContext(){
 			@SuppressWarnings("deprecation") // needed for idea

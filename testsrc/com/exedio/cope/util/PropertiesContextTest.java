@@ -41,7 +41,7 @@ public class PropertiesContextTest
 		}
 	}
 
-	@Test public void testContext()
+	@Test void testContext()
 	{
 		assertContext("y", "${x}");
 		assertContext("bucket", "${eimer}");

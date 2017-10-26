@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Disabled;
 public class NumberFormatConcurrencyParseTest
 {
 	@Disabled
-	@Test public void torment() throws ParseException, InterruptedException
+	@Test void torment() throws ParseException, InterruptedException
 	{
 		final NumberFormat format = NumberFormat.getInstance(Locale.ENGLISH);
 		final List<DFThread> threads = new ArrayList<>();

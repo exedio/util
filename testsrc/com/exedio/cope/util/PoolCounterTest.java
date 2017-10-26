@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class PoolCounterTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final PoolCounter c = new PoolCounter(1,2);
 
@@ -80,7 +80,7 @@ public class PoolCounterTest
 		assertIt(c2, 3, 3); assertIt(p21,1, 0, 1, 2, 2, 66); assertIt(p22,2, 1, 2, 2, 1,33);
 	}
 
-	@Test public void testExtend()
+	@Test void testExtend()
 	{
 		final PoolCounter c = new PoolCounter(1,2,4,6);
 		{
@@ -210,7 +210,7 @@ public class PoolCounterTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		try
 		{

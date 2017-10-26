@@ -27,12 +27,12 @@ import org.junit.jupiter.api.Test;
 
 public class MessageDigestUtilTest
 {
-	@Test public void testMD5()
+	@Test void testMD5()
 	{
 		assertEquals("MD5", MessageDigestUtil.getInstance("MD5").getAlgorithm());
 	}
 
-	@Test public void testNotFound()
+	@Test void testNotFound()
 	{
 		try
 		{
@@ -47,7 +47,7 @@ public class MessageDigestUtilTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		try
 		{
@@ -62,7 +62,7 @@ public class MessageDigestUtilTest
 		}
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{

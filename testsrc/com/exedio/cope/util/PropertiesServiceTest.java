@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesServiceTest
 {
-	@Test public void testMinimal()
+	@Test void testMinimal()
 	{
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
@@ -52,7 +52,7 @@ public class PropertiesServiceTest
 		assertEquals("optionalParameter",  optional .parameter);
 	}
 
-	@Test public void testMinimalNested()
+	@Test void testMinimalNested()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", NESTED);
@@ -70,7 +70,7 @@ public class PropertiesServiceTest
 		assertEquals(55, nested.properties.nestedB);
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", THREE);
@@ -86,7 +86,7 @@ public class PropertiesServiceTest
 		assertTrue (props.optionalF .isSpecified());
 	}
 
-	@Test public void testSetNested()
+	@Test void testSetNested()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", NESTED);
@@ -101,7 +101,7 @@ public class PropertiesServiceTest
 		assertEquals(66, nested.properties.nestedB);
 	}
 
-	@Test public void testMandatoryWrong()
+	@Test void testMandatoryWrong()
 	{
 		assertWrong(
 				"mandatory", "WRONG",
@@ -109,7 +109,7 @@ public class PropertiesServiceTest
 				ClassNotFoundException.class);
 	}
 
-	@Test public void testMandatoryUnspecified()
+	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
@@ -117,7 +117,7 @@ public class PropertiesServiceTest
 				null);
 	}
 
-	@Test public void testOptionalWrong()
+	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
@@ -125,7 +125,7 @@ public class PropertiesServiceTest
 				ClassNotFoundException.class);
 	}
 
-	@Test public void testWrongAbstract()
+	@Test void testWrongAbstract()
 	{
 		final String name = WrongAbstract.class.getName();
 		assertWrong(
@@ -136,7 +136,7 @@ public class PropertiesServiceTest
 	@SuppressWarnings({"EmptyClass", "AbstractClassNeverImplemented", "AbstractClassWithoutAbstractMethods"})
 	abstract static class WrongAbstract {}
 
-	@Test public void testWrongSuperclass()
+	@Test void testWrongSuperclass()
 	{
 		final String name = WrongSuperclass.class.getName();
 		assertWrong(
@@ -147,7 +147,7 @@ public class PropertiesServiceTest
 	@SuppressWarnings("EmptyClass")
 	static class WrongSuperclass {}
 
-	@Test public void testWrongConstructor()
+	@Test void testWrongConstructor()
 	{
 		final String name = WrongConstructor.class.getName();
 		assertWrong(
@@ -157,7 +157,7 @@ public class PropertiesServiceTest
 	}
 	static class WrongConstructor extends MyService { WrongConstructor() {super(null);} }
 
-	@Test public void testWrongConstructorProperties()
+	@Test void testWrongConstructorProperties()
 	{
 		final String name = WrongConstructorProperties.class.getName();
 		assertWrong(
@@ -168,7 +168,7 @@ public class PropertiesServiceTest
 	@ServiceProperties(NestedProps.class)
 	static class WrongConstructorProperties extends MyService { WrongConstructorProperties() {super(null);} }
 
-	@Test public void testWrongNestedMissing()
+	@Test void testWrongNestedMissing()
 	{
 		final String name = WrongNestedMissingService.class.getName();
 		assertWrong(
@@ -182,7 +182,7 @@ public class PropertiesServiceTest
 	@ServiceProperties(WrongNestedMissingProps.class)
 	static class WrongNestedMissingService extends MyService { WrongNestedMissingService() {super(null);} }
 
-	@Test public void testWrongNestedFails()
+	@Test void testWrongNestedFails()
 	{
 		final String name = WrongNestedFailsService.class.getName();
 		assertWrong(

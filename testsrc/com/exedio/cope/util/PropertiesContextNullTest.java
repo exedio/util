@@ -37,7 +37,7 @@ public class PropertiesContextNullTest
 		}
 	}
 
-	@Test public void testContext()
+	@Test void testContext()
 	{
 		assertContext("${x}");
 		assertContext("${eimer}");

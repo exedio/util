@@ -39,7 +39,7 @@ public class XMLEncoderTest
 		}
 	}
 
-	@Test public void testEncode()
+	@Test void testEncode()
 	{
 		assertEquals(null, XMLEncoder.encode(null));
 		assertIt("", "");

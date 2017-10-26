@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class PoolTest
 {
-	@Test public void testSimple()
+	@Test void testSimple()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -77,7 +77,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testOverflow()
+	@Test void testOverflow()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -124,7 +124,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testPrecendence()
+	@Test void testPrecendence()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -227,7 +227,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testIdleInitial()
+	@Test void testIdleInitial()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -255,7 +255,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testIdleInitialNotFull()
+	@Test void testIdleInitialNotFull()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -283,7 +283,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testIsValidOnPut()
+	@Test void testIsValidOnPut()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -329,7 +329,7 @@ public class PoolTest
 		f.assertV(2);
 	}
 
-	@Test public void testFlush()
+	@Test void testFlush()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -376,7 +376,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testNoPool()
+	@Test void testNoPool()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -416,7 +416,7 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
 	}
 
-	@Test public void testValidOnGet()
+	@Test void testValidOnGet()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -463,7 +463,7 @@ public class PoolTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public void testErrorDeprecated()
+	@Test void testErrorDeprecated()
 	{
 		try
 		{
@@ -519,7 +519,7 @@ public class PoolTest
 
 	@SuppressWarnings("unused")
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testError()
+	@Test void testError()
 	{
 		try
 		{

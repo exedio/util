@@ -39,7 +39,7 @@ public class CounterTest
 	private final AtomicLong atomic = new AtomicLong();
 
 	@Disabled
-	@Test public final void testCount()
+	@Test final void testCount()
 	{
 		final int N = 10_000_000;
 		for(int j = 0; j<8; j++)
@@ -120,7 +120,7 @@ public class CounterTest
 
 	@Disabled
 	@SuppressWarnings({"unused", "static-method"})
-	@Test public final void testNow()
+	@Test final void testNow()
 	{
 		final int N = 10_000_000;
 		for(int j = 0; j<2; j++)

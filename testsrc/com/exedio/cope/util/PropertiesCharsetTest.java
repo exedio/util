@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesCharsetTest
 {
-	@Test public void testMinimal()
+	@Test void testMinimal()
 	{
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
@@ -48,7 +48,7 @@ public class PropertiesCharsetTest
 		assertFalse(props.optionalF .isSpecified());
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", UTF_16LE.name());
@@ -64,21 +64,21 @@ public class PropertiesCharsetTest
 		assertTrue (props.optionalF .isSpecified());
 	}
 
-	@Test public void testMandatoryWrong()
+	@Test void testMandatoryWrong()
 	{
 		assertWrong(
 				"mandatory", "WRONG",
 				"must be one of Charset.availableCharsets(), but was 'WRONG'");
 	}
 
-	@Test public void testMandatoryUnspecified()
+	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
 				"must be specified as there is no default");
 	}
 
-	@Test public void testOptionalWrong()
+	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",

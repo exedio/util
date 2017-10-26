@@ -32,7 +32,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(ClockRule.Extension.class)
 public class ClockTest
 {
-	@Test public void overrideNull(final ClockRule clock)
+	@Test void overrideNull(final ClockRule clock)
 	{
 		assertClear();
 
@@ -48,7 +48,7 @@ public class ClockTest
 		assertClear();
 	}
 
-	@Test public void testIt(final ClockRule clock)
+	@Test void testIt(final ClockRule clock)
 	{
 		final MockStrategy ms = new MockStrategy();
 		clock.override(ms);
@@ -65,7 +65,7 @@ public class ClockTest
 		assertClear();
 	}
 
-	@Test public void clearNotNeeded(final ClockRule clock)
+	@Test void clearNotNeeded(final ClockRule clock)
 	{
 		assertClear();
 

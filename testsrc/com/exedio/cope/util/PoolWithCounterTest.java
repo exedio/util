@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class PoolWithCounterTest
 {
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -54,7 +54,7 @@ public class PoolWithCounterTest
 		assertIt(cp, 2, 2);
 	}
 
-	@Test public void testInvalidOnGet()
+	@Test void testInvalidOnGet()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();
@@ -76,7 +76,7 @@ public class PoolWithCounterTest
 		assertIt(cp, 2, 1);
 	}
 
-	@Test public void testInvalidOnPut()
+	@Test void testInvalidOnPut()
 	{
 		final Pooled c1 = new Pooled();
 		final Factory f = new Factory(asList(c1));
@@ -94,7 +94,7 @@ public class PoolWithCounterTest
 		assertIt(cp, 1, 1);
 	}
 
-	@Test public void testCreateFails()
+	@Test void testCreateFails()
 	{
 		final Factory f = new Factory(asList(new Pooled()));
 		final Pool<Pooled> cp = newPool(f, 1, 0);
@@ -113,7 +113,7 @@ public class PoolWithCounterTest
 		assertIt(cp, 0, 0);
 	}
 
-	@Test public void testDisposeFails()
+	@Test void testDisposeFails()
 	{
 		final Pooled c1 = new Pooled();
 		final Pooled c2 = new Pooled();

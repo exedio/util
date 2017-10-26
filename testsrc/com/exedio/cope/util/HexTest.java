@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class HexTest
 {
-	@Test public void testDecodeHelper()
+	@Test void testDecodeHelper()
 	{
 		assertEquals(0x00, Hex.decodeLower('0'));
 		assertEquals(0x09, Hex.decodeLower('9'));
@@ -55,7 +55,7 @@ public class HexTest
 		}
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt("000ff0aa", new byte[]{0x00, 0x0f, (byte)0xf0, (byte)0xaa});
 		assertIt("0123456789abcdef", new byte[]{0x01, 0x23, 0x45, 0x67, (byte)0x89, (byte)0xab, (byte)0xcd, (byte)0xef});

@@ -44,7 +44,7 @@ public class InterrupterJobContextAdapterTest
 		}
 	}
 
-	@Test public void testSupports()
+	@Test void testSupports()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
 			{
@@ -69,7 +69,7 @@ public class InterrupterJobContextAdapterTest
 		));
 	}
 
-	@Test public void testStopIfRequested()
+	@Test void testStopIfRequested()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null,
 				JobContext::stopIfRequested
@@ -88,7 +88,7 @@ public class InterrupterJobContextAdapterTest
 		));
 	}
 
-	@Test public void testRequestedToStop()
+	@Test void testRequestedToStop()
 	{
 		assertEquals(0, InterrupterJobContextAdapter.run(null, ctx ->
 				assertEquals(false, ctx.requestedToStop())
@@ -107,7 +107,7 @@ public class InterrupterJobContextAdapterTest
 		));
 	}
 
-	@Test public void testProgress()
+	@Test void testProgress()
 	{
 		assertEquals(1, InterrupterJobContextAdapter.run(null,
 				JobContext::incrementProgress
@@ -120,7 +120,7 @@ public class InterrupterJobContextAdapterTest
 		));
 	}
 
-	@Test public void testProgressDelta()
+	@Test void testProgressDelta()
 	{
 		assertEquals(5, InterrupterJobContextAdapter.run(null,
 				ctx -> ctx.incrementProgress(5)

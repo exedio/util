@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class CascadeSourceTest
 {
-	@Test public void normal()
+	@Test void normal()
 	{
 		final Properties properties1 = new Properties();
 		properties1.setProperty("key1a", "value1a");
@@ -79,7 +79,7 @@ public class CascadeSourceTest
 		}
 	}
 
-	@Test public void nullArray()
+	@Test void nullArray()
 	{
 		try
 		{
@@ -92,7 +92,7 @@ public class CascadeSourceTest
 		}
 	}
 
-	@Test public void nullElementSingeton()
+	@Test void nullElementSingeton()
 	{
 		try
 		{
@@ -105,7 +105,7 @@ public class CascadeSourceTest
 		}
 	}
 
-	@Test public void nullElementMultiple()
+	@Test void nullElementMultiple()
 	{
 		try
 		{
@@ -118,18 +118,18 @@ public class CascadeSourceTest
 		}
 	}
 
-	@Test public void empty()
+	@Test void empty()
 	{
 		assertSame(Sources.EMPTY, cascade());
 	}
 
-	@Test public void singleton()
+	@Test void singleton()
 	{
 		final Source singleton = view(new Properties(), "description1");
 		assertSame(singleton, cascade(singleton));
 	}
 
-	@Test public void exposeArray()
+	@Test void exposeArray()
 	{
 		final Source[] sources = {
 				view(new Properties(), "description1"),

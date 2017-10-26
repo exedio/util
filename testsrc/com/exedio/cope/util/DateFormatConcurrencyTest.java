@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Disabled;
 public class DateFormatConcurrencyTest
 {
 	@Disabled
-	@Test public void torment() throws ParseException, InterruptedException
+	@Test void torment() throws ParseException, InterruptedException
 	{
 		final DateFormat format = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.ENGLISH);
 		final List<DFThread> threads = new ArrayList<>();

@@ -59,7 +59,7 @@ public class JobContextsIteratorTest
 
 	private static final JobContext CONTEXT_FAIL = new AssertionErrorJobContext();
 
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		assertSame(null, iterator(null, null));
 		assertSame(null, iterator(null, CONTEXT_FAIL));
@@ -67,7 +67,7 @@ public class JobContextsIteratorTest
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, CONTEXT_FAIL));
 	}
 
-	@Test public void testImmediateStop()
+	@Test void testImmediateStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
@@ -86,7 +86,7 @@ public class JobContextsIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public void testLaterStop()
+	@Test void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);
@@ -125,7 +125,7 @@ public class JobContextsIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
-	@Test public void testNoStop()
+	@Test void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
 		final JobContext ctx = createStrictMock(JobContext.class);

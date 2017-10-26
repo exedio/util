@@ -34,7 +34,7 @@ public class SequenceCheckerTest
 		sc = new SequenceChecker(5);
 	}
 
-	@Test public final void testInOrder()
+	@Test final void testInOrder()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -70,7 +70,7 @@ public class SequenceCheckerTest
 		assertIt(3,10, 8, 0, 0, 0, 0, 0);
 	}
 
-	@Test public final void testOutOfOrder()
+	@Test final void testOutOfOrder()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -100,7 +100,7 @@ public class SequenceCheckerTest
 		assertIt(3,10, 5, 3, 0, 0, 0, 0);
 	}
 
-	@Test public final void testDuplicate()
+	@Test final void testDuplicate()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -124,7 +124,7 @@ public class SequenceCheckerTest
 		assertIt(3,15, 3, 0, 3, 6, 0, 4);
 	}
 
-	@Test public final void testLostStep()
+	@Test final void testLostStep()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -154,7 +154,7 @@ public class SequenceCheckerTest
 		assertIt(3,13, 8, 0, 0, 3, 0, 0);
 	}
 
-	@Test public final void testLostJump()
+	@Test final void testLostJump()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -172,7 +172,7 @@ public class SequenceCheckerTest
 		assertIt(3,13, 4, 0, 0, 3, 0, 4);
 	}
 
-	@Test public final void testLostJumpOver()
+	@Test final void testLostJumpOver()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -190,7 +190,7 @@ public class SequenceCheckerTest
 		assertIt(3,16, 4, 0, 0, 6, 0, 4);
 	}
 
-	@Test public final void testLate()
+	@Test final void testLate()
 	{
 		assertEquals(5, sc.getCapacity());
 		assertIt();
@@ -215,7 +215,7 @@ public class SequenceCheckerTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testException()
+	@Test void testException()
 	{
 		try
 		{

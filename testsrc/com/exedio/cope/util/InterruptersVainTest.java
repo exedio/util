@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersVainTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		assertFalse(Interrupters.VAIN_INTERRUPTER.isRequested());
 	}

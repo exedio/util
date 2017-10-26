@@ -26,12 +26,12 @@ import org.junit.jupiter.api.Test;
 
 public class TimeZoneStrictTest
 {
-	@Test public void ok()
+	@Test void ok()
 	{
 		assertEquals("Europe/Berlin", getTimeZone("Europe/Berlin").getID());
 	}
 
-	@Test public void wrongID()
+	@Test void wrongID()
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public class TimeZoneStrictTest
 		}
 	}
 
-	@Test public void emptyID()
+	@Test void emptyID()
 	{
 		try
 		{
@@ -57,7 +57,7 @@ public class TimeZoneStrictTest
 		}
 	}
 
-	@Test public void nullID()
+	@Test void nullID()
 	{
 		try
 		{

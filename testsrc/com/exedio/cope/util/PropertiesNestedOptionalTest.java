@@ -162,7 +162,7 @@ public class PropertiesNestedOptionalTest
 		}
 	}
 
-	@Test public void testDefaults()
+	@Test void testDefaults()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedTrue", "false");
@@ -181,7 +181,7 @@ public class PropertiesNestedOptionalTest
 	}
 
 	@SuppressWarnings("ConstantConditions")
-	@Test public void testDefaultsNested()
+	@Test void testDefaultsNested()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedFalse", "true");
@@ -208,7 +208,7 @@ public class PropertiesNestedOptionalTest
 	}
 
 	@SuppressWarnings("ConstantConditions")
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer", "1009");

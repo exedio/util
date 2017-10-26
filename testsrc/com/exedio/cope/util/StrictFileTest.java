@@ -36,7 +36,7 @@ import org.junit.rules.TemporaryFolder;
 @ExtendWith(TemporaryFolder.Extension.class)
 public class StrictFileTest
 {
-	@Test public void testCreateNewFile(final TemporaryFolder folder) throws IOException
+	@Test void testCreateNewFile(final TemporaryFolder folder) throws IOException
 	{
 		final File f = new File(folder.getRoot(), "file");
 		assertEquals(false, f.exists());
@@ -45,7 +45,7 @@ public class StrictFileTest
 		assertEquals(true, f.exists());
 	}
 
-	@Test public void testCreateNewFileFails(final TemporaryFolder folder) throws IOException
+	@Test void testCreateNewFileFails(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
 		assertEquals(true, f.exists());
@@ -62,7 +62,7 @@ public class StrictFileTest
 		assertEquals(true, f.exists());
 	}
 
-	@Test public final void testDelete(final TemporaryFolder folder) throws IOException
+	@Test final void testDelete(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
 		delete(f);
@@ -77,7 +77,7 @@ public class StrictFileTest
 		}
 	}
 
-	@Test public final void testMkdir(final TemporaryFolder folder) throws IOException
+	@Test final void testMkdir(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
 		delete(f);
@@ -93,7 +93,7 @@ public class StrictFileTest
 		}
 	}
 
-	@Test public final void testMkdirs(final TemporaryFolder folder) throws IOException
+	@Test final void testMkdirs(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
 		delete(f);
@@ -109,7 +109,7 @@ public class StrictFileTest
 		}
 	}
 
-	@Test public final void testRenameTo(final TemporaryFolder folder) throws IOException
+	@Test final void testRenameTo(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
 		final File f2 = new File(folder.getRoot(), "file2");
@@ -125,7 +125,7 @@ public class StrictFileTest
 		}
 	}
 
-	@Test public void testSetLastModified(final TemporaryFolder folder) throws IOException
+	@Test void testSetLastModified(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
 		assertEquals(true, f.exists());
@@ -135,7 +135,7 @@ public class StrictFileTest
 		assertEquals(555000, f.lastModified());
 	}
 
-	@Test public void testSetLastModifiedFails(final TemporaryFolder folder)
+	@Test void testSetLastModifiedFails(final TemporaryFolder folder)
 	{
 		final File f = new File(folder.getRoot(), "file");
 		assertEquals(false, f.exists());

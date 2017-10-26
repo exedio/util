@@ -330,13 +330,13 @@ public class DayTest
 
 	@ExtendWith(ClockRule.Extension.class)
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
-	@Test public void currentDay(final ClockRule clock)
+	@Test void currentDay(final ClockRule clock)
 	{
 		clock.override(() -> new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT")));
 		assertEquals(new Day(1986, 4, 26), new Day(getTimeZone("Etc/GMT")));
 	}
 
-	@Test public void javaTime()
+	@Test void javaTime()
 	{
 		final LocalDate ldy = LocalDate.of(2016, Month.NOVEMBER, 25);
 		final Day day = new Day(2016, 11, 25);

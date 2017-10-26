@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
  */
 public class CalendarTest
 {
-	@Test public void setOnDST() throws ParseException
+	@Test void setOnDST() throws ParseException
 	{
 		final Date x = date("TZ+0200 2014/10/26-00:00:00.000");
 		final Date a = date("TZ+0200 2014/10/26-01:00:00.000");
@@ -151,7 +151,7 @@ public class CalendarTest
 		return df().parse(s);
 	}
 
-	@Test public void lenient()
+	@Test void lenient()
 	{
 		final GregorianCalendar cal = new GregorianCalendar(
 				TimeZoneStrict.getTimeZone("Europe/Berlin"),
@@ -161,7 +161,7 @@ public class CalendarTest
 		assertEquals(1, cal.get(MINUTE));
 	}
 
-	@Test public void nonLenient()
+	@Test void nonLenient()
 	{
 		final GregorianCalendar cal = new GregorianCalendar(
 				TimeZoneStrict.getTimeZone("Europe/Berlin"),

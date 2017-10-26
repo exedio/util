@@ -41,7 +41,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testDuplicate()
+	@Test void testDuplicate()
 	{
 		try
 		{
@@ -67,7 +67,7 @@ public class PropertiesDuplicateTest
 	static final Properties.Factory<Nested> factory = Nested::new;
 
 	@SuppressWarnings("unused")
-	@Test public void testSimpleNestedEquals()
+	@Test void testSimpleNestedEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -90,7 +90,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testSimpleNestedStartsWith()
+	@Test void testSimpleNestedStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -113,7 +113,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testNestedSimpleEquals()
+	@Test void testNestedSimpleEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -136,7 +136,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testNestedSimpleStartsWith()
+	@Test void testNestedSimpleStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -159,7 +159,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testNestedNestedEquals()
+	@Test void testNestedNestedEquals()
 	{
 		class Props extends MyProperties
 		{
@@ -182,7 +182,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testNestedNestedStartsWith()
+	@Test void testNestedNestedStartsWith()
 	{
 		class Props extends MyProperties
 		{
@@ -205,7 +205,7 @@ public class PropertiesDuplicateTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testNestedNestedStartsWith2()
+	@Test void testNestedNestedStartsWith2()
 	{
 		class Props extends MyProperties
 		{

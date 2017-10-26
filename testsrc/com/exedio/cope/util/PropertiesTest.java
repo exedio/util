@@ -129,7 +129,7 @@ public class PropertiesTest
 		}
 	}
 
-	@Test public void testIt(final TemporaryFolder folder) throws IOException
+	@Test void testIt(final TemporaryFolder folder) throws IOException
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -469,7 +469,7 @@ public class PropertiesTest
 	}
 
 	@SuppressWarnings("unused")
-	@Test public void testSourceNull()
+	@Test void testSourceNull()
 	{
 		try
 		{

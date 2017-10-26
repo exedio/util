@@ -35,7 +35,7 @@ public class ThreeValuedLogicTest
 	 * The table below is from
 	 * https://en.wikipedia.org/wiki/Null_%28SQL%29#Comparisons_with_NULL_and_the_three-valued_logic_.283VL.29
 	 */
-	@Test public void test()
+	@Test void test()
 	{
 		assertIt(True,    True,    True,    True,    True   );
 		assertIt(True,    False,   True,    False,   False  );

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class SystemPropertySourceTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{
@@ -55,7 +55,7 @@ public class SystemPropertySourceTest
 	}
 
 	@Deprecated // OK: testing deprecated api
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertSame(SYSTEM_PROPERTIES, Properties.getSystemPropertySource());
 		assertSame(SYSTEM_PROPERTIES, Properties.getSystemPropertyContext());

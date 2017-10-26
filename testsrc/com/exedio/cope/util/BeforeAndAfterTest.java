@@ -43,7 +43,7 @@ public class BeforeAndAfterTest
 		yesterday = new Day(calendar);
 	}
 
-	@Test public void testBeforeAssert()
+	@Test void testBeforeAssert()
 	{
 		assertEquals(true, yesterday.before(today));
 		assertEquals(true, yesterday.before(tomorrow));
@@ -53,7 +53,7 @@ public class BeforeAndAfterTest
 		assertEquals(false, tomorrow.before(today));
 	}
 
-	@Test public void testAfterAssert()
+	@Test void testAfterAssert()
 	{
 		assertEquals(false, yesterday.after(today));
 		assertEquals(false, yesterday.after(tomorrow));
@@ -63,7 +63,7 @@ public class BeforeAndAfterTest
 		assertEquals(true, tomorrow.after(today));
 	}
 
-	@Test public void testCombiAssert()
+	@Test void testCombiAssert()
 	{
 		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));
 		assertEquals(false, new Day(2011, 8, 5).before(new Day(2011, 7, 6)));

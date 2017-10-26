@@ -32,7 +32,7 @@ public class InstantiationTest
 
 	@Disabled
 	@SuppressWarnings("unused")
-	@Test public void test() throws ReflectiveOperationException
+	@Test void test() throws ReflectiveOperationException
 	{
 		{
 			long sum = 0;

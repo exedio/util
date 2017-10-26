@@ -31,26 +31,26 @@ import org.junit.jupiter.api.Test;
  */
 public class MapContainsTest
 {
-	@Test public void hashMap()
+	@Test void hashMap()
 	{
 		assertMap(
 				new HashMap<>(),
 				"alpha", "beta", "nullKey", "notAdded");
 	}
-	@Test public void treeMap()
+	@Test void treeMap()
 	{
 		assertMap(
 				new TreeMap<>(),
 				"alpha", "beta", "nullKey", "notAdded");
 	}
 	@SuppressWarnings("MapReplaceableByEnumMap")
-	@Test public void hashMapOfEnum()
+	@Test void hashMapOfEnum()
 	{
 		assertMap(
 				new HashMap<>(),
 				KeyEnum.alpha, KeyEnum.beta, KeyEnum.nullKey, KeyEnum.notAdded);
 	}
-	@Test public void enumMap()
+	@Test void enumMap()
 	{
 		assertMap(
 				new EnumMap<>(KeyEnum.class),

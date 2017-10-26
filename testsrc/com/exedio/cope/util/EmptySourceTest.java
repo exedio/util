@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class EmptySourceTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{
@@ -57,7 +57,7 @@ public class EmptySourceTest
 	}
 
 	@Deprecated // OK: testing deprecated API
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertSame(Properties.EMPTY_SOURCE, EMPTY);
 	}

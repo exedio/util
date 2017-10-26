@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class SourcesUrlTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final URL url = SourcesUrlTest.class.getResource("sourcesUrlTest.properties");
 		final Source s = load(url);
@@ -64,7 +64,7 @@ public class SourcesUrlTest
 		assertEquals(url.toString(), s.toString());
 	}
 
-	@Test public void testNotExists() throws MalformedURLException
+	@Test void testNotExists() throws MalformedURLException
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class SourcesUrlTest
 		}
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{

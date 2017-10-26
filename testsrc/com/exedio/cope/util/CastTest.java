@@ -36,13 +36,13 @@ public class CastTest
 	private static final Object string1Object = string1;
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testVerboseCast()
+	@Test void testVerboseCast()
 	{
 		assertNull(verboseCast(String.class, null));
 		assertSame(string1, verboseCast(String.class, string1Object));
 	}
 
-	@Test public void testVerboseCastClassNull()
+	@Test void testVerboseCastClassNull()
 	{
 		try
 		{
@@ -55,7 +55,7 @@ public class CastTest
 		}
 	}
 
-	@Test public void testVerboseCastAllNull()
+	@Test void testVerboseCastAllNull()
 	{
 		try
 		{
@@ -68,7 +68,7 @@ public class CastTest
 		}
 	}
 
-	@Test public void testVerboseCastWrongCast()
+	@Test void testVerboseCastWrongCast()
 	{
 		try
 		{
@@ -81,7 +81,7 @@ public class CastTest
 		}
 	}
 
-	@Test public void testCastElements()
+	@Test void testCastElements()
 	{
 		final List<String> strings = asList(string1);
 		final List<String> strings2 = asList(string1, string1);
@@ -93,7 +93,7 @@ public class CastTest
 		assertEquals(nulls, castElements(String.class, nulls)); // TODO should be same
 	}
 
-	@Test public void testCastElementsClassNull()
+	@Test void testCastElementsClassNull()
 	{
 		final List<String> strings = asList(string1);
 		try
@@ -107,12 +107,12 @@ public class CastTest
 		}
 	}
 
-	@Test public void testCastElementsAllNull()
+	@Test void testCastElementsAllNull()
 	{
 		assertNull(castElements(null, null));
 	}
 
-	@Test public void testCastElementsWrongCast()
+	@Test void testCastElementsWrongCast()
 	{
 		final List<String> strings = asList(string1);
 		try

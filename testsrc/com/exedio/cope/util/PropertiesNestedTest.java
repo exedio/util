@@ -178,7 +178,7 @@ public class PropertiesNestedTest
 		}
 	}
 
-	@Test public void testDefaults()
+	@Test void testDefaults()
 	{
 		final java.util.Properties source = new java.util.Properties();
 
@@ -211,7 +211,7 @@ public class PropertiesNestedTest
 		assertEquals(false, outer.nestedDrinner2.isSpecified());
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("outer1", "1009");
@@ -248,7 +248,7 @@ public class PropertiesNestedTest
 	}
 
 	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
-	@Test public void testWrong()
+	@Test void testWrong()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedO.inner1", "109x");
@@ -278,7 +278,7 @@ public class PropertiesNestedTest
 	}
 
 	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
-	@Test public void testWrongDrinner()
+	@Test void testWrongDrinner()
 	{
 		final java.util.Properties source = new java.util.Properties();
 		source.setProperty("nestedO.nestedI.drinner1", "19x");

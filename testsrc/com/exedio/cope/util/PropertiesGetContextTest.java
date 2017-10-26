@@ -44,7 +44,7 @@ public class PropertiesGetContextTest
 		}
 	}
 
-	@Test public void testGetContext()
+	@Test void testGetContext()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -94,7 +94,7 @@ public class PropertiesGetContextTest
 	}
 
 	@Deprecated
-	@Test public void testGetContextDeprecated()
+	@Test void testGetContextDeprecated()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");

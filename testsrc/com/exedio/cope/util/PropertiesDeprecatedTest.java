@@ -103,7 +103,7 @@ public class PropertiesDeprecatedTest
 		}
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");

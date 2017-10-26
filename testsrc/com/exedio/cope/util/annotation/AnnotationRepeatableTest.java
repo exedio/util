@@ -35,7 +35,7 @@ public class AnnotationRepeatableTest
 	{
 		// empty
 	}
-	@Test public void testOne()
+	@Test void testOne()
 	{
 		final Class<?> clazz = One.class;
 		assertEquals("one", value(clazz.getDeclaredAnnotation(content)));
@@ -53,7 +53,7 @@ public class AnnotationRepeatableTest
 	{
 		// empty
 	}
-	@Test public void testTwo()
+	@Test void testTwo()
 	{
 		final Class<?> clazz = Two.class;
 		assertEquals(null, value(clazz.getDeclaredAnnotation(content)));
@@ -72,7 +72,7 @@ public class AnnotationRepeatableTest
 	{
 		// empty
 	}
-	@Test public void testOneContainer()
+	@Test void testOneContainer()
 	{
 		final Class<?> clazz = OneContainer.class;
 		assertEquals(null, value(clazz.getDeclaredAnnotation(content)));
@@ -92,7 +92,7 @@ public class AnnotationRepeatableTest
 	{
 		// empty
 	}
-	@Test public void testTwoContainer()
+	@Test void testTwoContainer()
 	{
 		final Class<?> clazz = TwoContainer.class;
 		assertEquals(null, value(clazz.getDeclaredAnnotation(content)));
@@ -113,7 +113,7 @@ public class AnnotationRepeatableTest
 	{
 		// empty
 	}
-	@Test public void testContainerAndTop()
+	@Test void testContainerAndTop()
 	{
 		final Class<?> clazz = ContainerAndTop.class;
 		assertEquals("top", value(clazz.getDeclaredAnnotation(content)));
@@ -134,7 +134,7 @@ public class AnnotationRepeatableTest
 	{
 		// empty
 	}
-	@Test public void testContainerAndTopReverse()
+	@Test void testContainerAndTopReverse()
 	{
 		final Class<?> clazz = ContainerAndTopReverse.class;
 		assertEquals("top", value(clazz.getDeclaredAnnotation(content)));
