@@ -29,7 +29,7 @@ public class SequenceCheckerTest
 {
 	SequenceChecker sc;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		sc = new SequenceChecker(5);
 	}

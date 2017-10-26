@@ -33,7 +33,7 @@ public class BeforeAndAfterTest
 	private Day tomorrow;
 	private Day yesterday;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final GregorianCalendar calendar = new GregorianCalendar();
 		today = new Day(calendar);
