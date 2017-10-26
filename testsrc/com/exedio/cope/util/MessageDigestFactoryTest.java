@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.security.MessageDigest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MessageDigestFactoryTest
 {

@@ -21,7 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.util.JobContextDeprecated.requestedToStop;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class JobContextsEmptyTest
 {

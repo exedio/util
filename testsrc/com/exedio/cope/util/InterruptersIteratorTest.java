@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersIteratorTest

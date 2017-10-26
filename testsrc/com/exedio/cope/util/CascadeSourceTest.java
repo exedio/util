@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.util.Properties.Source;
 import java.util.HashSet;
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CascadeSourceTest
 {

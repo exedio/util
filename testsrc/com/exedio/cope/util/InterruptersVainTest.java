@@ -20,7 +20,7 @@ package com.exedio.cope.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersVainTest

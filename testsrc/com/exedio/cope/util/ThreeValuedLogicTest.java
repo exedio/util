@@ -23,7 +23,7 @@ import static com.exedio.cope.util.ThreeValuedLogicTest.Value.True;
 import static com.exedio.cope.util.ThreeValuedLogicTest.Value.Unknown;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test helps me to understand three value logic.

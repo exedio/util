@@ -23,7 +23,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
 
 @SuppressWarnings({"FieldCanBeLocal", "NonAtomicOperationOnVolatileField"})

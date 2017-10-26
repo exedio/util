@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(ClockRule.Extension.class)

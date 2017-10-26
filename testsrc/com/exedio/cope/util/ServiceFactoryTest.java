@@ -21,7 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ServiceFactoryTest
 {

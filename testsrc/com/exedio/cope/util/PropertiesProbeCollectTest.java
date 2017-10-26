@@ -26,7 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PropertiesProbeCollectTest
 {

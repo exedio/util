@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.security.MessageDigest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PropertiesMessageDigestTest
 {

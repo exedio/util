@@ -29,7 +29,7 @@ import com.exedio.cope.util.Properties.Source;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SourcesUrlTest
 {
