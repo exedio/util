@@ -92,7 +92,7 @@ public class CascadeSourceTest
 		}
 	}
 
-	@Test void nullElementSingeton()
+	@Test void nullElementSingleton()
 	{
 		try
 		{
