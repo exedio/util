@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Interrupters.iterator;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
@@ -169,5 +168,16 @@ public class InterruptersIteratorTest
 
 		verify(iterator);
 		verify(interrupter);
+	}
+
+
+	/**
+	 * Replaces static import and avoids deprecation warning in IDEA 2017.2.3.
+	 */
+	private static <E> Iterator<E> iterator(
+			final Iterator<E> iterator,
+			final Interrupter interrupter)
+	{
+		return Interrupters.iterator(iterator, interrupter);
 	}
 }
