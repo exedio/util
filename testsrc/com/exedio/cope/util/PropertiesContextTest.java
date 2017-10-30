@@ -18,9 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
@@ -54,33 +54,18 @@ public class PropertiesContextTest
 		assertContext("prefixbucketinfixwaterpostfix", "prefix${eimer}infix${wasser}postfix");
 		assertContext("x$kkk", "x$kkk");
 
-		try
-		{
-			getContext("${nixus}");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key 'nixus' not defined by context TestContextDescription", e.getMessage());
-		}
-		try
-		{
-			getContext("x${}y");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("${} not allowed in x${}y", e.getMessage());
-		}
-		try
-		{
-			getContext("x${kkk");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("missing '}' in x${kkk", e.getMessage());
-		}
+		assertFails(() ->
+			getContext("${nixus}"),
+			IllegalArgumentException.class,
+			"key 'nixus' not defined by context TestContextDescription");
+		assertFails(() ->
+			getContext("x${}y"),
+			IllegalArgumentException.class,
+			"${} not allowed in x${}y");
+		assertFails(() ->
+			getContext("x${kkk"),
+			IllegalArgumentException.class,
+			"missing '}' in x${kkk");
 	}
 
 	private static TestProperties getContext(final String raw)

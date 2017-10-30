@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PrefixSource.wrap;
 import static java.util.Arrays.asList;
@@ -25,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -88,24 +88,13 @@ public class PrefixSourceTest
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
 		assertEquals(null, ps.get("none"));
-		try
-		{
-			ps.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
-		try
-		{
-			ps.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
+		assertFails(() ->
+			ps.get(""),
+			IllegalArgumentException.class,
+			"key must not be empty");
+		assertFails(() ->
+			ps.get(null),
+			NullPointerException.class, "key");
 		assertEqualsUnmodifiable(asList("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 		assertEquals("toString(description) (prefix prefix.)", ps.toString());
@@ -122,24 +111,13 @@ public class PrefixSourceTest
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
 		assertEquals(null, ps.get("none"));
-		try
-		{
-			ps.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
-		try
-		{
-			ps.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
+		assertFails(() ->
+			ps.get(""),
+			IllegalArgumentException.class,
+			"key must not be empty");
+		assertFails(() ->
+			ps.get(null),
+			NullPointerException.class, "key");
 		assertEquals(null, ps.keySet());
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 		assertEquals(null, ps.toString());
@@ -151,44 +129,20 @@ public class PrefixSourceTest
 	@SuppressWarnings("unused")
 	@Test void testFail()
 	{
-		try
-		{
-			new PrefixSource(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
-		try
-		{
-			wrap(null, "prefix.");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
+		assertFails(() ->
+			new PrefixSource(null, null),
+			NullPointerException.class, "source");
+		assertFails(() ->
+			wrap(null, "prefix."),
+			NullPointerException.class, "source");
 
 		final MockSource ms = new MockSource(false, "description");
-		try
-		{
-			new PrefixSource(ms, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("prefix", e.getMessage());
-		}
-		try
-		{
-			new PrefixSource(ms, "");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("prefix", e.getMessage());
-		}
+		assertFails(() ->
+			new PrefixSource(ms, null),
+			NullPointerException.class, "prefix");
+		assertFails(() ->
+			new PrefixSource(ms, ""),
+			IllegalArgumentException.class, "prefix");
 	}
 
 	@Test void nest()

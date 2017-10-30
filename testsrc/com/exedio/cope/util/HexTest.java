@@ -18,9 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -44,15 +44,9 @@ public class HexTest
 
 	private static void assertDecodeHelperFails(final char c)
 	{
-		try
-		{
-			Hex.decodeLower(c);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(String.valueOf(c), e.getMessage());
-		}
+		assertFails(() ->
+			Hex.decodeLower(c),
+			IllegalArgumentException.class, String.valueOf(c));
 	}
 
 	@Test void testIt()
@@ -72,15 +66,9 @@ public class HexTest
 
 		assertEquals(null, Hex.encodeLower(null));
 		assertEquals(null, Hex.decodeLower(null));
-		try
-		{
-			Hex.decodeLower("a");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("odd length: a", e.getMessage());
-		}
+		assertFails(() ->
+			Hex.decodeLower("a"),
+			IllegalArgumentException.class, "odd length: a");
 	}
 
 	private static void assertIt(final String expected, final byte[] actual)

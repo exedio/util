@@ -18,13 +18,14 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.Hex.encodeLower;
+import static com.exedio.cope.util.MessageDigestUtilTest.assertThrowsIllegalAlgorithm;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.security.MessageDigest;
@@ -34,41 +35,23 @@ public class MessageDigestFactoryTest
 {
 	@Test void algorithmNull()
 	{
-		try
-		{
-			new MessageDigestFactory(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("algorithm", e.getMessage());
-		}
+		assertFails(() ->
+			new MessageDigestFactory(null),
+			 NullPointerException.class, "algorithm");
 	}
 
 	@Test void algorithmEmpty()
 	{
-		try
-		{
-			new MessageDigestFactory("");
-			fail();
-		}
-		catch(final IllegalAlgorithmException e)
-		{
-			assertEquals("", e.getAlgorithm());
-		}
+		assertThrowsIllegalAlgorithm(() ->
+			new MessageDigestFactory(""),
+			"");
 	}
 
 	@Test void algorithmNotFound()
 	{
-		try
-		{
-			new MessageDigestFactory("NIXUS");
-			fail();
-		}
-		catch(final IllegalAlgorithmException e)
-		{
-			assertEquals("NIXUS", e.getAlgorithm());
-		}
+		assertThrowsIllegalAlgorithm(() ->
+			new MessageDigestFactory("NIXUS"),
+			"NIXUS");
 	}
 
 	@Test void testSHA512()

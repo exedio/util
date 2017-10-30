@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,80 +32,50 @@ public class CharSetTest
 	@SuppressWarnings("unused")
 	@Test void inconsistent1()
 	{
-		try
-		{
-			new CharSet('Z', 'A');
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("inconsistent character set, character 'A' on position 1 is less than character 'Z' on position 0", e.getMessage());
-		}
+		assertFails(() ->
+			new CharSet('Z', 'A'),
+			IllegalArgumentException.class,
+			"inconsistent character set, character 'A' on position 1 is less than character 'Z' on position 0");
 	}
 	@SuppressWarnings("unused")
 	@Test void inconsistent2()
 	{
-		try
-		{
-			new CharSet('B', 'A');
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("inconsistent character set, character 'A' on position 1 is less than character 'B' on position 0", e.getMessage());
-		}
+		assertFails(() ->
+			new CharSet('B', 'A'),
+			IllegalArgumentException.class,
+			"inconsistent character set, character 'A' on position 1 is less than character 'B' on position 0");
 	}
 	@SuppressWarnings("unused")
 	@Test void inconsistent3()
 	{
-		try
-		{
-			new CharSet('A', 'C', 'B', 'X');
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'B' on position 2", e.getMessage());
-		}
+		assertFails(() ->
+			new CharSet('A', 'C', 'B', 'X'),
+			IllegalArgumentException.class,
+			"inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'B' on position 2");
 	}
 	@SuppressWarnings("unused")
 	@Test void inconsistent4()
 	{
-		try
-		{
-			new CharSet('A', 'C', 'N', 'M');
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("inconsistent character set, character 'M' on position 3 is less than character 'N' on position 2", e.getMessage());
-		}
+		assertFails(() ->
+			new CharSet('A', 'C', 'N', 'M'),
+			IllegalArgumentException.class,
+			"inconsistent character set, character 'M' on position 3 is less than character 'N' on position 2");
 	}
 	@SuppressWarnings("unused")
 	@Test void inconsistentOverlapping()
 	{
-		try
-		{
-			new CharSet('A', 'C', 'C', 'F');
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'C' on position 2", e.getMessage());
-		}
+		assertFails(() ->
+			new CharSet('A', 'C', 'C', 'F'),
+			IllegalArgumentException.class,
+			"inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'C' on position 2");
 	}
 	@SuppressWarnings("unused")
 	@Test void inconsistentNoDistance()
 	{
-		try
-		{
-			new CharSet('A', 'C', 'D', 'F');
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("inconsistent character set, no distance between character 'C' on position 1 and character 'D' on position 2", e.getMessage());
-		}
+		assertFails(() ->
+			new CharSet('A', 'C', 'D', 'F'),
+			IllegalArgumentException.class,
+			"inconsistent character set, no distance between character 'C' on position 1 and character 'D' on position 2");
 	}
 	@Test void simple()
 	{
@@ -119,15 +89,9 @@ public class CharSetTest
 		assertEquals( 0, cs.indexOfNotContains("AC"));
 		assertEquals( 1, cs.indexOfNotContains("CA"));
 		assertEquals(-1, cs.indexOfNotContains("CC"));
-		try
-		{
-			cs.indexOfNotContains(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			cs.indexOfNotContains(null),
+			NullPointerException.class, null);
 	}
 	@Test void complex()
 	{

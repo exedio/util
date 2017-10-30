@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.time.Duration.ZERO;
 import static java.time.Duration.ofNanos;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -101,14 +101,8 @@ public class JobContextDeferOrStopIfRequestedTest
 
 	@Test void testContextNull()
 	{
-		try
-		{
-			deferOrStopIfRequested(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("ctx", e.getMessage());
-		}
+		assertFails(() ->
+			deferOrStopIfRequested(null),
+			NullPointerException.class, "ctx");
 	}
 }

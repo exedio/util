@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static com.exedio.cope.util.JobContext.sleepAndStopIfRequested;
 import static com.exedio.cope.util.ProxyJobContext.max;
@@ -26,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -238,15 +238,9 @@ public class ProxyJobContextTest
 	@SuppressWarnings("unused")
 	@Test void testNull()
 	{
-		try
-		{
-			new ProxyJobContext(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("target", e.getMessage());
-		}
+		assertFails(() ->
+			new ProxyJobContext(null),
+			NullPointerException.class, "target");
 	}
 	@Test void testMax()
 	{

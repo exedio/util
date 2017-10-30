@@ -18,9 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -217,40 +217,25 @@ public class SequenceCheckerTest
 	@SuppressWarnings("unused")
 	@Test void testException()
 	{
-		try
-		{
-			new SequenceChecker(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("capacity must be greater than zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			new SequenceChecker(0),
+			IllegalArgumentException.class,
+			"capacity must be greater than zero, but was 0");
 	}
 
 	private void assertIt()
 	{
 		final SequenceChecker.Info sci = sc.getInfo();
-		try
-		{
-			//noinspection ResultOfMethodCallIgnored
-			sc.getFirstNumber();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("did not yet check first number", e.getMessage());
-		}
-		try
-		{
-			//noinspection ResultOfMethodCallIgnored
-			sc.getMaxNumber();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("did not yet check first number", e.getMessage());
-		}
+		//noinspection ResultOfMethodCallIgnored
+		assertFails(() ->
+			sc.getFirstNumber(),
+			IllegalStateException.class,
+			"did not yet check first number");
+		//noinspection ResultOfMethodCallIgnored
+		assertFails(() ->
+			sc.getMaxNumber(),
+			IllegalStateException.class,
+			"did not yet check first number");
 		assertEquals(0, sci.getInOrder(),    "countInOrder");
 		assertEquals(0, sci.getOutOfOrder(), "countOutOfOrder");
 		assertEquals(0, sci.getDuplicate(),  "countDuplicate");

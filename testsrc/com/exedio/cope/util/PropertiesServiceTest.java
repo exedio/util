@@ -19,12 +19,12 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
+import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -288,19 +288,9 @@ public class PropertiesServiceTest
 		else
 			wrongProps.remove(key);
 
-		try
-		{
-			new MyProps(wrongProps);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(key, e.getKey());
-			assertEquals(message, e.getDetail());
-
-			final Throwable actualCause = e.getCause();
-			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
-		}
+		assertThrowsIllegalProperties(
+				() -> new MyProps(wrongProps),
+				key, message, cause);
 	}
 
 	@SuppressWarnings("unused")
@@ -323,19 +313,9 @@ public class PropertiesServiceTest
 		else
 			wrongProps.remove(key2);
 
-		try
-		{
-			new MyProps(wrongProps);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(key1, e.getKey());
-			assertEquals(message, e.getDetail());
-
-			final Throwable actualCause = e.getCause();
-			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
-		}
+		assertThrowsIllegalProperties(
+				() -> new MyProps(wrongProps),
+				key1, message, cause);
 	}
 
 	private static java.util.Properties minimal()

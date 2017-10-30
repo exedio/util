@@ -18,12 +18,15 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class MessageDigestUtilTest
 {
@@ -34,44 +37,35 @@ public class MessageDigestUtilTest
 
 	@Test void testNotFound()
 	{
-		try
-		{
-			MessageDigestUtil.getInstance("NIXUS");
-			fail();
-		}
-		catch(final IllegalAlgorithmException e)
-		{
-			assertEquals("NIXUS", e.getAlgorithm());
-			assertTrue(e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "), e.getMessage());
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
-		}
+		assertThrowsIllegalAlgorithm(() ->
+			MessageDigestUtil.getInstance("NIXUS"),
+			"NIXUS");
 	}
 
 	@Test void testEmpty()
 	{
-		try
-		{
-			MessageDigestUtil.getInstance("");
-			fail();
-		}
-		catch(final IllegalAlgorithmException e)
-		{
-			assertEquals("", e.getAlgorithm());
-			assertTrue(e.getMessage().startsWith("no such MessageDigest , choose one of: "), e.getMessage());
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
-		}
+		assertThrowsIllegalAlgorithm(() ->
+			MessageDigestUtil.getInstance(""),
+			"");
 	}
 
 	@Test void testNull()
 	{
-		try
-		{
-			MessageDigestUtil.getInstance(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("algorithm", e.getMessage());
-		}
+		assertFails(() ->
+			MessageDigestUtil.getInstance(null),
+			NullPointerException.class, "algorithm");
+	}
+
+
+	static void assertThrowsIllegalAlgorithm(
+			final Executable executable,
+			final String expectedAlgorithm)
+	{
+		final IllegalAlgorithmException result =
+				assertThrows(IllegalAlgorithmException.class, executable);
+		assertSame(IllegalAlgorithmException.class, result.getClass());
+		assertEquals(expectedAlgorithm, result.getAlgorithm());
+		assertTrue(result.getMessage().startsWith("no such MessageDigest " + expectedAlgorithm + ", choose one of: "), result.getMessage());
+		assertEquals(NoSuchAlgorithmException.class, result.getCause().getClass());
 	}
 }

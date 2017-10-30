@@ -18,10 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -61,35 +62,18 @@ public class PropertiesProbeRunTest
 		assertEquals(null, probeNull.call());
 		assertEquals(null, probeVoid.call());
 
-		try
-		{
-			probeExcp.call();
-			fail();
-		}
-		catch(final IOException e)
-		{
-			assertEquals("probeExcp", e.getMessage());
-		}
-		try
-		{
-			probeError.call();
-			fail();
-		}
-		catch(final AssertionError e)
-		{
-			assertEquals("probeError", e.getMessage());
-		}
-		try
-		{
-			probeThrow.call();
-			fail();
-		}
-		catch(final InvocationTargetException ew)
-		{
-			final Throwable e = ew.getTargetException();
-			assertEquals("probeThrow", e.getMessage());
-			assertEquals(MyThrowable.class, e.getClass());
-		}
+		assertFails(() ->
+			probeExcp.call(),
+			IOException.class, "probeExcp");
+		assertFails(() ->
+			probeError.call(),
+			AssertionError.class, "probeError");
+		final InvocationTargetException ew = assertThrows(
+				InvocationTargetException.class,
+				() -> probeThrow.call());
+		final Throwable e = ew.getTargetException();
+		assertEquals("probeThrow", e.getMessage());
+		assertEquals(MyThrowable.class, e.getClass());
 	}
 
 	static class MyProps extends Properties

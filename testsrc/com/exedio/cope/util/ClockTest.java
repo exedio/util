@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertWithin;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
 import static com.exedio.cope.util.Clock.newDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
 import java.util.Date;
@@ -36,15 +36,9 @@ public class ClockTest
 	{
 		assertClear();
 
-		try
-		{
-			clock.override(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("strategy", e.getMessage());
-		}
+		assertFails(() ->
+			clock.override(null),
+			NullPointerException.class, "strategy");
 		assertClear();
 	}
 

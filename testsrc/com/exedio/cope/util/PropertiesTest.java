@@ -18,13 +18,15 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.map;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -32,6 +34,7 @@ import java.io.IOException;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.rules.TemporaryFolder;
 
 @ExtendWith(TemporaryFolder.Extension.class)
@@ -263,50 +266,38 @@ public class PropertiesTest
 			assertEquals("wrongkey", tp.getSource());
 			assertContainsUnmodifiable("wrongKey.zack", tp.getOrphanedKeys());
 			tp.ensureValidity("wrongKey");
-			try
-			{
-				tp.ensureValidity();
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals(
-						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
-						"boolFalse, " +
-						"boolTrue, " +
-						"intAny, " +
-						"int10, " +
-						"stringMandatory, " +
-						"stringOptional, " +
-						"stringHidden, " +
-						"stringHiddenOptional, " +
-						"dayMandatory, " +
-						"dayOptional, " +
-						"file] " +
-						"or one starting with [map.].", e.getMessage());
-			}
-			try
-			{
-				tp.ensureValidity("otherKey");
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals(
-						"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
-						"boolFalse, " +
-						"boolTrue, " +
-						"intAny, " +
-						"int10, " +
-						"stringMandatory, " +
-						"stringOptional, " +
-						"stringHidden, " +
-						"stringHiddenOptional, " +
-						"dayMandatory, " +
-						"dayOptional, " +
-						"file] " +
-						"or one starting with [map., otherKey].", e.getMessage());
-			}
+			assertFails(() ->
+				tp.ensureValidity(),
+				IllegalArgumentException.class,
+				"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
+				"boolFalse, " +
+				"boolTrue, " +
+				"intAny, " +
+				"int10, " +
+				"stringMandatory, " +
+				"stringOptional, " +
+				"stringHidden, " +
+				"stringHiddenOptional, " +
+				"dayMandatory, " +
+				"dayOptional, " +
+				"file] " +
+				"or one starting with [map.].");
+			assertFails(() ->
+				tp.ensureValidity("otherKey"),
+				IllegalArgumentException.class,
+				"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
+				"boolFalse, " +
+				"boolTrue, " +
+				"intAny, " +
+				"int10, " +
+				"stringMandatory, " +
+				"stringOptional, " +
+				"stringHidden, " +
+				"stringHiddenOptional, " +
+				"dayMandatory, " +
+				"dayOptional, " +
+				"file] " +
+				"or one starting with [map., otherKey].");
 		}
 
 		// boolean
@@ -471,15 +462,9 @@ public class PropertiesTest
 	@SuppressWarnings("unused")
 	@Test void testSourceNull()
 	{
-		try
-		{
-			new Properties(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			new Properties(null),
+			NullPointerException.class, null);
 	}
 
 
@@ -501,16 +486,11 @@ public class PropertiesTest
 		else
 			wrongProps.remove(key);
 
-		try
-		{
-			new TestProperties(wrongProps, sourceDescription);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(message, e.getMessage());
-			assertEquals(key, e.getKey());
-		}
+		final IllegalPropertiesException e = assertThrows(
+				IllegalPropertiesException.class,
+				() -> new TestProperties(wrongProps, sourceDescription));
+		assertEquals(message, e.getMessage());
+		assertEquals(key, e.getKey());
 	}
 
 	/**
@@ -530,24 +510,12 @@ public class PropertiesTest
 		final java.util.Properties p = copy(template);
 		p.setProperty(key, value);
 		final TestProperties inconsistentProps = new TestProperties(p, sourceDescription);
-		try
-		{
-			templateProps.ensureEquality(inconsistentProps);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message1, 	e.getMessage());
-		}
-		try
-		{
-			inconsistentProps.ensureEquality(templateProps);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message2, 	e.getMessage());
-		}
+		assertFails(() ->
+			templateProps.ensureEquality(inconsistentProps),
+			IllegalArgumentException.class, message1);
+		assertFails(() ->
+			inconsistentProps.ensureEquality(templateProps),
+			IllegalArgumentException.class, message2);
 	}
 
 	private static java.util.Properties copy(final java.util.Properties source)
@@ -559,5 +527,20 @@ public class PropertiesTest
 	private static java.util.Properties mapValue(final Properties.MapField mapField)
 	{
 		return mapField.mapValue();
+	}
+
+	static void assertThrowsIllegalProperties(
+			final Executable executable,
+			final String expectedKey,
+			final String expectedDetail,
+			final Class<? extends Throwable> expectedCause)
+	{
+		final IllegalPropertiesException result =
+				assertThrows(IllegalPropertiesException.class, executable);
+		assertSame(IllegalPropertiesException.class, result.getClass());
+		assertEquals(expectedKey, result.getKey());
+		assertEquals(expectedDetail, result.getDetail());
+		final Throwable actualCause = result.getCause();
+		assertEquals(expectedCause, actualCause!=null ? actualCause.getClass() : null);
 	}
 }

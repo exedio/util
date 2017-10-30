@@ -18,10 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
@@ -465,55 +465,28 @@ public class PoolTest
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testErrorDeprecated()
 	{
-		try
-		{
-			newPool(null, 0, 0);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("factory", e.getMessage());
-		}
+		assertFails(() ->
+			newPool(null, 0, 0),
+			NullPointerException.class, "factory");
 		final Factory f = new Factory(asList());
-		try
-		{
-			newPool(null, -1, 0);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
+		assertFails(() ->
+			newPool(null, -1, 0),
+			IllegalPropertiesException.class,
 					"property idleLimit in Pool#Pool(Factory, int, int, PoolCounter) " +
 					"must be an integer greater or equal 0, "+
-					"but was -1",
-					e.getMessage());
-		}
-		try
-		{
-			newPool(null, -1, -1);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
+					"but was -1");
+		assertFails(() ->
+			newPool(null, -1, -1),
+			IllegalPropertiesException.class,
 					"property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) " +
 					"must be an integer greater or equal 0, " +
-					"but was -1",
-					e.getMessage());
-		}
-		try
-		{
-			newPool(null, 0, 1);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
+					"but was -1");
+		assertFails(() ->
+			newPool(null, 0, 1),
+			IllegalPropertiesException.class,
 					"property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) " +
 					"must be less or equal idleLimit=0, " +
-					"but was 1",
-					e.getMessage());
-		}
+					"but was 1");
 		newPool(f, 0, 0);
 	}
 
@@ -521,25 +494,13 @@ public class PoolTest
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testError()
 	{
-		try
-		{
-			new Pool<>((Factory)null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("factory", e.getMessage());
-		}
+		assertFails(() ->
+			new Pool<>((Factory)null, null, null),
+			NullPointerException.class, "factory");
 		final Factory f = new Factory(asList());
-		try
-		{
-			new Pool<>(f, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("properties", e.getMessage());
-		}
+		assertFails(() ->
+			new Pool<>(f, null, null),
+			NullPointerException.class, "properties");
 		new Pool<>(f, PoolProperties.factory(50).create(Sources.EMPTY), null);
 	}
 

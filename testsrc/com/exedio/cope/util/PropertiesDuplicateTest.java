@@ -18,8 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.junit.Assert.assertFails;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
@@ -43,15 +42,10 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testDuplicate()
 	{
-		try
-		{
-			new DuplicateProperties();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("duplicate key 'duplicate'", e.getMessage());
-		}
+		assertFails(() ->
+			new DuplicateProperties(),
+			IllegalArgumentException.class,
+			"duplicate key 'duplicate'");
 	}
 
 
@@ -78,15 +72,10 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate' collides with field 'duplicate.'", e.getMessage());
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate' collides with field 'duplicate.'");
 	}
 
 	@SuppressWarnings("unused")
@@ -101,15 +90,10 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate' collides with field 'duplicate.x'", e.getMessage());
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate' collides with field 'duplicate.x'");
 	}
 
 	@SuppressWarnings("unused")
@@ -124,15 +108,10 @@ public class PropertiesDuplicateTest
 				value("duplicate.", false);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate.' collides with field 'duplicate.'", e.getMessage()); // TODO remove dot
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate.' collides with field 'duplicate.'"); // TODO remove dot
 	}
 
 	@SuppressWarnings("unused")
@@ -147,15 +126,10 @@ public class PropertiesDuplicateTest
 				value("duplicate.x", false);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate.' collides with field 'duplicate.x'", e.getMessage()); // TODO remove dot
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate.' collides with field 'duplicate.x'"); // TODO remove dot
 	}
 
 	@SuppressWarnings("unused")
@@ -170,15 +144,10 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate.' collides with properties field 'duplicate.'", e.getMessage());
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate.' collides with properties field 'duplicate.'");
 	}
 
 	@SuppressWarnings("unused")
@@ -193,15 +162,10 @@ public class PropertiesDuplicateTest
 				value("duplicate.x", factory);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate.x.' collides with properties field 'duplicate.'", e.getMessage());
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate.x.' collides with properties field 'duplicate.'");
 	}
 
 	@SuppressWarnings("unused")
@@ -216,14 +180,9 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
-		try
-		{
-			new Props();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("properties field 'duplicate.' collides with properties field 'duplicate.x.'", e.getMessage());
-		}
+		assertFails(() ->
+			new Props(),
+			IllegalArgumentException.class,
+			"properties field 'duplicate.' collides with properties field 'duplicate.x.'");
 	}
 }

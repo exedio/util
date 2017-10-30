@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
@@ -34,24 +34,12 @@ public class PropertiesSourceTest
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey", "testValue");
 		final Properties.Source s = view(p, "testDescription");
-		try
-		{
-			s.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			s.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			s.get(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			s.get(""),
+			IllegalArgumentException.class, "key must not be empty");
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue", s.get("testKey"));
 		assertEquals(new HashSet<>(asList("testKey")), s.keySet());

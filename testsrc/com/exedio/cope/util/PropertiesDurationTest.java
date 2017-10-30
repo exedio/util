@@ -18,7 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
+import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
 import static java.time.Duration.ofHours;
 import static java.time.Duration.ofMinutes;
@@ -27,7 +29,6 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
@@ -155,19 +156,9 @@ public class PropertiesDurationTest
 		else
 			wrongProps.remove(key);
 
-		try
-		{
-			new MyProps(wrongProps);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(key, e.getKey());
-			assertEquals(message, e.getDetail());
-
-			final Throwable actualCause = e.getCause();
-			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
-		}
+		assertThrowsIllegalProperties(
+				() -> new MyProps(wrongProps),
+				key, message, cause);
 	}
 
 	private static java.util.Properties minimal()
@@ -181,15 +172,9 @@ public class PropertiesDurationTest
 	@SuppressWarnings("unused")
 	@Test void testMinimumNull()
 	{
-		try
-		{
-			new PropsMinimumNull();
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("minimum", e.getMessage());
-		}
+		assertFails(() ->
+			new PropsMinimumNull(),
+			NullPointerException.class, "minimum");
 	}
 	static class PropsMinimumNull extends MyProperties
 	{
@@ -205,17 +190,10 @@ public class PropertiesDurationTest
 	@SuppressWarnings("unused")
 	@Test void testDefaultViolatesMinimum()
 	{
-		try
-		{
-			new PropsDefaultViolatesMinimum();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"default of myKey must not be smaller than minimum of PT6M, but was PT5M59S",
-					e.getMessage());
-		}
+		assertFails(() ->
+			new PropsDefaultViolatesMinimum(),
+			IllegalArgumentException.class,
+			"default of myKey must not be smaller than minimum of PT6M, but was PT5M59S");
 	}
 	static class PropsDefaultViolatesMinimum extends MyProperties
 	{

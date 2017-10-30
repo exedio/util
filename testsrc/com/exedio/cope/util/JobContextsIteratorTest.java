@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.replay;
@@ -25,7 +26,6 @@ import static org.easymock.EasyMock.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
@@ -109,15 +109,10 @@ public class JobContextsIteratorTest
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
 		assertEquals(false, tested.hasNext());
-		try
-		{
-			tested.next();
-			fail();
-		}
-		catch(final NoSuchElementException e)
-		{
-			assertEquals("stopRequested: whatever", e.getMessage());
-		}
+		assertFails(() ->
+			tested.next(),
+			NoSuchElementException.class,
+			"stopRequested: whatever");
 
 		verify(iterator);
 		verify(ctx);
@@ -152,15 +147,9 @@ public class JobContextsIteratorTest
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
 		assertEquals(false, tested.hasNext());
-		try
-		{
-			tested.next();
-			fail();
-		}
-		catch(final NoSuchElementException e)
-		{
-			assertEquals("alliballi", e.getMessage());
-		}
+		assertFails(() ->
+			tested.next(),
+			NoSuchElementException.class, "alliballi");
 
 		verify(iterator);
 		verify(ctx);

@@ -18,8 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.JobContexts.sleepAndStopIfRequestedPolling;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -30,62 +30,38 @@ public class JobContextSleepPollingTest
 {
 	@Test void testContextNull()
 	{
-		try
-		{
-			sleepAndStopIfRequestedPolling(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("ctx", e.getMessage());
-		}
+		assertFails(() ->
+			sleepAndStopIfRequestedPolling(null, null),
+			NullPointerException.class, "ctx");
 	}
 
 	@Test void testDurationNull()
 	{
-		try
-		{
-			sleepAndStopIfRequestedPolling(new AssertionErrorJobContext(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("duration", e.getMessage());
-		}
+		assertFails(() ->
+			sleepAndStopIfRequestedPolling(new AssertionErrorJobContext(), null),
+			NullPointerException.class, "duration");
 	}
 
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test void testDurationOverflow()
 	{
-		try
-		{
+		final ArithmeticException e = assertFails(() ->
 			sleepAndStopIfRequestedPolling(
 					new AssertionErrorJobContext() { @Override public void stopIfRequested() {} },
-					Duration.ofDays(300*365));
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("long overflow", e.getMessage());
-			final StackTraceElement ste = e.getStackTrace()[1];
-			assertEquals("java.time.Duration", ste.getClassName());
-			assertEquals("toNanos", ste.getMethodName());
-		}
+					Duration.ofDays(300*365)),
+			ArithmeticException.class, "long overflow");
+		final StackTraceElement ste = e.getStackTrace()[1];
+		assertEquals("java.time.Duration", ste.getClassName());
+		assertEquals("toNanos", ste.getMethodName());
 	}
 
 	@Test void testJobContextDefault()
 	{
-		try
-		{
-			JobContexts.EMPTY.sleepAndStopIfRequested(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("duration", e.getMessage());
-			final StackTraceElement ste = e.getStackTrace()[1];
-			assertEquals("com.exedio.cope.util.JobContexts", ste.getClassName());
-			assertEquals("sleepAndStopIfRequestedPolling", ste.getMethodName());
-		}
+		final NullPointerException e = assertFails(() ->
+			JobContexts.EMPTY.sleepAndStopIfRequested(null),
+			NullPointerException.class, "duration");
+		final StackTraceElement ste = e.getStackTrace()[1];
+		assertEquals("com.exedio.cope.util.JobContexts", ste.getClassName());
+		assertEquals("sleepAndStopIfRequestedPolling", ste.getMethodName());
 	}
 }

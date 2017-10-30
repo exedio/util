@@ -18,8 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,51 +54,21 @@ public class XMLEncoderTest
 		assertIt("&amp;&amp;&amp;&amp;&amp;", "&&&&&");
 		assertIt("&amp;x&amp;x&amp;x&amp;x&amp;", "&x&x&x&x&");
 
-		try
-		{
-			XMLEncoder.append(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			XMLEncoder.append(null, null),
+			NullPointerException.class, null);
 		XMLEncoder.append(null, ""); // TODO should throw a NullPointerException
-		try
-		{
-			XMLEncoder.append(null, "x");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			XMLEncoder.append(new StringBuilder(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			XMLEncoder.append(null, 'x');
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			XMLEncoder.append(null, '&');
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			XMLEncoder.append(null, "x"),
+			NullPointerException.class, null);
+		assertFails(() ->
+			XMLEncoder.append(new StringBuilder(), null),
+			NullPointerException.class, null);
+		assertFails(() ->
+			XMLEncoder.append(null, 'x'),
+			NullPointerException.class, null);
+		assertFails(() ->
+			XMLEncoder.append(null, '&'),
+			NullPointerException.class, null);
 	}
 }

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static com.exedio.cope.junit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.junit.EqualsAssert.assertNotEqualsAndHash;
@@ -26,7 +27,6 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static javax.xml.datatype.DatatypeConstants.FIELD_UNDEFINED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.junit.ClockRule;
 import com.exedio.cope.util.junit.TimeZoneDefaultRule;
@@ -57,75 +57,45 @@ public class DayTest
 	}
 	@Test void yearSmall()
 	{
-		try
-		{
-			new Day(999, 31, 12);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("year must be in range 1000..9999, but was: 999", e.getMessage());
-		}
+		assertFails(() ->
+			new Day(999, 31, 12),
+			IllegalArgumentException.class,
+			"year must be in range 1000..9999, but was: 999");
 	}
 	@Test void yearLarge()
 	{
-		try
-		{
-			new Day(10000, 31, 12);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("year must be in range 1000..9999, but was: 10000", e.getMessage());
-		}
+		assertFails(() ->
+			new Day(10000, 31, 12),
+			IllegalArgumentException.class,
+			"year must be in range 1000..9999, but was: 10000");
 	}
 	@Test void monthSmall()
 	{
-		try
-		{
-			new Day(2005, 0, 12);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("month must be in range 1..12, but was: 0", e.getMessage());
-		}
+		assertFails(() ->
+			new Day(2005, 0, 12),
+			IllegalArgumentException.class,
+			"month must be in range 1..12, but was: 0");
 	}
 	@Test void monthLarge()
 	{
-		try
-		{
-			new Day(2005, 32, 12);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("month must be in range 1..12, but was: 32", e.getMessage());
-		}
+		assertFails(() ->
+			new Day(2005, 32, 12),
+			IllegalArgumentException.class,
+			"month must be in range 1..12, but was: 32");
 	}
 	@Test void daySmall()
 	{
-		try
-		{
-			new Day(2005, 9, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("day must be in range 1..31, but was: 0", e.getMessage());
-		}
+		assertFails(() ->
+			new Day(2005, 9, 0),
+			IllegalArgumentException.class,
+			"day must be in range 1..31, but was: 0");
 	}
 	@Test void dayLarge()
 	{
-		try
-		{
-			new Day(2005, 9, 32);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("day must be in range 1..31, but was: 32", e.getMessage());
-		}
+		assertFails(() ->
+			new Day(2005, 9, 32),
+			IllegalArgumentException.class,
+			"day must be in range 1..31, but was: 32");
 	}
 	@Test void getters() throws DatatypeConfigurationException
 	{
@@ -147,15 +117,9 @@ public class DayTest
 	}
 	@Test void nullZone()
 	{
-		try
-		{
-			new Day(5555l, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			new Day(5555l, null),
+			NullPointerException.class, null);
 	}
 	@Deprecated // OK testing deprecated API
 	@Test void conversionDateDeprecated(final TimeZoneDefaultRule timeZoneDefault) throws ParseException

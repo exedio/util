@@ -18,10 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
@@ -81,16 +81,11 @@ public class PropertiesGetContextTest
 
 		@SuppressWarnings("deprecation") // needed for idea
 		final TestProperties none = new TestProperties(pcontext, "none", null);
-		try
-		{
-			//noinspection ResultOfMethodCallIgnored
-			none.getContext();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
-		}
+		//noinspection ResultOfMethodCallIgnored
+		assertFails(() ->
+			none.getContext(),
+			IllegalStateException.class,
+			"no context available");
 	}
 
 	@Deprecated
@@ -134,34 +129,18 @@ public class PropertiesGetContextTest
 		assertEquals("b", context.getContext("a"));
 		assertEquals("b1", context.getContext("a1"));
 
-		try
-		{
-			context.getContext(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			context.getContext("n");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no value available for key >n< in context TestGetContextDescription", e.getMessage());
-		}
+		assertFails(() ->
+			context.getContext(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			context.getContext("n"),
+			IllegalArgumentException.class,
+			"no value available for key >n< in context TestGetContextDescription");
 
 		final TestProperties none = new TestProperties(pcontext, "none", null);
-		try
-		{
-			none.getContext("c");
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
-		}
+		assertFails(() ->
+			none.getContext("c"),
+			IllegalStateException.class,
+			"no context available");
 	}
 }

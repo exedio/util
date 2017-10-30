@@ -18,10 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 import java.util.List;
@@ -101,15 +101,9 @@ public class PoolWithCounterTest
 		assertIt(cp, 0, 0);
 
 		f.createFails = true;
-		try
-		{
-			cp.get();
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("createFails", e.getMessage());
-		}
+		assertFails(() ->
+			cp.get(),
+			RuntimeException.class, "createFails");
 		assertIt(cp, 0, 0);
 	}
 
@@ -133,15 +127,9 @@ public class PoolWithCounterTest
 		assertIt(cp, 2, 1);
 
 		c1.disposeFails = true;
-		try
-		{
-			cp.put(c1);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("disposeFails", e.getMessage());
-		}
+		assertFails(() ->
+			cp.put(c1),
+			RuntimeException.class, "disposeFails");
 		assertIt(cp, 2, 2);
 	}
 

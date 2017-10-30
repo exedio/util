@@ -18,13 +18,13 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Cast.castElements;
 import static com.exedio.cope.util.Cast.verboseCast;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
@@ -44,41 +44,24 @@ public class CastTest
 
 	@Test void testVerboseCastClassNull()
 	{
-		try
-		{
-			verboseCast(null, string1);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			verboseCast(null, string1),
+			NullPointerException.class, null);
 	}
 
 	@Test void testVerboseCastAllNull()
 	{
-		try
-		{
-			verboseCast(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			verboseCast(null, null),
+			NullPointerException.class, null);
 	}
 
 	@Test void testVerboseCastWrongCast()
 	{
-		try
-		{
-			verboseCast(Integer.class, string1);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a java.lang.Integer, but was a java.lang.String", e.getMessage());
-		}
+		assertFails(() ->
+			verboseCast(Integer.class, string1),
+			ClassCastException.class,
+			"expected a java.lang.Integer, but was a java.lang.String");
 	}
 
 	@Test void testCastElements()
@@ -96,15 +79,9 @@ public class CastTest
 	@Test void testCastElementsClassNull()
 	{
 		final List<String> strings = asList(string1);
-		try
-		{
-			castElements(null, strings);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			castElements(null, strings),
+			NullPointerException.class, null);
 	}
 
 	@Test void testCastElementsAllNull()
@@ -115,14 +92,9 @@ public class CastTest
 	@Test void testCastElementsWrongCast()
 	{
 		final List<String> strings = asList(string1);
-		try
-		{
-			castElements(Integer.class, strings);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a java.lang.Integer, but was a java.lang.String", e.getMessage());
-		}
+		assertFails(() ->
+			castElements(Integer.class, strings),
+			ClassCastException.class,
+			"expected a java.lang.Integer, but was a java.lang.String");
 	}
 }

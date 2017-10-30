@@ -18,9 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,40 +33,24 @@ public class TimeZoneStrictTest
 
 	@Test void wrongID()
 	{
-		try
-		{
-			getTimeZone("Europe/Berlinx");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported time zone: Europe/Berlinx", e.getMessage());
-		}
+		assertFails(() ->
+			getTimeZone("Europe/Berlinx"),
+			IllegalArgumentException.class,
+			"unsupported time zone: Europe/Berlinx");
 	}
 
 	@Test void emptyID()
 	{
-		try
-		{
-			getTimeZone("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("ID must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			getTimeZone(""),
+			IllegalArgumentException.class,
+			"ID must not be empty");
 	}
 
 	@Test void nullID()
 	{
-		try
-		{
-			getTimeZone(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			getTimeZone(null),
+			NullPointerException.class, null);
 	}
 }

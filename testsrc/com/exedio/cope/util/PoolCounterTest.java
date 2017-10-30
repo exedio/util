@@ -18,10 +18,10 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 import java.util.List;
@@ -212,42 +212,21 @@ public class PoolCounterTest
 	@SuppressWarnings("unused")
 	@Test void testFail()
 	{
-		try
-		{
-			//noinspection OverlyStrongTypeCast
-			new PoolCounter((int[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			new PoolCounter(new int[0]);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("number of idleLimits must be at least 1", e.getMessage());
-		}
-		try
-		{
-			new PoolCounter(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("idleLimits must be greater than zero", e.getMessage());
-		}
-		try
-		{
-			new PoolCounter(1,1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("idleLimits must be strictly monotonic increasing", e.getMessage());
-		}
+		//noinspection OverlyStrongTypeCast
+		assertFails(() ->
+			new PoolCounter((int[])null),
+			NullPointerException.class, null);
+		assertFails(() ->
+			new PoolCounter(new int[0]),
+			IllegalArgumentException.class,
+			"number of idleLimits must be at least 1");
+		assertFails(() ->
+			new PoolCounter(0),
+			IllegalArgumentException.class,
+			"idleLimits must be greater than zero");
+		assertFails(() ->
+			new PoolCounter(1,1),
+			IllegalArgumentException.class,
+			"idleLimits must be strictly monotonic increasing");
 	}
 }

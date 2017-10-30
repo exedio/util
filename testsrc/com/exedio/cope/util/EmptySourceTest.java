@@ -18,12 +18,12 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.EMPTY;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,24 +31,12 @@ public class EmptySourceTest
 {
 	@Test void testIt()
 	{
-		try
-		{
-			EMPTY.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			EMPTY.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			EMPTY.get(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			EMPTY.get(""),
+			IllegalArgumentException.class, "key must not be empty");
 		assertEquals(null, EMPTY.get("xxx"));
 		assertUnmodifiable(EMPTY.keySet());
 		assertEquals(asList(), EMPTY.keySet());

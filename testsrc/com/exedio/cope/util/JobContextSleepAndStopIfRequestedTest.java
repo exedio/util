@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.JobContext.sleepAndStopIfRequested;
 import static java.time.Duration.ZERO;
 import static java.time.Duration.ofNanos;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
@@ -83,27 +83,15 @@ public class JobContextSleepAndStopIfRequestedTest
 
 	@Test void testContextNull()
 	{
-		try
-		{
-			sleepAndStopIfRequested(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("ctx", e.getMessage());
-		}
+		assertFails(() ->
+			sleepAndStopIfRequested(null, null),
+			NullPointerException.class, "ctx");
 	}
 
 	@Test void testDurationNull()
 	{
-		try
-		{
-			sleepAndStopIfRequested(new AssertionErrorJobContext(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("duration", e.getMessage());
-		}
+		assertFails(() ->
+			sleepAndStopIfRequested(new AssertionErrorJobContext(), null),
+			NullPointerException.class, "duration");
 	}
 }

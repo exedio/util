@@ -18,12 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
@@ -47,24 +46,13 @@ public class SourcesFileTest
 		store(p, file);
 
 		final Source s = load(file);
-		try
-		{
-			s.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			s.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			s.get(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			s.get(""),
+			IllegalArgumentException.class,
+			"key must not be empty");
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));
@@ -78,16 +66,11 @@ public class SourcesFileTest
 	{
 		final File file = folder.newFile("file");
 		StrictFile.delete(file);
-		try
-		{
-			load(file);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("property file " + file.getAbsolutePath() + " not found.", e.getMessage());
-			assertTrue(e.getCause() instanceof FileNotFoundException);
-		}
+		assertFails(() ->
+			load(file),
+			RuntimeException.class,
+			"property file " + file.getAbsolutePath() + " not found.",
+			FileNotFoundException.class);
 	}
 
 	private static void store(final Properties p, final File file) throws IOException

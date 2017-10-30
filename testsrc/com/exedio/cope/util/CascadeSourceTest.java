@@ -18,12 +18,12 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
 import java.util.HashSet;
@@ -59,63 +59,33 @@ public class CascadeSourceTest
 		assertEquals("description1 / description2", s.getDescription());
 		assertEquals("description1 / description2", s.toString());
 
-		try
-		{
-			s.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
-		try
-		{
-			s.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
+		assertFails(() ->
+			s.get(""),
+			IllegalArgumentException.class, "key must not be empty");
+		assertFails(() ->
+			s.get(null),
+			NullPointerException.class, "key");
 	}
 
 	@Test void nullArray()
 	{
-		try
-		{
-			cascade((Source[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			cascade((Source[])null),
+			NullPointerException.class, null);
 	}
 
 	@Test void nullElementSingleton()
 	{
-		try
-		{
-			cascade(new Source[]{null});
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			cascade(new Source[]{null}),
+			NullPointerException.class, null);
 	}
 
 	@Test void nullElementMultiple()
 	{
-		try
-		{
-			cascade(new Source[]{null, null});
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			cascade(new Source[]{null, null}),
+			NullPointerException.class, null);
 	}
 
 	@Test void empty()

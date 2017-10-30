@@ -23,12 +23,12 @@ import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.BETA;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.GAMMA;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.MANDATORY;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.OPTIONAL;
+import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -129,17 +129,9 @@ public class PropertiesEnumTest
 		else
 			wrongProps.remove(key);
 
-		try
-		{
-			new MyProps(wrongProps);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(key, e.getKey());
-			assertEquals(message, e.getDetail());
-			assertEquals(null, e.getCause());
-		}
+		assertThrowsIllegalProperties(
+				() -> new MyProps(wrongProps),
+				key, message, null);
 	}
 
 	private static java.util.Properties minimal()

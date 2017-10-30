@@ -18,8 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.junit.Assert.assertFails;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,18 +28,11 @@ public class PropertiesProbeCollectFailTest
 	@SuppressWarnings("unused")
 	public void testStatic()
 	{
-		try
-		{
-			new Static();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"@Probe method must be non-static: " +
-					"static int " + Static.class.getName() + ".probeStatic()",
-					e.getMessage());
-		}
+		assertFails(() ->
+			new Static(),
+			IllegalArgumentException.class,
+			"@Probe method must be non-static: " +
+			"static int " + Static.class.getName() + ".probeStatic()");
 	}
 
 	static class Static extends Properties
@@ -56,18 +48,11 @@ public class PropertiesProbeCollectFailTest
 	@SuppressWarnings("unused")
 	public void testParams()
 	{
-		try
-		{
-			new Params();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"@Probe method must have no parameters: " +
-					"int " + Params.class.getName() + ".probeParams(int)",
-					e.getMessage());
-		}
+		assertFails(() ->
+			new Params(),
+			IllegalArgumentException.class,
+			"@Probe method must have no parameters: " +
+			"int " + Params.class.getName() + ".probeParams(int)");
 	}
 
 	static class Params extends Properties
@@ -83,19 +68,12 @@ public class PropertiesProbeCollectFailTest
 	@SuppressWarnings("unused")
 	public void testCollision()
 	{
-		try
-		{
-			new Collision();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"@Probe method has duplicate name 'collision': " +
-					"int " + Collision.class.getName() + ".probeA() vs. " +
-					"int " + Collision.class.getName() + ".probeB()",
-					e.getMessage());
-		}
+		assertFails(() ->
+			new Collision(),
+			IllegalArgumentException.class,
+			"@Probe method has duplicate name 'collision': " +
+			"int " + Collision.class.getName() + ".probeA() vs. " +
+			"int " + Collision.class.getName() + ".probeB()");
 	}
 
 	static class Collision extends Properties

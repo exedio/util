@@ -18,12 +18,12 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static java.util.Calendar.MILLISECOND;
 import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.SECOND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -170,34 +170,16 @@ public class CalendarTest
 		cal.setLenient(false);
 		cal.set(MINUTE, 61);
 
-		try
-		{
-			cal.getTime();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("MINUTE", e.getMessage());
-		}
+		assertFails(() ->
+			cal.getTime(),
+			IllegalArgumentException.class, "MINUTE");
 
-		try
-		{
-			cal.get(MINUTE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("MINUTE", e.getMessage());
-		}
+		assertFails(() ->
+			cal.get(MINUTE),
+			IllegalArgumentException.class, "MINUTE");
 
-		try
-		{
-			cal.get(SECOND);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("MINUTE", e.getMessage());
-		}
+		assertFails(() ->
+			cal.get(SECOND),
+			IllegalArgumentException.class, "MINUTE");
 	}
 }

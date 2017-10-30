@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.StrictFile.createNewFile;
 import static com.exedio.cope.util.StrictFile.delete;
 import static com.exedio.cope.util.StrictFile.mkdir;
@@ -25,7 +26,6 @@ import static com.exedio.cope.util.StrictFile.mkdirs;
 import static com.exedio.cope.util.StrictFile.renameTo;
 import static com.exedio.cope.util.StrictFile.setLastModified;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,15 +50,9 @@ public class StrictFileTest
 		final File f = folder.newFile("file");
 		assertEquals(true, f.exists());
 
-		try
-		{
-			createNewFile(f);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(f.getAbsolutePath(), e.getMessage());
-		}
+		assertFails(() ->
+			createNewFile(f),
+			IllegalStateException.class, f.getAbsolutePath());
 		assertEquals(true, f.exists());
 	}
 
@@ -66,15 +60,9 @@ public class StrictFileTest
 	{
 		final File f = folder.newFile("file");
 		delete(f);
-		try
-		{
-			delete(f);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(f.getAbsolutePath(), e.getMessage());
-		}
+		assertFails(() ->
+			delete(f),
+			IllegalStateException.class, f.getAbsolutePath());
 	}
 
 	@Test final void testMkdir(final TemporaryFolder folder) throws IOException
@@ -82,15 +70,9 @@ public class StrictFileTest
 		final File f = folder.newFile("file");
 		delete(f);
 		mkdir(f);
-		try
-		{
-			mkdir(f);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(f.getAbsolutePath(), e.getMessage());
-		}
+		assertFails(() ->
+			mkdir(f),
+			IllegalStateException.class, f.getAbsolutePath());
 	}
 
 	@Test final void testMkdirs(final TemporaryFolder folder) throws IOException
@@ -98,15 +80,9 @@ public class StrictFileTest
 		final File f = folder.newFile("file");
 		delete(f);
 		mkdirs(f);
-		try
-		{
-			mkdirs(f);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(f.getAbsolutePath(), e.getMessage());
-		}
+		assertFails(() ->
+			mkdirs(f),
+			IllegalStateException.class, f.getAbsolutePath());
 	}
 
 	@Test final void testRenameTo(final TemporaryFolder folder) throws IOException
@@ -114,15 +90,9 @@ public class StrictFileTest
 		final File f = folder.newFile("file");
 		final File f2 = new File(folder.getRoot(), "file2");
 		renameTo(f, f2);
-		try
-		{
-			renameTo(f, f2);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(f.getAbsolutePath(), e.getMessage());
-		}
+		assertFails(() ->
+			renameTo(f, f2),
+			IllegalStateException.class, f.getAbsolutePath());
 	}
 
 	@Test void testSetLastModified(final TemporaryFolder folder) throws IOException
@@ -140,15 +110,9 @@ public class StrictFileTest
 		final File f = new File(folder.getRoot(), "file");
 		assertEquals(false, f.exists());
 
-		try
-		{
-			setLastModified(f, 555000);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(f.getAbsolutePath(), e.getMessage());
-		}
+		assertFails(() ->
+			setLastModified(f, 555000),
+			IllegalStateException.class, f.getAbsolutePath());
 		assertEquals(false, f.exists());
 	}
 }

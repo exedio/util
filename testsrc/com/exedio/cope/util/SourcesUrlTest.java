@@ -18,12 +18,11 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties.Source;
 import java.net.MalformedURLException;
@@ -37,24 +36,12 @@ public class SourcesUrlTest
 	{
 		final URL url = SourcesUrlTest.class.getResource("sourcesUrlTest.properties");
 		final Source s = load(url);
-		try
-		{
-			s.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			s.get("");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			s.get(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			s.get(""),
+			IllegalArgumentException.class, "key must not be empty");
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));
@@ -66,28 +53,17 @@ public class SourcesUrlTest
 
 	@Test void testNotExists() throws MalformedURLException
 	{
-		try
-		{
-			load(new URL("http://sourcetest.invalid/sourcesUrlTest.properties"));
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("property url http://sourcetest.invalid/sourcesUrlTest.properties not found.", e.getMessage());
-			assertTrue(e.getCause() instanceof UnknownHostException);
-		}
+		assertFails(() ->
+			load(new URL("http://sourcetest.invalid/sourcesUrlTest.properties")),
+			RuntimeException.class,
+			"property url http://sourcetest.invalid/sourcesUrlTest.properties not found.",
+			UnknownHostException.class);
 	}
 
 	@Test void testNull()
 	{
-		try
-		{
-			load((URL)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			load((URL)null),
+			NullPointerException.class, null);
 	}
 }
