@@ -255,8 +255,7 @@ public class PropertiesNestedTest
 
 		try
 		{
-			@SuppressWarnings("unused")
-			final Outer x = new Outer(source);
+			new Outer(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -285,8 +284,7 @@ public class PropertiesNestedTest
 
 		try
 		{
-			@SuppressWarnings("unused")
-			final Outer x = new Outer(source);
+			new Outer(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
