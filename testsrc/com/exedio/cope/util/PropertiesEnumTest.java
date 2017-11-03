@@ -138,6 +138,7 @@ public class PropertiesEnumTest
 		{
 			assertEquals(key, e.getKey());
 			assertEquals(message, e.getDetail());
+			assertEquals(null, e.getCause());
 		}
 	}
 

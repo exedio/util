@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 import org.junit.jupiter.api.Test;
 
 public class PropertiesCharsetTest
@@ -68,21 +69,23 @@ public class PropertiesCharsetTest
 	{
 		assertWrong(
 				"mandatory", "WRONG",
-				"must be one of Charset.availableCharsets(), but was 'WRONG'");
+				"must be one of Charset.availableCharsets(), but was 'WRONG'",
+				UnsupportedCharsetException.class);
 	}
 
 	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
-				"must be specified as there is no default");
+				"must be specified as there is no default", null);
 	}
 
 	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
-				"must be one of Charset.availableCharsets(), but was 'WRONG'");
+				"must be one of Charset.availableCharsets(), but was 'WRONG'",
+				UnsupportedCharsetException.class);
 	}
 
 
@@ -120,7 +123,8 @@ public class PropertiesCharsetTest
 	private static void assertWrong(
 			final String key,
 			final String value,
-			final String message)
+			final String message,
+			final Class<? extends Throwable> cause)
 	{
 		final java.util.Properties wrongProps = minimal();
 		if(value!=null)
@@ -137,6 +141,9 @@ public class PropertiesCharsetTest
 		{
 			assertEquals(key, e.getKey());
 			assertEquals(message, e.getDetail());
+
+			final Throwable actualCause = e.getCause();
+			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
 		}
 	}
 

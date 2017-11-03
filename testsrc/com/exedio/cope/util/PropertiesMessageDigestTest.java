@@ -101,21 +101,23 @@ public class PropertiesMessageDigestTest
 	{
 		assertWrong(
 				"mandatory", "WRONG",
-				"must specify a digest, but was 'WRONG'");
+				"must specify a digest, but was 'WRONG'",
+				IllegalAlgorithmException.class);
 	}
 
 	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
-				"must be specified as there is no default");
+				"must be specified as there is no default", null);
 	}
 
 	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
-				"must specify a digest, but was 'WRONG'");
+				"must specify a digest, but was 'WRONG'",
+				IllegalAlgorithmException.class);
 	}
 
 
@@ -153,7 +155,8 @@ public class PropertiesMessageDigestTest
 	private static void assertWrong(
 			final String key,
 			final String value,
-			final String message)
+			final String message,
+			final Class<? extends Throwable> cause)
 	{
 		final java.util.Properties wrongProps = minimal();
 		if(value!=null)
@@ -170,6 +173,9 @@ public class PropertiesMessageDigestTest
 		{
 			assertEquals(key, e.getKey());
 			assertEquals(message, e.getDetail());
+
+			final Throwable actualCause = e.getCause();
+			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
 		}
 	}
 

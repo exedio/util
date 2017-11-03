@@ -31,6 +31,7 @@ import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
+import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.Test;
 
 public class PropertiesDurationTest
@@ -84,28 +85,30 @@ public class PropertiesDurationTest
 	{
 		assertWrong(
 				"mandatory", "WRONG",
-				"must be a duration, but was 'WRONG'");
+				"must be a duration, but was 'WRONG'",
+				DateTimeParseException.class);
 	}
 
 	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
-				"must be specified as there is no default");
+				"must be specified as there is no default", null);
 	}
 
 	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
-				"must be a duration, but was 'WRONG'");
+				"must be a duration, but was 'WRONG'",
+				DateTimeParseException.class);
 	}
 
 	@Test void testOptionalMinimum()
 	{
 		assertWrong(
 				"optional", "PT40M59.999999999S",
-				"must be a duration greater or equal PT41M, but was PT40M59.999999999S");
+				"must be a duration greater or equal PT41M, but was PT40M59.999999999S", null);
 	}
 
 
@@ -143,7 +146,8 @@ public class PropertiesDurationTest
 	private static void assertWrong(
 			final String key,
 			final String value,
-			final String message)
+			final String message,
+			final Class<? extends Throwable> cause)
 	{
 		final java.util.Properties wrongProps = minimal();
 		if(value!=null)
@@ -160,6 +164,9 @@ public class PropertiesDurationTest
 		{
 			assertEquals(key, e.getKey());
 			assertEquals(message, e.getDetail());
+
+			final Throwable actualCause = e.getCause();
+			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
 		}
 	}
 

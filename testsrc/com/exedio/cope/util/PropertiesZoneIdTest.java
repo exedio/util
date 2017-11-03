@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.ZoneId;
+import java.time.zone.ZoneRulesException;
 import org.junit.jupiter.api.Test;
 
 public class PropertiesZoneIdTest
@@ -65,21 +66,23 @@ public class PropertiesZoneIdTest
 	{
 		assertWrong(
 				"mandatory", "WRONG",
-				"must be one of ZoneId.getAvailableZoneIds(), but was 'WRONG'");
+				"must be one of ZoneId.getAvailableZoneIds(), but was 'WRONG'",
+				ZoneRulesException.class);
 	}
 
 	@Test void testMandatoryUnspecified()
 	{
 		assertWrong(
 				"mandatory", null,
-				"must be specified as there is no default");
+				"must be specified as there is no default", null);
 	}
 
 	@Test void testOptionalWrong()
 	{
 		assertWrong(
 				"optional", "WRONG",
-				"must be one of ZoneId.getAvailableZoneIds(), but was 'WRONG'");
+				"must be one of ZoneId.getAvailableZoneIds(), but was 'WRONG'",
+				ZoneRulesException.class);
 	}
 
 
@@ -117,7 +120,8 @@ public class PropertiesZoneIdTest
 	private static void assertWrong(
 			final String key,
 			final String value,
-			final String message)
+			final String message,
+			final Class<? extends Throwable> cause)
 	{
 		final java.util.Properties wrongProps = minimal();
 		if(value!=null)
@@ -134,6 +138,9 @@ public class PropertiesZoneIdTest
 		{
 			assertEquals(key, e.getKey());
 			assertEquals(message, e.getDetail());
+
+			final Throwable actualCause = e.getCause();
+			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
 		}
 	}
 
