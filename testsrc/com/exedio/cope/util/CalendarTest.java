@@ -170,8 +170,8 @@ public class CalendarTest
 		cal.setLenient(false);
 		cal.set(MINUTE, 61);
 
-		assertFails(() ->
-			cal.getTime(),
+		assertFails(
+			cal::getTime,
 			IllegalArgumentException.class, "MINUTE");
 
 		assertFails(() ->

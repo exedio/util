@@ -28,8 +28,8 @@ public class PropertiesProbeCollectFailTest
 	@SuppressWarnings("unused")
 	public void testStatic()
 	{
-		assertFails(() ->
-			new Static(),
+		assertFails(
+			Static::new,
 			IllegalArgumentException.class,
 			"@Probe method must be non-static: " +
 			"static int " + Static.class.getName() + ".probeStatic()");
@@ -48,8 +48,8 @@ public class PropertiesProbeCollectFailTest
 	@SuppressWarnings("unused")
 	public void testParams()
 	{
-		assertFails(() ->
-			new Params(),
+		assertFails(
+			Params::new,
 			IllegalArgumentException.class,
 			"@Probe method must have no parameters: " +
 			"int " + Params.class.getName() + ".probeParams(int)");
@@ -68,8 +68,8 @@ public class PropertiesProbeCollectFailTest
 	@SuppressWarnings("unused")
 	public void testCollision()
 	{
-		assertFails(() ->
-			new Collision(),
+		assertFails(
+			Collision::new,
 			IllegalArgumentException.class,
 			"@Probe method has duplicate name 'collision': " +
 			"int " + Collision.class.getName() + ".probeA() vs. " +

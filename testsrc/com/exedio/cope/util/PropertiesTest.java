@@ -266,8 +266,8 @@ public class PropertiesTest
 			assertEquals("wrongkey", tp.getSource());
 			assertContainsUnmodifiable("wrongKey.zack", tp.getOrphanedKeys());
 			tp.ensureValidity("wrongKey");
-			assertFails(() ->
-				tp.ensureValidity(),
+			assertFails(
+				tp::ensureValidity,
 				IllegalArgumentException.class,
 				"property wrongKey.zack in wrongkey is not allowed, but only one of [" +
 				"boolFalse, " +

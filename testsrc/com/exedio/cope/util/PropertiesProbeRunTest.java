@@ -62,15 +62,15 @@ public class PropertiesProbeRunTest
 		assertEquals(null, probeNull.call());
 		assertEquals(null, probeVoid.call());
 
-		assertFails(() ->
-			probeExcp.call(),
+		assertFails(
+			probeExcp::call,
 			IOException.class, "probeExcp");
-		assertFails(() ->
-			probeError.call(),
+		assertFails(
+			probeError::call,
 			AssertionError.class, "probeError");
 		final InvocationTargetException ew = assertThrows(
 				InvocationTargetException.class,
-				() -> probeThrow.call());
+				probeThrow::call);
 		final Throwable e = ew.getTargetException();
 		assertEquals("probeThrow", e.getMessage());
 		assertEquals(MyThrowable.class, e.getClass());

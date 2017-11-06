@@ -113,8 +113,8 @@ public class InterruptersIteratorTest
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
 		assertEquals(false, tested.hasNext());
-		assertFails(() ->
-			tested.next(),
+		assertFails(
+			tested::next,
 			NoSuchElementException.class,
 			"stopRequested: Interrupter.isRequested");
 
@@ -151,8 +151,8 @@ public class InterruptersIteratorTest
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
 		assertEquals(false, tested.hasNext());
-		assertFails(() ->
-			tested.next(),
+		assertFails(
+			tested::next,
 			NoSuchElementException.class, "alliballi");
 
 		verify(iterator);

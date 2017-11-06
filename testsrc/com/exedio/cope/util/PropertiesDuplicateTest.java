@@ -42,8 +42,8 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testDuplicate()
 	{
-		assertFails(() ->
-			new DuplicateProperties(),
+		assertFails(
+			DuplicateProperties::new,
 			IllegalArgumentException.class,
 			"duplicate key 'duplicate'");
 	}
@@ -72,6 +72,7 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,
@@ -90,6 +91,7 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,
@@ -108,6 +110,7 @@ public class PropertiesDuplicateTest
 				value("duplicate.", false);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,
@@ -126,6 +129,7 @@ public class PropertiesDuplicateTest
 				value("duplicate.x", false);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,
@@ -144,6 +148,7 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,
@@ -162,6 +167,7 @@ public class PropertiesDuplicateTest
 				value("duplicate.x", factory);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,
@@ -180,6 +186,7 @@ public class PropertiesDuplicateTest
 				value("duplicate", factory);
 			}
 		}
+		//noinspection Convert2MethodRef method reference does not compile in javac 1.8.0_131
 		assertFails(() ->
 			new Props(),
 			IllegalArgumentException.class,

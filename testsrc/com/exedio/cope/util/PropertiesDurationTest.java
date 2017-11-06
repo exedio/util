@@ -172,8 +172,8 @@ public class PropertiesDurationTest
 	@SuppressWarnings("unused")
 	@Test void testMinimumNull()
 	{
-		assertFails(() ->
-			new PropsMinimumNull(),
+		assertFails(
+			PropsMinimumNull::new,
 			NullPointerException.class, "minimum");
 	}
 	static class PropsMinimumNull extends MyProperties
@@ -190,8 +190,8 @@ public class PropertiesDurationTest
 	@SuppressWarnings("unused")
 	@Test void testDefaultViolatesMinimum()
 	{
-		assertFails(() ->
-			new PropsDefaultViolatesMinimum(),
+		assertFails(
+			PropsDefaultViolatesMinimum::new,
 			IllegalArgumentException.class,
 			"default of myKey must not be smaller than minimum of PT6M, but was PT5M59S");
 	}

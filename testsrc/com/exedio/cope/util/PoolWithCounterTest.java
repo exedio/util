@@ -101,8 +101,8 @@ public class PoolWithCounterTest
 		assertIt(cp, 0, 0);
 
 		f.createFails = true;
-		assertFails(() ->
-			cp.get(),
+		assertFails(
+			cp::get,
 			RuntimeException.class, "createFails");
 		assertIt(cp, 0, 0);
 	}

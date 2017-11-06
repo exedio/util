@@ -82,8 +82,8 @@ public class PropertiesGetContextTest
 		@SuppressWarnings("deprecation") // needed for idea
 		final TestProperties none = new TestProperties(pcontext, "none", null);
 		//noinspection ResultOfMethodCallIgnored
-		assertFails(() ->
-			none.getContext(),
+		assertFails(
+			none::getContext,
 			IllegalStateException.class,
 			"no context available");
 	}

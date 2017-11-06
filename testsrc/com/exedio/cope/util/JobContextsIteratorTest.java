@@ -109,8 +109,8 @@ public class JobContextsIteratorTest
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
 		assertEquals(false, tested.hasNext());
-		assertFails(() ->
-			tested.next(),
+		assertFails(
+			tested::next,
 			NoSuchElementException.class,
 			"stopRequested: whatever");
 
@@ -147,8 +147,8 @@ public class JobContextsIteratorTest
 		assertEquals("first", tested.next());
 		assertEquals("second", tested.next());
 		assertEquals(false, tested.hasNext());
-		assertFails(() ->
-			tested.next(),
+		assertFails(
+			tested::next,
 			NoSuchElementException.class, "alliballi");
 
 		verify(iterator);
