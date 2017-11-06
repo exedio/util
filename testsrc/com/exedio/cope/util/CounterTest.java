@@ -23,8 +23,8 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({"FieldCanBeLocal", "NonAtomicOperationOnVolatileField"})
 public class CounterTest

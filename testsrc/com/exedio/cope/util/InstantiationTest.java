@@ -21,8 +21,8 @@ package com.exedio.cope.util;
 import java.lang.reflect.Constructor;
 import java.text.NumberFormat;
 import java.util.Locale;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class InstantiationTest
 {
