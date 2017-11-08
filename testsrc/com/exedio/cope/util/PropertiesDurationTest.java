@@ -44,10 +44,13 @@ public class PropertiesDurationTest
 
 		assertEquals(ofMinutes(55), props.mandatory);
 		assertEquals(ofMinutes(44), props.optional);
+		assertEquals(ofMinutes(45), props.max);
 		assertEquals("PT55M", props.mandatoryF.getValue());
 		assertEquals("PT44M", props.optionalF .getValue());
+		assertEquals("PT45M", props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
+		assertFalse(props.maxF      .isSpecified());
 	}
 
 	@Test void testSet()
@@ -55,15 +58,19 @@ public class PropertiesDurationTest
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", "PT3H33M");
 		p.setProperty("optional",  "PT4H44M");
+		p.setProperty("max",         "PT48M");
 		final MyProps props = new MyProps(p);
 		props.assertIt();
 
 		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatory);
 		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optional);
+		assertEquals(ofMinutes(48), props.max);
 		assertEquals("PT3H33M", props.mandatoryF.getValue());
 		assertEquals("PT4H44M", props.optionalF .getValue());
+		assertEquals(  "PT48M", props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
+		assertTrue (props.maxF      .isSpecified());
 	}
 
 	@Test void testSetMinimum()
@@ -71,15 +78,19 @@ public class PropertiesDurationTest
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", "PT21M");
 		p.setProperty("optional",  "PT41M");
+		p.setProperty("max",       "PT42M");
 		final MyProps props = new MyProps(p);
 		props.assertIt();
 
 		assertEquals(ofMinutes(21), props.mandatory);
 		assertEquals(ofMinutes(41), props.optional);
+		assertEquals(ofMinutes(42), props.max);
 		assertEquals("PT21M", props.mandatoryF.getValue());
 		assertEquals("PT41M", props.optionalF .getValue());
+		assertEquals("PT42M", props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
+		assertTrue (props.maxF      .isSpecified());
 	}
 
 	@Test void testMandatoryWrong()
@@ -112,11 +123,26 @@ public class PropertiesDurationTest
 				"must be a duration greater or equal PT41M, but was " + ofMinutes(41).minus(ofNanos(1)), null);
 	}
 
+	@Test void testMaxMinimum()
+	{
+		assertWrong(
+				"max", "PT41M59.999999999S",
+				"must be a duration between PT42M and PT48M, but was PT41M59.999999999S", null);
+	}
+
+	@Test void testMaxMaximum()
+	{
+		assertWrong(
+				"max", "PT48M0.000000001S",
+				"must be a duration between PT42M and PT48M, but was PT48M0.000000001S", null);
+	}
+
 
 	static class MyProps extends MyProperties
 	{
 		final Duration mandatory = value("mandatory", null, ofMinutes(21));
 		final Duration optional  = value("optional" , ofMinutes(44), ofMinutes(41));
+		final Duration max       = value("max"      , ofMinutes(45), ofMinutes(42), ofMinutes(48));
 
 		MyProps(final java.util.Properties source)
 		{
@@ -125,21 +151,25 @@ public class PropertiesDurationTest
 
 		final StringField mandatoryF = (StringField)forKey("mandatory");
 		final StringField optionalF  = (StringField)forKey("optional");
+		final StringField maxF       = (StringField)forKey("max");
 
 
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(mandatoryF, optionalF), getFields());
+			assertEqualsUnmodifiable(asList(mandatoryF, optionalF, maxF), getFields());
 
 			assertEquals("mandatory", mandatoryF.getKey());
 			assertEquals("optional",  optionalF .getKey());
+			assertEquals("max",       maxF      .getKey());
 
 			assertEquals(null,    mandatoryF.getDefaultValue());
 			assertEquals("PT44M", optionalF .getDefaultValue());
+			assertEquals("PT45M", maxF      .getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
+			assertFalse(maxF      .hasHiddenValue());
 		}
 	}
 
@@ -187,6 +217,40 @@ public class PropertiesDurationTest
 	}
 
 
+	@Test void testMinimumNullWithMaximum()
+	{
+		assertFails(
+				PropsMinimumNullWithMaximum::new,
+				NullPointerException.class, "minimum");
+	}
+	static class PropsMinimumNullWithMaximum extends MyProperties
+	{
+		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+		PropsMinimumNullWithMaximum()
+		{
+			super(Sources.EMPTY);
+			value("myKey", null, null, null);
+		}
+	}
+
+
+	@Test void testMaximumNull()
+	{
+		assertFails(
+				PropsMaximumNull::new,
+				NullPointerException.class, "maximum");
+	}
+	static class PropsMaximumNull extends MyProperties
+	{
+		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+		PropsMaximumNull()
+		{
+			super(Sources.EMPTY);
+			value("myKey", null, ofNanos(1), null);
+		}
+	}
+
+
 	@SuppressWarnings("unused")
 	@Test void testDefaultViolatesMinimum()
 	{
@@ -205,6 +269,23 @@ public class PropertiesDurationTest
 	}
 
 
+	@Test void testDefaultViolatesMaximum()
+	{
+		assertFails(
+				PropsDefaultViolatesMaximum::new,
+				IllegalArgumentException.class,
+				"default of myKey must not be greater than maximum of PT7M, but was PT7M0.000000001S");
+	}
+	static class PropsDefaultViolatesMaximum extends MyProperties
+	{
+		PropsDefaultViolatesMaximum()
+		{
+			super(Sources.EMPTY);
+			value("myKey", ofMinutes(7).plus(ofNanos(1)), ofMinutes(6), ofMinutes(7));
+		}
+	}
+
+
 	@Test void testDefaultEqualsMinimum()
 	{
 		final PropsDefaultEqualsMinimum p = new PropsDefaultEqualsMinimum();
@@ -215,5 +296,18 @@ public class PropertiesDurationTest
 		final Duration d = value("myKey", ofMinutes(5), ofMinutes(5));
 
 		PropsDefaultEqualsMinimum() { super(Sources.EMPTY); }
+	}
+
+
+	@Test void testDefaultEqualsMaximum()
+	{
+		final PropsDefaultEqualsMaximum p = new PropsDefaultEqualsMaximum();
+		assertEquals(ofMinutes(5), p.d);
+	}
+	static class PropsDefaultEqualsMaximum extends MyProperties
+	{
+		final Duration d = value("myKey", ofMinutes(5), ofMinutes(5), ofMinutes(5));
+
+		PropsDefaultEqualsMaximum() { super(Sources.EMPTY); }
 	}
 }

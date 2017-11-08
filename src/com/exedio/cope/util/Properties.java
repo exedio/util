@@ -953,10 +953,26 @@ public class Properties
 			final Duration defaultValue,
 			final Duration minimum)
 	{
+		return value(key, defaultValue, minimum, DURATION_MAX_VALUE);
+	}
+
+	private static final Duration DURATION_MAX_VALUE = Duration.ofSeconds(Long.MAX_VALUE, 999_999_999);
+
+	protected final Duration value(
+			final String key,
+			final Duration defaultValue,
+			final Duration minimum,
+			final Duration maximum)
+	{
 		requireNonNull(minimum, "minimum");
+		requireNonNull(maximum, "maximum");
 		if(defaultValue!=null && defaultValue.compareTo(minimum)<0)
 			throw new IllegalArgumentException(
 					"default of " +  key + " must not be smaller than minimum of " + minimum + ", " +
+					"but was " + defaultValue);
+		if(defaultValue!=null && defaultValue.compareTo(maximum)>0)
+			throw new IllegalArgumentException(
+					"default of " +  key + " must not be greater than maximum of " + maximum + ", " +
 					"but was " + defaultValue);
 
 		final String value = value(key, defaultValue!=null ? defaultValue.toString() : null);
@@ -971,9 +987,12 @@ public class Properties
 					"must be a duration, but was '" + value + '\'', e);
 		}
 
-		if(result.compareTo(minimum)<0)
+		if(result.compareTo(minimum)<0 ||
+			result.compareTo(maximum)>0)
 			throw newException(key,
-					"must be a duration greater or equal " + minimum + ", but was " + result);
+					maximum.equals(DURATION_MAX_VALUE)
+					? "must be a duration greater or equal " + minimum +            ", but was " + result
+					: "must be a duration between " + minimum + " and " + maximum + ", but was " + result );
 
 		return result;
 	}
