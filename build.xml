@@ -34,6 +34,7 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/junit-platform-commons.jar" />
