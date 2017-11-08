@@ -966,14 +966,17 @@ public class Properties
 	{
 		requireNonNull(minimum, "minimum");
 		requireNonNull(maximum, "maximum");
-		if(defaultValue!=null && defaultValue.compareTo(minimum)<0)
-			throw new IllegalArgumentException(
-					"default of " +  key + " must not be smaller than minimum of " + minimum + ", " +
-					"but was " + defaultValue);
-		if(defaultValue!=null && defaultValue.compareTo(maximum)>0)
-			throw new IllegalArgumentException(
-					"default of " +  key + " must not be greater than maximum of " + maximum + ", " +
-					"but was " + defaultValue);
+		if(defaultValue!=null)
+		{
+			if(defaultValue.compareTo(minimum)<0)
+				throw new IllegalArgumentException(
+						"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
+						"but was " + defaultValue);
+			if(defaultValue.compareTo(maximum)>0)
+				throw new IllegalArgumentException(
+						"default of " + key + " must not be greater than maximum of " + maximum + ", " +
+						"but was " + defaultValue);
+		}
 
 		final String value = value(key, defaultValue!=null ? defaultValue.toString() : null);
 		final Duration result;
