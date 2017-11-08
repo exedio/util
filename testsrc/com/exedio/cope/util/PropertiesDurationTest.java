@@ -24,6 +24,7 @@ import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
 import static java.time.Duration.ofHours;
 import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofNanos;
 import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -109,7 +110,7 @@ public class PropertiesDurationTest
 	{
 		assertWrong(
 				"optional", "PT40M59.999999999S",
-				"must be a duration greater or equal PT41M, but was PT40M59.999999999S", null);
+				"must be a duration greater or equal PT41M, but was " + ofMinutes(41).minus(ofNanos(1)), null);
 	}
 
 
