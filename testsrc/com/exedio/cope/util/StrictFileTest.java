@@ -56,6 +56,13 @@ public class StrictFileTest
 		assertEquals(true, f.exists());
 	}
 
+	@Test void testCreateNewFileNull() throws IOException
+	{
+		assertFails(
+				() -> createNewFile(null),
+				NullPointerException.class, null);
+	}
+
 	@Test final void testDelete(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
@@ -63,6 +70,13 @@ public class StrictFileTest
 		assertFails(() ->
 			delete(f),
 			IllegalStateException.class, f.getAbsolutePath());
+	}
+
+	@Test final void testDeleteNull()
+	{
+		assertFails(
+				() -> delete(null),
+				NullPointerException.class, null);
 	}
 
 	@Test final void testMkdir(final TemporaryFolder folder) throws IOException
@@ -75,6 +89,13 @@ public class StrictFileTest
 			IllegalStateException.class, f.getAbsolutePath());
 	}
 
+	@Test final void testMkdirNull()
+	{
+		assertFails(
+				() -> mkdir(null),
+				NullPointerException.class, null);
+	}
+
 	@Test final void testMkdirs(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
@@ -83,6 +104,13 @@ public class StrictFileTest
 		assertFails(() ->
 			mkdirs(f),
 			IllegalStateException.class, f.getAbsolutePath());
+	}
+
+	@Test final void testMkdirsNull()
+	{
+		assertFails(
+				() -> mkdirs(null),
+				NullPointerException.class, null);
 	}
 
 	@Test final void testRenameTo(final TemporaryFolder folder) throws IOException
@@ -95,6 +123,27 @@ public class StrictFileTest
 			IllegalStateException.class, f.getAbsolutePath());
 	}
 
+	@Test final void testRenameToNullBoth()
+	{
+		assertFails(
+				() -> renameTo(null, null),
+				NullPointerException.class, null);
+	}
+
+	@Test final void testRenameToNullSource()
+	{
+		assertFails(
+				() -> renameTo(null, new File(".")),
+				NullPointerException.class, null);
+	}
+
+	@Test final void testRenameToNullDest()
+	{
+		assertFails(
+				() -> renameTo(new File("."), null),
+				NullPointerException.class, null);
+	}
+
 	@Test void testSetLastModified(final TemporaryFolder folder) throws IOException
 	{
 		final File f = folder.newFile("file");
@@ -103,6 +152,18 @@ public class StrictFileTest
 		setLastModified(f, 555000);
 		assertEquals(true, f.exists());
 		assertEquals(555000, f.lastModified());
+	}
+
+	@Test void testSetLastModifiedZero(final TemporaryFolder folder) throws IOException
+	{
+		final File f = folder.newFile("file");
+		assertEquals(true, f.exists());
+		setLastModified(f, 555000);
+		assertEquals(555000, f.lastModified());
+
+		setLastModified(f, 0);
+		assertEquals(true, f.exists());
+		assertEquals(0, f.lastModified());
 	}
 
 	@Test void testSetLastModifiedFails(final TemporaryFolder folder)
@@ -114,5 +175,26 @@ public class StrictFileTest
 			setLastModified(f, 555000),
 			IllegalStateException.class, f.getAbsolutePath());
 		assertEquals(false, f.exists());
+	}
+
+	@Test void testSetLastModifiedNull()
+	{
+		assertFails(
+				() -> setLastModified(null, 555000),
+				NullPointerException.class, null);
+	}
+
+	@Test void testSetLastModifiedNegative(final TemporaryFolder folder) throws IOException
+	{
+		final File f = folder.newFile("file");
+		assertEquals(true, f.exists());
+		setLastModified(f, 555000);
+		assertEquals(555000, f.lastModified());
+
+		assertFails(
+				() -> setLastModified(f, -1),
+				IllegalArgumentException.class,
+				"Negative time");
+		assertEquals(555000, f.lastModified());
 	}
 }
