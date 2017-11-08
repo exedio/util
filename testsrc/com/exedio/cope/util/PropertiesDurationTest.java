@@ -25,7 +25,6 @@ import static com.exedio.cope.util.Sources.view;
 import static java.time.Duration.ofHours;
 import static java.time.Duration.ofMinutes;
 import static java.time.Duration.ofNanos;
-import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -194,14 +193,14 @@ public class PropertiesDurationTest
 		assertFails(
 			PropsDefaultViolatesMinimum::new,
 			IllegalArgumentException.class,
-			"default of myKey must not be smaller than minimum of PT6M, but was PT5M59S");
+			"default of myKey must not be smaller than minimum of PT6M, but was PT5M59.999999999S");
 	}
 	static class PropsDefaultViolatesMinimum extends MyProperties
 	{
 		PropsDefaultViolatesMinimum()
 		{
 			super(Sources.EMPTY);
-			value("myKey", ofMinutes(5).plus(ofSeconds(59)), ofMinutes(6));
+			value("myKey", ofMinutes(6).minus(ofNanos(1)), ofMinutes(6));
 		}
 	}
 
