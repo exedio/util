@@ -6,4 +6,4 @@ jdk:
 before_script:
   - ant -version
 
-script: "ant clean jenkins -Dtest.deterministicOnly=true"
+script: "ant clean jenkins"
