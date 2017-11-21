@@ -190,7 +190,7 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public GregorianCalendar getGregorianCalendar(final TimeZone zone)
 	{
-		final GregorianCalendar result = new GregorianCalendar(year, month-1, day);
+		final GregorianCalendar result = new GregorianCalendar(getYear(), getMonthValue()-1, getDayOfMonth());
 		result.setTimeZone(zone);
 		return result;
 	}
@@ -211,9 +211,9 @@ public final class Day implements Serializable, Comparable<Day>
 	{
 		final XMLGregorianCalendar result =
 			factory.newXMLGregorianCalendar();
-		result.setYear(year);
-		result.setMonth(month);
-		result.setDay(day);
+		result.setYear(getYear());
+		result.setMonth(getMonthValue());
+		result.setDay(getDayOfMonth());
 		return result;
 	}
 
