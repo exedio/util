@@ -266,7 +266,19 @@ public final class Day implements Serializable, Comparable<Day>
 		return compareTo(when) > 0;
 	}
 
+	/**
+	 * @deprecated Use {@link #isBefore(Day)} instead
+	 */
+	@Deprecated
 	public boolean before(final Day when)
+	{
+		return isBefore(when);
+	}
+
+	/**
+	 * @see LocalDate#isBefore(java.time.chrono.ChronoLocalDate)
+	 */
+	public boolean isBefore(final Day when)
 	{
 		return compareTo(when) < 0;
 	}
