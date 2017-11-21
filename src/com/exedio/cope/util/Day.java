@@ -132,29 +132,11 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
 	/**
-	 * @deprecated Use {@link #getMonthValue()} instead
-	 */
-	@Deprecated
-	public int getMonth()
-	{
-		return getMonthValue();
-	}
-
-	/**
 	 * @see LocalDate#getMonthValue
 	 */
 	public int getMonthValue()
 	{
 		return month;
-	}
-
-	/**
-	 * @deprecated Use {@link #getDayOfMonth()} instead
-	 */
-	@Deprecated
-	public int getDay()
-	{
-		return getDayOfMonth();
 	}
 
 	/**
@@ -218,15 +200,6 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
 	/**
-	 * @deprecated Use {@link #plusDays(int)} instead
-	 */
-	@Deprecated
-	public Day add(final int days)
-	{
-		return plusDays(days);
-	}
-
-	/**
 	 * @see LocalDate#plusDays(long)
 	 */
 	public Day plusDays(final int days)
@@ -250,29 +223,11 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
 	/**
-	 * @deprecated Use {@link #isAfter(Day)} instead
-	 */
-	@Deprecated
-	public boolean after(final Day when)
-	{
-		return isAfter(when);
-	}
-
-	/**
 	 * @see LocalDate#isAfter(java.time.chrono.ChronoLocalDate)
 	 */
 	public boolean isAfter(final Day when)
 	{
 		return compareTo(when) > 0;
-	}
-
-	/**
-	 * @deprecated Use {@link #isBefore(Day)} instead
-	 */
-	@Deprecated
-	public boolean before(final Day when)
-	{
-		return isBefore(when);
 	}
 
 	/**
@@ -345,6 +300,51 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getMonthValue()} instead
+	 */
+	@Deprecated
+	public int getMonth()
+	{
+		return getMonthValue();
+	}
+
+	/**
+	 * @deprecated Use {@link #getDayOfMonth()} instead
+	 */
+	@Deprecated
+	public int getDay()
+	{
+		return getDayOfMonth();
+	}
+
+	/**
+	 * @deprecated Use {@link #plusDays(int)} instead
+	 */
+	@Deprecated
+	public Day add(final int days)
+	{
+		return plusDays(days);
+	}
+
+	/**
+	 * @deprecated Use {@link #isAfter(Day)} instead
+	 */
+	@Deprecated
+	public boolean after(final Day when)
+	{
+		return isAfter(when);
+	}
+
+	/**
+	 * @deprecated Use {@link #isBefore(Day)} instead
+	 */
+	@Deprecated
+	public boolean before(final Day when)
+	{
+		return isBefore(when);
+	}
 
 	/**
 	 * @deprecated Provide {@link TimeZone} as parameter.
