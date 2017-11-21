@@ -55,12 +55,12 @@ public class BeforeAndAfterTest
 
 	@Test void testAfterAssert()
 	{
-		assertEquals(false, yesterday.after(today));
-		assertEquals(false, yesterday.after(tomorrow));
-		assertEquals(true, today.after(yesterday));
-		assertEquals(false, today.after(tomorrow));
-		assertEquals(true, tomorrow.after(yesterday));
-		assertEquals(true, tomorrow.after(today));
+		assertEquals(false, yesterday.isAfter(today));
+		assertEquals(false, yesterday.isAfter(tomorrow));
+		assertEquals(true, today.isAfter(yesterday));
+		assertEquals(false, today.isAfter(tomorrow));
+		assertEquals(true, tomorrow.isAfter(yesterday));
+		assertEquals(true, tomorrow.isAfter(today));
 	}
 
 	@Test void testCombiAssert()
@@ -68,8 +68,8 @@ public class BeforeAndAfterTest
 		assertEquals(true, new Day(2011, 8, 5).before(new Day(2011, 8, 6)));
 		assertEquals(false, new Day(2011, 8, 5).before(new Day(2011, 7, 6)));
 		assertEquals(false, new Day(2015, 8, 5).before(new Day(2008, 7, 6)));
-		assertEquals(true, new Day(2011, 9, 8).after(new Day(2011, 9, 6)));
-		assertEquals(false, new Day(2011, 8, 5).after(new Day(2011, 9, 9)));
-		assertEquals(false, new Day(2011, 8, 5).after(new Day(2090, 9, 9)));
+		assertEquals(true, new Day(2011, 9, 8).isAfter(new Day(2011, 9, 6)));
+		assertEquals(false, new Day(2011, 8, 5).isAfter(new Day(2011, 9, 9)));
+		assertEquals(false, new Day(2011, 8, 5).isAfter(new Day(2090, 9, 9)));
 	}
 }

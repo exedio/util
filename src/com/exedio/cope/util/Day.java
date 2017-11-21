@@ -249,7 +249,19 @@ public final class Day implements Serializable, Comparable<Day>
 		return day==o.day && month==o.month && year==o.year;
 	}
 
+	/**
+	 * @deprecated Use {@link #isAfter(Day)} instead
+	 */
+	@Deprecated
 	public boolean after(final Day when)
+	{
+		return isAfter(when);
+	}
+
+	/**
+	 * @see LocalDate#isAfter(java.time.chrono.ChronoLocalDate)
+	 */
+	public boolean isAfter(final Day when)
 	{
 		return compareTo(when) > 0;
 	}
