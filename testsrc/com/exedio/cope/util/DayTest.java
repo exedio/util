@@ -102,7 +102,7 @@ public class DayTest
 		final Day d = new Day(2005, 9, 23);
 		assertEquals(2005, d.getYear());
 		assertEquals(9, d.getMonth());
-		assertEquals(23, d.getDay());
+		assertEquals(23, d.getDayOfMonth());
 		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, getTimeZone("Europe/Berlin"));
 		assertGregorianCalendar(2005, Calendar.SEPTEMBER, 23, d, getTimeZone("Etc/GMT"));
 		assertXMLGregorianCalendar(2005, 9, 23, d);
@@ -113,7 +113,7 @@ public class DayTest
 		final Day d = new Day(2005, 2, 31);
 		assertEquals(2005, d.getYear());
 		assertEquals(3,    d.getMonth());
-		assertEquals(3,    d.getDay());
+		assertEquals(3,    d.getDayOfMonth());
 	}
 	@Test void nullZone()
 	{

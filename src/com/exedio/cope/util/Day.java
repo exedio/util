@@ -136,7 +136,19 @@ public final class Day implements Serializable, Comparable<Day>
 		return month;
 	}
 
+	/**
+	 * @deprecated Use {@link #getDayOfMonth()} instead
+	 */
+	@Deprecated
 	public int getDay()
+	{
+		return getDayOfMonth();
+	}
+
+	/**
+	 * @see LocalDate#getDayOfMonth
+	 */
+	public int getDayOfMonth()
 	{
 		return day;
 	}
