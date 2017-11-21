@@ -217,7 +217,19 @@ public final class Day implements Serializable, Comparable<Day>
 		return result;
 	}
 
+	/**
+	 * @deprecated Use {@link #plusDays(int)} instead
+	 */
+	@Deprecated
 	public Day add(final int days)
+	{
+		return plusDays(days);
+	}
+
+	/**
+	 * @see LocalDate#plusDays(long)
+	 */
+	public Day plusDays(final int days)
 	{
 		final GregorianCalendar cal = getGregorianCalendar(GMT);
 		cal.add(DATE, days);

@@ -189,13 +189,13 @@ public class DayTest
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 00:00:00.000 (+0100)").getTime(), tz));
 		assertEquals(new Day(2005, 2, 22), new Day(df.parse("2005-02-22 23:59:59.999 (+0100)").getTime(), tz));
 	}
-	@Test void add()
+	@Test void plusDays()
 	{
-		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).add(1));
-		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).add(1));
-		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).add(1));
-		assertEquals(new Day(2005, 2, 27), new Day(2005,  2, 22).add( 5));
-		assertEquals(new Day(2005, 2, 17), new Day(2005,  2, 22).add(-5));
+		assertEquals(new Day(2005, 2, 23), new Day(2005,  2, 22).plusDays(1));
+		assertEquals(new Day(2005, 3,  1), new Day(2005,  2, 28).plusDays(1));
+		assertEquals(new Day(2006, 1,  1), new Day(2005, 12, 31).plusDays(1));
+		assertEquals(new Day(2005, 2, 27), new Day(2005,  2, 22).plusDays( 5));
+		assertEquals(new Day(2005, 2, 17), new Day(2005,  2, 22).plusDays(-5));
 	}
 	@SuppressWarnings("RedundantCast")
 	@Test void valueOfNull()
