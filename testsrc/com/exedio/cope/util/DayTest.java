@@ -197,6 +197,24 @@ public class DayTest
 		assertEquals(new Day(2005, 2, 27), new Day(2005,  2, 22).plusDays( 5));
 		assertEquals(new Day(2005, 2, 17), new Day(2005,  2, 22).plusDays(-5));
 	}
+	@Test void plusDaysOverflow()
+	{
+		final Day limit = new Day(9999, 12, 31);
+		assertEquals(limit, new Day(9999, 12, 30).plusDays(1));
+		assertFails(
+				() -> limit.plusDays(1),
+				IllegalArgumentException.class,
+				"year must be in range 1000..9999, but was: 10000");
+	}
+	@Test void plusDaysUnderflow()
+	{
+		final Day limit = new Day(1000, 1, 1);
+		assertEquals(limit, new Day(1000, 1, 2).plusDays(-1));
+		assertFails(
+				() -> limit.plusDays(-1),
+				IllegalArgumentException.class,
+				"year must be in range 1000..9999, but was: 999");
+	}
 	@SuppressWarnings("RedundantCast")
 	@Test void valueOfNull()
 	{
@@ -295,5 +313,29 @@ public class DayTest
 
 		assertEquals(null, Day.toLocalDate(null));
 		assertEquals(null, Day.from(null));
+	}
+	@Test void javaTimeOverflow()
+	{
+		final LocalDate limit = LocalDate.of(9999, Month.DECEMBER, 31);
+		assertEquals(new Day(9999, 12, 31), Day.from(limit));
+
+		final LocalDate beyond = LocalDate.of(10000, Month.JANUARY, 1);
+		assertEquals(beyond, limit.plusDays(1));
+		assertFails(
+				() -> Day.from(beyond),
+				IllegalArgumentException.class,
+				"year must be in range 1000..9999, but was: 10000");
+	}
+	@Test void javaTimeUnderflow()
+	{
+		final LocalDate limit = LocalDate.of(1000, Month.JANUARY, 1);
+		assertEquals(new Day(1000, 1, 1), Day.from(limit));
+
+		final LocalDate beyond = LocalDate.of(999, Month.DECEMBER, 31);
+		assertEquals(beyond, limit.minusDays(1));
+		assertFails(
+				() -> Day.from(beyond),
+				IllegalArgumentException.class,
+				"year must be in range 1000..9999, but was: 999");
 	}
 }
