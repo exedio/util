@@ -296,7 +296,7 @@ public final class Day implements Serializable, Comparable<Day>
 	@Override
 	public String toString()
 	{
-		return String.valueOf(year) + '/' + month + '/' + day;
+		return String.valueOf(getYear()) + '/' + getMonthValue() + '/' + getDayOfMonth();
 	}
 
 	// ------------------- deprecated stuff -------------------
