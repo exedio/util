@@ -30,7 +30,9 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 
 	IllegalPropertiesException(final String key, final String sourceDescription, final String detail, final Throwable cause)
 	{
-		super(cause);
+		// Specifying message==null avoids detailMessage computed from cause in
+		// Throwable constructor, not needed because getMessage is overridden anyway.
+		super(null, cause);
 		this.key = requireNonNull(key, "key");
 		this.sourceDescription = sourceDescription;
 		this.detail = requireNonNull(detail, "detail");
@@ -38,7 +40,9 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 
 	IllegalPropertiesException(final String prefix, final String sourceDescription, final IllegalPropertiesException cause)
 	{
-		super(cause);
+		// Specifying message==null avoids detailMessage computed from cause in
+		// Throwable constructor, not needed because getMessage is overridden anyway.
+		super(null, cause);
 		this.key = prefix + cause.key;
 		this.sourceDescription = sourceDescription;
 		this.detail = cause.detail;
