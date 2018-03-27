@@ -7,7 +7,7 @@ import java.awt.Color
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
-	node
+	node('GitCloneExedio')
 	{
 		try
 		{
