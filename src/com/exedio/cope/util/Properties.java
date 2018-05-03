@@ -841,6 +841,7 @@ public class Properties
 		}
 
 		@Override
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // value is unmodifiable
 		public Object getValue()
 		{
 			return value;
@@ -849,6 +850,7 @@ public class Properties
 		/**
 		 * Never returns null.
 		 */
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // value is unmodifiable
 		public Map<String, String> get()
 		{
 			return value;
