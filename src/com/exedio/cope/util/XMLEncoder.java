@@ -50,14 +50,14 @@ public final class XMLEncoder
 			if(bf==null)
 				bf = new StringBuilder();
 			if(lastPos<pos)
-				bf.append(st.substring(lastPos, pos));
+				bf.append(st, lastPos, pos);
 			bf.append(replacement);
 			lastPos = pos + 1;
 		}
 		if(bf==null)
 			return st;
 		if(lastPos<length)
-			bf.append(st.substring(lastPos, length));
+			bf.append(st, lastPos, length);
 		return bf.toString();
 	}
 
@@ -80,12 +80,12 @@ public final class XMLEncoder
 					continue;
 			}
 			if(lastPos<pos)
-				bf.append(st.substring(lastPos, pos));
+				bf.append(st, lastPos, pos);
 			bf.append(replacement);
 			lastPos = pos + 1;
 		}
 		if(lastPos<length)
-			bf.append(st.substring(lastPos, length));
+			bf.append(st, lastPos, length);
 	}
 
 	public static void append(final StringBuilder bf, final char c)

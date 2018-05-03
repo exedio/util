@@ -141,7 +141,7 @@ public class Properties
 			final String replaced = context.get(contextKey);
 			if(replaced==null)
 				throw new IllegalArgumentException("key '" + contextKey + "\' not defined by context " + context.getDescription());
-			bf.append(raw.substring(previous, dollar)).
+			bf.append(raw, previous, dollar).
 				append(replaced);
 			previous = contextKeyEnd + 1;
 		}
