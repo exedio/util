@@ -56,7 +56,7 @@ public class StrictFileTest
 		assertEquals(true, f.exists());
 	}
 
-	@Test void testCreateNewFileNull() throws IOException
+	@Test void testCreateNewFileNull()
 	{
 		assertFails(
 				() -> createNewFile(null),

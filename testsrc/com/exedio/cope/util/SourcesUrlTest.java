@@ -25,7 +25,6 @@ import static com.exedio.cope.util.Sources.load;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ public class SourcesUrlTest
 		assertEquals(url.toString(), s.toString());
 	}
 
-	@Test void testNotExists() throws MalformedURLException
+	@Test void testNotExists()
 	{
 		assertFails(() ->
 			load(new URL("http://sourcetest.invalid/sourcesUrlTest.properties")),
