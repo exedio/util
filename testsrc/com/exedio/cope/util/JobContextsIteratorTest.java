@@ -85,6 +85,7 @@ public class JobContextsIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressWarnings("ResultOfMethodCallIgnored") // results are meaningless with easymock
 	@Test void testLaterStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -119,6 +120,7 @@ public class JobContextsIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressWarnings("ResultOfMethodCallIgnored") // results are meaningless with easymock
 	@Test void testNoStop()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);

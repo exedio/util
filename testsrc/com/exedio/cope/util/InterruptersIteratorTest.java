@@ -89,6 +89,7 @@ public class InterruptersIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressWarnings("ResultOfMethodCallIgnored") // results are meaningless with easymock
 	@Test void testLaterInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
@@ -123,6 +124,7 @@ public class InterruptersIteratorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
+	@SuppressWarnings("ResultOfMethodCallIgnored") // results are meaningless with easymock
 	@Test void testNoInterrupt()
 	{
 		final Iterator<?> iterator = createStrictMock(Iterator.class);
