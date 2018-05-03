@@ -129,6 +129,7 @@ public class PrefixSourceTest
 	@SuppressWarnings("unused")
 	@Test void testFail()
 	{
+		//noinspection ConstantConditions
 		assertFails(() ->
 			new PrefixSource(null, null),
 			NullPointerException.class, "source");
@@ -137,6 +138,7 @@ public class PrefixSourceTest
 			NullPointerException.class, "source");
 
 		final MockSource ms = new MockSource(false, "description");
+		//noinspection ConstantConditions
 		assertFails(() ->
 			new PrefixSource(ms, null),
 			NullPointerException.class, "prefix");

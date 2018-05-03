@@ -494,10 +494,12 @@ public class PoolTest
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testError()
 	{
+		//noinspection ConstantConditions
 		assertFails(() ->
 			new Pool<>((Factory)null, null, null),
 			NullPointerException.class, "factory");
 		final Factory f = new Factory(asList());
+		//noinspection ConstantConditions
 		assertFails(() ->
 			new Pool<>(f, null, null),
 			NullPointerException.class, "properties");

@@ -58,6 +58,7 @@ public class StrictFileTest
 
 	@Test void testCreateNewFileNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> createNewFile(null),
 				NullPointerException.class, null);
@@ -74,6 +75,7 @@ public class StrictFileTest
 
 	@Test final void testDeleteNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> delete(null),
 				NullPointerException.class, null);
@@ -91,6 +93,7 @@ public class StrictFileTest
 
 	@Test final void testMkdirNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> mkdir(null),
 				NullPointerException.class, null);
@@ -108,6 +111,7 @@ public class StrictFileTest
 
 	@Test final void testMkdirsNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> mkdirs(null),
 				NullPointerException.class, null);
@@ -125,6 +129,7 @@ public class StrictFileTest
 
 	@Test final void testRenameToNullBoth()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> renameTo(null, null),
 				NullPointerException.class, null);
@@ -132,6 +137,7 @@ public class StrictFileTest
 
 	@Test final void testRenameToNullSource()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> renameTo(null, new File(".")),
 				NullPointerException.class, null);
@@ -179,6 +185,7 @@ public class StrictFileTest
 
 	@Test void testSetLastModifiedNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(
 				() -> setLastModified(null, 555000),
 				NullPointerException.class, null);

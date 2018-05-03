@@ -129,6 +129,7 @@ public class PropertiesGetContextTest
 		assertEquals("b", context.getContext("a"));
 		assertEquals("b1", context.getContext("a1"));
 
+		//noinspection ConstantConditions
 		assertFails(() ->
 			context.getContext(null),
 			NullPointerException.class, "key");

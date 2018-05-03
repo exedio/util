@@ -61,6 +61,7 @@ public class SourcesUrlTest
 
 	@Test void testNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(() ->
 			load((URL)null),
 			NullPointerException.class, null);
