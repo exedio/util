@@ -1451,29 +1451,6 @@ public class Properties
 		{
 			return name;
 		}
-
-		static void add(final TreeMap<String,Prober> probers, final Prober prober)
-		{
-			final Prober collision = probers.putIfAbsent(prober.name, prober);
-			if(collision!=null)
-			{
-				final Prober a;
-				final Prober b;
-				if(collision.method.getName().compareTo(prober.method.getName())>0)
-				{
-					a = prober;
-					b = collision;
-				}
-				else
-				{
-					a = collision;
-					b = prober;
-				}
-				throw new IllegalArgumentException(
-						"@Probe method has duplicate name '" + prober.name + "': " +
-						a.method + " vs. " + b.method);
-			}
-		}
 	}
 
 	static final String stripProbeName(final String name)
@@ -1509,12 +1486,35 @@ public class Properties
 			{
 				final Probe ann = method.getAnnotation(Probe.class);
 				if(ann!=null)
-					Prober.add(classMethods, new Prober(instance, method, ann));
+					add(classMethods, new Prober(instance, method, ann));
 			}
 			result.addAll(classMethods.values());
 		}
 
 		return result;
+	}
+
+	private static void add(final TreeMap<String,Prober> probers, final Prober prober)
+	{
+		final Prober collision = probers.putIfAbsent(prober.name, prober);
+		if(collision!=null)
+		{
+			final Prober a;
+			final Prober b;
+			if(collision.method.getName().compareTo(prober.method.getName())>0)
+			{
+				a = prober;
+				b = collision;
+			}
+			else
+			{
+				a = collision;
+				b = prober;
+			}
+			throw new IllegalArgumentException(
+					"@Probe method has duplicate name '" + prober.name + "': " +
+					a.method + " vs. " + b.method);
+		}
 	}
 
 	/**
