@@ -38,6 +38,7 @@ public class SystemPropertySourceTest
 			IllegalArgumentException.class, "key must not be empty");
 		assertEquals(null, SYSTEM_PROPERTIES.get("xxx"));
 		assertNull(SYSTEM_PROPERTIES.keySet());
+		assertSame(SYSTEM_PROPERTIES, SYSTEM_PROPERTIES.reload());
 		assertEquals("java.lang.System.getProperty", SYSTEM_PROPERTIES.getDescription());
 		assertEquals("SystemPropertySource", SYSTEM_PROPERTIES.toString());
 	}

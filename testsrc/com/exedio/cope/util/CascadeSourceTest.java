@@ -114,4 +114,15 @@ public class CascadeSourceTest
 		// if sources are not copied.
 		assertEquals("description1 / description2", s.getDescription());
 	}
+
+	@Test void testReload()
+	{
+		final Source s = cascade(
+				new ReloadablePropertiesSource("desc1"),
+				new ReloadablePropertiesSource("desc2"));
+		final Source r = s.reload();
+
+		assertEquals("desc1(0) / desc2(0)", s.getDescription());
+		assertEquals("desc1(1) / desc2(1)", r.getDescription());
+	}
 }

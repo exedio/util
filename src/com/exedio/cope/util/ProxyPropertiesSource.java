@@ -18,48 +18,69 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.Properties.Source;
 import java.util.Collection;
 
 /**
- * An implementation of {@link Source} where
- * all methods do fail with a
- * {@link AssertionError}.
+ * An proxy implementation of {@link Source}.
+ *
+ * All methods implementing {@link Source}
+ * do forward to another {@link Source}.
  *
  * You may want to subclass this class instead of
  * implementing {@link Source} directly
  * to make your subclass cope with new methods
  * in {@link Source}.
  */
-public class AssertionErrorPropertiesSource implements Source
+public abstract class ProxyPropertiesSource implements Source
 {
+	private final Source target;
+
+	protected ProxyPropertiesSource(final Source target)
+	{
+		this.target = requireNonNull(target, "target");
+	}
+
+	protected final Source getTarget()
+	{
+		return target;
+	}
+
 	@Override
 	public String get(final String key)
 	{
-		throw new AssertionError(key);
+		return target.get(key);
 	}
 
 	@Override
 	public Collection<String> keySet()
 	{
-		throw new AssertionError();
+		return target.keySet();
 	}
 
 	@Override
 	public Source reload()
 	{
-		throw new AssertionError();
+		final Source reloadedTarget = target.reload();
+		return
+				reloadedTarget==target
+				? this
+				: reload(reloadedTarget);
 	}
+
+	protected abstract ProxyPropertiesSource reload(Source reloadedTarget);
 
 	@Override
 	public String getDescription()
 	{
-		throw new AssertionError();
+		return target.getDescription();
 	}
 
 	@Override
 	public String toString()
 	{
-		throw new AssertionError();
+		return target.toString();
 	}
 }

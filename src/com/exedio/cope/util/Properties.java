@@ -175,6 +175,21 @@ public class Properties
 		 */
 		Collection<String> keySet();
 
+		/**
+		 * Reloads the contents of this source from its origin,
+		 * if this makes sense for the implementation.
+		 * The reloaded contents are returned as a new source -
+		 * this source is not modified.
+		 * <p>
+		 * If the implementation does not support reloading,
+		 * simply return {@code this},
+		 * which is also the default implementation.
+		 */
+		default Source reload()
+		{
+			return this;
+		}
+
 		String getDescription();
 	}
 

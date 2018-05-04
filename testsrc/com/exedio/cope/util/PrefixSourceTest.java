@@ -170,4 +170,13 @@ public class PrefixSourceTest
 		assertEquals("inner.outer.two/val", s.get("two"));
 		assertEquals(asList("one", "two"), s.keySet());
 	}
+
+	@Test void testReload()
+	{
+		final Source s = wrap(new ReloadablePropertiesSource("desc"), "px.");
+		final Source r = s.reload();
+
+		assertEquals("desc(0) (prefix px.)", s.getDescription());
+		assertEquals("desc(1) (prefix px.)", r.getDescription());
+	}
 }

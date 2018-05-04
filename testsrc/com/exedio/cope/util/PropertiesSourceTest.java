@@ -23,6 +23,7 @@ import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,7 @@ public class PropertiesSourceTest
 		assertEquals("testValue", s.get("testKey"));
 		assertEquals(new HashSet<>(asList("testKey")), s.keySet());
 		assertUnmodifiable(s.keySet());
+		assertSame(s, s.reload());
 		assertEquals("testDescription", s.getDescription());
 		assertEquals("testDescription", s.toString());
 	}

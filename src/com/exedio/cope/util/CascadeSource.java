@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.util.Sources.EMPTY;
 
 import com.exedio.cope.util.Properties.Source;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -82,6 +83,14 @@ final class CascadeSource
 				result.addAll(keySet);
 			}
 			return Collections.unmodifiableSet(result);
+		}
+
+		@Override
+		public Source reload()
+		{
+			final Source[] sources = new Source[this.sources.length];
+			Arrays.setAll(sources, i -> this.sources[i].reload());
+			return new Cascade(sources);
 		}
 
 		@Override

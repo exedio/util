@@ -18,15 +18,21 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Clock.currentTimeMillis;
+
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 public final class Sources
 {
@@ -142,6 +148,57 @@ public final class Sources
 	public static Source cascade(final Source... sources)
 	{
 		return CascadeSource.cascade(sources);
+	}
+
+
+	public static Source reloadable(final Supplier<Source> sourceSupplier)
+	{
+		return new Reloadable(sourceSupplier, 0);
+	}
+
+	private static final class Reloadable extends ProxyPropertiesSource
+	{
+		final Supplier<Source> sourceSupplier;
+		final long reloadedMillis = currentTimeMillis();
+		final int reloadedCount;
+
+		Reloadable(
+				final Supplier<Source> sourceSupplier,
+				final int reloadedCount)
+		{
+			super(sourceSupplier.get());
+			this.sourceSupplier = sourceSupplier;
+			this.reloadedCount = reloadedCount;
+		}
+
+		@Override
+		public Source reload()
+		{
+			return new Reloadable(sourceSupplier, reloadedCount+1);
+		}
+
+		@Override
+		protected ProxyPropertiesSource reload(final Source reloadedTarget)
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public String getDescription()
+		{
+			final SimpleDateFormat df = new SimpleDateFormat(
+					"(yyyy-MM-dd HH:mm:ss.SSS z (Z)" + (reloadedCount>0 ? (" 'reload' " + reloadedCount) : "") + ")",
+					Locale.ENGLISH);
+			return
+					super.getDescription() +
+					df.format(new Date(reloadedMillis));
+		}
+
+		@Override
+		public String toString()
+		{
+			return super.toString() + "(reloadable)";
+		}
 	}
 
 

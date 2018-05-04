@@ -77,6 +77,12 @@ public final class PrefixSource implements Source
 	}
 
 	@Override
+	public PrefixSource reload()
+	{
+		return new PrefixSource(source.reload(), prefix);
+	}
+
+	@Override
 	public String getDescription()
 	{
 		final String sourceDescription = source.getDescription();

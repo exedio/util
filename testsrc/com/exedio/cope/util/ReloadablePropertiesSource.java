@@ -19,47 +19,32 @@
 package com.exedio.cope.util;
 
 import com.exedio.cope.util.Properties.Source;
-import java.util.Collection;
 
-/**
- * An implementation of {@link Source} where
- * all methods do fail with a
- * {@link AssertionError}.
- *
- * You may want to subclass this class instead of
- * implementing {@link Source} directly
- * to make your subclass cope with new methods
- * in {@link Source}.
- */
-public class AssertionErrorPropertiesSource implements Source
+public class ReloadablePropertiesSource extends AssertionErrorPropertiesSource
 {
-	@Override
-	public String get(final String key)
+	private final String description;
+	private final int reloadCount;
+
+	public ReloadablePropertiesSource(final String description)
 	{
-		throw new AssertionError(key);
+		this(description, 0);
 	}
 
-	@Override
-	public Collection<String> keySet()
+	private ReloadablePropertiesSource(final String description, final int reloadCount)
 	{
-		throw new AssertionError();
+		this.description = description;
+		this.reloadCount = reloadCount;
 	}
 
 	@Override
 	public Source reload()
 	{
-		throw new AssertionError();
+		return new ReloadablePropertiesSource(description, reloadCount+1);
 	}
 
 	@Override
 	public String getDescription()
 	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public String toString()
-	{
-		throw new AssertionError();
+		return description + "(" + reloadCount + ")";
 	}
 }

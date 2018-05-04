@@ -40,6 +40,7 @@ public class EmptySourceTest
 		assertEquals(null, EMPTY.get("xxx"));
 		assertUnmodifiable(EMPTY.keySet());
 		assertEquals(asList(), EMPTY.keySet());
+		assertSame(EMPTY, EMPTY.reload());
 		assertEquals("empty", EMPTY.getDescription());
 		assertEquals("EmptySource", EMPTY.toString());
 	}
