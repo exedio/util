@@ -117,6 +117,7 @@
 				<include name="**/*.java" />
 			</zipfileset>
 		</zip>
+		<plot file="build/exedio-cope-util-src.zip" />
 	</target>
 
 	<target name="clean">
