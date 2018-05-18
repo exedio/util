@@ -54,6 +54,7 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
 public class Properties
 {
@@ -194,6 +195,7 @@ public class Properties
 			fields.add(this);
 		}
 
+		@Nonnull
 		public final String getKey()
 		{
 			return key;
@@ -211,6 +213,7 @@ public class Properties
 		/**
 		 * Never returns null.
 		 */
+		@Nonnull
 		public abstract Object getValue();
 	}
 
