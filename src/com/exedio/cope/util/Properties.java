@@ -47,6 +47,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -1375,8 +1376,7 @@ public class Properties
 			final Object thisValue = thisField.getValue();
 			final Object otherValue = otherField.getValue();
 
-			if((thisValue!=null && !thisValue.equals(otherValue)) ||
-				(thisValue==null && otherValue!=null))
+			if(!Objects.equals(thisValue, otherValue))
 				throw new IllegalArgumentException(
 						"inconsistent initialization for " + thisField.key +
 						" between " + sourceDescription + " and " + other.sourceDescription +
