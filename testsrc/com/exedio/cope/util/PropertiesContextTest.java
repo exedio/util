@@ -73,7 +73,7 @@ public class PropertiesContextTest
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("aKey", raw);
 		@SuppressWarnings("deprecation") // needed for idea
-		final TestProperties minimal = new TestProperties(pminimal, new Properties.Source(){
+		final TestProperties minimal = new TestProperties(pminimal, new AssertionErrorPropertiesSource(){
 
 			@Override
 			public String get(final String key)

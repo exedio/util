@@ -49,32 +49,7 @@ public class PropertiesGetContextTest
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
 
-		final Properties.Source context = new Properties.Source(){
-
-			@Override
-			public String get(final String key)
-			{
-				throw new RuntimeException(key);
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				throw new RuntimeException();
-			}
-
-			@Override
-			public String getDescription()
-			{
-				throw new RuntimeException();
-			}
-
-			@Override
-			public String toString()
-			{
-				throw new RuntimeException();
-			}
-		};
+		final Properties.Source context = new AssertionErrorPropertiesSource();
 		@SuppressWarnings("deprecation") // needed for idea
 		final TestProperties properties = new TestProperties(pcontext, "context", context);
 		assertSame(context, properties.getContext());
@@ -93,7 +68,7 @@ public class PropertiesGetContextTest
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
-		final TestProperties context = new TestProperties(pcontext, "context", new Properties.Source(){
+		final TestProperties context = new TestProperties(pcontext, "context", new AssertionErrorPropertiesSource(){
 
 			@Override
 			public String get(final String key)

@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class PrefixSourceTest
 {
-	private static class MockSource implements Source
+	private static class MockSource extends AssertionErrorPropertiesSource
 	{
 		private final List<String> keySet = asList(
 				"alpha.one", "prefix.one", "prefix.two", "prefix.",
