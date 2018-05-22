@@ -33,11 +33,6 @@ public class MyProperties extends Properties
 
 	// for testing only
 
-	final Field forKey(final String key)
-	{
-		return detectDuplicateKeys.get(key);
-	}
-
 	@SuppressWarnings("unchecked")
 	final <T extends Properties> PropertiesField<T> forPrefix(final String key, @SuppressWarnings("unused") final Class<T> clazz)
 	{

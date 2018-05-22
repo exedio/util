@@ -224,10 +224,10 @@ public class PropertiesServiceTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)forKey("mandatory");
-		final StringField optionalF  = (StringField)forKey("optional");
-		final StringField mandatoryNestedAF = (StringField)forKey("mandatory.nestedA");
-		final IntField    mandatoryNestedBF = (IntField)   forKey("mandatory.nestedB");
+		final StringField mandatoryF = (StringField)getField("mandatory");
+		final StringField optionalF  = (StringField)getField("optional");
+		final StringField mandatoryNestedAF = (StringField)getField("mandatory.nestedA");
+		final IntField    mandatoryNestedBF = (IntField)   getField("mandatory.nestedB");
 
 
 		void assertIt()

@@ -37,19 +37,19 @@ public class PropertiesNestedOptionalTest
 		final InnerProperties nestedFalse = value("nestedFalse", false, InnerProperties::new);
 		final InnerProperties nestedTrue  = value("nestedTrue",  true,  InnerProperties::new);
 
-		final BooleanField nestedFalseEnable = (BooleanField)forKey("nestedFalse");
-		final IntField nestedFalseInner1 = (IntField)forKey("nestedFalse.inner1");
-		final IntField nestedFalseInner2 = (IntField)forKey("nestedFalse.inner2");
-		final BooleanField nestedTrueEnable  = (BooleanField)forKey("nestedTrue");
-		final IntField nestedTrueInner1 = (IntField)forKey("nestedTrue.inner1");
-		final IntField nestedTrueInner2 = (IntField)forKey("nestedTrue.inner2");
+		final BooleanField nestedFalseEnable = (BooleanField)getField("nestedFalse");
+		final IntField nestedFalseInner1 = (IntField)getField("nestedFalse.inner1");
+		final IntField nestedFalseInner2 = (IntField)getField("nestedFalse.inner2");
+		final BooleanField nestedTrueEnable  = (BooleanField)getField("nestedTrue");
+		final IntField nestedTrueInner1 = (IntField)getField("nestedTrue.inner1");
+		final IntField nestedTrueInner2 = (IntField)getField("nestedTrue.inner2");
 
 		OuterProperties(final java.util.Properties source)
 		{
 			super(view(source, "someDescription"));
 		}
 
-		final IntField outerF = (IntField)forKey("outer");
+		final IntField outerF = (IntField)getField("outer");
 		final PropertiesField<InnerProperties> nestedFalseF = forPrefix("nestedFalse", InnerProperties.class);
 		final PropertiesField<InnerProperties> nestedTrueF  = forPrefix("nestedTrue",  InnerProperties.class);
 
@@ -137,8 +137,8 @@ public class PropertiesNestedOptionalTest
 			super(source);
 		}
 
-		final IntField inner1F = (IntField)forKey("inner1");
-		final IntField inner2F = (IntField)forKey("inner2");
+		final IntField inner1F = (IntField)getField("inner1");
+		final IntField inner2F = (IntField)getField("inner2");
 
 		void assertIt()
 		{

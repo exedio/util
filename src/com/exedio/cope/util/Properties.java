@@ -97,6 +97,12 @@ public class Properties
 		return getProbes();
 	}
 
+	public final Field getField(final String key)
+	{
+		Sources.checkKey(key);
+		return detectDuplicateKeys.get(key);
+	}
+
 	public final List<Field> getFields()
 	{
 		return Collections.unmodifiableList(fields);

@@ -25,6 +25,7 @@ import static com.exedio.cope.junit.CopeAssert.map;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -62,17 +63,17 @@ public class PropertiesTest
 			super(view(source, sourceDescription));
 		}
 
-		final BooleanField boolFalseF = (BooleanField)forKey("boolFalse");
-		final BooleanField boolTrueF = (BooleanField)forKey("boolTrue");
-		final IntField intAnyF = (IntField)forKey("intAny");
-		final IntField int10F = (IntField)forKey("int10");
-		final StringField stringMandatoryF = (StringField)forKey("stringMandatory");
-		final StringField stringOptionalF = (StringField)forKey("stringOptional");
-		final StringField stringHiddenF = (StringField)forKey("stringHidden");
-		final StringField stringHiddenOptionalF = (StringField)forKey("stringHiddenOptional");
-		final DayField dayMandatoryF = (DayField)forKey("dayMandatory");
-		final DayField dayOptionalF = (DayField)forKey("dayOptional");
-		final FileField fileF = (FileField)forKey("file");
+		final BooleanField boolFalseF = (BooleanField)getField("boolFalse");
+		final BooleanField boolTrueF = (BooleanField)getField("boolTrue");
+		final IntField intAnyF = (IntField)getField("intAny");
+		final IntField int10F = (IntField)getField("int10");
+		final StringField stringMandatoryF = (StringField)getField("stringMandatory");
+		final StringField stringOptionalF = (StringField)getField("stringOptional");
+		final StringField stringHiddenF = (StringField)getField("stringHidden");
+		final StringField stringHiddenOptionalF = (StringField)getField("stringHiddenOptional");
+		final DayField dayMandatoryF = (DayField)getField("dayMandatory");
+		final DayField dayOptionalF = (DayField)getField("dayOptional");
+		final FileField fileF = (FileField)getField("file");
 
 
 		void assertIt()
@@ -186,6 +187,14 @@ public class PropertiesTest
 		assertEquals(false, minimal.dayOptionalF.isSpecified());
 
 		minimal.ensureEquality(minimal);
+
+		assertFails(
+				() -> minimal.getField(null),
+				NullPointerException.class, "key");
+		assertFails(
+				() -> minimal.getField(""),
+				IllegalArgumentException.class, "key must not be empty");
+		assertNull(minimal.getField("x"));
 
 		{
 			final TestProperties minimal1 = new TestProperties(pminimal, "minimal2");

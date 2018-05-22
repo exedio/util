@@ -131,8 +131,8 @@ public class PropertiesMessageDigestTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)forKey("mandatory");
-		final StringField optionalF  = (StringField)forKey("optional");
+		final StringField mandatoryF = (StringField)getField("mandatory");
+		final StringField optionalF  = (StringField)getField("optional");
 
 
 		void assertIt()

@@ -149,9 +149,9 @@ public class PropertiesDurationTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)forKey("mandatory");
-		final StringField optionalF  = (StringField)forKey("optional");
-		final StringField maxF       = (StringField)forKey("max");
+		final StringField mandatoryF = (StringField)getField("mandatory");
+		final StringField optionalF  = (StringField)getField("optional");
+		final StringField maxF       = (StringField)getField("max");
 
 
 		void assertIt()

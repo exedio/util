@@ -36,18 +36,18 @@ public class PropertiesNestedTest
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
 		final Inner nested = valnp("nestedO", Inner::new);
-		final IntField nestedInner1 = (IntField)forKey("nestedO.inner1");
-		final IntField nestedInner2 = (IntField)forKey("nestedO.inner2");
-		final IntField nestedDrinner1 = (IntField)forKey("nestedO.nestedI.drinner1");
-		final IntField nestedDrinner2 = (IntField)forKey("nestedO.nestedI.drinner2");
+		final IntField nestedInner1 = (IntField)getField("nestedO.inner1");
+		final IntField nestedInner2 = (IntField)getField("nestedO.inner2");
+		final IntField nestedDrinner1 = (IntField)getField("nestedO.nestedI.drinner1");
+		final IntField nestedDrinner2 = (IntField)getField("nestedO.nestedI.drinner2");
 
 		Outer(final java.util.Properties source)
 		{
 			super(view(source, "someDescription"));
 		}
 
-		final IntField outer1F = (IntField)forKey("outer1");
-		final IntField outer2F = (IntField)forKey("outer2");
+		final IntField outer1F = (IntField)getField("outer1");
+		final IntField outer2F = (IntField)getField("outer2");
 		final PropertiesField<Inner> nestedF = forPrefix("nestedO", Inner.class);
 
 		void assertIt()
@@ -98,16 +98,16 @@ public class PropertiesNestedTest
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
 		final Drinner nested = valnp("nestedI", Drinner::new);
-		final IntField nestedDrinner1 = (IntField)forKey("nestedI.drinner1");
-		final IntField nestedDrinner2 = (IntField)forKey("nestedI.drinner2");
+		final IntField nestedDrinner1 = (IntField)getField("nestedI.drinner1");
+		final IntField nestedDrinner2 = (IntField)getField("nestedI.drinner2");
 
 		Inner(final Source source)
 		{
 			super(source);
 		}
 
-		final IntField inner1F = (IntField)forKey("inner1");
-		final IntField inner2F = (IntField)forKey("inner2");
+		final IntField inner1F = (IntField)getField("inner1");
+		final IntField inner2F = (IntField)getField("inner2");
 		final PropertiesField<Drinner> nestedF = forPrefix("nestedI", Drinner.class);
 
 		void assertIt()
@@ -153,8 +153,8 @@ public class PropertiesNestedTest
 			super(source);
 		}
 
-		final IntField drinner1F = (IntField)forKey("drinner1");
-		final IntField drinner2F = (IntField)forKey("drinner2");
+		final IntField drinner1F = (IntField)getField("drinner1");
+		final IntField drinner2F = (IntField)getField("drinner2");
 
 		void assertIt()
 		{
