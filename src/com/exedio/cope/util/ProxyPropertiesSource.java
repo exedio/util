@@ -63,11 +63,11 @@ public abstract class ProxyPropertiesSource implements Source
 	@Override
 	public Source reload()
 	{
-		final Source reloadedTarget = target.reload();
+		final Source targetReloaded = target.reload();
 		return
-				reloadedTarget==target
+				targetReloaded==target
 				? this
-				: reload(reloadedTarget);
+				: reload(targetReloaded);
 	}
 
 	protected abstract ProxyPropertiesSource reload(Source reloadedTarget);
