@@ -24,7 +24,6 @@ import static com.exedio.cope.util.PrefixSource.wrap;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -184,11 +183,7 @@ public class PrefixSourceTest
 	@Test void testReloadNotNeeded()
 	{
 		final Source s = wrap(RELOADS_TO_THIS, "px.");
-		final Source r = s.reload();
-
-		assertNotSame(s, r);
-		assertEquals("RELOADS_TO_THIS (prefix px.)", s.getDescription());
-		assertEquals("RELOADS_TO_THIS (prefix px.)", r.getDescription());
+		assertSame(s, s.reload());
 	}
 
 	private static final Source RELOADS_TO_THIS = new AssertionErrorPropertiesSource()
@@ -196,10 +191,6 @@ public class PrefixSourceTest
 		@Override public Source reload()
 		{
 			return this;
-		}
-		@Override public String getDescription()
-		{
-			return "RELOADS_TO_THIS";
 		}
 	};
 }

@@ -79,7 +79,11 @@ public final class PrefixSource implements Source
 	@Override
 	public PrefixSource reload()
 	{
-		return new PrefixSource(source.reload(), prefix);
+		final Source sourceReloaded = source.reload();
+		return
+				sourceReloaded==source
+				? this
+				: new PrefixSource(sourceReloaded, prefix);
 	}
 
 	@Override
