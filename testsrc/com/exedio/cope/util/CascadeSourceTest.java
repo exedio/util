@@ -23,6 +23,7 @@ import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Properties.Source;
@@ -125,4 +126,50 @@ public class CascadeSourceTest
 		assertEquals("desc1(0) / desc2(0)", s.getDescription());
 		assertEquals("desc1(1) / desc2(1)", r.getDescription());
 	}
+
+	@Test void testReloadAlmostNotNeeded()
+	{
+		final Source s = cascade(
+				new ReloadablePropertiesSource("desc1"),
+				RELOADS_TO_THIS_2);
+		final Source r = s.reload();
+
+		assertEquals("desc1(0) / RELOADS_TO_THIS_2", s.getDescription());
+		assertEquals("desc1(1) / RELOADS_TO_THIS_2", r.getDescription());
+	}
+
+	@Test void testReloadNotNeeded()
+	{
+		final Source s = cascade(RELOADS_TO_THIS_1, RELOADS_TO_THIS_2);
+		final Source r = s.reload();
+
+		assertNotSame(s, r);
+
+		assertEquals("RELOADS_TO_THIS_1 / RELOADS_TO_THIS_2", s.getDescription());
+		assertEquals("RELOADS_TO_THIS_1 / RELOADS_TO_THIS_2", r.getDescription());
+	}
+
+	private static final Source RELOADS_TO_THIS_1 = new AssertionErrorPropertiesSource()
+	{
+		@Override public Source reload()
+		{
+			return this;
+		}
+		@Override public String getDescription()
+		{
+			return "RELOADS_TO_THIS_1";
+		}
+	};
+
+	private static final Source RELOADS_TO_THIS_2 = new AssertionErrorPropertiesSource()
+	{
+		@Override public Source reload()
+		{
+			return this;
+		}
+		@Override public String getDescription()
+		{
+			return "RELOADS_TO_THIS_2";
+		}
+	};
 }
