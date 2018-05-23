@@ -90,7 +90,11 @@ final class CascadeSource
 		{
 			final Source[] sources = new Source[this.sources.length];
 			Arrays.setAll(sources, i -> this.sources[i].reload());
-			return new Cascade(sources);
+			for(int i = 0; i<sources.length; i++)
+				if(this.sources[i]!=sources[i])
+					return new Cascade(sources);
+
+			return this;
 		}
 
 		@Override

@@ -23,7 +23,6 @@ import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Properties.Source;
@@ -141,12 +140,7 @@ public class CascadeSourceTest
 	@Test void testReloadNotNeeded()
 	{
 		final Source s = cascade(RELOADS_TO_THIS_1, RELOADS_TO_THIS_2);
-		final Source r = s.reload();
-
-		assertNotSame(s, r);
-
-		assertEquals("RELOADS_TO_THIS_1 / RELOADS_TO_THIS_2", s.getDescription());
-		assertEquals("RELOADS_TO_THIS_1 / RELOADS_TO_THIS_2", r.getDescription());
+		assertSame(s, s.reload());
 	}
 
 	private static final Source RELOADS_TO_THIS_1 = new AssertionErrorPropertiesSource()
@@ -154,10 +148,6 @@ public class CascadeSourceTest
 		@Override public Source reload()
 		{
 			return this;
-		}
-		@Override public String getDescription()
-		{
-			return "RELOADS_TO_THIS_1";
 		}
 	};
 
