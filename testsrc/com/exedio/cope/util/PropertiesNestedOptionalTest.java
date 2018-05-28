@@ -37,19 +37,19 @@ public class PropertiesNestedOptionalTest
 		final InnerProperties nestedFalse = value("nestedFalse", false, InnerProperties::new);
 		final InnerProperties nestedTrue  = value("nestedTrue",  true,  InnerProperties::new);
 
-		final BooleanField nestedFalseEnable = (BooleanField)getField("nestedFalse");
-		final IntField nestedFalseInner1 = (IntField)getField("nestedFalse.inner1");
-		final IntField nestedFalseInner2 = (IntField)getField("nestedFalse.inner2");
-		final BooleanField nestedTrueEnable  = (BooleanField)getField("nestedTrue");
-		final IntField nestedTrueInner1 = (IntField)getField("nestedTrue.inner1");
-		final IntField nestedTrueInner2 = (IntField)getField("nestedTrue.inner2");
+		final Field<?> nestedFalseEnable = getField("nestedFalse");
+		final Field<?> nestedFalseInner1 = getField("nestedFalse.inner1");
+		final Field<?> nestedFalseInner2 = getField("nestedFalse.inner2");
+		final Field<?> nestedTrueEnable  = getField("nestedTrue");
+		final Field<?> nestedTrueInner1  = getField("nestedTrue.inner1");
+		final Field<?> nestedTrueInner2  = getField("nestedTrue.inner2");
 
 		OuterProperties(final java.util.Properties source)
 		{
 			super(view(source, "someDescription"));
 		}
 
-		final IntField outerF = (IntField)getField("outer");
+		final Field<?> outerF = getField("outer");
 		final PropertiesField<InnerProperties> nestedFalseF = forPrefix("nestedFalse", InnerProperties.class);
 		final PropertiesField<InnerProperties> nestedTrueF  = forPrefix("nestedTrue",  InnerProperties.class);
 
@@ -71,7 +71,7 @@ public class PropertiesNestedOptionalTest
 		void assertDisabled()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					outerF,
 					nestedFalseEnable,
 					nestedTrueEnable,
@@ -91,7 +91,7 @@ public class PropertiesNestedOptionalTest
 		void assertEnabled()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					outerF,
 					nestedFalseEnable,
 					nestedFalseInner1,
@@ -137,13 +137,13 @@ public class PropertiesNestedOptionalTest
 			super(source);
 		}
 
-		final IntField inner1F = (IntField)getField("inner1");
-		final IntField inner2F = (IntField)getField("inner2");
+		final Field<?> inner1F = getField("inner1");
+		final Field<?> inner2F = getField("inner2");
 
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					inner1F,
 					inner2F,
 			}), getFields());

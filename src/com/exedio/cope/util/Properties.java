@@ -50,6 +50,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
@@ -59,8 +60,8 @@ public class Properties
 	 // yyyy-mm-dd, allow to leave out leading zeros on month and day but not on year, otherwise 14-1-1 may result in another day as expected
 	static final Pattern DAY_PATTERN = Pattern.compile("(\\d{4})-(\\d{1,2})-(\\d{1,2})");
 
-	final ArrayList<Field> fields = new ArrayList<>();
-	final HashMap<String, Field> fieldsByKey = new HashMap<>();
+	final ArrayList<Field<?>> fields = new ArrayList<>();
+	final HashMap<String, Field<?>> fieldsByKey = new HashMap<>();
 	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<>();
 	final Source source;
 	final String sourceDescription;
@@ -95,13 +96,13 @@ public class Properties
 		return getProbes();
 	}
 
-	public final Field getField(final String key)
+	public final Field<?> getField(final String key)
 	{
 		Sources.checkKey(key);
 		return fieldsByKey.get(key);
 	}
 
-	public final List<Field> getFields()
+	public final List<Field<?>> getFields()
 	{
 		return Collections.unmodifiableList(fields);
 	}
@@ -191,12 +192,25 @@ public class Properties
 		String getDescription();
 	}
 
-	public abstract class Field
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS") // backwards compatibility
+	public final class Field<E>
 	{
 		final String key;
+		private final E minimum;
+		private final E defaultValue;
+		private final boolean hideValue;
+		private final boolean specified;
+		private final E value;
 
 		@SuppressWarnings("ThisEscapedInObjectConstruction")
-		Field(final boolean top, final String key)
+		Field(
+				final boolean top,
+				final String key,
+				final E minimum,
+				final E defaultValue,
+				final boolean hideValue,
+				final boolean specified,
+				final E value)
 		{
 			this.key = key;
 
@@ -211,29 +225,113 @@ public class Properties
 					if(key.startsWith(prefix))
 						throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
+			this.minimum = minimum;
+			this.defaultValue = defaultValue;
+			this.hideValue = hideValue;
+			this.specified = specified;
+			this.value = value;
+
 			fields.add(this);
 		}
 
+		Field(final String key, final Field<E> template)
+		{
+			this(
+					false, key,
+					template.minimum,
+					template.defaultValue,
+					template.hideValue,
+					template.specified,
+					template.value);
+		}
+
 		@Nonnull
-		public final String getKey()
+		public String getKey()
 		{
 			return key;
 		}
 
-		public abstract Object getDefaultValue();
+		public E getMinimum()
+		{
+			return minimum;
+		}
+
+		public E getDefaultValue()
+		{
+			return defaultValue;
+		}
 
 		public boolean hasHiddenValue()
 		{
-			return false;
+			return hideValue;
 		}
 
-		public abstract boolean isSpecified();
+		public boolean isSpecified()
+		{
+			return specified;
+		}
 
 		/**
 		 * Never returns null.
 		 */
 		@Nonnull
-		public abstract Object getValue();
+		public E getValue()
+		{
+			return value;
+		}
+
+		@Nonnull
+		public E get()
+		{
+			return value;
+		}
+	}
+
+	private <E> Field<E> parseField(
+			final String key,
+			final E minimum,
+			final E defaultValue,
+			final Function<String, E> parser)
+	{
+		return parseField(key, minimum, defaultValue, false, parser);
+	}
+
+	private <E> Field<E> parseField(
+			final String key,
+			final E minimum,
+			final E defaultValue,
+			final boolean hideValue,
+			final Function<String, E> parser)
+	{
+		final String s = resolve(key);
+		final boolean specified;
+		final E value;
+		if(s==null)
+		{
+			if(defaultValue==null)
+				throw newException(key,
+						"must be specified as there is no default");
+
+			specified = false;
+			value = defaultValue;
+		}
+		else
+		{
+			specified = true;
+			value = parser.apply(s);
+		}
+		return new Field<>(true, key, minimum, defaultValue, hideValue, specified, value);
+	}
+
+	private <E> Field<E> parseFieldOrDefault(
+			final String key,
+			final String defaultValue,
+			final Function<String, E> parser)
+	{
+		return parseField(
+				key, null,
+				defaultValue!=null ? parser.apply(defaultValue) : null,
+				parser);
 	}
 
 
@@ -247,98 +345,20 @@ public class Properties
 	 * @deprecated Use {@link #value(String, boolean)} instead
 	 */
 	@Deprecated
-	protected final BooleanField field(final String key, final boolean defaultValue)
+	protected final Field<Boolean> field(final String key, final boolean defaultValue)
 	{
-		return new BooleanField(key, defaultValue);
-	}
-
-	public final class BooleanField extends Field
-	{
-		private final boolean defaultValue;
-		private final boolean specified;
-		private final boolean value;
-
-		/**
-		 * @deprecated Use {@link Properties#field(String, boolean)} instead
-		 */
-		@Deprecated
-		public BooleanField(final String key, final boolean defaultValue)
+		return parseField(key, null, defaultValue, (s) ->
 		{
-			super(true, key);
-			this.defaultValue = defaultValue;
-
-			final String s = resolve(key);
-			if(s==null)
-			{
-				specified = false;
-				value = defaultValue;
-			}
-			else
-			{
-				specified = true;
-
 				switch(s)
 				{
-					case "true" : value = true;  break;
-					case "false": value = false; break;
+					case "true" : return true;
+					case "false": return false;
 					default:
 						throw newException(key,
 								"must be either 'true' or 'false', " +
 										"but was '" + s + '\'');
 				}
-			}
-		}
-
-		BooleanField(final String key, final BooleanField template)
-		{
-			super(false, key);
-			this.defaultValue = template.defaultValue;
-			this.specified = template.specified;
-			this.value = template.value;
-		}
-
-		@Override
-		public Object getDefaultValue()
-		{
-			return defaultValue;
-		}
-
-		@Override
-		public boolean isSpecified()
-		{
-			return specified;
-		}
-
-		@Override
-		public Boolean getValue()
-		{
-			return value;
-		}
-
-		public boolean get()
-		{
-			return value;
-		}
-
-		// ------------------- deprecated stuff -------------------
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public boolean getBooleanValue()
-		{
-			return get();
-		}
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public boolean booleanValue()
-		{
-			return get();
-		}
+		});
 	}
 
 
@@ -352,43 +372,16 @@ public class Properties
 	 * @deprecated Use {@link #value(String, int, int)} instead
 	 */
 	@Deprecated
-	protected final IntField field(final String key, final int defaultValue, final int minimum)
+	protected final Field<Integer> field(final String key, final int defaultValue, final int minimum)
 	{
-		return new IntField(key, defaultValue, minimum);
-	}
-
-	public final class IntField extends Field
-	{
-		private final int defaultValue;
-		private final boolean specified;
-		private final int value;
-		private final int minimum;
-
-		/**
-		 * @deprecated Use {@link Properties#field(String, int, int)} instead
-		 */
-		@Deprecated
-		public IntField(final String key, final int defaultValue, final int minimum)
-		{
-			super(true, key);
-			this.defaultValue = defaultValue;
-			this.minimum = minimum;
-
 			if(defaultValue<minimum)
 				throw new IllegalArgumentException(
 						"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
 						"but was " + defaultValue);
 
-			final String s = resolve(key);
-			if(s==null)
-			{
-				specified = false;
-				value = defaultValue;
-			}
-			else
-			{
-				specified = true;
-
+		return parseField(key, minimum, defaultValue, (s) ->
+		{
+				final int value;
 				try
 				{
 					value = Integer.parseInt(s);
@@ -396,81 +389,25 @@ public class Properties
 				catch(final NumberFormatException e)
 				{
 					throw newException(key,
-							mustBe() +
+							mustBe(minimum) +
 							"but was '" + s + '\'',
 							e);
 				}
 
 				if(value<minimum)
 					throw newException(key,
-							mustBe() +
+							mustBe(minimum) +
 							"but was " + value);
-			}
-		}
 
-		private String mustBe()
-		{
+				return value;
+		});
+	}
+
+	private static String mustBe(final int minimum)
+	{
 			return
 				"must be an integer" +
 				(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", ";
-		}
-
-		IntField(final String key, final IntField template)
-		{
-			super(false, key);
-			this.defaultValue = template.defaultValue;
-			this.specified = template.specified;
-			this.value = template.value;
-			this.minimum = template.minimum;
-		}
-
-		@Override
-		public Object getDefaultValue()
-		{
-			return defaultValue;
-		}
-
-		@Override
-		public boolean isSpecified()
-		{
-			return specified;
-		}
-
-		@Override
-		public Integer getValue()
-		{
-			return value;
-		}
-
-		public int getMinimum()
-		{
-			return minimum;
-		}
-
-		public int get()
-		{
-			return value;
-		}
-
-		// ------------------- deprecated stuff -------------------
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public int getIntValue()
-		{
-			return get();
-		}
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public int intValue()
-		{
-			return get();
-		}
 	}
 
 
@@ -484,35 +421,10 @@ public class Properties
 	 * @deprecated Use {@link #value(String, Day)} instead
 	 */
 	@Deprecated
-	protected final DayField field(final String key, final Day defaultValue)
+	protected final Field<Day> field(final String key, final Day defaultValue)
 	{
-		return new DayField(key, defaultValue);
-	}
-
-	public final class DayField extends Field
-	{
-		private final Day defaultValue;
-		private final boolean specified;
-		private final Day value;
-
-		DayField(final String key, final Day defaultValue)
+		return parseField(key, null, defaultValue, (s) ->
 		{
-			super(true, key);
-			this.defaultValue = defaultValue;
-
-			final String s = resolve(key);
-			if(s==null)
-			{
-				if(defaultValue==null)
-					throw newException(key,
-							"must be specified as there is no default");
-
-				specified = false;
-				value = defaultValue;
-			}
-			else
-			{
-				specified = true;
 				try
 				{
 					final Matcher matcher = DAY_PATTERN.matcher(s);
@@ -523,7 +435,7 @@ public class Properties
 					final int month = Integer.parseInt(matcher.group(2));
 					final int day = Integer.parseInt(matcher.group(3));
 
-					value = new Day(year, month, day);
+					return new Day(year, month, day);
 				}
 				catch(final IllegalArgumentException e)
 				{
@@ -532,39 +444,7 @@ public class Properties
 							"but was '" + s + '\'',
 							e);
 				}
-			}
-		}
-
-		DayField(final String key, final DayField template)
-		{
-			super(false, key);
-			this.defaultValue = template.defaultValue;
-			this.specified = template.specified;
-			this.value = template.value;
-		}
-
-		@Override
-		public Day getDefaultValue()
-		{
-			return defaultValue;
-		}
-
-		@Override
-		public boolean isSpecified()
-		{
-			return specified;
-		}
-
-		@Override
-		public Day getValue()
-		{
-			return value;
-		}
-
-		public Day get()
-		{
-			return value;
-		}
+		});
 	}
 
 
@@ -576,143 +456,16 @@ public class Properties
 
 	protected final String valueHidden(final String key, final String defaultValue)
 	{
-		return new StringField(key, defaultValue, true).get();
+		return parseField(key, null, defaultValue, true, (s) -> s).get();
 	}
 
 	/**
 	 * @deprecated Use {@link #value(String, String)} instead
 	 */
 	@Deprecated
-	protected final StringField field(final String key, final String defaultValue)
+	protected final Field<String> field(final String key, final String defaultValue)
 	{
-		return
-			defaultValue!=null
-			? new StringField(key, defaultValue)
-			: new StringField(key);
-	}
-
-	public final class StringField extends Field
-	{
-		private final String defaultValue;
-		private final boolean hideValue;
-		private final boolean specified;
-		private final String value;
-
-		/**
-		 * Creates a mandatory string field.
-		 * @deprecated Use {@link Properties#field(String, String)} instead
-		 */
-		@Deprecated
-		public StringField(final String key)
-		{
-			this(key, null, false);
-		}
-
-		/**
-		 * @deprecated Use {@link Properties#field(String, String)} instead
-		 */
-		@Deprecated
-		public StringField(final String key, final String defaultValue)
-		{
-			this(key, defaultValue, false);
-
-			if(defaultValue==null)
-				throw new NullPointerException("defaultValue");
-		}
-
-		StringField(final String key, final String defaultValue, final boolean hideValue)
-		{
-			super(true, key);
-			this.defaultValue = defaultValue;
-			this.hideValue = hideValue;
-
-			final String s = resolve(key);
-			if(s==null)
-			{
-				if(defaultValue==null)
-					throw newException(key,
-							"must be specified as there is no default");
-
-				specified = false;
-				value = defaultValue;
-			}
-			else
-			{
-				specified = true;
-				value = s;
-			}
-		}
-
-		StringField(final String key, final StringField template)
-		{
-			super(false, key);
-			this.defaultValue = template.defaultValue;
-			this.hideValue = template.hideValue;
-			this.specified = template.specified;
-			this.value = template.value;
-		}
-
-		@Override
-		public Object getDefaultValue()
-		{
-			return defaultValue;
-		}
-
-		@Override
-		public boolean hasHiddenValue()
-		{
-			return hideValue;
-		}
-
-		@Override
-		public boolean isSpecified()
-		{
-			return specified;
-		}
-
-		@Override
-		public String getValue()
-		{
-			return value;
-		}
-
-		/**
-		 * Never returns null.
-		 */
-		public String get()
-		{
-			return value;
-		}
-
-		// ------------------- deprecated stuff -------------------
-
-		/**
-		 * Creates a mandatory string field.
-		 * @deprecated Use {@link Properties#valueHidden(String, String)} instead.
-		 */
-		@Deprecated
-		public StringField(final String key, final boolean hideValue)
-		{
-			this(key, null, hideValue);
-		}
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public String getStringValue()
-		{
-			return get();
-		}
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public String stringValue()
-		{
-			return get();
-		}
+		return parseField(key, null, defaultValue, (s) -> s);
 	}
 
 
@@ -726,81 +479,9 @@ public class Properties
 	 * @deprecated Use {@link #valueFile(String)} instead
 	 */
 	@Deprecated
-	protected final FileField fieldFile(final String key)
+	protected final Field<File> fieldFile(final String key)
 	{
-		return new FileField(key);
-	}
-
-	public final class FileField extends Field
-	{
-		private final File value;
-
-		/**
-		 * @deprecated Use {@link Properties#fieldFile(String)} instead
-		 */
-		@Deprecated
-		public FileField(final String key)
-		{
-			super(true, key);
-
-			final String s = resolve(key);
-			if(s==null)
-				throw newException(key, "must be specified");
-
-			value = new File(s);
-		}
-
-		FileField(final String key, final FileField template)
-		{
-			super(false, key);
-			this.value = template.value;
-		}
-
-		@Override
-		public Object getDefaultValue()
-		{
-			return null;
-		}
-
-		@Override
-		public boolean isSpecified()
-		{
-			return true;
-		}
-
-		@Override
-		public File getValue()
-		{
-			return value;
-		}
-
-		/**
-		 * Never returns null.
-		 */
-		public File get()
-		{
-			return value;
-		}
-
-		// ------------------- deprecated stuff -------------------
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public File getFileValue()
-		{
-			return get();
-		}
-
-		/**
-		 * @deprecated Use {@link #get()} instead
-		 */
-		@Deprecated
-		public File fileValue()
-		{
-			return get();
-		}
+		return parseField(key, null, null, (s) -> new File(s));
 	}
 
 
@@ -811,26 +492,29 @@ public class Properties
 
 	protected final <E extends Enum<E>> E value(final String key, final E defaultValue)
 	{
-		return value(key, defaultValue.getDeclaringClass(), defaultValue.name());
+		return value(key, defaultValue.getDeclaringClass(), defaultValue);
 	}
 
 	private <E extends Enum<E>> E value(
 			final String key,
 			final Class<E> valueClass,
-			final String defaultName)
+			final E defaultValue)
 	{
-		final String value = value(key, defaultName);
+		return parseField(key, null, defaultValue, (value) ->
+		{
 		for(final E result : valueClass.getEnumConstants())
 			if(value.equals(result.name()))
 				return result;
 		throw newException(key,
 				"must be one of " + asList(valueClass.getEnumConstants()) + ", " +
 				"but was '" + value + '\'');
+		}).get();
 	}
 
 	protected final Charset value(final String key, final Charset defaultValue)
 	{
-		final String value = value(key, defaultValue!=null ? defaultValue.name() : null);
+		return parseField(key, null, defaultValue, (value) ->
+		{
 		try
 		{
 			return Charset.forName(value);
@@ -841,11 +525,13 @@ public class Properties
 					"must be one of Charset.availableCharsets(), " +
 					"but was '" + value + '\'', e);
 		}
+		}).get();
 	}
 
 	protected final ZoneId value(final String key, final ZoneId defaultValue)
 	{
-		final String value = value(key, defaultValue!=null ? defaultValue.getId() : null);
+		return parseField(key, null, defaultValue, (value) ->
+		{
 		try
 		{
 			return ZoneId.of(value);
@@ -856,6 +542,7 @@ public class Properties
 					"must be one of ZoneId.getAvailableZoneIds(), " +
 					"but was '" + value + '\'', e);
 		}
+		}).get();
 	}
 
 	protected final Duration value(
@@ -888,7 +575,8 @@ public class Properties
 						"but was " + defaultValue);
 		}
 
-		final String value = value(key, defaultValue!=null ? defaultValue.toString() : null);
+		return parseField(key, null, defaultValue, (value) ->
+		{
 		Duration result;
 		try
 		{
@@ -917,18 +605,22 @@ public class Properties
 					: "must be a duration between " + minimum + " and " + maximum + ", but was " + result );
 
 		return result;
+		}).get();
 	}
 
 	protected final MessageDigestFactory valueMessageDigest(final String key, final String defaultValue)
 	{
+		return parseFieldOrDefault(key, defaultValue, (value) ->
+		{
 		try
 		{
-			return new MessageDigestFactory(value(key, defaultValue));
+			return new MessageDigestFactory(value);
 		}
 		catch(final IllegalAlgorithmException e)
 		{
 			throw newException(key, "must specify a digest, but was '" + e.getAlgorithm() + '\'', e);
 		}
+		}).get();
 	}
 
 	/**
@@ -957,16 +649,17 @@ public class Properties
 			final Class<T> superclass,
 			final Class<P> parameterType)
 	{
-		final String name = value(key, defaultValue);
-		final Class<?> classRaw;
+		final Class<?> classRaw = parseFieldOrDefault(key, defaultValue, (name) ->
+		{
 		try
 		{
-			classRaw = Class.forName(name);
+			return Class.forName(name);
 		}
 		catch(final ClassNotFoundException e)
 		{
 			throw newException(key, "must name a class, but was '" + name + '\'', e);
 		}
+		}).get();
 
 		if(Modifier.isAbstract(classRaw.getModifiers()))
 			throw newException(key,
@@ -1144,7 +837,7 @@ public class Properties
 						"property " + key + " in " + properties.sourceDescription + " invalid, see nested exception",
 						e);
 			}
-			for(final Field field : value.fields)
+			for(final Field<?> field : value.fields)
 				properties.copy(prefix + field.key, field);
 		}
 
@@ -1161,20 +854,9 @@ public class Properties
 
 
 	@SuppressWarnings({"unused", "ResultOfObjectAllocationIgnored"})
-	final void copy(final String key, final Field field)
+	final <E> void copy(final String key, final Field<E> field)
 	{
-		if(field instanceof BooleanField)
-			new BooleanField(key, (BooleanField)field);
-		else if(field instanceof IntField)
-			new IntField(key, (IntField)field);
-		else if(field instanceof DayField)
-			new DayField(key, (DayField)field);
-		else if(field instanceof StringField)
-			new StringField(key, (StringField)field);
-		else if(field instanceof FileField)
-			new FileField(key, (FileField)field);
-		else
-			throw new RuntimeException(field.getClass().getName());
+		new Field<>(key, field);
 	}
 
 	protected final IllegalPropertiesException newException(final String key, final String detail)
@@ -1194,7 +876,7 @@ public class Properties
 			return null;
 
 		final HashSet<String> allowedValues = new HashSet<>();
-		for(final Field field : fields)
+		for(final Field<?> field : fields)
 			allowedValues.add(field.key);
 
 		final TreeSet<String> result = new TreeSet<>();
@@ -1212,7 +894,7 @@ public class Properties
 			return;
 
 		final HashSet<String> allowedValues = new HashSet<>();
-		for(final Field field : fields)
+		for(final Field<?> field : fields)
 			allowedValues.add(field.key);
 
 		final ArrayList<String> allowedPrefixes = new ArrayList<>();
@@ -1236,7 +918,7 @@ public class Properties
 				{
 					// maintain order of fields lost in allowedValues
 					final ArrayList<String> allowedValueList = new ArrayList<>();
-					for(final Field field : fields)
+					for(final Field<?> field : fields)
 						allowedValueList.add(field.key);
 
 					final StringBuilder bf = new StringBuilder();
@@ -1254,11 +936,11 @@ public class Properties
 
 	public final void ensureEquality(final Properties other)
 	{
-		final Iterator<Field> j = other.fields.iterator();
-		for(final Iterator<Field> i = fields.iterator(); i.hasNext()&&j.hasNext(); )
+		final Iterator<Field<?>> j = other.fields.iterator();
+		for(final Iterator<Field<?>> i = fields.iterator(); i.hasNext()&&j.hasNext(); )
 		{
-			final Field thisField = i.next();
-			final Field otherField = j.next();
+			final Field<?> thisField = i.next();
+			final Field<?> otherField = j.next();
 			final boolean thisHideValue = thisField.hasHiddenValue();
 			final boolean otherHideValue = otherField.hasHiddenValue();
 

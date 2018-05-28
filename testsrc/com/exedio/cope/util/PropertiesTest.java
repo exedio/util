@@ -59,23 +59,23 @@ public class PropertiesTest
 			super(view(source, sourceDescription));
 		}
 
-		final BooleanField boolFalseF = (BooleanField)getField("boolFalse");
-		final BooleanField boolTrueF = (BooleanField)getField("boolTrue");
-		final IntField intAnyF = (IntField)getField("intAny");
-		final IntField int10F = (IntField)getField("int10");
-		final StringField stringMandatoryF = (StringField)getField("stringMandatory");
-		final StringField stringOptionalF = (StringField)getField("stringOptional");
-		final StringField stringHiddenF = (StringField)getField("stringHidden");
-		final StringField stringHiddenOptionalF = (StringField)getField("stringHiddenOptional");
-		final DayField dayMandatoryF = (DayField)getField("dayMandatory");
-		final DayField dayOptionalF = (DayField)getField("dayOptional");
-		final FileField fileF = (FileField)getField("file");
+		final Field<?> boolFalseF = getField("boolFalse");
+		final Field<?> boolTrueF  = getField("boolTrue");
+		final Field<?> intAnyF = getField("intAny");
+		final Field<?> int10F  = getField("int10");
+		final Field<?> stringMandatoryF      = getField("stringMandatory");
+		final Field<?> stringOptionalF       = getField("stringOptional");
+		final Field<?> stringHiddenF         = getField("stringHidden");
+		final Field<?> stringHiddenOptionalF = getField("stringHiddenOptional");
+		final Field<?> dayMandatoryF = getField("dayMandatory");
+		final Field<?> dayOptionalF  = getField("dayOptional");
+		final Field<?> fileF = getField("file");
 
 
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					boolFalseF,
 					boolTrueF,
 					intAnyF,
@@ -409,7 +409,7 @@ public class PropertiesTest
 				"wrong.file.missing",
 				"file", null,
 				"property file in wrong.file.missing " +
-				"must be specified");
+				"must be specified as there is no default");
 
 		final File file2 = folder.newFile("file2");
 		assertInconsistent(pminimal,

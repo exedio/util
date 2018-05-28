@@ -45,8 +45,8 @@ public class PropertiesMessageDigestTest
 
 		assertEquals( MD5,      props.mandatory);
 		assertEquals( SHA_512,  props.optional);
-		assertEquals("MD5",     props.mandatoryF.getValue());
-		assertEquals("SHA-512", props.optionalF .getValue());
+		assertEquals( MD5,      props.mandatoryF.getValue());
+		assertEquals( SHA_512,  props.optionalF .getValue());
 		assertEquals("MD5",     props.mandatory.getAlgorithm());
 		assertEquals("SHA-512", props.optional .getAlgorithm());
 		assertEquals("MD5",     props.mandatory.toString());
@@ -95,8 +95,8 @@ public class PropertiesMessageDigestTest
 		assertEquals( SHA_384,  props.optional);
 		assertEquals("SHA-256", props.mandatory.getAlgorithm());
 		assertEquals("SHA-384", props.optional .getAlgorithm());
-		assertEquals("SHA-256", props.mandatoryF.getValue());
-		assertEquals("SHA-384", props.optionalF .getValue());
+		assertEquals( SHA_256,  props.mandatoryF.getValue());
+		assertEquals( SHA_384,  props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 
@@ -140,8 +140,8 @@ public class PropertiesMessageDigestTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)getField("mandatory");
-		final StringField optionalF  = (StringField)getField("optional");
+		final Field<?> mandatoryF = getField("mandatory");
+		final Field<?> optionalF  = getField("optional");
 
 
 		void assertIt()
@@ -153,7 +153,7 @@ public class PropertiesMessageDigestTest
 			assertEquals("optional",  optionalF .getKey());
 
 			assertEquals(null,      mandatoryF.getDefaultValue());
-			assertEquals("SHA-512", optionalF .getDefaultValue());
+			assertEquals(new MessageDigestFactory("SHA-512"), optionalF.getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());

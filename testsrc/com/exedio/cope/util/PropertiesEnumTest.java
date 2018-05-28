@@ -41,8 +41,8 @@ public class PropertiesEnumTest
 
 		assertEquals(MANDATORY, props.mandatory);
 		assertEquals(OPTIONAL,  props.optional);
-		assertEquals("MANDATORY", props.mandatoryF.getValue());
-		assertEquals("OPTIONAL",  props.optionalF .getValue());
+		assertEquals(MANDATORY, props.mandatoryF.getValue());
+		assertEquals(OPTIONAL,  props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 	}
@@ -57,8 +57,8 @@ public class PropertiesEnumTest
 
 		assertEquals(BETA,  props.mandatory);
 		assertEquals(GAMMA, props.optional);
-		assertEquals("BETA",  props.mandatoryF.getValue());
-		assertEquals("GAMMA", props.optionalF .getValue());
+		assertEquals(BETA,  props.mandatoryF.getValue());
+		assertEquals(GAMMA, props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 	}
@@ -97,8 +97,8 @@ public class PropertiesEnumTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)getField("mandatory");
-		final StringField optionalF  = (StringField)getField("optional");
+		final Field<?> mandatoryF = getField("mandatory");
+		final Field<?> optionalF  = getField("optional");
 
 
 		void assertIt()
@@ -110,7 +110,7 @@ public class PropertiesEnumTest
 			assertEquals("optional",  optionalF .getKey());
 
 			assertEquals(null,       mandatoryF.getDefaultValue());
-			assertEquals("OPTIONAL", optionalF .getDefaultValue());
+			assertEquals(OPTIONAL,   optionalF .getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());

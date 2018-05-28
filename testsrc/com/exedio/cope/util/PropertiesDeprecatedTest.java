@@ -24,6 +24,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.File;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
@@ -32,19 +33,17 @@ public class PropertiesDeprecatedTest
 	static class TestProperties extends Properties
 	{
 		@SuppressWarnings("deprecation")
-		final BooleanField boolFalse = field("boolFalse", false);
+		final Field<Boolean> boolFalse = field("boolFalse", false);
 		@SuppressWarnings("deprecation")
-		final BooleanField boolTrue = field("boolTrue", true);
+		final Field<Boolean> boolTrue = field("boolTrue", true);
 		@SuppressWarnings("deprecation")
-		final IntField int10 = field("int10", 10, 5);
+		final Field<Integer> int10 = field("int10", 10, 5);
 		@SuppressWarnings("deprecation")
-		final StringField stringMandatory = field("stringMandatory", (String)null);
+		final Field<String> stringMandatory = field("stringMandatory", (String)null);
 		@SuppressWarnings("deprecation")
-		final StringField stringOptional = field("stringOptional", "stringOptional.defaultValue");
+		final Field<String> stringOptional = field("stringOptional", "stringOptional.defaultValue");
 		@SuppressWarnings("deprecation")
-		final StringField stringHidden = new StringField("stringHidden", true);
-		@SuppressWarnings("deprecation")
-		final FileField file = fieldFile("file");
+		final Field<File> file = fieldFile("file");
 
 		TestProperties(final java.util.Properties source)
 		{
@@ -54,13 +53,12 @@ public class PropertiesDeprecatedTest
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					boolFalse,
 					boolTrue,
 					int10,
 					stringMandatory,
 					stringOptional,
-					stringHidden,
 					file,
 			}), getFields());
 
@@ -69,16 +67,14 @@ public class PropertiesDeprecatedTest
 			assertEquals("int10", int10.getKey());
 			assertEquals("stringMandatory", stringMandatory.getKey());
 			assertEquals("stringOptional", stringOptional.getKey());
-			assertEquals("stringHidden", stringHidden.getKey());
 			assertEquals("file", file.getKey());
 
 			assertEquals(Boolean.FALSE, boolFalse.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrue.getDefaultValue());
 			assertEquals(Integer.valueOf(10), int10.getDefaultValue());
-			assertEquals(5, int10.getMinimum());
+			assertEquals(Integer.valueOf(5), int10.getMinimum());
 			assertEquals(null, stringMandatory.getDefaultValue());
 			assertEquals("stringOptional.defaultValue", stringOptional.getDefaultValue());
-			assertEquals(null, stringHidden.getDefaultValue());
 			assertEquals(null, file.getDefaultValue());
 
 			assertEquals(false, boolFalse.hasHiddenValue());
@@ -86,7 +82,6 @@ public class PropertiesDeprecatedTest
 			assertEquals(false, int10.hasHiddenValue());
 			assertEquals(false, stringMandatory.hasHiddenValue());
 			assertEquals(false, stringOptional.hasHiddenValue());
-			assertEquals(true, stringHidden.hasHiddenValue());
 			assertEquals(false, file.hasHiddenValue());
 		}
 

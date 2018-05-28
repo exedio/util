@@ -40,8 +40,8 @@ public class PropertiesZoneIdTest
 
 		assertEquals(of("Europe/Berlin"), props.mandatory);
 		assertEquals(of("Europe/Moscow"), props.optional);
-		assertEquals("Europe/Berlin", props.mandatoryF.getValue());
-		assertEquals("Europe/Moscow", props.optionalF .getValue());
+		assertEquals(of("Europe/Berlin"), props.mandatoryF.getValue());
+		assertEquals(of("Europe/Moscow"), props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 	}
@@ -56,8 +56,8 @@ public class PropertiesZoneIdTest
 
 		assertEquals(of("Canada/Eastern"),  props.mandatory);
 		assertEquals(of("Canada/Atlantic"), props.optional);
-		assertEquals("Canada/Eastern",  props.mandatoryF.getValue());
-		assertEquals("Canada/Atlantic", props.optionalF .getValue());
+		assertEquals(of("Canada/Eastern"),  props.mandatoryF.getValue());
+		assertEquals(of("Canada/Atlantic"), props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 	}
@@ -96,8 +96,8 @@ public class PropertiesZoneIdTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)getField("mandatory");
-		final StringField optionalF  = (StringField)getField("optional");
+		final Field<?> mandatoryF = getField("mandatory");
+		final Field<?> optionalF  = getField("optional");
 
 
 		void assertIt()
@@ -109,7 +109,7 @@ public class PropertiesZoneIdTest
 			assertEquals("optional",  optionalF .getKey());
 
 			assertEquals(null,            mandatoryF.getDefaultValue());
-			assertEquals("Europe/Moscow", optionalF .getDefaultValue());
+			assertEquals(of("Europe/Moscow"), optionalF.getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());

@@ -36,24 +36,24 @@ public class PropertiesNestedTest
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
 		final Inner nested = valnp("nestedO", Inner::new);
-		final IntField nestedInner1 = (IntField)getField("nestedO.inner1");
-		final IntField nestedInner2 = (IntField)getField("nestedO.inner2");
-		final IntField nestedDrinner1 = (IntField)getField("nestedO.nestedI.drinner1");
-		final IntField nestedDrinner2 = (IntField)getField("nestedO.nestedI.drinner2");
+		final Field<?> nestedInner1   = getField("nestedO.inner1");
+		final Field<?> nestedInner2   = getField("nestedO.inner2");
+		final Field<?> nestedDrinner1 = getField("nestedO.nestedI.drinner1");
+		final Field<?> nestedDrinner2 = getField("nestedO.nestedI.drinner2");
 
 		Outer(final java.util.Properties source)
 		{
 			super(view(source, "someDescription"));
 		}
 
-		final IntField outer1F = (IntField)getField("outer1");
-		final IntField outer2F = (IntField)getField("outer2");
+		final Field<?> outer1F = getField("outer1");
+		final Field<?> outer2F = getField("outer2");
 		final PropertiesField<Inner> nestedF = forPrefix("nestedO", Inner.class);
 
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					outer1F,
 					outer2F,
 					nestedInner1,
@@ -98,22 +98,22 @@ public class PropertiesNestedTest
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
 		final Drinner nested = valnp("nestedI", Drinner::new);
-		final IntField nestedDrinner1 = (IntField)getField("nestedI.drinner1");
-		final IntField nestedDrinner2 = (IntField)getField("nestedI.drinner2");
+		final Field<?> nestedDrinner1 = getField("nestedI.drinner1");
+		final Field<?> nestedDrinner2 = getField("nestedI.drinner2");
 
 		Inner(final Source source)
 		{
 			super(source);
 		}
 
-		final IntField inner1F = (IntField)getField("inner1");
-		final IntField inner2F = (IntField)getField("inner2");
+		final Field<?> inner1F = getField("inner1");
+		final Field<?> inner2F = getField("inner2");
 		final PropertiesField<Drinner> nestedF = forPrefix("nestedI", Drinner.class);
 
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					inner1F,
 					inner2F,
 					nestedDrinner1,
@@ -153,13 +153,13 @@ public class PropertiesNestedTest
 			super(source);
 		}
 
-		final IntField drinner1F = (IntField)getField("drinner1");
-		final IntField drinner2F = (IntField)getField("drinner2");
+		final Field<?> drinner1F = getField("drinner1");
+		final Field<?> drinner2F = getField("drinner2");
 
 		void assertIt()
 		{
 			assertEqualsUnmodifiable(asList(), getProbes());
-			assertEqualsUnmodifiable(asList(new Properties.Field[]{
+			assertEqualsUnmodifiable(asList(new Properties.Field<?>[]{
 					drinner1F,
 					drinner2F,
 			}), getFields());

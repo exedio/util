@@ -46,9 +46,9 @@ public class PropertiesDurationTest
 		assertEquals(ofMinutes(55), props.mandatory);
 		assertEquals(ofMinutes(44), props.optional);
 		assertEquals(ofMinutes(45), props.max);
-		assertEquals("PT55M", props.mandatoryF.getValue());
-		assertEquals("PT44M", props.optionalF .getValue());
-		assertEquals("PT45M", props.maxF      .getValue());
+		assertEquals(ofMinutes(55), props.mandatoryF.getValue());
+		assertEquals(ofMinutes(44), props.optionalF .getValue());
+		assertEquals(ofMinutes(45), props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 		assertFalse(props.maxF      .isSpecified());
@@ -66,9 +66,9 @@ public class PropertiesDurationTest
 		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatory);
 		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optional);
 		assertEquals(ofMinutes(48), props.max);
-		assertEquals("PT3H33M", props.mandatoryF.getValue());
-		assertEquals("PT4H44M", props.optionalF .getValue());
-		assertEquals(  "PT48M", props.maxF      .getValue());
+		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatoryF.getValue());
+		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optionalF .getValue());
+		assertEquals(ofMinutes(48),  props.maxF.getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -86,9 +86,9 @@ public class PropertiesDurationTest
 		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatory);
 		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optional);
 		assertEquals(ofMinutes(48), props.max);
-		assertEquals("12780000", props.mandatoryF.getValue());
-		assertEquals("17040000", props.optionalF .getValue());
-		assertEquals( "2880000", props.maxF      .getValue());
+		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatoryF.getValue());
+		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optionalF .getValue());
+		assertEquals(ofMinutes(48), props.maxF.getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -106,9 +106,9 @@ public class PropertiesDurationTest
 		assertEquals(ofMinutes(21), props.mandatory);
 		assertEquals(ofMinutes(41), props.optional);
 		assertEquals(ofMinutes(42), props.max);
-		assertEquals("PT21M", props.mandatoryF.getValue());
-		assertEquals("PT41M", props.optionalF .getValue());
-		assertEquals("PT42M", props.maxF      .getValue());
+		assertEquals(ofMinutes(21), props.mandatoryF.getValue());
+		assertEquals(ofMinutes(41), props.optionalF .getValue());
+		assertEquals(ofMinutes(42), props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -126,9 +126,9 @@ public class PropertiesDurationTest
 		assertEquals(ofMinutes(21), props.mandatory);
 		assertEquals(ofMinutes(41), props.optional);
 		assertEquals(ofMinutes(42), props.max);
-		assertEquals("1260000", props.mandatoryF.getValue());
-		assertEquals("2460000", props.optionalF .getValue());
-		assertEquals("2520000", props.maxF      .getValue());
+		assertEquals(ofMinutes(21), props.mandatoryF.getValue());
+		assertEquals(ofMinutes(41), props.optionalF .getValue());
+		assertEquals(ofMinutes(42), props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -211,9 +211,9 @@ public class PropertiesDurationTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)getField("mandatory");
-		final StringField optionalF  = (StringField)getField("optional");
-		final StringField maxF       = (StringField)getField("max");
+		final Field<?> mandatoryF = getField("mandatory");
+		final Field<?> optionalF  = getField("optional");
+		final Field<?> maxF       = getField("max");
 
 
 		void assertIt()
@@ -226,8 +226,8 @@ public class PropertiesDurationTest
 			assertEquals("max",       maxF      .getKey());
 
 			assertEquals(null,    mandatoryF.getDefaultValue());
-			assertEquals("PT44M", optionalF .getDefaultValue());
-			assertEquals("PT45M", maxF      .getDefaultValue());
+			assertEquals(ofMinutes(44), optionalF.getDefaultValue());
+			assertEquals(ofMinutes(45), maxF     .getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());

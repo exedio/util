@@ -43,8 +43,8 @@ public class PropertiesCharsetTest
 
 		assertEquals(UTF_16,   props.mandatory);
 		assertEquals(US_ASCII, props.optional);
-		assertEquals("UTF-16",   props.mandatoryF.getValue());
-		assertEquals("US-ASCII", props.optionalF .getValue());
+		assertEquals(UTF_16,   props.mandatoryF.getValue());
+		assertEquals(US_ASCII, props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 	}
@@ -59,8 +59,8 @@ public class PropertiesCharsetTest
 
 		assertEquals(UTF_16LE, props.mandatory);
 		assertEquals(UTF_16BE, props.optional);
-		assertEquals("UTF-16LE", props.mandatoryF.getValue());
-		assertEquals("UTF-16BE", props.optionalF .getValue());
+		assertEquals(UTF_16LE, props.mandatoryF.getValue());
+		assertEquals(UTF_16BE, props.optionalF .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 	}
@@ -99,8 +99,8 @@ public class PropertiesCharsetTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)getField("mandatory");
-		final StringField optionalF  = (StringField)getField("optional");
+		final Field<?> mandatoryF = getField("mandatory");
+		final Field<?> optionalF  = getField("optional");
 
 
 		void assertIt()
@@ -112,7 +112,7 @@ public class PropertiesCharsetTest
 			assertEquals("optional",  optionalF .getKey());
 
 			assertEquals(null,       mandatoryF.getDefaultValue());
-			assertEquals("US-ASCII", optionalF .getDefaultValue());
+			assertEquals(US_ASCII,   optionalF .getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());

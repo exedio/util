@@ -35,8 +35,8 @@ public class PropertiesServiceTest
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
 
-		assertEquals(ONE, props.mandatoryF.getValue());
-		assertEquals(TWO, props.optionalF .getValue());
+		assertEquals(One.class, props.mandatoryF.getValue());
+		assertEquals(Two.class, props.optionalF .getValue());
 		assertEquals(One.class, props.mandatory.getServiceClass());
 		assertEquals(Two.class, props.optional .getServiceClass());
 		assertEquals(ONE, props.mandatory.toString());
@@ -59,7 +59,7 @@ public class PropertiesServiceTest
 		final MyProps props = new MyProps(p);
 		props.assertIt();
 
-		assertEquals(NESTED, props.mandatoryF.getValue());
+		assertEquals(NestedService.class, props.mandatoryF.getValue());
 		assertEquals(NestedService.class, props.mandatory.getServiceClass());
 		assertEquals(NESTED, props.mandatory.toString());
 		assertTrue(props.mandatoryF.isSpecified());
@@ -80,8 +80,8 @@ public class PropertiesServiceTest
 
 		assertEquals(Three.class, props.mandatory.getServiceClass());
 		assertEquals(Four .class, props.optional .getServiceClass());
-		assertEquals(THREE, props.mandatoryF.getValue());
-		assertEquals(FOUR,  props.optionalF .getValue());
+		assertEquals(Three.class, props.mandatoryF.getValue());
+		assertEquals(Four .class, props.optionalF .getValue());
 		assertTrue(props.mandatoryF.isSpecified());
 		assertTrue(props.optionalF .isSpecified());
 	}
@@ -224,10 +224,10 @@ public class PropertiesServiceTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final StringField mandatoryF = (StringField)getField("mandatory");
-		final StringField optionalF  = (StringField)getField("optional");
-		final StringField mandatoryNestedAF = (StringField)getField("mandatory.nestedA");
-		final IntField    mandatoryNestedBF = (IntField)   getField("mandatory.nestedB");
+		final Field<?> mandatoryF = getField("mandatory");
+		final Field<?> optionalF  = getField("optional");
+		final Field<?> mandatoryNestedAF = getField("mandatory.nestedA");
+		final Field<?> mandatoryNestedBF = getField("mandatory.nestedB");
 
 
 		void assertIt()
@@ -243,7 +243,7 @@ public class PropertiesServiceTest
 			assertEquals("optional",  optionalF .getKey());
 
 			assertEquals(null, mandatoryF.getDefaultValue());
-			assertEquals(TWO,  optionalF .getDefaultValue());
+			assertEquals(Two.class, optionalF.getDefaultValue());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
