@@ -1008,15 +1008,24 @@ public class Properties
 		}
 
 		final String value = value(key, defaultValue!=null ? defaultValue.toString() : null);
-		final Duration result;
+		Duration result;
 		try
 		{
 			result = Duration.parse(value);
 		}
 		catch(final DateTimeParseException e)
 		{
-			throw newException(key,
-					"must be a duration, but was '" + value + '\'', e);
+			final long millis;
+			try
+			{
+				millis = Long.parseLong(value);
+			}
+			catch(final NumberFormatException ignored)
+			{
+				throw newException(key,
+						"must be a duration, but was '" + value + '\'', e);
+			}
+			result = Duration.ofMillis(millis);
 		}
 
 		if(result.compareTo(minimum)<0 ||

@@ -23,6 +23,7 @@ import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
 import static java.time.Duration.ofHours;
+import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofMinutes;
 import static java.time.Duration.ofNanos;
 import static java.util.Arrays.asList;
@@ -73,6 +74,26 @@ public class PropertiesDurationTest
 		assertTrue (props.maxF      .isSpecified());
 	}
 
+	@Test void testSetMillis()
+	{
+		final java.util.Properties p = minimal();
+		p.setProperty("mandatory", String.valueOf(((3*60)+33)*60_000));
+		p.setProperty("optional",  String.valueOf(((4*60)+44)*60_000));
+		p.setProperty("max",       String.valueOf(        48 *60_000));
+		final MyProps props = new MyProps(p);
+		props.assertIt();
+
+		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatory);
+		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optional);
+		assertEquals(ofMinutes(48), props.max);
+		assertEquals("12780000", props.mandatoryF.getValue());
+		assertEquals("17040000", props.optionalF .getValue());
+		assertEquals( "2880000", props.maxF      .getValue());
+		assertTrue (props.mandatoryF.isSpecified());
+		assertTrue (props.optionalF .isSpecified());
+		assertTrue (props.maxF      .isSpecified());
+	}
+
 	@Test void testSetMinimum()
 	{
 		final java.util.Properties p = minimal();
@@ -88,6 +109,26 @@ public class PropertiesDurationTest
 		assertEquals("PT21M", props.mandatoryF.getValue());
 		assertEquals("PT41M", props.optionalF .getValue());
 		assertEquals("PT42M", props.maxF      .getValue());
+		assertTrue (props.mandatoryF.isSpecified());
+		assertTrue (props.optionalF .isSpecified());
+		assertTrue (props.maxF      .isSpecified());
+	}
+
+	@Test void testSetMinimumMillis()
+	{
+		final java.util.Properties p = minimal();
+		p.setProperty("mandatory", String.valueOf(21*60_000));
+		p.setProperty("optional",  String.valueOf(41*60_000));
+		p.setProperty("max",       String.valueOf(42*60_000));
+		final MyProps props = new MyProps(p);
+		props.assertIt();
+
+		assertEquals(ofMinutes(21), props.mandatory);
+		assertEquals(ofMinutes(41), props.optional);
+		assertEquals(ofMinutes(42), props.max);
+		assertEquals("1260000", props.mandatoryF.getValue());
+		assertEquals("2460000", props.optionalF .getValue());
+		assertEquals("2520000", props.maxF      .getValue());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -123,6 +164,13 @@ public class PropertiesDurationTest
 				"must be a duration greater or equal PT41M, but was " + ofMinutes(41).minus(ofNanos(1)), null);
 	}
 
+	@Test void testOptionalMinimumMillis()
+	{
+		assertWrong(
+				"optional", String.valueOf(41*60_000 - 1),
+				"must be a duration greater or equal PT41M, but was " + ofMinutes(41).minus(ofMillis(1)), null);
+	}
+
 	@Test void testMaxMinimum()
 	{
 		assertWrong(
@@ -130,11 +178,25 @@ public class PropertiesDurationTest
 				"must be a duration between PT42M and PT48M, but was PT41M59.999999999S", null);
 	}
 
+	@Test void testMaxMinimumMillis()
+	{
+		assertWrong(
+				"max", String.valueOf(42*60_000 - 1),
+				"must be a duration between PT42M and PT48M, but was PT41M59.999S", null);
+	}
+
 	@Test void testMaxMaximum()
 	{
 		assertWrong(
 				"max", "PT48M0.000000001S",
 				"must be a duration between PT42M and PT48M, but was PT48M0.000000001S", null);
+	}
+
+	@Test void testMaxMaximumMillis()
+	{
+		assertWrong(
+				"max", String.valueOf(48*60_000 + 1),
+				"must be a duration between PT42M and PT48M, but was PT48M0.001S", null);
 	}
 
 
