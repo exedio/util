@@ -83,7 +83,17 @@ public class CounterTest
 					atomic.incrementAndGet();
 				}
 				final long elapsed = System.nanoTime()-start;
-				System.out.println("-------atomic       " + elapsed/1_000_000);
+				System.out.println("-------atom incGet  " + elapsed/1_000_000);
+			}
+			{
+				atomic.set(0);
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					atomic.getAndIncrement();
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------atom getInc  " + elapsed/1_000_000);
 			}
 			{
 				countNaked = 0;
