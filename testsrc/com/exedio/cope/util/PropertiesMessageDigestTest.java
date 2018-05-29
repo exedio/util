@@ -33,11 +33,18 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesMessageDigestTest
 {
+	private static final MessageDigestFactory MD5     = new MessageDigestFactory("MD5");
+	private static final MessageDigestFactory SHA_256 = new MessageDigestFactory("SHA-256");
+	private static final MessageDigestFactory SHA_384 = new MessageDigestFactory("SHA-384");
+	private static final MessageDigestFactory SHA_512 = new MessageDigestFactory("SHA-512");
+
 	@Test void testMinimal()
 	{
 		final MyProps props = new MyProps(minimal());
 		props.assertIt();
 
+		assertEquals( MD5,      props.mandatory);
+		assertEquals( SHA_512,  props.optional);
 		assertEquals("MD5",     props.mandatoryF.getValue());
 		assertEquals("SHA-512", props.optionalF .getValue());
 		assertEquals("MD5",     props.mandatory.getAlgorithm());
@@ -84,6 +91,8 @@ public class PropertiesMessageDigestTest
 		final MyProps props = new MyProps(p);
 		props.assertIt();
 
+		assertEquals( SHA_256,  props.mandatory);
+		assertEquals( SHA_384,  props.optional);
 		assertEquals("SHA-256", props.mandatory.getAlgorithm());
 		assertEquals("SHA-384", props.optional .getAlgorithm());
 		assertEquals("SHA-256", props.mandatoryF.getValue());
