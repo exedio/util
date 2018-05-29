@@ -28,8 +28,8 @@ public class PropertiesIntegerWrongTest
 	{
 		assertFails(
 				PropsDefaultViolatesMaximum::new,
-				RuntimeException.class,
-				"myKey55,56");
+				IllegalArgumentException.class,
+				"default of myKey must not be smaller than minimum of 56, but was 55");
 	}
 	static class PropsDefaultViolatesMaximum extends MyProperties
 	{

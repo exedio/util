@@ -377,7 +377,9 @@ public class Properties
 			this.minimum = minimum;
 
 			if(defaultValue<minimum)
-				throw new RuntimeException(key+defaultValue+','+minimum);
+				throw new IllegalArgumentException(
+						"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
+						"but was " + defaultValue);
 
 			final String s = resolve(key);
 			if(s==null)
