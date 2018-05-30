@@ -36,18 +36,18 @@ public class PropertiesServiceTest
 		props.assertIt();
 
 		assertEquals(ONE, props.mandatoryF.getValue());
-		assertEquals(TWO,  props.optionalF .getValue());
+		assertEquals(TWO, props.optionalF .getValue());
 		assertEquals(One.class, props.mandatory.getServiceClass());
-		assertEquals(Two.class,  props.optional .getServiceClass());
+		assertEquals(Two.class, props.optional .getServiceClass());
 		assertEquals(ONE, props.mandatory.toString());
-		assertEquals(TWO,  props.optional .toString());
+		assertEquals(TWO, props.optional .toString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 
 		final MyService mandatory = props.mandatory.newInstance("mandatoryParameter");
 		final MyService optional  = props.optional .newInstance("optionalParameter");
 		assertEquals(One.class, mandatory.getClass());
-		assertEquals(Two.class,  optional. getClass());
+		assertEquals(Two.class, optional .getClass());
 		assertEquals("mandatoryParameter", mandatory.parameter);
 		assertEquals("optionalParameter",  optional .parameter);
 	}
@@ -82,8 +82,8 @@ public class PropertiesServiceTest
 		assertEquals(Four .class, props.optional .getServiceClass());
 		assertEquals(THREE, props.mandatoryF.getValue());
 		assertEquals(FOUR,  props.optionalF .getValue());
-		assertTrue (props.mandatoryF.isSpecified());
-		assertTrue (props.optionalF .isSpecified());
+		assertTrue(props.mandatoryF.isSpecified());
+		assertTrue(props.optionalF .isSpecified());
 	}
 
 	@Test void testSetNested()
