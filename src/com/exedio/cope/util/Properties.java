@@ -1326,7 +1326,7 @@ public class Properties
 				allowedValues.add(field.key);
 		}
 
-		for(final String key : source.keySet())
+		for(final String key : keySet)
 		{
 			if(!allowedValues.contains(key))
 			{
@@ -1366,7 +1366,7 @@ public class Properties
 		if(prefixes!=null)
 			allowedPrefixes.addAll(asList(prefixes));
 
-		for(final String key : source.keySet())
+		for(final String key : keySet)
 		{
 			if(!allowedValues.contains(key))
 			{
