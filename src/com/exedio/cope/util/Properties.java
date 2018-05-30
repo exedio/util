@@ -62,7 +62,7 @@ public class Properties
 	static final Pattern DAY_PATTERN = Pattern.compile("(\\d{4})-(\\d{1,2})-(\\d{1,2})");
 
 	final ArrayList<Field> fields = new ArrayList<>();
-	final HashMap<String, Field> detectDuplicateKeys = new HashMap<>();
+	final HashMap<String, Field> fieldsByKey = new HashMap<>();
 	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<>();
 	final Source source;
 	final String sourceDescription;
@@ -100,7 +100,7 @@ public class Properties
 	public final Field getField(final String key)
 	{
 		Sources.checkKey(key);
-		return detectDuplicateKeys.get(key);
+		return fieldsByKey.get(key);
 	}
 
 	public final List<Field> getFields()
@@ -206,7 +206,7 @@ public class Properties
 				throw new NullPointerException("key");
 			if(key.isEmpty())
 				throw new RuntimeException("key must not be empty.");
-			if(detectDuplicateKeys.put(key, this)!=null)
+			if(fieldsByKey.put(key, this)!=null)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
 			if(top)
 				for(final String prefix : detectDuplicatePrefixes.keySet())
@@ -1241,7 +1241,7 @@ public class Properties
 			for(final String other : properties.detectDuplicatePrefixes.keySet())
 				if(other.startsWith(prefix) || prefix.startsWith(other))
 					throw new IllegalArgumentException("properties field '" + prefix + "' collides with properties field '" + other + '\'');
-			for(final String simple : properties.detectDuplicateKeys.keySet())
+			for(final String simple : properties.fieldsByKey.keySet())
 				if(simple.startsWith(prefix))
 					throw new IllegalArgumentException("properties field '" + key + "' collides with field '" + simple + '\'');
 			if(properties.detectDuplicatePrefixes.put(prefix, this)!=null)
