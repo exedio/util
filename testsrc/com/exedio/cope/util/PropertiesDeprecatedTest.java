@@ -32,21 +32,21 @@ public class PropertiesDeprecatedTest
 	static class TestProperties extends Properties
 	{
 		@SuppressWarnings("deprecation")
-		final BooleanField boolFalse = new BooleanField("boolFalse", false);
+		final BooleanField boolFalse = field("boolFalse", false);
 		@SuppressWarnings("deprecation")
-		final BooleanField boolTrue = new BooleanField("boolTrue", true);
+		final BooleanField boolTrue = field("boolTrue", true);
 		@SuppressWarnings("deprecation")
-		final IntField int10 = new IntField("int10", 10, 5);
+		final IntField int10 = field("int10", 10, 5);
 		@SuppressWarnings("deprecation")
-		final StringField stringMandatory = new StringField("stringMandatory");
+		final StringField stringMandatory = field("stringMandatory", (String)null);
 		@SuppressWarnings("deprecation")
-		final StringField stringOptional = new StringField("stringOptional", "stringOptional.defaultValue");
+		final StringField stringOptional = field("stringOptional", "stringOptional.defaultValue");
 		@SuppressWarnings("deprecation")
 		final StringField stringHidden = new StringField("stringHidden", true);
 		@SuppressWarnings("deprecation")
-		final FileField file = new FileField("file");
+		final FileField file = fieldFile("file");
 		@SuppressWarnings("deprecation")
-		final MapField map = new MapField("map");
+		final MapField map = fieldMap("map");
 
 		TestProperties(final java.util.Properties source)
 		{
