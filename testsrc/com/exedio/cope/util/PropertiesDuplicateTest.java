@@ -61,8 +61,8 @@ public class PropertiesDuplicateTest
 	{
 		assertFails(
 				KeyEmptyProperties::new,
-				RuntimeException.class,
-				"key must not be empty.");
+				IllegalArgumentException.class,
+				"key must not be empty");
 	}
 
 

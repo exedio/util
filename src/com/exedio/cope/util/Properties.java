@@ -214,10 +214,7 @@ public class Properties
 		{
 			this.key = key;
 
-			if(key==null)
-				throw new NullPointerException("key");
-			if(key.isEmpty())
-				throw new RuntimeException("key must not be empty.");
+			Sources.checkKey(key);
 			if(fieldsByKey.put(key, this)!=null)
 				throw new IllegalArgumentException("duplicate key '" + key + '\'');
 			if(top)
