@@ -349,15 +349,15 @@ public class Properties
 	{
 		return parseField(key, null, defaultValue, (s) ->
 		{
-				switch(s)
-				{
-					case "true" : return true;
-					case "false": return false;
-					default:
-						throw newException(key,
-								"must be either 'true' or 'false', " +
-										"but was '" + s + '\'');
-				}
+			switch(s)
+			{
+				case "true" : return true;
+				case "false": return false;
+				default:
+					throw newException(key,
+							"must be either 'true' or 'false', " +
+									"but was '" + s + '\'');
+			}
 		});
 	}
 
@@ -381,25 +381,25 @@ public class Properties
 
 		return parseField(key, minimum, defaultValue, (s) ->
 		{
-				final int value;
-				try
-				{
-					value = Integer.parseInt(s);
-				}
-				catch(final NumberFormatException e)
-				{
-					throw newException(key,
-							mustBe(minimum) +
-							"but was '" + s + '\'',
-							e);
-				}
+			final int value;
+			try
+			{
+				value = Integer.parseInt(s);
+			}
+			catch(final NumberFormatException e)
+			{
+				throw newException(key,
+						mustBe(minimum) +
+						"but was '" + s + '\'',
+						e);
+			}
 
-				if(value<minimum)
-					throw newException(key,
-							mustBe(minimum) +
-							"but was " + value);
+			if(value<minimum)
+				throw newException(key,
+						mustBe(minimum) +
+						"but was " + value);
 
-				return value;
+			return value;
 		});
 	}
 
@@ -425,25 +425,25 @@ public class Properties
 	{
 		return parseField(key, null, defaultValue, (s) ->
 		{
-				try
-				{
-					final Matcher matcher = DAY_PATTERN.matcher(s);
-					if (!matcher.matches())
-						throw new IllegalArgumentException("Input sequence does not match the pattern.");
+			try
+			{
+				final Matcher matcher = DAY_PATTERN.matcher(s);
+				if(!matcher.matches())
+					throw new IllegalArgumentException("Input sequence does not match the pattern.");
 
-					final int year = Integer.parseInt(matcher.group(1));
-					final int month = Integer.parseInt(matcher.group(2));
-					final int day = Integer.parseInt(matcher.group(3));
+				final int year = Integer.parseInt(matcher.group(1));
+				final int month = Integer.parseInt(matcher.group(2));
+				final int day = Integer.parseInt(matcher.group(3));
 
-					return new Day(year, month, day);
-				}
-				catch(final IllegalArgumentException e)
-				{
-					throw newException(key,
-							"must be a day formatted as yyyy-mm-dd, " +
-							"but was '" + s + '\'',
-							e);
-				}
+				return new Day(year, month, day);
+			}
+			catch(final IllegalArgumentException e)
+			{
+				throw newException(key,
+						"must be a day formatted as yyyy-mm-dd, " +
+						"but was '" + s + '\'',
+						e);
+			}
 		});
 	}
 
@@ -502,12 +502,12 @@ public class Properties
 	{
 		return parseField(key, null, defaultValue, (value) ->
 		{
-		for(final E result : valueClass.getEnumConstants())
-			if(value.equals(result.name()))
-				return result;
-		throw newException(key,
-				"must be one of " + asList(valueClass.getEnumConstants()) + ", " +
-				"but was '" + value + '\'');
+			for(final E result : valueClass.getEnumConstants())
+				if(value.equals(result.name()))
+					return result;
+			throw newException(key,
+					"must be one of " + asList(valueClass.getEnumConstants()) + ", " +
+					"but was '" + value + '\'');
 		}).get();
 	}
 
@@ -515,16 +515,16 @@ public class Properties
 	{
 		return parseField(key, null, defaultValue, (value) ->
 		{
-		try
-		{
-			return Charset.forName(value);
-		}
-		catch(final UnsupportedCharsetException e)
-		{
-			throw newException(key,
-					"must be one of Charset.availableCharsets(), " +
-					"but was '" + value + '\'', e);
-		}
+			try
+			{
+				return Charset.forName(value);
+			}
+			catch(final UnsupportedCharsetException e)
+			{
+				throw newException(key,
+						"must be one of Charset.availableCharsets(), " +
+						"but was '" + value + '\'', e);
+			}
 		}).get();
 	}
 
@@ -532,16 +532,16 @@ public class Properties
 	{
 		return parseField(key, null, defaultValue, (value) ->
 		{
-		try
-		{
-			return ZoneId.of(value);
-		}
-		catch(final ZoneRulesException e)
-		{
-			throw newException(key,
-					"must be one of ZoneId.getAvailableZoneIds(), " +
-					"but was '" + value + '\'', e);
-		}
+			try
+			{
+				return ZoneId.of(value);
+			}
+			catch(final ZoneRulesException e)
+			{
+				throw newException(key,
+						"must be one of ZoneId.getAvailableZoneIds(), " +
+						"but was '" + value + '\'', e);
+			}
 		}).get();
 	}
 
@@ -577,34 +577,34 @@ public class Properties
 
 		return parseField(key, null, defaultValue, (value) ->
 		{
-		Duration result;
-		try
-		{
-			result = Duration.parse(value);
-		}
-		catch(final DateTimeParseException e)
-		{
-			final long millis;
+			Duration result;
 			try
 			{
-				millis = Long.parseLong(value);
+				result = Duration.parse(value);
 			}
-			catch(final NumberFormatException ignored)
+			catch(final DateTimeParseException e)
 			{
-				throw newException(key,
-						"must be a duration, but was '" + value + '\'', e);
+				final long millis;
+				try
+				{
+					millis = Long.parseLong(value);
+				}
+				catch(final NumberFormatException ignored)
+				{
+					throw newException(key,
+							"must be a duration, but was '" + value + '\'', e);
+				}
+				result = Duration.ofMillis(millis);
 			}
-			result = Duration.ofMillis(millis);
-		}
 
-		if(result.compareTo(minimum)<0 ||
-			result.compareTo(maximum)>0)
-			throw newException(key,
-					maximum.equals(DURATION_MAX_VALUE)
-					? "must be a duration greater or equal " + minimum +            ", but was " + result
-					: "must be a duration between " + minimum + " and " + maximum + ", but was " + result );
+			if(result.compareTo(minimum)<0 ||
+				result.compareTo(maximum)>0)
+				throw newException(key,
+						maximum.equals(DURATION_MAX_VALUE)
+						? "must be a duration greater or equal " + minimum +            ", but was " + result
+						: "must be a duration between " + minimum + " and " + maximum + ", but was " + result );
 
-		return result;
+			return result;
 		}).get();
 	}
 
@@ -612,14 +612,14 @@ public class Properties
 	{
 		return parseFieldOrDefault(key, defaultValue, (value) ->
 		{
-		try
-		{
-			return new MessageDigestFactory(value);
-		}
-		catch(final IllegalAlgorithmException e)
-		{
-			throw newException(key, "must specify a digest, but was '" + e.getAlgorithm() + '\'', e);
-		}
+			try
+			{
+				return new MessageDigestFactory(value);
+			}
+			catch(final IllegalAlgorithmException e)
+			{
+				throw newException(key, "must specify a digest, but was '" + e.getAlgorithm() + '\'', e);
+			}
 		}).get();
 	}
 
@@ -651,14 +651,14 @@ public class Properties
 	{
 		final Class<?> classRaw = parseFieldOrDefault(key, defaultValue, (name) ->
 		{
-		try
-		{
-			return Class.forName(name);
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw newException(key, "must name a class, but was '" + name + '\'', e);
-		}
+			try
+			{
+				return Class.forName(name);
+			}
+			catch(final ClassNotFoundException e)
+			{
+				throw newException(key, "must name a class, but was '" + name + '\'', e);
+			}
 		}).get();
 
 		if(Modifier.isAbstract(classRaw.getModifiers()))
