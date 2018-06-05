@@ -1193,12 +1193,11 @@ public class Properties
 		if(keySet==null)
 			return null;
 
-		final TreeSet<String> result = new TreeSet<>();
 		final HashSet<String> allowedValues = new HashSet<>();
-
 		for(final Field field : fields)
 			allowedValues.add(field.key);
 
+		final TreeSet<String> result = new TreeSet<>();
 		for(final String key : keySet)
 			if(!allowedValues.contains(key))
 				result.add(key);
@@ -1213,11 +1212,10 @@ public class Properties
 			return;
 
 		final HashSet<String> allowedValues = new HashSet<>();
-		final ArrayList<String> allowedPrefixes = new ArrayList<>();
-
 		for(final Field field : fields)
 			allowedValues.add(field.key);
 
+		final ArrayList<String> allowedPrefixes = new ArrayList<>();
 		if(prefixes!=null)
 			allowedPrefixes.addAll(asList(prefixes));
 
