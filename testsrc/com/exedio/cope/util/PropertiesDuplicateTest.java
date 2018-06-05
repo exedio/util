@@ -27,6 +27,61 @@ import org.junit.jupiter.api.Test;
 public class PropertiesDuplicateTest
 {
 	@SuppressWarnings("unused")
+	@SuppressFBWarnings({"URF_UNREAD_FIELD","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"}) // is read by reflection
+	static class KeyNullProperties extends MyProperties
+	{
+		final boolean value = value(null, false);
+		KeyNullProperties()
+		{
+			super(EMPTY_WITHOUT_KEY_CHECK);
+		}
+	}
+
+	@Test void testKeyNull()
+	{
+		assertFails(
+				KeyNullProperties::new,
+				NullPointerException.class,
+				"key");
+	}
+
+
+	@SuppressWarnings("unused")
+	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
+	static class KeyEmptyProperties extends MyProperties
+	{
+		final boolean value = value("", false);
+		KeyEmptyProperties()
+		{
+			super(EMPTY_WITHOUT_KEY_CHECK);
+		}
+	}
+
+	@Test void testKeyEmpty()
+	{
+		assertFails(
+				KeyEmptyProperties::new,
+				RuntimeException.class,
+				"key must not be empty.");
+	}
+
+
+	private static final Properties.Source EMPTY_WITHOUT_KEY_CHECK = new AssertionErrorPropertiesSource()
+	{
+		@Override
+		public String get(final String key)
+		{
+			return null;
+		}
+		@Override
+		public String getDescription()
+		{
+			return "empty";
+		}
+	};
+
+
+	@SuppressWarnings("unused")
 	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class DuplicateProperties extends MyProperties
 	{
