@@ -481,7 +481,7 @@ public class Properties
 	@Deprecated
 	protected final Field<File> fieldFile(final String key)
 	{
-		return parseField(key, null, null, (s) -> new File(s));
+		return parseField(key, null, null, File::new);
 	}
 
 
