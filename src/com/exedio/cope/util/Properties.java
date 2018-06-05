@@ -204,7 +204,6 @@ public class Properties
 
 		@SuppressWarnings("ThisEscapedInObjectConstruction")
 		Field(
-				final boolean top,
 				final String key,
 				final E minimum,
 				final E defaultValue,
@@ -213,28 +212,21 @@ public class Properties
 				final E value)
 		{
 			this.key = key;
-
-			Sources.checkKey(key);
-			if(fieldsByKey.put(key, this)!=null)
-				throw new IllegalArgumentException("duplicate key '" + key + '\'');
-			if(top)
-				for(final String prefix : detectDuplicatePrefixes.keySet())
-					if(key.startsWith(prefix))
-						throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
-
 			this.minimum = minimum;
 			this.defaultValue = defaultValue;
 			this.hideValue = hideValue;
 			this.specified = specified;
 			this.value = value;
 
+			if(fieldsByKey.put(key, this)!=null)
+				throw new RuntimeException(key);
 			fields.add(this);
 		}
 
 		Field(final String key, final Field<E> template)
 		{
 			this(
-					false, key,
+					key,
 					template.minimum,
 					template.defaultValue,
 					template.hideValue,
@@ -300,6 +292,13 @@ public class Properties
 			final boolean hideValue,
 			final Function<String, E> parser)
 	{
+		Sources.checkKey(key);
+		if(fieldsByKey.containsKey(key))
+			throw new IllegalArgumentException("duplicate key '" + key + '\'');
+		for(final String prefix : detectDuplicatePrefixes.keySet())
+			if(key.startsWith(prefix))
+				throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
+
 		final String s = resolve(key);
 		final boolean specified;
 		final E value;
@@ -317,7 +316,7 @@ public class Properties
 			specified = true;
 			value = parser.apply(s);
 		}
-		return new Field<>(true, key, minimum, defaultValue, hideValue, specified, value);
+		return new Field<>(key, minimum, defaultValue, hideValue, specified, value);
 	}
 
 	private <E> Field<E> parseFieldOrDefault(
