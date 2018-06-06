@@ -218,7 +218,7 @@ public class Properties
 			this.specified = specified;
 			this.value = value;
 
-			if(fieldsByKey.put(key, this)!=null)
+			if(fieldsByKey.putIfAbsent(key, this)!=null)
 				throw new RuntimeException(key);
 			fields.add(this);
 		}
