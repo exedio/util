@@ -370,10 +370,10 @@ public class Properties
 	@Deprecated
 	protected final Field<Integer> field(final String key, final int defaultValue, final int minimum)
 	{
-			if(defaultValue<minimum)
-				throw new IllegalArgumentException(
-						"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
-						"but was " + defaultValue);
+		if(defaultValue<minimum)
+			throw new IllegalArgumentException(
+					"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
+					"but was " + defaultValue);
 
 		return parseField(key, minimum, defaultValue, (s) ->
 		{
