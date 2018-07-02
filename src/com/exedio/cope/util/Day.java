@@ -113,6 +113,7 @@ public final class Day implements Serializable, Comparable<Day>
 		check(   1,   12, month, "month");
 		check(   1,   31, day,   "day"  );
 
+		@SuppressWarnings("MagicConstant") // needed for month
 		final GregorianCalendar c = new GregorianCalendar(year, month-1, day);
 		c.setTimeZone(GMT);
 		this.year = c.get(YEAR);
@@ -172,6 +173,7 @@ public final class Day implements Serializable, Comparable<Day>
 
 	public GregorianCalendar getGregorianCalendar(final TimeZone zone)
 	{
+		@SuppressWarnings("MagicConstant") // needed for month
 		final GregorianCalendar result = new GregorianCalendar(getYear(), getMonthValue()-1, getDayOfMonth());
 		result.setTimeZone(zone);
 		return result;
