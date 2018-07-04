@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -48,7 +47,6 @@ public class PropertiesTest
 		final String stringHiddenOptional = valueHidden("stringHiddenOptional", "stringHiddenOptional.defaultValue");
 		final Day dayMandatory = value("dayMandatory", (Day) null);
 		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
-		final File file = valueFile("file");
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
@@ -65,7 +63,6 @@ public class PropertiesTest
 		final Field<?> stringHiddenOptionalF = getField("stringHiddenOptional");
 		final Field<?> dayMandatoryF = getField("dayMandatory");
 		final Field<?> dayOptionalF  = getField("dayOptional");
-		final Field<?> fileF = getField("file");
 
 
 		void assertIt()
@@ -82,7 +79,6 @@ public class PropertiesTest
 					stringHiddenOptionalF,
 					dayMandatoryF,
 					dayOptionalF,
-					fileF,
 			}), getFields());
 
 			assertEquals("boolFalse", boolFalseF.getKey());
@@ -92,7 +88,6 @@ public class PropertiesTest
 			assertEquals("stringOptional", stringOptionalF.getKey());
 			assertEquals("stringHidden", stringHiddenF.getKey());
 			assertEquals("stringHiddenOptional", stringHiddenOptionalF.getKey());
-			assertEquals("file", fileF.getKey());
 			assertEquals("dayMandatory", dayMandatoryF.getKey());
 			assertEquals("dayOptional", dayOptionalF.getKey());
 
@@ -104,7 +99,6 @@ public class PropertiesTest
 			assertEquals("stringOptional.defaultValue", stringOptionalF.getDefaultValue());
 			assertEquals(null, stringHiddenF.getDefaultValue());
 			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValue());
-			assertEquals(null, fileF.getDefaultValue());
 			assertEquals(null, dayMandatoryF.getDefaultValue());
 			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
 
@@ -115,7 +109,6 @@ public class PropertiesTest
 			assertEquals(false, stringOptionalF.hasHiddenValue());
 			assertEquals(true, stringHiddenF.hasHiddenValue());
 			assertEquals(true, stringHiddenOptionalF.hasHiddenValue());
-			assertEquals(false, fileF.hasHiddenValue());
 			assertEquals(false, dayMandatoryF.hasHiddenValue());
 			assertEquals(false, dayOptionalF.hasHiddenValue());
 		}
@@ -126,7 +119,6 @@ public class PropertiesTest
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
-		pminimal.setProperty("file", "file.minimalValue");
 		pminimal.setProperty("dayMandatory", "1000-08-31");
 
 		final TestProperties minimal = new TestProperties(pminimal, "minimal");
@@ -148,9 +140,6 @@ public class PropertiesTest
 		assertEquals("stringOptional.defaultValue", minimal.stringOptionalF.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHiddenF.getValue());
 		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptionalF.getValue());
-		assertEquals(new File("file.minimalValue"), minimal.file);
-		assertEquals(new File("file.minimalValue"), minimal.fileF.get());
-		assertEquals(new File("file.minimalValue"), minimal.fileF.getValue());
 		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
 		assertEquals(new Day(1009,7,13), minimal.dayOptional);
 		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.getValue());
@@ -165,7 +154,6 @@ public class PropertiesTest
 		assertEquals(false, minimal.stringOptionalF.isSpecified());
 		assertEquals(true, minimal.stringHiddenF.isSpecified());
 		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
-		assertEquals(true, minimal.fileF.isSpecified());
 		assertEquals(true, minimal.dayMandatoryF.isSpecified());
 		assertEquals(false, minimal.dayOptionalF.isSpecified());
 
@@ -185,7 +173,6 @@ public class PropertiesTest
 			minimal.ensureEquality(minimal1);
 			minimal1.ensureEquality(minimal);
 		}
-		final File file1 = new File("file1");
 		{
 			final java.util.Properties p = copy(pminimal);
 			p.setProperty("boolFalse", "true");
@@ -195,7 +182,6 @@ public class PropertiesTest
 			p.setProperty("stringOptional", "stringOptional.explicitValue");
 			p.setProperty("stringHidden", "stringHidden.explicitValue");
 			p.setProperty("stringHiddenOptional", "stringHiddenOptional.explicitValue");
-			p.setProperty("file", file1.getPath());
 			p.setProperty("dayMandatory", "2000-11-4");
 			p.setProperty("dayOptional", "2001-3-31");
 
@@ -223,8 +209,6 @@ public class PropertiesTest
 			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.get());
 			assertEquals(new Day(2001,3,31), tp.dayOptionalF.getValue());
 			assertEquals(new Day(2001,3,31), tp.dayOptionalF.get());
-			assertEquals(file1, tp.fileF.get());
-			assertEquals(file1, tp.fileF.getValue());
 
 			assertEquals(true, tp.boolFalseF.isSpecified());
 			assertEquals(true, tp.boolTrueF.isSpecified());
@@ -233,7 +217,6 @@ public class PropertiesTest
 			assertEquals(true, tp.stringOptionalF.isSpecified());
 			assertEquals(true, tp.stringHiddenF.isSpecified());
 			assertEquals(true, tp.stringHiddenOptionalF.isSpecified());
-			assertEquals(true, tp.fileF.isSpecified());
 			assertEquals(true, tp.dayMandatoryF.isSpecified());
 			assertEquals(true, tp.dayOptionalF.isSpecified());
 		}
@@ -257,8 +240,7 @@ public class PropertiesTest
 				"stringHidden, " +
 				"stringHiddenOptional, " +
 				"dayMandatory, " +
-				"dayOptional, " +
-				"file].");
+				"dayOptional].");
 			assertFails(() ->
 				tp.ensureValidity("otherKey"),
 				IllegalArgumentException.class,
@@ -272,8 +254,7 @@ public class PropertiesTest
 				"stringHidden, " +
 				"stringHiddenOptional, " +
 				"dayMandatory, " +
-				"dayOptional, " +
-				"file] " +
+				"dayOptional] " +
 				"or one starting with [otherKey].");
 		}
 
@@ -397,34 +378,6 @@ public class PropertiesTest
 					" expected 1009/7/13 but got 3001/2/1.",
 				"inconsistent initialization for dayOptional between inconsistent.dayOptional and minimal," +
 					" expected 3001/2/1 but got 1009/7/13.");
-
-
-
-		// File
-		assertWrong(pminimal,
-				"wrong.file.missing",
-				"file", null,
-				"property file in wrong.file.missing " +
-				"must be specified as there is no default");
-
-		final File file2 = new File("file2");
-		assertInconsistent(pminimal,
-				"inconsistent.file",
-				"file", file2.getPath(),
-				"inconsistent initialization for file between minimal and inconsistent.file," +
-					" expected file.minimalValue but got " + file2.getPath() + ".",
-				"inconsistent initialization for file between inconsistent.file and minimal," +
-					" expected " + file2.getPath() + " but got file.minimalValue.");
-
-		final java.util.Properties fileInconsistency = copy(pminimal);
-		fileInconsistency.setProperty("file", file1.getPath());
-		assertInconsistent(fileInconsistency,
-				"inconsistent.file",
-				"file", file2.getPath(),
-				"inconsistent initialization for file between minimal and inconsistent.file," +
-					" expected " + file1.getPath() + " but got " + file2.getPath() + ".",
-				"inconsistent initialization for file between inconsistent.file and minimal," +
-					" expected " + file2.getPath() + " but got " + file1.getPath() + ".");
 	}
 
 	@SuppressWarnings("unused")
