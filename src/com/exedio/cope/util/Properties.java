@@ -33,6 +33,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
@@ -462,6 +464,12 @@ public class Properties
 	protected final Field<String> field(final String key, final String defaultValue)
 	{
 		return parseField(key, null, defaultValue, (s) -> s);
+	}
+
+
+	protected final Path valuePath(final String key)
+	{
+		return parseField(key, null, null, Paths::get).get();
 	}
 
 
