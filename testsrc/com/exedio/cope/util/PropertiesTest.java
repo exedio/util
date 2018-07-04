@@ -30,13 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
-import java.io.IOException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.junit.rules.TemporaryFolder;
 
-@ExtendWith(TemporaryFolder.Extension.class)
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesTest
 {
@@ -125,7 +121,7 @@ public class PropertiesTest
 		}
 	}
 
-	@Test void testIt(final TemporaryFolder folder) throws IOException
+	@Test void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
@@ -189,7 +185,7 @@ public class PropertiesTest
 			minimal.ensureEquality(minimal1);
 			minimal1.ensureEquality(minimal);
 		}
-		final File file1 = folder.newFile("file1");
+		final File file1 = new File("file1");
 		{
 			final java.util.Properties p = copy(pminimal);
 			p.setProperty("boolFalse", "true");
@@ -411,7 +407,7 @@ public class PropertiesTest
 				"property file in wrong.file.missing " +
 				"must be specified as there is no default");
 
-		final File file2 = folder.newFile("file2");
+		final File file2 = new File("file2");
 		assertInconsistent(pminimal,
 				"inconsistent.file",
 				"file", file2.getPath(),
