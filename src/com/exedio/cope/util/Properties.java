@@ -316,7 +316,7 @@ public class Properties
 		else
 		{
 			specified = true;
-			value = parser.apply(s);
+			value = requireNonNull(parser.apply(s), key);
 		}
 		return new Field<>(key, minimum, defaultValue, hideValue, specified, value);
 	}
@@ -328,7 +328,7 @@ public class Properties
 	{
 		return parseField(
 				key, null,
-				defaultValue!=null ? parser.apply(defaultValue) : null,
+				defaultValue!=null ? requireNonNull(parser.apply(defaultValue), key) : null,
 				parser);
 	}
 
