@@ -185,4 +185,37 @@ public class CounterTest
 			}
 		}
 	}
+
+	@Disabled
+	@Test final void testHashCode()
+	{
+		final int N = 100_000_000;
+		int x = 0; // prevents compiler from omitting calls
+		for(int j = 0; j<8; j++)
+		{
+			System.out.println("---------------"+N+"-"+j);
+			{
+				final Object o = new Object();
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					//noinspection ResultOfMethodCallIgnored
+					x += o.hashCode();
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------Object " + elapsed/1_000_000);
+			}
+			{
+				final Object o = new Object();
+				final long start = System.nanoTime();
+				for(int i = 0; i<N; i++)
+				{
+					x += System.identityHashCode(o);
+				}
+				final long elapsed = System.nanoTime()-start;
+				System.out.println("-------System " + elapsed/1_000_000);
+			}
+		}
+		System.out.println("-------x " + x);
+	}
 }
