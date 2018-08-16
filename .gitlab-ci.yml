@@ -1,8 +1,4 @@
 job-jenkins:
   image: java:openjdk-8-jdk
   script:
-  - "java -version"
-  - "time apt-get update"
-  - "time apt-get install -y ant"
-  - "ant -version"
-  - "ant clean jenkins"
+  - "ant/bin/ant clean jenkins"
