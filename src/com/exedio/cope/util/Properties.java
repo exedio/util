@@ -775,7 +775,7 @@ public class Properties
 	 * <p>
 	 * {@code error: reference to value is ambiguous}
 	 * <p>
-	 * http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842
+	 * https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842
 	 */
 	protected final <T extends Properties> T valnp(final String key, final Factory<T> factory)
 	{

@@ -53,9 +53,9 @@ public class SourcesUrlTest
 	@Test void testNotExists()
 	{
 		assertFails(() ->
-			load(new URL("http://sourcetest.invalid/sourcesUrlTest.properties")),
+			load(new URL("https://sourcetest.invalid/sourcesUrlTest.properties")),
 			RuntimeException.class,
-			"property url http://sourcetest.invalid/sourcesUrlTest.properties not found.",
+			"property url https://sourcetest.invalid/sourcesUrlTest.properties not found.",
 			UnknownHostException.class);
 	}
 

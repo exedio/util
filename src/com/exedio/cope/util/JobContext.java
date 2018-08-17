@@ -28,8 +28,8 @@ import java.time.Duration;
  * for multiple threads accessing the methods concurrently.
  *
  * This interface has been inspired by
- * <a href="http://www.sauronsoftware.it/projects/cron4j/api/it/sauronsoftware/cron4j/TaskExecutionContext.html">TaskExecutionContext</a>
- * of <a href="http://www.sauronsoftware.it/projects/cron4j">cron4j</a>.
+ * <a href="https://www.sauronsoftware.it/projects/cron4j/api/it/sauronsoftware/cron4j/TaskExecutionContext.html">TaskExecutionContext</a>
+ * of <a href="https://www.sauronsoftware.it/projects/cron4j">cron4j</a>.
  */
 public interface JobContext
 {

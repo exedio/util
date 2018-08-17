@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 public final class CharsetName
 {
 	/**
-	 * See <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+	 * See <a href="https://www.iana.org/assignments/character-sets">IANA</a>.
 	 * @deprecated Use {@link StandardCharsets#UTF_8} instead
 	 */
 	@Deprecated
