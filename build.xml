@@ -158,7 +158,7 @@
 	</target>
 
 
-	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml" onerror="failall">
 		<classpath path="lib/org.jacoco.ant.jar"/>
 		<classpath path="lib/org.jacoco.agent.jar"/>
 		<classpath path="lib/org.jacoco.report.jar"/>
