@@ -79,7 +79,6 @@
 				<pathelement location="lib/junit-platform-launcher.jar" />
 				<pathelement location="lib/junit-platform-console.jar" />
 				<pathelement location="lib/easymock.jar" />
-				<pathelement location="lib/cglib-nodep.jar" />
 			</classpath>
 			<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />
 			<arg line="--exclude-tag nondeterministic" unless:set="test" if:set="test.deterministicOnly" />
@@ -189,7 +188,6 @@
 					<pathelement location="lib/junit-platform-launcher.jar" />
 					<pathelement location="lib/junit-platform-console.jar" />
 					<pathelement location="lib/easymock.jar" />
-					<pathelement location="lib/cglib-nodep.jar" />
 				</classpath>
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/jacocotesttmpdir" />
 				<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />

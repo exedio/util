@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="testsrc"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/easymock.jar"/>
-	<classpathentry kind="lib" path="lib/cglib-nodep.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api.jar" sourcepath="lib/slf4j-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/logback-core.jar"/>
