@@ -150,6 +150,7 @@
 			<class location="${basedir}/build/classes/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/slf4j-api.jar" />
+				<pathelement location="${basedir}/lib/opentest4j.jar" />
 				<pathelement location="${basedir}/lib/junit-jupiter-api.jar" />
 				<pathelement location="${basedir}/lib/easymock.jar" />
 			</auxclasspath>
