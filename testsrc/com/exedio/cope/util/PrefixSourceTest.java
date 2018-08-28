@@ -33,6 +33,9 @@ import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({
+		"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS",
+		"NP_NULL_PARAM_DEREF_NONVIRTUAL"})
 public class PrefixSourceTest
 {
 	private static class MockSource extends AssertionErrorPropertiesSource

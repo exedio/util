@@ -26,6 +26,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({
+		"NP_NULL_PARAM_DEREF_NONVIRTUAL",
+		"SIC_INNER_SHOULD_BE_STATIC_ANON"})
 public class JobContextSleepPollingTest
 {
 	@Test void testContextNull()
@@ -42,7 +45,6 @@ public class JobContextSleepPollingTest
 			NullPointerException.class, "duration");
 	}
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test void testDurationOverflow()
 	{
 		final ArithmeticException e = assertFails(() ->

@@ -32,7 +32,9 @@ import java.util.Properties;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
-@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
+@SuppressFBWarnings({
+		"NP_NULL_PARAM_DEREF_NONVIRTUAL",
+		"SIC_INNER_SHOULD_BE_STATIC_ANON"})
 public class ProxySourceTest
 {
 	@Test void test()

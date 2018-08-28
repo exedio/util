@@ -35,6 +35,11 @@
 			<exclude org="org.objenesis" name="objenesis" />
 		</dependency>
 		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.7.6.201602180812" conf="build->default" />
-		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
+		<dependency org="com.github.spotbugs" name="spotbugs" rev="3.1.6" conf="build->master">
+			<artifact name="spotbugs" type="tgz" />
+		</dependency>
+		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default">
+			<artifact name="findbugs-annotations" type="jar" />
+		</dependency>
 	</dependencies>
 </ivy-module>

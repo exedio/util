@@ -18,12 +18,14 @@
 
 package com.exedio.cope.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Constructor;
 import java.text.NumberFormat;
 import java.util.Locale;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 public class InstantiationTest
 {
 	// large numbers needed for JIT to jump in

@@ -48,6 +48,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(TimeZoneDefaultRule.class)
 @SuppressWarnings("unused")
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class DayTest
 {
 	@Test void printDefaultTimeZone()

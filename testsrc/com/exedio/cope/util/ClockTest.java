@@ -25,11 +25,13 @@ import static com.exedio.cope.util.Clock.newDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.junit.ClockRule;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(ClockRule.Extension.class)
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class ClockTest
 {
 	@Test void overrideNull(final ClockRule clock)
