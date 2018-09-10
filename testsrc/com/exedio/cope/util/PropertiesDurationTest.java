@@ -49,6 +49,9 @@ public class PropertiesDurationTest
 		assertEquals(ofMinutes(55), props.mandatoryF.getValue());
 		assertEquals(ofMinutes(44), props.optionalF .getValue());
 		assertEquals(ofMinutes(45), props.maxF      .getValue());
+		assertEquals("PT55M", props.mandatoryF.getValueString());
+		assertEquals("PT44M", props.optionalF .getValueString());
+		assertEquals("PT45M", props.maxF      .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 		assertFalse(props.maxF      .isSpecified());
@@ -69,6 +72,9 @@ public class PropertiesDurationTest
 		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatoryF.getValue());
 		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optionalF .getValue());
 		assertEquals(ofMinutes(48),  props.maxF.getValue());
+		assertEquals("PT3H33M", props.mandatoryF.getValueString());
+		assertEquals("PT4H44M", props.optionalF .getValueString());
+		assertEquals(  "PT48M", props.maxF      .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -89,6 +95,9 @@ public class PropertiesDurationTest
 		assertEquals(ofHours(3).plus(ofMinutes(33)), props.mandatoryF.getValue());
 		assertEquals(ofHours(4).plus(ofMinutes(44)), props.optionalF .getValue());
 		assertEquals(ofMinutes(48), props.maxF.getValue());
+		assertEquals("PT3H33M", props.mandatoryF.getValueString());
+		assertEquals("PT4H44M", props.optionalF .getValueString());
+		assertEquals(  "PT48M", props.maxF      .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -109,6 +118,9 @@ public class PropertiesDurationTest
 		assertEquals(ofMinutes(21), props.mandatoryF.getValue());
 		assertEquals(ofMinutes(41), props.optionalF .getValue());
 		assertEquals(ofMinutes(42), props.maxF      .getValue());
+		assertEquals("PT21M", props.mandatoryF.getValueString());
+		assertEquals("PT41M", props.optionalF .getValueString());
+		assertEquals("PT42M", props.maxF      .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
@@ -129,9 +141,25 @@ public class PropertiesDurationTest
 		assertEquals(ofMinutes(21), props.mandatoryF.getValue());
 		assertEquals(ofMinutes(41), props.optionalF .getValue());
 		assertEquals(ofMinutes(42), props.maxF      .getValue());
+		assertEquals("PT21M", props.mandatoryF.getValueString());
+		assertEquals("PT41M", props.optionalF .getValueString());
+		assertEquals("PT42M", props.maxF      .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 		assertTrue (props.maxF      .isSpecified());
+	}
+
+	@Test void testGetString()
+	{
+		final MyProps props = new MyProps(minimal());
+		props.assertIt();
+
+		assertEquals("PT21M", props.mandatoryF.getString(ofMinutes(21)));
+		assertEquals(null,    props.mandatoryF.getString(null));
+		assertFails(
+				() -> props.mandatoryF.getString(55),
+				ClassCastException.class,
+				"Cannot cast java.lang.Integer to java.time.Duration");
 	}
 
 	@Test void testMandatoryWrong()
@@ -229,9 +257,17 @@ public class PropertiesDurationTest
 			assertEquals(ofMinutes(41), optionalF .getMinimum());
 			assertEquals(ofMinutes(42), maxF      .getMinimum());
 
+			assertEquals("PT21M", mandatoryF.getMinimumString());
+			assertEquals("PT41M", optionalF .getMinimumString());
+			assertEquals("PT42M", maxF      .getMinimumString());
+
 			assertEquals(null,    mandatoryF.getDefaultValue());
 			assertEquals(ofMinutes(44), optionalF.getDefaultValue());
 			assertEquals(ofMinutes(45), maxF     .getDefaultValue());
+
+			assertEquals(null,    mandatoryF.getDefaultValueString());
+			assertEquals("PT44M", optionalF .getDefaultValueString());
+			assertEquals("PT45M", maxF      .getDefaultValueString());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());

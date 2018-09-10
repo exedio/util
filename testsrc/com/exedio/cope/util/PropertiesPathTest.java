@@ -53,6 +53,7 @@ public class PropertiesPathTest
 
 			assertEquals("file", fileF.getKey());
 			assertEquals(null, fileF.getDefaultValue());
+			assertEquals(null, fileF.getDefaultValueString());
 			assertEquals(null, fileF.getDefaultValueFailure());
 			assertEquals(false, fileF.hasHiddenValue());
 		}
@@ -70,6 +71,7 @@ public class PropertiesPathTest
 		assertEquals(Paths.get("file.minimalValue"), minimal.file);
 		assertEquals(Paths.get("file.minimalValue"), minimal.fileF.get());
 		assertEquals(Paths.get("file.minimalValue"), minimal.fileF.getValue());
+		assertEquals(          "file.minimalValue",  minimal.fileF.getValueString());
 
 		assertEquals(true, minimal.fileF.isSpecified());
 

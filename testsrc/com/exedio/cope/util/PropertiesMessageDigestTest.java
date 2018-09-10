@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
@@ -47,6 +48,8 @@ public class PropertiesMessageDigestTest
 		assertEquals( SHA_512,  props.optional);
 		assertEquals( MD5,      props.mandatoryF.getValue());
 		assertEquals( SHA_512,  props.optionalF .getValue());
+		assertEquals("MD5",     props.mandatoryF.getValueString());
+		assertEquals("SHA-512", props.optionalF .getValueString());
 		assertEquals("MD5",     props.mandatory.getAlgorithm());
 		assertEquals("SHA-512", props.optional .getAlgorithm());
 		assertEquals("MD5",     props.mandatory.toString());
@@ -97,6 +100,8 @@ public class PropertiesMessageDigestTest
 		assertEquals("SHA-384", props.optional .getAlgorithm());
 		assertEquals( SHA_256,  props.mandatoryF.getValue());
 		assertEquals( SHA_384,  props.optionalF .getValue());
+		assertEquals("SHA-256", props.mandatoryF.getValueString());
+		assertEquals("SHA-384", props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 
@@ -104,6 +109,19 @@ public class PropertiesMessageDigestTest
 		assertEquals(48, props.optional .getLength());
 		assertEquals(64, props.mandatory.getLengthHex());
 		assertEquals(96, props.optional .getLengthHex());
+	}
+
+	@Test void testGetString()
+	{
+		final MyProps props = new MyProps(minimal());
+		props.assertIt();
+
+		assertEquals("MD5", props.mandatoryF.getString(MD5));
+		assertEquals(null,  props.mandatoryF.getString(null));
+		assertFails(
+				() -> props.mandatoryF.getString(55),
+				ClassCastException.class,
+				"Cannot cast java.lang.Integer to " + MessageDigestFactory.class.getName());
 	}
 
 	@Test void testMandatoryWrong()
@@ -154,6 +172,9 @@ public class PropertiesMessageDigestTest
 
 			assertEquals(null,      mandatoryF.getDefaultValue());
 			assertEquals(new MessageDigestFactory("SHA-512"), optionalF.getDefaultValue());
+
+			assertEquals(null,      mandatoryF.getDefaultValueString());
+			assertEquals("SHA-512", optionalF .getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null, optionalF .getDefaultValueFailure());

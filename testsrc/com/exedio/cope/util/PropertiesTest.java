@@ -105,6 +105,17 @@ public class PropertiesTest
 			assertEquals(null, dayMandatoryF.getDefaultValue());
 			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
 
+			assertEquals("false", boolFalseF.getDefaultValueString());
+			assertEquals("true",  boolTrueF.getDefaultValueString());
+			assertEquals("10", int10F.getDefaultValueString());
+			assertEquals( "5", int10F.getMinimumString());
+			assertEquals(null, stringMandatoryF.getDefaultValueString());
+			assertEquals("stringOptional.defaultValue", stringOptionalF.getDefaultValueString());
+			assertEquals(null, stringHiddenF.getDefaultValueString());
+			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValueString());
+			assertEquals(null, dayMandatoryF.getDefaultValueString());
+			assertEquals("1009/7/13", dayOptionalF.getDefaultValueString());
+
 			assertEquals(null, boolFalseF.getDefaultValueFailure());
 			assertEquals(null, boolTrueF.getDefaultValueFailure());
 			assertEquals(null, int10F.getDefaultValueFailure());
@@ -159,6 +170,12 @@ public class PropertiesTest
 		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.get());
 		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.getValue());
 		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.get());
+
+		assertEquals("false", minimal.boolFalseF.getValueString());
+		assertEquals("true", minimal.boolTrueF.getValueString());
+		assertEquals("10", minimal.int10F.getValueString());
+		assertEquals("stringMandatory.minimalValue", minimal.stringMandatoryF.getValueString());
+		assertEquals("1000/8/31", minimal.dayMandatoryF.getValueString());
 
 		assertEquals(false, minimal.boolFalseF.isSpecified());
 		assertEquals(false, minimal.boolTrueF.isSpecified());

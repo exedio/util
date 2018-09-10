@@ -200,30 +200,36 @@ public class Properties
 	public final class Field<E>
 	{
 		final String key;
+		private final Class<E> valueClass;
 		private final E minimum;
 		private final E defaultValue;
 		private final String defaultValueFailure;
 		private final boolean hideValue;
 		private final boolean specified;
 		private final E value;
+		private final Function<E, String> getString;
 
 		@SuppressWarnings("ThisEscapedInObjectConstruction")
 		Field(
 				final String key,
+				final Class<E> valueClass,
 				final E minimum,
 				final E defaultValue,
 				final String defaultValueFailure,
 				final boolean hideValue,
 				final boolean specified,
-				final E value)
+				final E value,
+				final Function<E, String> getString)
 		{
 			this.key = key;
+			this.valueClass = requireNonNull(valueClass);
 			this.minimum = minimum;
 			this.defaultValue = defaultValue;
 			this.defaultValueFailure = defaultValueFailure;
 			this.hideValue = hideValue;
 			this.specified = specified;
 			this.value = value;
+			this.getString = requireNonNull(getString);
 
 			if(fieldsByKey.putIfAbsent(key, this)!=null)
 				throw new RuntimeException(key);
@@ -234,12 +240,14 @@ public class Properties
 		{
 			this(
 					key,
+					template.valueClass,
 					template.minimum,
 					template.defaultValue,
 					template.defaultValueFailure,
 					template.hideValue,
 					template.specified,
-					template.value);
+					template.value,
+					template.getString);
 		}
 
 		@Nonnull
@@ -248,14 +256,38 @@ public class Properties
 			return key;
 		}
 
+		/**
+		 * Do no apply {@link Object#toString()} to the result,
+		 * but use {@link #getMinimumString()} instead.
+		 */
 		public E getMinimum()
 		{
 			return minimum;
 		}
 
+		/**
+		 * Returns {@link #getString(Object) getString}({@link #getMinimum()}).
+		 */
+		public String getMinimumString()
+		{
+			return minimum!=null ? getString.apply(minimum) : null;
+		}
+
+		/**
+		 * Do no apply {@link Object#toString()} to the result,
+		 * but use {@link #getDefaultValueString()} instead.
+		 */
 		public E getDefaultValue()
 		{
 			return defaultValue;
+		}
+
+		/**
+		 * Returns {@link #getString(Object) getString}({@link #getDefaultValue()}).
+		 */
+		public String getDefaultValueString()
+		{
+			return defaultValue!=null ? getString.apply(defaultValue) : null;
 		}
 
 		public String getDefaultValueFailure()
@@ -275,11 +307,36 @@ public class Properties
 
 		/**
 		 * Never returns null.
+		 * <p>
+		 * Do no apply {@link Object#toString()} to the result,
+		 * but use {@link #getValueString()} instead.
 		 */
 		@Nonnull
 		public E getValue()
 		{
 			return value;
+		}
+
+		/**
+		 * Returns {@link #getString(Object) getString}({@link #getValue()}).
+		 */
+		@Nonnull
+		public String getValueString()
+		{
+			return getString.apply(value);
+		}
+
+		/**
+		 * Returns a string that would be parsed to the same
+		 * {@link #getValue() value} {@code someValue} by this field.
+		 * Returns {@code null}, if {@code someValue} is {@code null}.
+		 *
+		 * @throws ClassCastException
+		 *         if {@code someValue} does not match class of {@link #getValue() value}
+		 */
+		public String getString(final Object someValue)
+		{
+			return someValue!=null ? getString.apply(valueClass.cast(someValue)) : null;
 		}
 
 		@Nonnull
@@ -291,19 +348,22 @@ public class Properties
 
 	private <E> Field<E> parseField(
 			final String key,
+			final Class<E> valueClass,
 			final E minimum,
 			final E defaultValue,
 			final Function<String, E> parser)
 	{
-		return parseField(key, minimum, () -> defaultValue, false, parser);
+		return parseField(key, valueClass, minimum, () -> defaultValue, false, parser, Object::toString);
 	}
 
 	private <E> Field<E> parseField(
 			final String key,
+			final Class<E> valueClass,
 			final E minimum,
 			final Supplier<E> defaultValueSupplier,
 			final boolean hideValue,
-			final Function<String, E> parser)
+			final Function<String, E> parser,
+			final Function<E, String> getString)
 	{
 		Sources.checkKey(key);
 		if(fieldsByKey.containsKey(key))
@@ -358,22 +418,24 @@ public class Properties
 			}
 		}
 		return new Field<>(
-				key, minimum,
+				key, valueClass, minimum,
 				defaultValue, defaultValueFailure,
 				hideValue, specified,
-				value);
+				value, getString);
 	}
 
 	private <E> Field<E> parseFieldOrDefault(
 			final String key,
+			final Class<E> valueClass,
 			final String defaultValue,
-			final Function<String, E> parser)
+			final Function<String, E> parser,
+			final Function<E, String> getString)
 	{
 		return parseField(
-				key, null,
+				key, valueClass, null,
 				() -> defaultValue!=null ? requireNonNull(parser.apply(defaultValue), key) : null,
 				false,
-				parser);
+				parser, getString);
 	}
 
 
@@ -389,7 +451,7 @@ public class Properties
 	@Deprecated
 	protected final Field<Boolean> field(final String key, final boolean defaultValue)
 	{
-		return parseField(key, null, defaultValue, (s) ->
+		return parseField(key, Boolean.class, null, defaultValue, (s) ->
 		{
 			switch(s)
 			{
@@ -421,7 +483,7 @@ public class Properties
 					"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
 					"but was " + defaultValue);
 
-		return parseField(key, minimum, defaultValue, (s) ->
+		return parseField(key, Integer.class, minimum, defaultValue, (s) ->
 		{
 			final int value;
 			try
@@ -465,7 +527,7 @@ public class Properties
 	@Deprecated
 	protected final Field<Day> field(final String key, final Day defaultValue)
 	{
-		return parseField(key, null, defaultValue, (s) ->
+		return parseField(key, Day.class, null, defaultValue, (s) ->
 		{
 			try
 			{
@@ -498,7 +560,7 @@ public class Properties
 
 	protected final String valueHidden(final String key, final String defaultValue)
 	{
-		return parseField(key, null, () -> defaultValue, true, identity()).get();
+		return parseField(key, String.class, null, () -> defaultValue, true, identity(), identity()).get();
 	}
 
 	/**
@@ -507,13 +569,13 @@ public class Properties
 	@Deprecated
 	protected final Field<String> field(final String key, final String defaultValue)
 	{
-		return parseField(key, null, defaultValue, identity());
+		return parseField(key, String.class, null, defaultValue, identity());
 	}
 
 
 	protected final Path valuePath(final String key)
 	{
-		return parseField(key, null, null, Paths::get).get();
+		return parseField(key, Path.class, null, null, Paths::get).get();
 	}
 
 
@@ -529,7 +591,7 @@ public class Properties
 	@Deprecated
 	protected final Field<File> fieldFile(final String key)
 	{
-		return parseField(key, null, null, File::new);
+		return parseField(key, File.class, null, null, File::new);
 	}
 
 
@@ -548,7 +610,7 @@ public class Properties
 			final Class<E> valueClass,
 			final E defaultValue)
 	{
-		return parseField(key, null, defaultValue, (value) ->
+		return parseField(key, valueClass, null, defaultValue, (value) ->
 		{
 			for(final E result : valueClass.getEnumConstants())
 				if(value.equals(result.name()))
@@ -561,7 +623,7 @@ public class Properties
 
 	protected final Charset value(final String key, final Charset defaultValue)
 	{
-		return parseField(key, null, defaultValue, (value) ->
+		return parseField(key, Charset.class, null, defaultValue, (value) ->
 		{
 			try
 			{
@@ -578,7 +640,7 @@ public class Properties
 
 	protected final ZoneId value(final String key, final ZoneId defaultValue)
 	{
-		return parseField(key, null, defaultValue, (value) ->
+		return parseField(key, ZoneId.class, null, defaultValue, (value) ->
 		{
 			try
 			{
@@ -623,7 +685,7 @@ public class Properties
 						"but was " + defaultValue);
 		}
 
-		return parseField(key, minimum, defaultValue, (value) ->
+		return parseField(key, Duration.class, minimum, defaultValue, (value) ->
 		{
 			Duration result;
 			try
@@ -658,7 +720,7 @@ public class Properties
 
 	protected final MessageDigestFactory valueMessageDigest(final String key, final String defaultValue)
 	{
-		return parseFieldOrDefault(key, defaultValue, (value) ->
+		return parseFieldOrDefault(key, MessageDigestFactory.class, defaultValue, (value) ->
 		{
 			try
 			{
@@ -668,7 +730,7 @@ public class Properties
 			{
 				throw newException(key, "must specify a digest, but was '" + e.getAlgorithm() + '\'', e);
 			}
-		}).get();
+		}, Object::toString).get();
 	}
 
 	/**
@@ -697,7 +759,9 @@ public class Properties
 			final Class<T> superclass,
 			final Class<P> parameterType)
 	{
-		final Class<?> classRaw = parseFieldOrDefault(key, defaultValue, (name) ->
+		@SuppressWarnings("rawtypes")
+		final Function<Class,String> classGetName = Class::getName;
+		final Class<?> classRaw = parseFieldOrDefault(key, Class.class, defaultValue, (name) ->
 		{
 			try
 			{
@@ -707,7 +771,7 @@ public class Properties
 			{
 				throw newException(key, "must name a class, but was '" + name + '\'', e);
 			}
-		}).get();
+		}, classGetName).get();
 
 		if(Modifier.isAbstract(classRaw.getModifiers()))
 			throw newException(key,

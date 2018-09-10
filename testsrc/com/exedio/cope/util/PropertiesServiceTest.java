@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
@@ -39,6 +40,8 @@ public class PropertiesServiceTest
 		assertEquals(Two.class, props.optionalF .getValue());
 		assertEquals(One.class, props.mandatory.getServiceClass());
 		assertEquals(Two.class, props.optional .getServiceClass());
+		assertEquals(ONE, props.mandatoryF.getValueString());
+		assertEquals(TWO, props.optionalF .getValueString());
 		assertEquals(ONE, props.mandatory.toString());
 		assertEquals(TWO, props.optional .toString());
 		assertTrue (props.mandatoryF.isSpecified());
@@ -62,6 +65,7 @@ public class PropertiesServiceTest
 		assertEquals(NestedService.class, props.mandatoryF.getValue());
 		assertEquals(NestedService.class, props.mandatory.getServiceClass());
 		assertEquals(NESTED, props.mandatory.toString());
+		assertEquals(NestedService.class.getName(), props.mandatoryF.getValueString());
 		assertTrue(props.mandatoryF.isSpecified());
 
 		final NestedService nested = (NestedService)props.mandatory.newInstance("nestedParameter");
@@ -82,6 +86,8 @@ public class PropertiesServiceTest
 		assertEquals(Four .class, props.optional .getServiceClass());
 		assertEquals(Three.class, props.mandatoryF.getValue());
 		assertEquals(Four .class, props.optionalF .getValue());
+		assertEquals(THREE, props.mandatoryF.getValueString());
+		assertEquals(FOUR,  props.optionalF .getValueString());
 		assertTrue(props.mandatoryF.isSpecified());
 		assertTrue(props.optionalF .isSpecified());
 	}
@@ -99,6 +105,19 @@ public class PropertiesServiceTest
 		assertEquals("nestedParameter", nested.parameter);
 		assertEquals("nestedAset", nested.properties.nestedA);
 		assertEquals(66, nested.properties.nestedB);
+	}
+
+	@Test void testGetString()
+	{
+		final MyProps props = new MyProps(minimal());
+		props.assertIt();
+
+		assertEquals(THREE, props.mandatoryF.getString(Three.class));
+		assertEquals(null,  props.mandatoryF.getString(null));
+		assertFails(
+				() -> props.mandatoryF.getString(55),
+				ClassCastException.class,
+				"Cannot cast java.lang.Integer to java.lang.Class");
 	}
 
 	@Test void testMandatoryWrong()
@@ -244,6 +263,9 @@ public class PropertiesServiceTest
 
 			assertEquals(null, mandatoryF.getDefaultValue());
 			assertEquals(Two.class, optionalF.getDefaultValue());
+
+			assertEquals(null, mandatoryF.getDefaultValueString());
+			assertEquals(TWO,  optionalF .getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null, optionalF .getDefaultValueFailure());

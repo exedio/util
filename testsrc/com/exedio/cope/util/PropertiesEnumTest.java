@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.BETA;
 import static com.exedio.cope.util.PropertiesEnumTest.MyEnum.GAMMA;
@@ -43,6 +44,8 @@ public class PropertiesEnumTest
 		assertEquals(OPTIONAL,  props.optional);
 		assertEquals(MANDATORY, props.mandatoryF.getValue());
 		assertEquals(OPTIONAL,  props.optionalF .getValue());
+		assertEquals("MANDATORY", props.mandatoryF.getValueString());
+		assertEquals("OPTIONAL",  props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 	}
@@ -59,9 +62,29 @@ public class PropertiesEnumTest
 		assertEquals(GAMMA, props.optional);
 		assertEquals(BETA,  props.mandatoryF.getValue());
 		assertEquals(GAMMA, props.optionalF .getValue());
+		assertEquals("BETA",  props.mandatoryF.getValueString());
+		assertEquals("GAMMA", props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
 	}
+
+	@Test void testGetString()
+	{
+		final MyProps props = new MyProps(minimal());
+		props.assertIt();
+
+		assertEquals(BETA.name(), props.mandatoryF.getString(BETA));
+		assertEquals(null,        props.mandatoryF.getString(null));
+		assertFails(
+				() -> props.mandatoryF.getString(55),
+				ClassCastException.class,
+				"Cannot cast java.lang.Integer to " + MyEnum.class.getName());
+		assertFails(
+				() -> props.mandatoryF.getString(OtherEnum.ALPHA),
+				ClassCastException.class,
+				"Cannot cast " + OtherEnum.class.getName() + " to " + MyEnum.class.getName());
+	}
+	enum OtherEnum { ALPHA }
 
 	@Test void testMandatoryWrong()
 	{
@@ -111,6 +134,9 @@ public class PropertiesEnumTest
 
 			assertEquals(null,       mandatoryF.getDefaultValue());
 			assertEquals(OPTIONAL,   optionalF .getDefaultValue());
+
+			assertEquals(null,       mandatoryF.getDefaultValueString());
+			assertEquals("OPTIONAL", optionalF .getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null, optionalF .getDefaultValueFailure());

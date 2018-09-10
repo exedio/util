@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
@@ -45,6 +46,8 @@ public class PropertiesCharsetTest
 		assertEquals(US_ASCII, props.optional);
 		assertEquals(UTF_16,   props.mandatoryF.getValue());
 		assertEquals(US_ASCII, props.optionalF .getValue());
+		assertEquals(UTF_16  .name(), props.mandatoryF.getValueString());
+		assertEquals(US_ASCII.name(), props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 	}
@@ -61,8 +64,25 @@ public class PropertiesCharsetTest
 		assertEquals(UTF_16BE, props.optional);
 		assertEquals(UTF_16LE, props.mandatoryF.getValue());
 		assertEquals(UTF_16BE, props.optionalF .getValue());
+		assertEquals(UTF_16LE.name(), props.mandatoryF.getValueString());
+		assertEquals(UTF_16BE.name(), props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
+	}
+
+	@Test void testGetString()
+	{
+		final MyProps props = new MyProps(minimal());
+		props.assertIt();
+
+		assertEquals(UTF_16LE.name(), props.mandatoryF.getString(UTF_16LE));
+		assertEquals(UTF_16  .name(), props.mandatoryF.getString(UTF_16));
+		assertEquals(US_ASCII.name(), props.mandatoryF.getString(US_ASCII));
+		assertEquals(null,            props.mandatoryF.getString(null));
+		assertFails(
+				() -> props.mandatoryF.getString(55),
+				ClassCastException.class,
+				"Cannot cast java.lang.Integer to java.nio.charset.Charset");
 	}
 
 	@Test void testMandatoryWrong()
@@ -114,8 +134,14 @@ public class PropertiesCharsetTest
 			assertEquals(null, mandatoryF.getMinimum());
 			assertEquals(null, optionalF .getMinimum());
 
+			assertEquals(null, mandatoryF.getMinimumString());
+			assertEquals(null, optionalF .getMinimumString());
+
 			assertEquals(null,       mandatoryF.getDefaultValue());
 			assertEquals(US_ASCII,   optionalF .getDefaultValue());
+
+			assertEquals(null,            mandatoryF.getDefaultValueString());
+			assertEquals(US_ASCII.name(), optionalF .getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null, optionalF .getDefaultValueFailure());

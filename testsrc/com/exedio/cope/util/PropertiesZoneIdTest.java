@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PropertiesTest.assertThrowsIllegalProperties;
 import static com.exedio.cope.util.Sources.view;
@@ -42,6 +43,8 @@ public class PropertiesZoneIdTest
 		assertEquals(of("Europe/Moscow"), props.optional);
 		assertEquals(of("Europe/Berlin"), props.mandatoryF.getValue());
 		assertEquals(of("Europe/Moscow"), props.optionalF .getValue());
+		assertEquals(   "Europe/Berlin",  props.mandatoryF.getValueString());
+		assertEquals(   "Europe/Moscow",  props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertFalse(props.optionalF .isSpecified());
 	}
@@ -58,8 +61,23 @@ public class PropertiesZoneIdTest
 		assertEquals(of("Canada/Atlantic"), props.optional);
 		assertEquals(of("Canada/Eastern"),  props.mandatoryF.getValue());
 		assertEquals(of("Canada/Atlantic"), props.optionalF .getValue());
+		assertEquals(   "Canada/Eastern",   props.mandatoryF.getValueString());
+		assertEquals(   "Canada/Atlantic",  props.optionalF .getValueString());
 		assertTrue (props.mandatoryF.isSpecified());
 		assertTrue (props.optionalF .isSpecified());
+	}
+
+	@Test void testGetString()
+	{
+		final MyProps props = new MyProps(minimal());
+		props.assertIt();
+
+		assertEquals("Canada/Eastern", props.mandatoryF.getString(of("Canada/Eastern")));
+		assertEquals(null,             props.mandatoryF.getString(null));
+		assertFails(
+				() -> props.mandatoryF.getString(55),
+				ClassCastException.class,
+				"Cannot cast java.lang.Integer to java.time.ZoneId");
 	}
 
 	@Test void testMandatoryWrong()
@@ -110,6 +128,9 @@ public class PropertiesZoneIdTest
 
 			assertEquals(null,            mandatoryF.getDefaultValue());
 			assertEquals(of("Europe/Moscow"), optionalF.getDefaultValue());
+
+			assertEquals(null,            mandatoryF.getDefaultValueString());
+			assertEquals("Europe/Moscow", optionalF .getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null, optionalF .getDefaultValueFailure());
