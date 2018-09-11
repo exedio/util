@@ -580,7 +580,7 @@ public class Properties
 						"but was " + defaultValue);
 		}
 
-		return parseField(key, null, defaultValue, (value) ->
+		return parseField(key, minimum, defaultValue, (value) ->
 		{
 			Duration result;
 			try

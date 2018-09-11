@@ -225,9 +225,9 @@ public class PropertiesDurationTest
 			assertEquals("optional",  optionalF .getKey());
 			assertEquals("max",       maxF      .getKey());
 
-			assertEquals(null, mandatoryF.getMinimum());
-			assertEquals(null, optionalF .getMinimum());
-			assertEquals(null, maxF      .getMinimum());
+			assertEquals(ofMinutes(21), mandatoryF.getMinimum());
+			assertEquals(ofMinutes(41), optionalF .getMinimum());
+			assertEquals(ofMinutes(42), maxF      .getMinimum());
 
 			assertEquals(null,    mandatoryF.getDefaultValue());
 			assertEquals(ofMinutes(44), optionalF.getDefaultValue());
