@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
+import static java.util.function.Function.identity;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -454,7 +455,7 @@ public class Properties
 
 	protected final String valueHidden(final String key, final String defaultValue)
 	{
-		return parseField(key, null, defaultValue, true, (s) -> s).get();
+		return parseField(key, null, defaultValue, true, identity()).get();
 	}
 
 	/**
@@ -463,7 +464,7 @@ public class Properties
 	@Deprecated
 	protected final Field<String> field(final String key, final String defaultValue)
 	{
-		return parseField(key, null, defaultValue, (s) -> s);
+		return parseField(key, null, defaultValue, identity());
 	}
 
 
