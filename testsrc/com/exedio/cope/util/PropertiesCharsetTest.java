@@ -111,6 +111,9 @@ public class PropertiesCharsetTest
 			assertEquals("mandatory", mandatoryF.getKey());
 			assertEquals("optional",  optionalF .getKey());
 
+			assertEquals(null, mandatoryF.getMinimum());
+			assertEquals(null, optionalF .getMinimum());
+
 			assertEquals(null,       mandatoryF.getDefaultValue());
 			assertEquals(US_ASCII,   optionalF .getDefaultValue());
 
