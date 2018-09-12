@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Sources.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,21 +32,23 @@ public class PropertiesMessageDigestWrongDefaultTest
 		assertFails(
 				() -> new MyProps(new java.util.Properties()),
 				IllegalPropertiesException.class,
-				"property field in DESC must specify a digest, but was 'WRONG'",
-				IllegalAlgorithmException.class);
+				"property field in DESC must be specified as there is no default");
 	}
 
 	@Test void testSet()
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("field", "SHA-512");
-		assertFails(
-				() -> new MyProps(p),
-				IllegalPropertiesException.class,
-				"property field in DESC must specify a digest, but was 'WRONG'",
-				IllegalAlgorithmException.class);
+		final MyProps props = new MyProps(p);
+		props.assertIt();
+
+		assertEquals(SHA_512, props.fieldF.getValue());
+		assertEquals(SHA_512, props.field);
+		assertTrue(props.fieldF.isSpecified());
 	}
 
+
+	private static final MessageDigestFactory SHA_512 = new MessageDigestFactory("SHA-512");
 
 	static class MyProps extends Properties
 	{

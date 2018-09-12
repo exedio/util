@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Sources.view;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,19 +32,19 @@ public class PropertiesServiceWrongDefaultTest
 		assertFails(
 				() -> new MyProps(new java.util.Properties()),
 				IllegalPropertiesException.class,
-				"property field in DESC must name a class, but was 'com.exedio.cope.util.PropertiesServiceWrongDefaultTest$MyServiceDoesNotExist'",
-				ClassNotFoundException.class);
+				"property field in DESC must be specified as there is no default");
 	}
 
 	@Test void testSet()
 	{
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("field", MyImpl.class.getName());
-		assertFails(
-				() -> new MyProps(p),
-				IllegalPropertiesException.class,
-				"property field in DESC must name a class, but was 'com.exedio.cope.util.PropertiesServiceWrongDefaultTest$MyServiceDoesNotExist'",
-				ClassNotFoundException.class);
+		final MyProps props = new MyProps(p);
+		props.assertIt();
+
+		assertEquals(MyImpl.class, props.fieldF.getValue());
+		assertEquals(MyImpl.class, props.field.getServiceClass());
+		assertTrue(props.fieldF.isSpecified());
 	}
 
 

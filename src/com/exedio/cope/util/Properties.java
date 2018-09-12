@@ -327,9 +327,24 @@ public class Properties
 			final String defaultValue,
 			final Function<String, E> parser)
 	{
+		// Parsing the default value may fail, for instance because the Class
+		// or the MessageDigest does not exist. In such cases the failure
+		// must be suppressed. Otherwise it would not help to override the default.
+		E defaultValueParsed = null;
+		if(defaultValue!=null)
+		{
+			try
+			{
+				defaultValueParsed = requireNonNull(parser.apply(defaultValue), key);
+			}
+			catch(final IllegalPropertiesException ignored)
+			{
+			}
+		}
+
 		return parseField(
 				key, null,
-				defaultValue!=null ? requireNonNull(parser.apply(defaultValue), key) : null,
+				defaultValueParsed,
 				parser);
 	}
 
