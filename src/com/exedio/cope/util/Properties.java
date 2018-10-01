@@ -348,7 +348,6 @@ public class Properties
 			final String defaultValue,
 			final Function<String, E> parser)
 	{
-
 		return parseField(
 				key, null,
 				() -> defaultValue!=null ? requireNonNull(parser.apply(defaultValue), key) : null,
