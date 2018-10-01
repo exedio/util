@@ -40,8 +40,8 @@ public class PropertiesDurationDaysTest
 
 		assertEquals(ofDays(4), props.min);
 		assertEquals(ofDays(5), props.max);
-		assertEquals("PT96H",  props.minF.getValueString());
-		assertEquals("PT120H", props.maxF.getValueString());
+		assertEquals("P4D", props.minF.getValueString());
+		assertEquals("P5D", props.maxF.getValueString());
 	}
 
 	@Test void testSet()
@@ -54,8 +54,8 @@ public class PropertiesDurationDaysTest
 
 		assertEquals(ofDays(4).plus(ofMinutes(44)), props.min);
 		assertEquals(ofDays(8), props.max);
-		assertEquals("PT96H44M",props.minF.getValueString());
-		assertEquals("PT192H",  props.maxF.getValueString());
+		assertEquals("P4DT44M", props.minF.getValueString());
+		assertEquals("P8D",     props.maxF.getValueString());
 	}
 
 	@Test void testGetString()
@@ -64,7 +64,7 @@ public class PropertiesDurationDaysTest
 		props.assertIt();
 
 		assertEquals("PT21M", props.minF.getString(ofMinutes(21)));
-		assertEquals("PT504H",props.minF.getString(ofDays(21)));
+		assertEquals("P21D",  props.minF.getString(ofDays(21)));
 		assertEquals(null,    props.minF.getString(null));
 		assertFails(
 				() -> props.minF.getString(55),
@@ -76,21 +76,21 @@ public class PropertiesDurationDaysTest
 	{
 		assertWrong(
 				"min", "P2D",
-				"must be a duration greater or equal PT72H, but was PT48H", null);
+				"must be a duration greater or equal P3D, but was P2D", null);
 	}
 
 	@Test void testMaxMinimum()
 	{
 		assertWrong(
 				"max", "P1D",
-				"must be a duration between PT48H and PT192H, but was PT24H", null);
+				"must be a duration between P2D and P8D, but was P1D", null);
 	}
 
 	@Test void testMaxMaximum()
 	{
 		assertWrong(
 				"max", "P9D",
-				"must be a duration between PT48H and PT192H, but was PT216H", null);
+				"must be a duration between P2D and P8D, but was P9D", null);
 	}
 
 
@@ -116,14 +116,14 @@ public class PropertiesDurationDaysTest
 			assertEquals(ofDays(3), minF.getMinimum());
 			assertEquals(ofDays(2), maxF.getMinimum());
 
-			assertEquals("PT72H", minF.getMinimumString());
-			assertEquals("PT48H", maxF.getMinimumString());
+			assertEquals("P3D", minF.getMinimumString());
+			assertEquals("P2D", maxF.getMinimumString());
 
 			assertEquals(ofDays(4), minF.getDefaultValue());
 			assertEquals(ofDays(5), maxF.getDefaultValue());
 
-			assertEquals("PT96H",  minF.getDefaultValueString());
-			assertEquals("PT120H", maxF.getDefaultValueString());
+			assertEquals("P4D", minF.getDefaultValueString());
+			assertEquals("P5D", maxF.getDefaultValueString());
 		}
 	}
 
@@ -157,7 +157,7 @@ public class PropertiesDurationDaysTest
 		assertFails(
 			PropsDefaultViolatesMinimum::new,
 			IllegalArgumentException.class,
-			"default of myKey must not be smaller than minimum of PT144H, but was PT143H59M59.999999999S");
+			"default of myKey must not be smaller than minimum of P6D, but was P5DT23H59M59.999999999S");
 	}
 	static class PropsDefaultViolatesMinimum extends Properties
 	{
@@ -174,7 +174,7 @@ public class PropertiesDurationDaysTest
 		assertFails(
 				PropsDefaultViolatesMaximum::new,
 				IllegalArgumentException.class,
-				"default of myKey must not be greater than maximum of PT168H, but was PT168H0.000000001S");
+				"default of myKey must not be greater than maximum of P7D, but was P7DT0.000000001S");
 	}
 	static class PropsDefaultViolatesMaximum extends Properties
 	{
@@ -216,6 +216,7 @@ public class PropertiesDurationDaysTest
 	{
 		final Duration parsed = Duration.parse(s);
 		assertAll(
+				() -> assertEquals(s, Properties.string(d), "toString"),
 				() -> assertEquals(d, parsed, "parse(" + d.toNanos() + "/" + parsed.toNanos() + ")"));
 	}
 	private static final Duration SECOND = ofSeconds(1);

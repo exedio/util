@@ -677,15 +677,15 @@ public class Properties
 		{
 			if(defaultValue.compareTo(minimum)<0)
 				throw new IllegalArgumentException(
-						"default of " + key + " must not be smaller than minimum of " + minimum + ", " +
-						"but was " + defaultValue);
+						"default of " + key + " must not be smaller than minimum of " + string(minimum) + ", " +
+						"but was " + string(defaultValue));
 			if(defaultValue.compareTo(maximum)>0)
 				throw new IllegalArgumentException(
-						"default of " + key + " must not be greater than maximum of " + maximum + ", " +
-						"but was " + defaultValue);
+						"default of " + key + " must not be greater than maximum of " + string(maximum) + ", " +
+						"but was " + string(defaultValue));
 		}
 
-		return parseField(key, Duration.class, minimum, defaultValue, (value) ->
+		return parseField(key, Duration.class, minimum, () -> defaultValue, false, (value) ->
 		{
 			Duration result;
 			try
@@ -711,11 +711,24 @@ public class Properties
 				result.compareTo(maximum)>0)
 				throw newException(key,
 						maximum.equals(DURATION_MAX_VALUE)
-						? "must be a duration greater or equal " + minimum +            ", but was " + result
-						: "must be a duration between " + minimum + " and " + maximum + ", but was " + result );
+						? "must be a duration greater or equal " + string(minimum) +                    ", but was " + string(result)
+						: "must be a duration between " + string(minimum) + " and " + string(maximum) + ", but was " + string(result) );
 
 			return result;
-		}).get();
+		}, Properties::string).get();
+	}
+
+	static final String string(final Duration d)
+	{
+		final long days = d.toDays();
+		if(days==0)
+			return d.toString();
+
+		final Duration withoutDays = d.minusDays(days);
+		if(Duration.ZERO.equals(withoutDays))
+			return "P" + days + 'D';
+
+		return "P" + days + 'D' + withoutDays.toString().substring(1);
 	}
 
 	protected final MessageDigestFactory valueMessageDigest(final String key, final String defaultValue)
