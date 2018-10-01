@@ -77,7 +77,7 @@ public class PropertiesServiceWrongDefaultTest
 			assertEquals("field",  fieldF.getKey());
 			assertEquals(null, fieldF.getDefaultValue());
 			assertEquals(
-					"property field in DESC must name a class, but was 'com.exedio.cope.util.PropertiesServiceWrongDefaultTest$MyServiceDoesNotExist'",
+					"must name a class, but was 'com.exedio.cope.util.PropertiesServiceWrongDefaultTest$MyServiceDoesNotExist'",
 					fieldF.getDefaultValueFailure());
 		}
 	}

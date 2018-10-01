@@ -346,7 +346,7 @@ public class Properties
 				}
 				catch(final IllegalPropertiesException e)
 				{
-					f = e.getMessage();
+					f = e.getDetail();
 				}
 				defaultValue = d;
 				defaultValueFailure = f;
