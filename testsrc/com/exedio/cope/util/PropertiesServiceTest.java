@@ -245,6 +245,9 @@ public class PropertiesServiceTest
 			assertEquals(null, mandatoryF.getDefaultValue());
 			assertEquals(Two.class, optionalF.getDefaultValue());
 
+			assertEquals(null, mandatoryF.getDefaultValueFailure());
+			assertEquals(null, optionalF .getDefaultValueFailure());
+
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
 		}

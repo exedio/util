@@ -111,6 +111,9 @@ public class PropertiesZoneIdTest
 			assertEquals(null,            mandatoryF.getDefaultValue());
 			assertEquals(of("Europe/Moscow"), optionalF.getDefaultValue());
 
+			assertEquals(null, mandatoryF.getDefaultValueFailure());
+			assertEquals(null, optionalF .getDefaultValueFailure());
+
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
 		}

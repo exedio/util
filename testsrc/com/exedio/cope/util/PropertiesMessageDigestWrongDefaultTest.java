@@ -67,6 +67,9 @@ public class PropertiesMessageDigestWrongDefaultTest
 		{
 			assertEquals("field",  fieldF.getKey());
 			assertEquals(null, fieldF.getDefaultValue());
+			assertEquals(
+					"property field in DESC must specify a digest, but was 'WRONG'",
+					fieldF.getDefaultValueFailure());
 		}
 	}
 }

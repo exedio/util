@@ -117,6 +117,9 @@ public class PropertiesCharsetTest
 			assertEquals(null,       mandatoryF.getDefaultValue());
 			assertEquals(US_ASCII,   optionalF .getDefaultValue());
 
+			assertEquals(null, mandatoryF.getDefaultValueFailure());
+			assertEquals(null, optionalF .getDefaultValueFailure());
+
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
 		}

@@ -105,6 +105,16 @@ public class PropertiesTest
 			assertEquals(null, dayMandatoryF.getDefaultValue());
 			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
 
+			assertEquals(null, boolFalseF.getDefaultValueFailure());
+			assertEquals(null, boolTrueF.getDefaultValueFailure());
+			assertEquals(null, int10F.getDefaultValueFailure());
+			assertEquals(null, stringMandatoryF.getDefaultValueFailure());
+			assertEquals(null, stringOptionalF.getDefaultValueFailure());
+			assertEquals(null, stringHiddenF.getDefaultValueFailure());
+			assertEquals(null, stringHiddenOptionalF.getDefaultValueFailure());
+			assertEquals(null, dayMandatoryF.getDefaultValueFailure());
+			assertEquals(null, dayOptionalF.getDefaultValueFailure());
+
 			assertEquals(false, boolFalseF.hasHiddenValue());
 			assertEquals(false, boolTrueF.hasHiddenValue());
 			assertEquals(false, int10F.hasHiddenValue());

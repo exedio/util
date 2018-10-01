@@ -202,6 +202,7 @@ public class Properties
 		final String key;
 		private final E minimum;
 		private final E defaultValue;
+		private final String defaultValueFailure;
 		private final boolean hideValue;
 		private final boolean specified;
 		private final E value;
@@ -211,6 +212,7 @@ public class Properties
 				final String key,
 				final E minimum,
 				final E defaultValue,
+				final String defaultValueFailure,
 				final boolean hideValue,
 				final boolean specified,
 				final E value)
@@ -218,6 +220,7 @@ public class Properties
 			this.key = key;
 			this.minimum = minimum;
 			this.defaultValue = defaultValue;
+			this.defaultValueFailure = defaultValueFailure;
 			this.hideValue = hideValue;
 			this.specified = specified;
 			this.value = value;
@@ -233,6 +236,7 @@ public class Properties
 					key,
 					template.minimum,
 					template.defaultValue,
+					template.defaultValueFailure,
 					template.hideValue,
 					template.specified,
 					template.value);
@@ -252,6 +256,11 @@ public class Properties
 		public E getDefaultValue()
 		{
 			return defaultValue;
+		}
+
+		public String getDefaultValueFailure()
+		{
+			return defaultValueFailure;
 		}
 
 		public boolean hasHiddenValue()
@@ -305,6 +314,7 @@ public class Properties
 
 		final String s = resolve(key);
 		final E defaultValue;
+		final String defaultValueFailure;
 		final boolean specified;
 		final E value;
 		if(s==null)
@@ -313,6 +323,7 @@ public class Properties
 			if(defaultValue==null)
 				throw newException(key,
 						"must be specified as there is no default");
+			defaultValueFailure = null;
 
 			specified = false;
 			value = defaultValue;
@@ -325,6 +336,7 @@ public class Properties
 			if(defaultValueSupplier!=null)
 			{
 				E d = null;
+				String f = null;
 				// Parsing the default value may fail, for instance because the Class
 				// or the MessageDigest does not exist. In such cases the failure
 				// must be suppressed. Otherwise it would not help to override the default.
@@ -332,15 +344,24 @@ public class Properties
 				{
 					d = defaultValueSupplier.get();
 				}
-				catch(final IllegalPropertiesException ignored)
+				catch(final IllegalPropertiesException e)
 				{
+					f = e.getMessage();
 				}
 				defaultValue = d;
+				defaultValueFailure = f;
 			}
 			else
+			{
 				defaultValue = null;
+				defaultValueFailure = null;
+			}
 		}
-		return new Field<>(key, minimum, defaultValue, hideValue, specified, value);
+		return new Field<>(
+				key, minimum,
+				defaultValue, defaultValueFailure,
+				hideValue, specified,
+				value);
 	}
 
 	private <E> Field<E> parseFieldOrDefault(

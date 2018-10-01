@@ -155,6 +155,9 @@ public class PropertiesMessageDigestTest
 			assertEquals(null,      mandatoryF.getDefaultValue());
 			assertEquals(new MessageDigestFactory("SHA-512"), optionalF.getDefaultValue());
 
+			assertEquals(null, mandatoryF.getDefaultValueFailure());
+			assertEquals(null, optionalF .getDefaultValueFailure());
+
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
 		}

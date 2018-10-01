@@ -52,6 +52,7 @@ public class PropertiesFileTest
 
 			assertEquals("file", fileF.getKey());
 			assertEquals(null, fileF.getDefaultValue());
+			assertEquals(null, fileF.getDefaultValueFailure());
 			assertEquals(false, fileF.hasHiddenValue());
 		}
 	}
