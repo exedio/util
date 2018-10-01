@@ -54,6 +54,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
@@ -285,13 +286,13 @@ public class Properties
 			final E defaultValue,
 			final Function<String, E> parser)
 	{
-		return parseField(key, minimum, defaultValue, false, parser);
+		return parseField(key, minimum, () -> defaultValue, false, parser);
 	}
 
 	private <E> Field<E> parseField(
 			final String key,
 			final E minimum,
-			final E defaultValue,
+			final Supplier<E> defaultValueSupplier,
 			final boolean hideValue,
 			final Function<String, E> parser)
 	{
@@ -303,10 +304,12 @@ public class Properties
 				throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
 		final String s = resolve(key);
+		final E defaultValue;
 		final boolean specified;
 		final E value;
 		if(s==null)
 		{
+			defaultValue = defaultValueSupplier.get();
 			if(defaultValue==null)
 				throw newException(key,
 						"must be specified as there is no default");
@@ -318,6 +321,24 @@ public class Properties
 		{
 			specified = true;
 			value = requireNonNull(parser.apply(s), key);
+
+			if(defaultValueSupplier!=null)
+			{
+				E d = null;
+				// Parsing the default value may fail, for instance because the Class
+				// or the MessageDigest does not exist. In such cases the failure
+				// must be suppressed. Otherwise it would not help to override the default.
+				try
+				{
+					d = defaultValueSupplier.get();
+				}
+				catch(final IllegalPropertiesException ignored)
+				{
+				}
+				defaultValue = d;
+			}
+			else
+				defaultValue = null;
 		}
 		return new Field<>(key, minimum, defaultValue, hideValue, specified, value);
 	}
@@ -327,24 +348,11 @@ public class Properties
 			final String defaultValue,
 			final Function<String, E> parser)
 	{
-		// Parsing the default value may fail, for instance because the Class
-		// or the MessageDigest does not exist. In such cases the failure
-		// must be suppressed. Otherwise it would not help to override the default.
-		E defaultValueParsed = null;
-		if(defaultValue!=null)
-		{
-			try
-			{
-				defaultValueParsed = requireNonNull(parser.apply(defaultValue), key);
-			}
-			catch(final IllegalPropertiesException ignored)
-			{
-			}
-		}
 
 		return parseField(
 				key, null,
-				defaultValueParsed,
+				() -> defaultValue!=null ? requireNonNull(parser.apply(defaultValue), key) : null,
+				false,
 				parser);
 	}
 
@@ -470,7 +478,7 @@ public class Properties
 
 	protected final String valueHidden(final String key, final String defaultValue)
 	{
-		return parseField(key, null, defaultValue, true, identity()).get();
+		return parseField(key, null, () -> defaultValue, true, identity()).get();
 	}
 
 	/**

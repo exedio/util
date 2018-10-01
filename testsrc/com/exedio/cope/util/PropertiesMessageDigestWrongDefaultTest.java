@@ -32,7 +32,8 @@ public class PropertiesMessageDigestWrongDefaultTest
 		assertFails(
 				() -> new MyProps(new java.util.Properties()),
 				IllegalPropertiesException.class,
-				"property field in DESC must be specified as there is no default");
+				"property field in DESC must specify a digest, but was 'WRONG'",
+				IllegalAlgorithmException.class);
 	}
 
 	@Test void testSet()

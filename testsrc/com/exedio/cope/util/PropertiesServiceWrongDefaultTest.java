@@ -32,7 +32,8 @@ public class PropertiesServiceWrongDefaultTest
 		assertFails(
 				() -> new MyProps(new java.util.Properties()),
 				IllegalPropertiesException.class,
-				"property field in DESC must be specified as there is no default");
+				"property field in DESC must name a class, but was 'com.exedio.cope.util.PropertiesServiceWrongDefaultTest$MyServiceDoesNotExist'",
+				ClassNotFoundException.class);
 	}
 
 	@Test void testSet()
