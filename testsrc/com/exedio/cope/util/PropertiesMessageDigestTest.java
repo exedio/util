@@ -148,7 +148,7 @@ public class PropertiesMessageDigestTest
 	}
 
 
-	static class MyProps extends MyProperties
+	static class MyProps extends Properties
 	{
 		final MessageDigestFactory mandatory = valueMessageDigest("mandatory", null);
 		final MessageDigestFactory optional  = valueMessageDigest("optional" , "SHA-512");

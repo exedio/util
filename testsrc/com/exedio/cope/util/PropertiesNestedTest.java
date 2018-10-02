@@ -143,7 +143,7 @@ public class PropertiesNestedTest
 		}
 	}
 
-	static class Drinner extends MyProperties
+	static class Drinner extends Properties
 	{
 		final int drinner1 = value("drinner1", 11, 1);
 		final int drinner2 = value("drinner2", 12, 2);

@@ -127,7 +127,7 @@ public class PropertiesNestedOptionalTest
 		}
 	}
 
-	static class InnerProperties extends MyProperties
+	static class InnerProperties extends Properties
 	{
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);

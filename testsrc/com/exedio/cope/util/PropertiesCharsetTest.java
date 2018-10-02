@@ -109,7 +109,7 @@ public class PropertiesCharsetTest
 	}
 
 
-	static class MyProps extends MyProperties
+	static class MyProps extends Properties
 	{
 		final Charset mandatory = value("mandatory", (Charset)null);
 		final Charset optional  = value("optional" , US_ASCII);

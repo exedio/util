@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesFileTest
 {
-	static class TestProperties extends MyProperties
+	static class TestProperties extends Properties
 	{
 		final File file = valueFile("file");
 

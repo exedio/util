@@ -104,7 +104,7 @@ public class PropertiesZoneIdTest
 	}
 
 
-	static class MyProps extends MyProperties
+	static class MyProps extends Properties
 	{
 		final ZoneId mandatory = value("mandatory", (ZoneId)null);
 		final ZoneId optional  = value("optional" , of("Europe/Moscow"));

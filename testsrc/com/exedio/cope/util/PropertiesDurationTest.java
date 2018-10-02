@@ -228,7 +228,7 @@ public class PropertiesDurationTest
 	}
 
 
-	static class MyProps extends MyProperties
+	static class MyProps extends Properties
 	{
 		final Duration mandatory = value("mandatory", null, ofMinutes(21));
 		final Duration optional  = value("optional" , ofMinutes(44), ofMinutes(41));
@@ -308,7 +308,7 @@ public class PropertiesDurationTest
 			PropsMinimumNull::new,
 			NullPointerException.class, "minimum");
 	}
-	static class PropsMinimumNull extends MyProperties
+	static class PropsMinimumNull extends Properties
 	{
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 		PropsMinimumNull()
@@ -325,7 +325,7 @@ public class PropertiesDurationTest
 				PropsMinimumNullWithMaximum::new,
 				NullPointerException.class, "minimum");
 	}
-	static class PropsMinimumNullWithMaximum extends MyProperties
+	static class PropsMinimumNullWithMaximum extends Properties
 	{
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 		PropsMinimumNullWithMaximum()
@@ -342,7 +342,7 @@ public class PropertiesDurationTest
 				PropsMaximumNull::new,
 				NullPointerException.class, "maximum");
 	}
-	static class PropsMaximumNull extends MyProperties
+	static class PropsMaximumNull extends Properties
 	{
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 		PropsMaximumNull()
@@ -361,7 +361,7 @@ public class PropertiesDurationTest
 			IllegalArgumentException.class,
 			"default of myKey must not be smaller than minimum of PT6M, but was PT5M59.999999999S");
 	}
-	static class PropsDefaultViolatesMinimum extends MyProperties
+	static class PropsDefaultViolatesMinimum extends Properties
 	{
 		PropsDefaultViolatesMinimum()
 		{
@@ -378,7 +378,7 @@ public class PropertiesDurationTest
 				IllegalArgumentException.class,
 				"default of myKey must not be greater than maximum of PT7M, but was PT7M0.000000001S");
 	}
-	static class PropsDefaultViolatesMaximum extends MyProperties
+	static class PropsDefaultViolatesMaximum extends Properties
 	{
 		PropsDefaultViolatesMaximum()
 		{
@@ -393,7 +393,7 @@ public class PropertiesDurationTest
 		final PropsDefaultEqualsMinimum p = new PropsDefaultEqualsMinimum();
 		assertEquals(ofMinutes(5), p.d);
 	}
-	static class PropsDefaultEqualsMinimum extends MyProperties
+	static class PropsDefaultEqualsMinimum extends Properties
 	{
 		final Duration d = value("myKey", ofMinutes(5), ofMinutes(5));
 
@@ -406,7 +406,7 @@ public class PropertiesDurationTest
 		final PropsDefaultEqualsMaximum p = new PropsDefaultEqualsMaximum();
 		assertEquals(ofMinutes(5), p.d);
 	}
-	static class PropsDefaultEqualsMaximum extends MyProperties
+	static class PropsDefaultEqualsMaximum extends Properties
 	{
 		final Duration d = value("myKey", ofMinutes(5), ofMinutes(5), ofMinutes(5));
 

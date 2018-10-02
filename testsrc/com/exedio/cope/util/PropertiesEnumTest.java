@@ -110,7 +110,7 @@ public class PropertiesEnumTest
 
 	enum MyEnum { MANDATORY, OPTIONAL, @SuppressWarnings("unused") ALPHA, BETA, GAMMA }
 
-	static class MyProps extends MyProperties
+	static class MyProps extends Properties
 	{
 		final MyEnum mandatory = value("mandatory", MyEnum.class);
 		final MyEnum optional  = value("optional" , OPTIONAL);

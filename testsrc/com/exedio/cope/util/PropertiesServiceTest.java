@@ -197,7 +197,7 @@ public class PropertiesServiceTest
 				"which must have a constructor with parameter " + Properties.Source.class.getName(),
 				NoSuchMethodException.class);
 	}
-	static class WrongNestedMissingProps extends MyProperties { WrongNestedMissingProps() {super(Sources.EMPTY);} }
+	static class WrongNestedMissingProps extends Properties { WrongNestedMissingProps() {super(Sources.EMPTY);} }
 	@ServiceProperties(WrongNestedMissingProps.class)
 	static class WrongNestedMissingService extends MyService { WrongNestedMissingService() {super(null);} }
 
@@ -275,7 +275,7 @@ public class PropertiesServiceTest
 		}
 	}
 
-	static final class NestedProps extends MyProperties
+	static final class NestedProps extends Properties
 	{
 		final String nestedA = value("nestedA", "nestedAdefault");
 		final int    nestedB = value("nestedB", 55, 1);

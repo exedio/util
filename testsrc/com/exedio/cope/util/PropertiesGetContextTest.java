@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 		"SIC_INNER_SHOULD_BE_STATIC_ANON"}) // is more compact to write in tests
 public class PropertiesGetContextTest
 {
-	static class TestProperties extends MyProperties
+	static class TestProperties extends Properties
 	{
 		@SuppressWarnings("unused")
 		@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection

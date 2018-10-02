@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesPathTest
 {
-	static class TestProperties extends MyProperties
+	static class TestProperties extends Properties
 	{
 		final Path file = valuePath("file");
 

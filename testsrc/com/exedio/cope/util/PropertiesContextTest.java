@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesContextTest
 {
-	static class TestProperties extends MyProperties
+	static class TestProperties extends Properties
 	{
 		final String aField = value("aKey", (String)null);
 

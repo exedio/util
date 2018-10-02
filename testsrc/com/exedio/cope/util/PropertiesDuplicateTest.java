@@ -28,7 +28,7 @@ public class PropertiesDuplicateTest
 {
 	@SuppressWarnings("unused")
 	@SuppressFBWarnings({"URF_UNREAD_FIELD","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"}) // is read by reflection
-	static class KeyNullProperties extends MyProperties
+	static class KeyNullProperties extends Properties
 	{
 		final boolean value = value(null, false);
 		KeyNullProperties()
@@ -48,7 +48,7 @@ public class PropertiesDuplicateTest
 
 	@SuppressWarnings("unused")
 	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
-	static class KeyEmptyProperties extends MyProperties
+	static class KeyEmptyProperties extends Properties
 	{
 		final boolean value = value("", false);
 		KeyEmptyProperties()
@@ -83,7 +83,7 @@ public class PropertiesDuplicateTest
 
 	@SuppressWarnings("unused")
 	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
-	static class DuplicateProperties extends MyProperties
+	static class DuplicateProperties extends Properties
 	{
 		final boolean duplicate1 = value("duplicate", false);
 		final boolean duplicate2 = value("duplicate", true);
@@ -104,7 +104,7 @@ public class PropertiesDuplicateTest
 	}
 
 
-	static class Nested extends MyProperties
+	static class Nested extends Properties
 	{
 		Nested(final Source source)
 		{
@@ -118,7 +118,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testSimpleNestedEquals()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
@@ -137,7 +137,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testSimpleNestedStartsWith()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
@@ -156,7 +156,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testNestedSimpleEquals()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
@@ -175,7 +175,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testNestedSimpleStartsWith()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
@@ -194,7 +194,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testNestedNestedEquals()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
@@ -213,7 +213,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testNestedNestedStartsWith()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
@@ -232,7 +232,7 @@ public class PropertiesDuplicateTest
 	@SuppressWarnings("unused")
 	@Test void testNestedNestedStartsWith2()
 	{
-		class Props extends MyProperties
+		class Props extends Properties
 		{
 			Props()
 			{
