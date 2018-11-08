@@ -36,6 +36,13 @@ public final class Check
 		return value;
 	}
 
+	public static double requireGreaterZero(final double value, final String name)
+	{
+		if(value<=0)
+			throw new IllegalArgumentException(name + " must be greater zero, but was " + value);
+		return value;
+	}
+
 	public static int requireNonNegative(final int value, final String name)
 	{
 		if(value<0)
@@ -44,6 +51,13 @@ public final class Check
 	}
 
 	public static long requireNonNegative(final long value, final String name)
+	{
+		if(value<0)
+			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
+		return value;
+	}
+
+	public static double requireNonNegative(final double value, final String name)
 	{
 		if(value<0)
 			throw new IllegalArgumentException(name + " must not be negative, but was " + value);

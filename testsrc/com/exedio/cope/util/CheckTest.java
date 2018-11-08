@@ -73,6 +73,25 @@ public class CheckTest
 			"name must be greater zero, but was -1");
 	}
 
+	@Test void testRequireGreaterZeroDouble()
+	{
+		assertEquals(0.001, requireGreaterZero(0.001, "name"));
+	}
+	@Test void testRequireGreaterZeroDoubleZero()
+	{
+		assertFails(() ->
+			requireGreaterZero(0d, "name"),
+			IllegalArgumentException.class,
+			"name must be greater zero, but was 0.0");
+	}
+	@Test void testRequireGreaterZeroDoubleNegative()
+	{
+		assertFails(() ->
+			requireGreaterZero(-0.001, "name"),
+			IllegalArgumentException.class,
+			"name must be greater zero, but was -0.001");
+	}
+
 	@Test void testRequireNonNegativeInt()
 	{
 		assertEquals(1, requireNonNegative(1, "name"));
@@ -103,6 +122,22 @@ public class CheckTest
 			requireNonNegative(-1l, "name"),
 			IllegalArgumentException.class,
 			"name must not be negative, but was -1");
+	}
+
+	@Test void testRequireNonNegativeDouble()
+	{
+		assertEquals(0.001, requireNonNegative(0.001, "name"));
+	}
+	@Test void testRequireNonNegativeDoubleZero()
+	{
+		assertEquals(0l, requireNonNegative(0d, "name"));
+	}
+	@Test void testRequireNonNegativeDoubleNegative()
+	{
+		assertFails(() ->
+			requireNonNegative(-0.001, "name"),
+			IllegalArgumentException.class,
+			"name must not be negative, but was -0.001");
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
