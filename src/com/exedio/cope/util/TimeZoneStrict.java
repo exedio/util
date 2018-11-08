@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
+
 import java.util.TimeZone;
 
 public final class TimeZoneStrict
@@ -29,10 +31,7 @@ public final class TimeZoneStrict
 	 */
 	public static TimeZone getTimeZone(final String ID)
 	{
-		if(ID==null)
-			throw new NullPointerException();
-		if(ID.isEmpty())
-			throw new IllegalArgumentException("ID must not be empty");
+		requireNonEmpty(ID, "ID");
 
 		final TimeZone zone = TimeZone.getTimeZone(ID);
 		if(!ID.equals(zone.getID()))

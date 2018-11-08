@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
 
 import com.exedio.cope.util.Properties.Source;
@@ -243,10 +244,7 @@ public final class Sources
 	 */
 	public static void checkKey(final String key)
 	{
-		if(key==null)
-			throw new NullPointerException("key");
-		if(key.isEmpty())
-			throw new IllegalArgumentException("key must not be empty");
+		requireNonEmpty(key, "key");
 	}
 
 	private Sources()
