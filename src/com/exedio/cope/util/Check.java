@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.lang.reflect.Array;
 
 public final class Check
@@ -61,6 +63,15 @@ public final class Check
 	{
 		if(value<0)
 			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
+		return value;
+	}
+
+	public static <E extends Comparable<E>> E requireAtLeast(final E value, final String name, final E minimum)
+	{
+		requireNonNull(value, name);
+		requireNonNull(minimum, "minimum");
+		if(value.compareTo(minimum)<0)
+			throw new IllegalArgumentException(name + " must be at least " + minimum + ", but was " + value);
 		return value;
 	}
 
