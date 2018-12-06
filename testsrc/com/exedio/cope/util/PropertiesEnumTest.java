@@ -130,7 +130,9 @@ public class PropertiesEnumTest
 			assertEqualsUnmodifiable(asList(mandatoryF, optionalF), getFields());
 
 			assertEquals("mandatory", mandatoryF.getKey());
+			assertEquals("mandatory", mandatoryF.toString());
 			assertEquals("optional",  optionalF .getKey());
+			assertEquals("optional",  optionalF .toString());
 
 			assertEquals(null,       mandatoryF.getDefaultValue());
 			assertEquals(OPTIONAL,   optionalF .getDefaultValue());

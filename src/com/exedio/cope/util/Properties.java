@@ -344,6 +344,12 @@ public class Properties
 		{
 			return value;
 		}
+
+		@Override
+		public String toString()
+		{
+			return key;
+		}
 	}
 
 	private <E> Field<E> parseField(
