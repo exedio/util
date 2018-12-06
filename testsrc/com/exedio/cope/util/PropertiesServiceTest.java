@@ -38,10 +38,14 @@ public class PropertiesServiceTest
 
 		assertEquals(One.class, props.mandatoryF.getValue());
 		assertEquals(One.class, props.mandatStrF.getValue());
+		assertEquals(One.class, props.mandatClsF.getValue());
 		assertEquals(Two.class, props.optionalF .getValue());
+		assertEquals(Two.class, props.optionClsF.getValue());
 		assertEquals(One.class, props.mandatory.getServiceClass());
 		assertEquals(One.class, props.mandatStr.getServiceClass());
+		assertEquals(One.class, props.mandatCls.getServiceClass());
 		assertEquals(Two.class, props.optional .getServiceClass());
+		assertEquals(Two.class, props.optionCls.getServiceClass());
 		assertEquals(ONE, props.mandatoryF.getValueString());
 		assertEquals(TWO, props.optionalF .getValueString());
 		assertEquals(ONE, props.mandatory.toString());
@@ -239,7 +243,9 @@ public class PropertiesServiceTest
 	{
 		final ServiceFactory<MyService, String> mandatory = valueService("mandatory", MyService.class, String.class);
 		final ServiceFactory<MyService, String> mandatStr = valueService("mandatStr", (String)null, MyService.class, String.class);
+		final ServiceFactory<MyService, String> mandatCls = valueService("mandatCls", (Class<Two>)null, MyService.class, String.class);
 		final ServiceFactory<MyService, String> optional  = valueService("optional" , TWO, MyService.class, String.class);
+		final ServiceFactory<MyService, String> optionCls = valueService("optionCls", Two.class, MyService.class, String.class);
 
 		MyProps(final java.util.Properties source)
 		{
@@ -248,7 +254,9 @@ public class PropertiesServiceTest
 
 		final Field<?> mandatoryF = getField("mandatory");
 		final Field<?> mandatStrF = getField("mandatStr");
+		final Field<?> mandatClsF = getField("mandatCls");
 		final Field<?> optionalF  = getField("optional");
+		final Field<?> optionClsF = getField("optionCls");
 		final Field<?> mandatoryNestedAF = getField("mandatory.nestedA");
 		final Field<?> mandatoryNestedBF = getField("mandatory.nestedB");
 
@@ -258,29 +266,39 @@ public class PropertiesServiceTest
 			assertEqualsUnmodifiable(asList(), getProbes());
 			assertEqualsUnmodifiable(
 					forPrefix("mandatory", NestedProps.class)==null
-					? asList(mandatoryF,                                       mandatStrF, optionalF)
-					: asList(mandatoryF, mandatoryNestedAF, mandatoryNestedBF, mandatStrF, optionalF),
+					? asList(mandatoryF,                                       mandatStrF, mandatClsF, optionalF, optionClsF)
+					: asList(mandatoryF, mandatoryNestedAF, mandatoryNestedBF, mandatStrF, mandatClsF, optionalF, optionClsF),
 					getFields());
 
 			assertEquals("mandatory", mandatoryF.getKey());
 			assertEquals("mandatStr", mandatStrF.getKey());
+			assertEquals("mandatCls", mandatClsF.getKey());
 			assertEquals("optional",  optionalF .getKey());
+			assertEquals("optionCls", optionClsF.getKey());
 
 			assertEquals(null, mandatoryF.getDefaultValue());
 			assertEquals(null, mandatStrF.getDefaultValue());
+			assertEquals(null, mandatClsF.getDefaultValue());
 			assertEquals(Two.class, optionalF.getDefaultValue());
+			assertEquals(Two.class, optionClsF.getDefaultValue());
 
 			assertEquals(null, mandatoryF.getDefaultValueString());
 			assertEquals(null, mandatStrF.getDefaultValueString());
+			assertEquals(null, mandatClsF.getDefaultValueString());
 			assertEquals(TWO,  optionalF .getDefaultValueString());
+			assertEquals(TWO,  optionClsF.getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null, mandatStrF.getDefaultValueFailure());
+			assertEquals(null, mandatClsF.getDefaultValueFailure());
 			assertEquals(null, optionalF .getDefaultValueFailure());
+			assertEquals(null, optionClsF.getDefaultValueFailure());
 
 			assertFalse(mandatoryF.hasHiddenValue());
 			assertFalse(mandatStrF.hasHiddenValue());
+			assertFalse(mandatClsF.hasHiddenValue());
 			assertFalse(optionalF .hasHiddenValue());
+			assertFalse(optionClsF.hasHiddenValue());
 		}
 	}
 
@@ -357,6 +375,7 @@ public class PropertiesServiceTest
 		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("mandatory", One.class.getName());
 		result.setProperty("mandatStr", One.class.getName());
+		result.setProperty("mandatCls", One.class.getName());
 		return result;
 	}
 }

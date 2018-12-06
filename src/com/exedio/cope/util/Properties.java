@@ -769,7 +769,18 @@ public class Properties
 			final Class<T> superclass,
 			final Class<P> parameterType)
 	{
-		return valueService(key, null, superclass, parameterType);
+		return valueService(key, (String)null, superclass, parameterType);
+	}
+
+	protected final <T,P> ServiceFactory<T,P> valueService(
+			final String key,
+			final Class<? extends T> defaultValue,
+			final Class<T> superclass,
+			final Class<P> parameterType)
+	{
+		return valueService(key,
+				defaultValue!=null ? defaultValue.getName() : null,
+				superclass, parameterType);
 	}
 
 	protected final <T,P> ServiceFactory<T,P> valueService(
