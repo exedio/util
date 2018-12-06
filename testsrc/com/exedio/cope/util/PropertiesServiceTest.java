@@ -241,11 +241,11 @@ public class PropertiesServiceTest
 
 	static class MyProps extends MyProperties
 	{
-		final ServiceFactory<MyService, String> mandatory = valueService("mandatory", MyService.class, String.class);
-		final ServiceFactory<MyService, String> mandatStr = valueService("mandatStr", (String)null, MyService.class, String.class);
+		final ServiceFactory<MyService, String> mandatory = valueService("mandatory",                   MyService.class, String.class);
+		final ServiceFactory<MyService, String> mandatStr = valueService("mandatStr", (String)null,     MyService.class, String.class);
 		final ServiceFactory<MyService, String> mandatCls = valueService("mandatCls", (Class<Two>)null, MyService.class, String.class);
-		final ServiceFactory<MyService, String> optional  = valueService("optional" , TWO, MyService.class, String.class);
-		final ServiceFactory<MyService, String> optionCls = valueService("optionCls", Two.class, MyService.class, String.class);
+		final ServiceFactory<MyService, String> optional  = valueService("optional" , TWO,              MyService.class, String.class);
+		final ServiceFactory<MyService, String> optionCls = valueService("optionCls", Two.class,        MyService.class, String.class);
 
 		MyProps(final java.util.Properties source)
 		{
