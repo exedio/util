@@ -39,7 +39,7 @@ public class PropertiesProbeRunTest
 
 		assertUnmodifiable(probes);
 		assertEqualsUnmodifiable(probes, props.getProbes());
-		assertEquals(7, probes.size());
+		assertEquals(8, probes.size());
 
 		final Callable<?> probeReturn = probes.get(0);
 		final Callable<?> probePrimit = probes.get(1);
@@ -48,6 +48,7 @@ public class PropertiesProbeRunTest
 		final Callable<?> probeExcp   = probes.get(4);
 		final Callable<?> probeError  = probes.get(5);
 		final Callable<?> probeThrow  = probes.get(6);
+		final Callable<?> probeAbort  = probes.get(7);
 
 		assertEquals("10Return", probeReturn.toString());
 		assertEquals("20Primit", probePrimit.toString());
@@ -56,6 +57,7 @@ public class PropertiesProbeRunTest
 		assertEquals("50Excp"  , probeExcp  .toString());
 		assertEquals("60Error" , probeError .toString());
 		assertEquals("70Throw" , probeThrow .toString());
+		assertEquals("80Abort" , probeAbort .toString());
 
 		assertEquals("probeReturnResult", probeReturn.call());
 		assertEquals(Integer.valueOf(777), probePrimit.call());
@@ -74,6 +76,9 @@ public class PropertiesProbeRunTest
 		final Throwable e = ew.getTargetException();
 		assertEquals("probeThrow", e.getMessage());
 		assertEquals(MyThrowable.class, e.getClass());
+		assertFails(
+				probeAbort::call,
+				Properties.ProbeAbortedException.class, "probeAbort");
 	}
 
 	static class MyProps extends Properties
@@ -85,6 +90,7 @@ public class PropertiesProbeRunTest
 		@Probe String probe50Excp()   throws IOException { throw new IOException("probeExcp"); }
 		@Probe String probe60Error()  { throw new AssertionError("probeError"); }
 		@Probe String probe70Throw()  throws MyThrowable { throw new MyThrowable(); }
+		@Probe String probe80Abort()  throws ProbeAbortedException { throw newProbeAbortedException("probeAbort"); }
 
 		MyProps() { super(Sources.EMPTY); }
 	}

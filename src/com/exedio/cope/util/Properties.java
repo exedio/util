@@ -1239,6 +1239,11 @@ public class Properties
 	 * Declares a method to be a probe.
 	 * Probes are returned by {@link #getProbes()}.
 	 * Probe methods must not be static and must have no parameters.
+	 * <p>
+	 * A probe may throw a {@link #newProbeAbortedException(String) ProbeAbortedException}
+	 * to indicate, that this probe has been aborted because one of its preconditions is not fulfilled.
+	 * This may happen, if the probe depends on something that does not exist in this
+	 * properties instance.
 	 */
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.RUNTIME)
@@ -1250,6 +1255,22 @@ public class Properties
 		 * Names must be unique within a class.
 		 */
 		String name() default "";
+	}
+
+	@SuppressWarnings("MethodMayBeStatic") // OK: should be called from instance context only
+	protected final ProbeAbortedException newProbeAbortedException(final String message)
+	{
+		return new ProbeAbortedException(message);
+	}
+
+	public static final class ProbeAbortedException extends Exception
+	{
+		private ProbeAbortedException(final String message)
+		{
+			super(message);
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 
 	/**
