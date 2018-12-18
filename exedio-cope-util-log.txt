@@ -8,6 +8,7 @@ The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
 * Properties#newProbeAbortedException added.
+	It's recommended to update cops (if present in your project) to rev>=524.
 * Properties#valueService with Class defaultValue added.
 * PropertiesInstance added.
 * class Check added.
