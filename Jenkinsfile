@@ -43,7 +43,6 @@ timestamps
 				sh "ant/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
-						' -Dtest-details=none' +
 						' -Ddisable-ansi-colors=true' +
 						' -Dfindbugs.output=xml'
 
