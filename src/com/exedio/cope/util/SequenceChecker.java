@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 /**
  * <p><strong>Note that this class is not synchronized.</strong>
- * If multiple threads access an <tt>SequenceChecker</tt> instance concurrently,
+ * If multiple threads access an {@code SequenceChecker} instance concurrently,
  * it <i>must</i> be synchronized externally.
  */
 public final class SequenceChecker

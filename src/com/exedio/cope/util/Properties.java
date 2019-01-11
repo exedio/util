@@ -1312,7 +1312,7 @@ public class Properties
 	}
 
 	/**
-	 * @throws IllegalArgumentException if the context does not contain a value for <tt>key</tt>.
+	 * @throws IllegalArgumentException if the context does not contain a value for {@code key}.
 	 * @throws IllegalStateException if there is no context for these properties.
 	 * @deprecated Use {@link #getContext()} instead.
 	 */

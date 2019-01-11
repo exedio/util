@@ -35,10 +35,10 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- * The class <tt>Day</tt> represents a specific day.
+ * The class {@code Day} represents a specific day.
  * An instance of this class does <b>NOT</b> represent range of time,
  * but rather something like a calendar sheet.
- * If you want to convert <tt>Day</tt> into {@link Date} or vice versa,
+ * If you want to convert {@code Day} into {@link Date} or vice versa,
  * the result depends on the {@link TimeZone}.
  * <p>
  * Instance of this class are immutable,
@@ -70,7 +70,7 @@ public final class Day implements Serializable, Comparable<Day>
 	private final int day;
 
 	/**
-	 * Creates a new <tt>Day</tt> object,
+	 * Creates a new {@code Day} object,
 	 * that represents today.
 	 */
 	public Day(final TimeZone zone)
@@ -356,7 +356,7 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
    /**
-    * Creates a new <tt>Day</tt> object,
+    * Creates a new {@code Day} object,
     * that represents today.
 	 * @deprecated Provide {@link TimeZone} as parameter.
     */
