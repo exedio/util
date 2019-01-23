@@ -147,11 +147,11 @@ public class CharSetTest
 	@Test void testToString()
 	{
 		assertEquals("[0-9,A-Z,a-z]", ALPHA_NUMERIC.toString());
-		assertEquals("[\ufffe-\uffff]", new CharSet('\ufffe', '\uffff').toString());
-		assertEquals("[A-Z,\ufffe-\uffff]", new CharSet('A', 'Z', '\ufffe', '\uffff').toString());
+		assertEquals("[nd{fffe}-nd{ffff}]", new CharSet('\ufffe', '\uffff').toString());
+		assertEquals("[A-Z,nd{fffe}-nd{ffff}]", new CharSet('A', 'Z', '\ufffe', '\uffff').toString());
 		assertEquals("[--.,0-9,@-Z,_-_,a-z]", EMAIL_RESTRICTIVE.toString());
 		assertEquals("[!-!,#-',*-+,--9,=-=,?-Z,^-~]", EMAIL_ASCII.toString());
-		assertEquals("[!-!,#-',*-+,--9,=-=,?-Z,^-~,\u0080-\uffff]", EMAIL_INTERNATIONAL.toString());
+		assertEquals("[!-!,#-',*-+,--9,=-=,?-Z,^-~,\u0080-nd{ffff}]", EMAIL_INTERNATIONAL.toString());
 	}
 	@Test void regexp()
 	{

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static java.lang.Character.isDefined;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -181,19 +183,30 @@ public final class CharSet implements Serializable
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('[');
-		bf.append(set[0]).
-			append('-').
-			append(set[1]);
+		toString(bf, set[0]);
+		bf.append('-');
+		toString(bf, set[1]);
 		for(int i = 2; i<set.length; i+=2)
 		{
-			bf.append(',').
-				append(set[i]).
-				append('-').
-				append(set[i+1]);
+			bf.append(',');
+			toString(bf, set[i]);
+			bf.append('-');
+			toString(bf, set[i+1]);
 		}
 		bf.append(']');
 
 		return bf.toString();
+	}
+
+	@SuppressWarnings("HardcodedLineSeparator")
+	private static void toString(final StringBuilder bf, final char c)
+	{
+		if(isDefined(c))
+			bf.append(c);
+		else
+			bf.append("nd{").
+				append(Integer.toHexString(c)).
+				append('}');
 	}
 
 	public CharSet remove(final char from, final char to)
