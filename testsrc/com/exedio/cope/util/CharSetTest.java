@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
+import static com.exedio.cope.util.CharSet.ALPHA_NUMERIC;
 import static com.exedio.cope.util.CharSet.EMAIL_ASCII;
 import static com.exedio.cope.util.CharSet.EMAIL_INTERNATIONAL;
 import static com.exedio.cope.util.CharSet.EMAIL_RESTRICTIVE;
@@ -142,6 +143,15 @@ public class CharSetTest
 		assertNotEqualsStrict(
 				new CharSet('A', 'X', 'a', 'x'),
 				new CharSet('A', 'X', 'a', 'y'));
+	}
+	@Test void testToString()
+	{
+		assertEquals("[0-9,A-Z,a-z]", ALPHA_NUMERIC.toString());
+		assertEquals("[\ufffe-\uffff]", new CharSet('\ufffe', '\uffff').toString());
+		assertEquals("[A-Z,\ufffe-\uffff]", new CharSet('A', 'Z', '\ufffe', '\uffff').toString());
+		assertEquals("[--.,0-9,@-Z,_-_,a-z]", EMAIL_RESTRICTIVE.toString());
+		assertEquals("[!-!,#-',*-+,--9,=-=,?-Z,^-~]", EMAIL_ASCII.toString());
+		assertEquals("[!-!,#-',*-+,--9,=-=,?-Z,^-~,\u0080-\uffff]", EMAIL_INTERNATIONAL.toString());
 	}
 	@Test void regexp()
 	{
