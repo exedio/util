@@ -20,6 +20,9 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
+import static com.exedio.cope.util.CharSet.EMAIL_ASCII;
+import static com.exedio.cope.util.CharSet.EMAIL_INTERNATIONAL;
+import static com.exedio.cope.util.CharSet.EMAIL_RESTRICTIVE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -191,32 +194,32 @@ public class CharSetTest
 	@Test void emailInvalid()
 	{
 		final String invalid = "\n\t \"(),:;<>[\\]";
-		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, invalid));
-		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_ASCII, invalid));
-		assertEquals(invalid, getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, invalid));
+		assertEquals(invalid, getInvalidCharacters(EMAIL_RESTRICTIVE, invalid));
+		assertEquals(invalid, getInvalidCharacters(EMAIL_ASCII, invalid));
+		assertEquals(invalid, getInvalidCharacters(EMAIL_INTERNATIONAL, invalid));
 	}
 
 	@Test void emailValid()
 	{
-		assertEquals("!#$%&'*+/=?^`{|}~", getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
-		assertEquals("", getInvalidCharacters(CharSet.EMAIL_ASCII, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
-		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("!#$%&'*+/=?^`{|}~", getInvalidCharacters(EMAIL_RESTRICTIVE, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("", getInvalidCharacters(EMAIL_ASCII, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
+		assertEquals("", getInvalidCharacters(EMAIL_INTERNATIONAL, "AZaz0123456789!#$%&'*+-/=?^_`.{|}~"));
 	}
 
 	@Test void emailInternationalCharacters()
 	{
 		final String international = "\u00e4\u00f6\u00fc\u00c4\u00d6\u00dc\u00df\u20ac\u00e0\u00e8\u00e9\u00ea\u0436";
-		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, international));
-		assertEquals(international, getInvalidCharacters(CharSet.EMAIL_ASCII, international));
-		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, international));
+		assertEquals(international, getInvalidCharacters(EMAIL_RESTRICTIVE, international));
+		assertEquals(international, getInvalidCharacters(EMAIL_ASCII, international));
+		assertEquals("", getInvalidCharacters(EMAIL_INTERNATIONAL, international));
 	}
 
 	@Test void emailNonUtf16()
 	{
 		final String nonUtf16 = new String(Character.toChars(0x1F600));
-		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_RESTRICTIVE, nonUtf16));
-		assertEquals(nonUtf16, getInvalidCharacters(CharSet.EMAIL_ASCII, nonUtf16));
-		assertEquals("", getInvalidCharacters(CharSet.EMAIL_INTERNATIONAL, nonUtf16));
+		assertEquals(nonUtf16, getInvalidCharacters(EMAIL_RESTRICTIVE, nonUtf16));
+		assertEquals(nonUtf16, getInvalidCharacters(EMAIL_ASCII, nonUtf16));
+		assertEquals("", getInvalidCharacters(EMAIL_INTERNATIONAL, nonUtf16));
 	}
 
 	private static String getInvalidCharacters(final CharSet charSet, final String s)
@@ -249,14 +252,14 @@ public class CharSetTest
 		assertEquals(new CharSet('\0', '\u007f'), new CharSet('\0', '\uffff').restrictTo7BitAscii());
 		assertEquals(new CharSet('0', '9', 'A', 'Z'), new CharSet('0', '9', 'A', 'Z', '\u00e4', '\u00e4').restrictTo7BitAscii());
 		assertEquals(new CharSet('0', '9', 'A', '\u007f'), new CharSet('0', '9', 'A', '\u00e4', '\u00f6', '\u00fc').restrictTo7BitAscii());
-		assertEquals(CharSet.EMAIL_ASCII, CharSet.EMAIL_INTERNATIONAL.restrictTo7BitAscii());
+		assertEquals(EMAIL_ASCII, EMAIL_INTERNATIONAL.restrictTo7BitAscii());
 		assertEquals(null, new CharSet('\u00e4', '\u00f6').restrictTo7BitAscii());
 	}
 
 	@Test void invertedRegexp()
 	{
 		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
-		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", CharSet.EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
+		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
 	}
 
 	@Test void remove()
