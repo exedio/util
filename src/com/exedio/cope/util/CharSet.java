@@ -83,6 +83,16 @@ public final class CharSet implements Serializable
 		this(new char[]{from1, to1, from2, to2, from3, to3, from4, to4, from5, to5, from6, to6});
 	}
 
+	public CharSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3, final char from4, final char to4, final char from5, final char to5, final char from6, final char to6, final char from7, final char to7)
+	{
+		this(new char[]{from1, to1, from2, to2, from3, to3, from4, to4, from5, to5, from6, to6, from7, to7});
+	}
+
+	public CharSet(final char from1, final char to1, final char from2, final char to2, final char from3, final char to3, final char from4, final char to4, final char from5, final char to5, final char from6, final char to6, final char from7, final char to7, final char from8, final char to8)
+	{
+		this(new char[]{from1, to1, from2, to2, from3, to3, from4, to4, from5, to5, from6, to6, from7, to7, from8, to8});
+	}
+
 	private CharSet(final char... set)
 	{
 		assert set.length%2==0;
