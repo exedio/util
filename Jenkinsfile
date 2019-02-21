@@ -67,7 +67,7 @@ timestamps
 						usePreviousBuildAsReference: false,
 						useStableBuildAsReference: false,
 				)
-				step([$class: 'JacocoPublisher',
+				jacoco(
 						changeBuildStatus: true,
 						minimumBranchCoverage: '30',
 						coverageGraphLayout:
@@ -81,9 +81,9 @@ timestamps
 								.plot().type(CoverageType.LINE).value(CoverageValue.MISSED).color(Color.ORANGE),
 						execPattern: 'build/jacoco.exec',
 						classPattern: 'build/classes/src',
-						sourcePattern: 'src'])
-				archive 'build/success/*'
-				step([$class: 'PlotBuilder',
+						sourcePattern: 'src')
+				archiveArtifacts 'build/success/*'
+				plot(
 						csvFileName: 'plots.csv',
 						exclZero: false,
 						keepRecords: false,
@@ -96,7 +96,7 @@ timestamps
 							[ file: 'build/exedio-cope-util.jar-plot.properties',     label: 'exedio-cope-util.jar' ],
 							[ file: 'build/exedio-cope-util-src.zip-plot.properties', label: 'exedio-cope-util-src.zip' ],
 						],
-				])
+				)
 			}
 		}
 		catch(Exception e)
@@ -111,10 +111,7 @@ timestamps
 					allowEmptyResults: false,
 					testResults: 'build/testresults/**/*.xml',
 			)
-			def to = emailextrecipients([
-					[$class: 'CulpritsRecipientProvider'],
-					[$class: 'RequesterRecipientProvider']
-			])
+			def to = emailextrecipients([culprits(), requestor()])
 			//TODO details
 			step([$class: 'Mailer',
 					recipients: to,
