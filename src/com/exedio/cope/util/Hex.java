@@ -48,7 +48,7 @@ public final class Hex
 		return encode(bytes, offset, length, DICTIONARY_LOWER);
 	}
 
-	private static String encode(final byte bytes[], final int offset, final int length, final char[] dictionary)
+	private static String encode(final byte[] bytes, final int offset, final int length, final char[] dictionary)
 	{
 		final char[] result = new char[length*2];
 
