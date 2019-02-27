@@ -323,7 +323,7 @@ public final class CharSet implements Serializable
 
 				if(from==to)
 					append(bf, from);
-				else if(from<to)
+				else // from<to
 				{
 					append(bf, from);
 					bf.append('-');
