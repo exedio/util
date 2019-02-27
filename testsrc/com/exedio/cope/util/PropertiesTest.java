@@ -46,7 +46,7 @@ public class PropertiesTest
 		final int int10 = value("int10", 10, 5);
 		final String stringMandatory = value("stringMandatory", (String)null);
 		final String stringOptional = value("stringOptional", "stringOptional.defaultValue");
-		final String stringHidden = valueHidden("stringHidden", (String)null);
+		final String stringHidden = valueHidden("stringHidden", null);
 		final String stringHiddenOptional = valueHidden("stringHiddenOptional", "stringHiddenOptional.defaultValue");
 		final Day dayMandatory = value("dayMandatory", (Day) null);
 		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
