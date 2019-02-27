@@ -63,9 +63,17 @@ public class HexTest
 		assertEquals("02030A", Hex.encodeUpper(new byte[]{0, 1, 2, 3, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf}, 2, 3));
 		assertEquals("02030a0b", Hex.encodeLower(new byte[]{2, 3, 0xa, 0xb}, 0, 4));
 		assertEquals("02030A0B", Hex.encodeUpper(new byte[]{2, 3, 0xa, 0xb}, 0, 4));
+	}
 
+	@SuppressWarnings("ConstantConditions")
+	@Test void testNull()
+	{
 		assertEquals(null, Hex.encodeLower(null));
 		assertEquals(null, Hex.decodeLower(null));
+	}
+
+	@Test void testOdd()
+	{
 		assertFails(() ->
 			Hex.decodeLower("a"),
 			IllegalArgumentException.class, "odd length: a");
