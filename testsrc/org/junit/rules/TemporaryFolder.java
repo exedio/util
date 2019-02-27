@@ -66,27 +66,6 @@ public final class TemporaryFolder
 		return result;
 	}
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
-	private void afterEach() throws IOException
-	{
-		Files.walkFileTree(root.toPath(), new SimpleFileVisitor<Path>()
-		{
-			@Override
-			public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException
-			{
-				Files.delete(file);
-				return super.visitFile(file, attrs);
-			}
-
-			@Override
-			public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException
-			{
-				Files.delete(dir);
-				return super.postVisitDirectory(dir, exc);
-			}
-		});
-	}
-
 	public static final class Extension implements ParameterResolver, AfterEachCallback
 	{
 		private TemporaryFolder folder;
@@ -118,11 +97,27 @@ public final class TemporaryFolder
 		}
 
 		@Override
+		@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 		public void afterEach(final ExtensionContext context) throws IOException
 		{
 			if(folder!=null)
 			{
-				folder.afterEach();
+				Files.walkFileTree(folder.root.toPath(), new SimpleFileVisitor<Path>()
+				{
+					@Override
+					public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException
+					{
+						Files.delete(file);
+						return super.visitFile(file, attrs);
+					}
+
+					@Override
+					public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException
+					{
+						Files.delete(dir);
+						return super.postVisitDirectory(dir, exc);
+					}
+				});
 				folder = null;
 			}
 		}
