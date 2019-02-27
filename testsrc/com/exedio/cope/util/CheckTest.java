@@ -35,7 +35,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
+@SuppressWarnings("ConstantConditions")
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class CheckTest
 {

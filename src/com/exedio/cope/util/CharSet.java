@@ -198,7 +198,6 @@ public final class CharSet implements Serializable
 		return bf.toString();
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	private static void toString(final StringBuilder bf, final char c)
 	{
 		if(isDefined(c))

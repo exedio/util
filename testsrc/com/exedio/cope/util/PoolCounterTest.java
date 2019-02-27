@@ -214,7 +214,7 @@ public class PoolCounterTest
 	@SuppressWarnings("unused")
 	@Test void testFail()
 	{
-		//noinspection OverlyStrongTypeCast,ConstantConditions
+		//noinspection ConstantConditions
 		assertFails(() ->
 			new PoolCounter((int[])null),
 			NullPointerException.class, null);

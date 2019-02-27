@@ -51,7 +51,6 @@ public class TimeZoneStrictTest
 
 	@Test void nullID()
 	{
-		//noinspection ConstantConditions
 		assertFails(() ->
 			getTimeZone(null),
 			NullPointerException.class, "ID");

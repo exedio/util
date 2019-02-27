@@ -107,7 +107,6 @@ public final class Sources
 		return view(loadProperties(file), file.getAbsolutePath());
 	}
 
-	@SuppressWarnings("resource") // OK: closed by loadPropertiesAndClose
 	public static Properties loadProperties(final File file)
 	{
 		try

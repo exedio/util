@@ -43,7 +43,6 @@ public final class Interrupters
 				iterator,
 				interrupter!=null
 				? new AssertionErrorJobContext() {
-					@SuppressWarnings("deprecation") // needed for idea
 					@Override public void stopIfRequested() throws JobStop
 					{
 						if(interrupter.isRequested())

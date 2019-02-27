@@ -199,7 +199,6 @@ public class CounterTest
 				final long start = System.nanoTime();
 				for(int i = 0; i<N; i++)
 				{
-					//noinspection ResultOfMethodCallIgnored
 					x += o.hashCode();
 				}
 				final long elapsed = System.nanoTime()-start;

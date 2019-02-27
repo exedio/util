@@ -22,7 +22,7 @@ package com.exedio.cope.util.annotation;
 @AnnoInherited("BothSubClassInherited")
 class BothSub extends BothSuper
 {
-	@SuppressWarnings({"hiding", "unused"})
+	@SuppressWarnings("unused")
 	@AnnoDeclared("BothSubFieldDeclared")
 	@AnnoInherited("BothSubFieldInherited")
 	int field = 0;
