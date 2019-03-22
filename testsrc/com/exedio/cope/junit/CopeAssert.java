@@ -34,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -81,16 +80,19 @@ public final class CopeAssert
 		assertContainsList(asList(o1, o2, o3, o4), actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4, o5), actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4, o5, o6), actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Collection<?> actual)
 	{
 		assertContainsList(asList(o1, o2, o3, o4, o5, o6, o7), actual);
@@ -108,40 +110,25 @@ public final class CopeAssert
 		assertContains(o, actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContainsUnmodifiable(final Object o1, final Object o2, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, o3, actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContainsUnmodifiable(final Object o1, final Object o2, final Object o3, final Object o4, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertContains(o1, o2, o3, o4, actual);
-	}
-
-	public static Map<Object, Object> map()
-	{
-		return Collections.emptyMap();
-	}
-
-	public static Map<Object, Object> map(final Object key1, final Object value1)
-	{
-		return Collections.singletonMap(key1, value1);
-	}
-
-	public static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
-	{
-		final HashMap<Object, Object> result = new HashMap<>();
-		result.put(key1, value1);
-		result.put(key2, value2);
-		return result;
 	}
 
 	@SuppressWarnings("SuspiciousMethodCalls")
@@ -220,6 +207,7 @@ public final class CopeAssert
 		assertEquals(expected, actual);
 	}
 
+	@SuppressWarnings("unused") // OK: for later use
 	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
 		try
@@ -290,26 +278,6 @@ public final class CopeAssert
 		{
 			throw new RuntimeException(e);
 		}
-	}
-
-	@SuppressWarnings({"UnusedReturnValue", "ResultOfMethodCallIgnored"})
-	public static <R> R waitForKey(final R o)
-	{
-		System.out.println("WAITING FOR KEY");
-		try
-		{
-			System.in.read();
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		return o;
-	}
-
-	public static void waitForKey()
-	{
-		waitForKey(null);
 	}
 
 

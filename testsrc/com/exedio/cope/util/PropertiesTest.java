@@ -56,6 +56,11 @@ public class PropertiesTest
 			super(view(source, sourceDescription));
 		}
 
+		TestProperties(final Source source)
+		{
+			super(source);
+		}
+
 		final Field<?> boolFalseF = getField("boolFalse");
 		final Field<?> boolTrueF  = getField("boolTrue");
 		final Field<?> intAnyF = getField("intAny");
@@ -145,8 +150,10 @@ public class PropertiesTest
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
 		pminimal.setProperty("dayMandatory", "1000-08-31");
 
-		final TestProperties minimal = new TestProperties(pminimal, "minimal");
+		final Properties.Source sminimal = view(pminimal, "minimal");
+		final TestProperties minimal = new TestProperties(sminimal);
 		minimal.assertIt();
+		assertSame(sminimal, minimal.getSourceObject());
 		assertEquals("minimal", minimal.getSource());
 
 		assertEquals(false, minimal.boolFalse);

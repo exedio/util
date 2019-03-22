@@ -20,10 +20,19 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
+import static com.exedio.cope.util.CharSet.ALPHA;
+import static com.exedio.cope.util.CharSet.ALPHA_LOWER;
+import static com.exedio.cope.util.CharSet.ALPHA_LOWER_NUMERIC;
 import static com.exedio.cope.util.CharSet.ALPHA_NUMERIC;
+import static com.exedio.cope.util.CharSet.ALPHA_UPPER;
+import static com.exedio.cope.util.CharSet.ALPHA_UPPER_NUMERIC;
+import static com.exedio.cope.util.CharSet.DOMAIN;
 import static com.exedio.cope.util.CharSet.EMAIL_ASCII;
 import static com.exedio.cope.util.CharSet.EMAIL_INTERNATIONAL;
 import static com.exedio.cope.util.CharSet.EMAIL_RESTRICTIVE;
+import static com.exedio.cope.util.CharSet.HEX_LOWER;
+import static com.exedio.cope.util.CharSet.HEX_UPPER;
+import static com.exedio.cope.util.CharSet.NUMERIC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -146,7 +155,16 @@ public class CharSetTest
 	}
 	@Test void testToString()
 	{
+		assertEquals("[A-Z,a-z]", ALPHA.toString());
+		assertEquals("[A-Z]", ALPHA_UPPER.toString());
+		assertEquals("[a-z]", ALPHA_LOWER.toString());
 		assertEquals("[0-9,A-Z,a-z]", ALPHA_NUMERIC.toString());
+		assertEquals("[0-9,A-Z]", ALPHA_UPPER_NUMERIC.toString());
+		assertEquals("[0-9,a-z]", ALPHA_LOWER_NUMERIC.toString());
+		assertEquals("[0-9,A-F]", HEX_UPPER.toString());
+		assertEquals("[0-9,a-f]", HEX_LOWER.toString());
+		assertEquals("[0-9]", NUMERIC.toString());
+		assertEquals("[--.,0-9,a-z]", DOMAIN.toString());
 		assertEquals("[nd{fffe}-nd{ffff}]", new CharSet('\ufffe', '\uffff').toString());
 		assertEquals("[A-Z,nd{fffe}-nd{ffff}]", new CharSet('A', 'Z', '\ufffe', '\uffff').toString());
 		assertEquals("[--.,0-9,@-Z,_-_,a-z]", EMAIL_RESTRICTIVE.toString());

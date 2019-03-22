@@ -92,6 +92,9 @@ public class MessageDigestFactoryTest
 
 		final byte[] franzInput = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern".getBytes(US_ASCII);
 
+		assertEquals(franz, encodeLower(mdf.digest(franzInput)));
+		assertEquals(empty, encodeLower(mdf.digest(new byte[0])));
+
 		final MessageDigest md = mdf.newInstance();
 		md.update(franzInput);
 		assertEquals(franz, encodeLower(md.digest()));

@@ -22,6 +22,7 @@ package com.exedio.cope.util;
  * @deprecated Use {@link CharSet} instead
  */
 @Deprecated
+@SuppressWarnings("unused") // OK: renamed deprecated API
 public final class CharacterSet
 {
 	public static final CharacterSet ALPHA = new CharacterSet(CharSet.ALPHA);

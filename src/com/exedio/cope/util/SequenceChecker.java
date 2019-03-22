@@ -255,26 +255,31 @@ public final class SequenceChecker
 			this.info = info;
 		}
 
+		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getInOrder()
 		{
 			return info.getInOrder();
 		}
 
+		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getOutOfOrder()
 		{
 			return info.getOutOfOrder();
 		}
 
+		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getDuplicate()
 		{
 			return info.getDuplicate();
 		}
 
+		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getLost()
 		{
 			return info.getLost();
 		}
 
+		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getLate()
 		{
 			return info.getLate();

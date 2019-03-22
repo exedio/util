@@ -290,6 +290,17 @@ public class DayTest
 		assertEquals(year, cal.getYear());
 		assertEquals(null, cal.getEon());
 		assertEquals(actual, valueOf(cal));
+
+		final XMLGregorianCalendar cal2 = actual.getXMLGregorianCalendar();
+		assertEquals(FIELD_UNDEFINED, cal2.getMillisecond());
+		assertEquals(FIELD_UNDEFINED, cal2.getSecond());
+		assertEquals(FIELD_UNDEFINED, cal2.getMinute());
+		assertEquals(FIELD_UNDEFINED, cal2.getHour());
+		assertEquals(day, cal2.getDay());
+		assertEquals(month, cal2.getMonth());
+		assertEquals(year, cal2.getYear());
+		assertEquals(null, cal2.getEon());
+		assertEquals(actual, valueOf(cal2));
 	}
 
 	@ExtendWith(ClockRule.Extension.class)

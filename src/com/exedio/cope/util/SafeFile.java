@@ -24,6 +24,7 @@ import java.io.File;
  * @deprecated Use {@link StrictFile} instead.
  */
 @Deprecated
+@SuppressWarnings("unused") // OK: renamed deprecated API
 public final class SafeFile
 {
 	public static void delete(final File file)
