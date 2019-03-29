@@ -25,8 +25,8 @@
 	<target name="compile">
 		<compile srcdir="src">
 			<classpath>
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<fileset dir="lib/runtime" />
+				<pathelement location="lib/findbugs/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -35,12 +35,8 @@
 		<compile srcdir="testsrc">
 			<classpath>
 				<pathelement location="build/classes/src" />
-				<pathelement location="lib/findbugs-annotations.jar" />
-				<pathelement location="lib/opentest4j.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/junit-platform-commons.jar" />
-				<pathelement location="lib/easymock.jar" />
+				<fileset dir="lib/test" />
+				<pathelement location="lib/findbugs/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -68,17 +64,7 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/testsrc" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/logback-core.jar" />
-				<pathelement location="lib/logback-classic.jar" />
-				<pathelement location="lib/opentest4j.jar" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/junit-jupiter-engine.jar" />
-				<pathelement location="lib/junit-platform-commons.jar" />
-				<pathelement location="lib/junit-platform-engine.jar" />
-				<pathelement location="lib/junit-platform-launcher.jar" />
-				<pathelement location="lib/junit-platform-console.jar" />
-				<pathelement location="lib/easymock.jar" />
+				<fileset dir="lib/test" />
 			</classpath>
 			<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />
 			<arg line="--exclude-tag nondeterministic" unless:set="test" if:set="test.deterministicOnly" />
@@ -130,8 +116,8 @@
 				<fileset file="src/com" includes="**/*.java" />
 			</src>
 			<myClasspath>
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<fileset dir="lib/runtime" />
+				<pathelement location="lib/findbugs/findbugs-annotations.jar" />
 			</myClasspath>
 		</api>
 	</target>
@@ -149,21 +135,16 @@
 			<class location="${basedir}/build/classes/src" />
 			<class location="${basedir}/build/classes/testsrc" />
 			<auxclasspath>
-				<pathelement location="${basedir}/lib/slf4j-api.jar" />
-				<pathelement location="${basedir}/lib/opentest4j.jar" />
-				<pathelement location="${basedir}/lib/junit-jupiter-api.jar" />
-				<pathelement location="${basedir}/lib/easymock.jar" />
+				<fileset dir="lib/test" />
 			</auxclasspath>
 		</findbugs>
 	</target>
 
 
 	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml" onerror="failall">
-		<classpath path="lib/org.jacoco.ant.jar"/>
-		<classpath path="lib/org.jacoco.agent.jar"/>
-		<classpath path="lib/org.jacoco.report.jar"/>
-		<classpath path="lib/org.jacoco.core.jar"/>
-		<classpath path="lib/asm-debug-all.jar"/>
+		<classpath>
+			<fileset dir="lib/jacoco" />
+		</classpath>
 	</taskdef>
 
 	<target name="jacoco" depends="test.compile, checkAntIfUnless" unless="skip.jacoco">
@@ -178,17 +159,7 @@
 				<classpath>
 					<pathelement location="build/classes/src" />
 					<pathelement location="build/classes/testsrc" />
-					<pathelement location="lib/slf4j-api.jar" />
-					<pathelement location="lib/logback-core.jar" />
-					<pathelement location="lib/logback-classic.jar" />
-					<pathelement location="lib/opentest4j.jar" />
-					<pathelement location="lib/junit-jupiter-api.jar" />
-					<pathelement location="lib/junit-jupiter-engine.jar" />
-					<pathelement location="lib/junit-platform-commons.jar" />
-					<pathelement location="lib/junit-platform-engine.jar" />
-					<pathelement location="lib/junit-platform-launcher.jar" />
-					<pathelement location="lib/junit-platform-console.jar" />
-					<pathelement location="lib/easymock.jar" />
+					<fileset dir="lib/test" />
 				</classpath>
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/jacocotesttmpdir" />
 				<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />
