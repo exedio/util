@@ -421,7 +421,7 @@ public class PropertiesTest
 	@Test void testSourceNull()
 	{
 		assertFails(() ->
-			new Properties(null),
+			new Properties(null){},
 			NullPointerException.class, null);
 	}
 
