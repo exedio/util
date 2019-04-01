@@ -59,7 +59,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
-public class Properties
+@SuppressWarnings("AbstractClassWithoutAbstractMethods") // OK: instantiating makes no sense without subclass
+public abstract class Properties
 {
 	 // yyyy-mm-dd, allow to leave out leading zeros on month and day but not on year, otherwise 14-1-1 may result in another day as expected
 	static final Pattern DAY_PATTERN = Pattern.compile("(\\d{4})-(\\d{1,2})-(\\d{1,2})");
@@ -72,7 +73,7 @@ public class Properties
 	private final Source context;
 
 	@SuppressWarnings("deprecation") // needed for idea
-	public Properties(final Source source)
+	protected Properties(final Source source)
 	{
 		this(source, null);
 	}
@@ -83,7 +84,7 @@ public class Properties
 	 * Using context is deprecated at all.
 	 */
 	@Deprecated
-	public Properties(final Source source, final Source context)
+	protected Properties(final Source source, final Source context)
 	{
 		this.source = source;
 		this.sourceDescription = source.getDescription();
@@ -1297,7 +1298,7 @@ public class Properties
 	 * @deprecated Use {@link #Properties(Source, Source)} instead.
 	 */
 	@Deprecated
-	public Properties(final java.util.Properties source, final String sourceDescription)
+	protected Properties(final java.util.Properties source, final String sourceDescription)
 	{
 		this(source, sourceDescription, null);
 	}
@@ -1306,7 +1307,7 @@ public class Properties
 	 * @deprecated Use {@link #Properties(Source, Source)} instead.
 	 */
 	@Deprecated
-	public Properties(final java.util.Properties source, final String sourceDescription, final Source context)
+	protected Properties(final java.util.Properties source, final String sourceDescription, final Source context)
 	{
 		this(getSource(source, sourceDescription), context);
 	}
