@@ -26,7 +26,8 @@
 		<compile srcdir="src">
 			<classpath>
 				<fileset dir="lib/runtime" />
-				<pathelement location="lib/findbugs/findbugs-annotations.jar" />
+				<pathelement location="lib/findbugs/jsr305.jar" />
+				<pathelement location="lib/findbugs/spotbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -36,7 +37,7 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<fileset dir="lib/test" />
-				<pathelement location="lib/findbugs/findbugs-annotations.jar" />
+				<pathelement location="lib/findbugs/spotbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -117,14 +118,14 @@
 			</src>
 			<myClasspath>
 				<fileset dir="lib/runtime" />
-				<pathelement location="lib/findbugs/findbugs-annotations.jar" />
+				<pathelement location="lib/findbugs/jsr305.jar" />
+				<pathelement location="lib/findbugs/spotbugs-annotations.jar" />
 			</myClasspath>
 		</api>
 	</target>
 
 	<target name="findbugs" depends="compile, test.compile, findbugs.taskdef">
 		<findbugs
-					home="${basedir}/build/findbugs-home"
 					jvmargs="-Xmx250M"
 					failOnError="true"
 					warningsProperty="findbugs.warnings"
@@ -134,6 +135,9 @@
 					reportlevel="low">
 			<class location="${basedir}/build/classes/src" />
 			<class location="${basedir}/build/classes/testsrc" />
+			<classpath>
+				<fileset dir="lib/findbugs" />
+			</classpath>
 			<auxclasspath>
 				<fileset dir="lib/test" />
 			</auxclasspath>

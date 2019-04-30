@@ -40,11 +40,8 @@
 			<exclude org="org.objenesis" name="objenesis" />
 		</dependency>
 		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.7.6.201602180812" conf="jacoco->default" />
-		<dependency org="com.github.spotbugs" name="spotbugs" rev="3.1.10" conf="findbugs->master">
-			<artifact name="spotbugs" type="tgz" />
-		</dependency>
-		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="findbugs->default">
-			<artifact name="findbugs-annotations" type="jar" />
+		<dependency org="com.github.spotbugs" name="spotbugs-ant" rev="3.1.12" conf="findbugs->default">
+			<exclude org="net.jcip" module="jcip-annotations" />
 		</dependency>
 	</dependencies>
 </ivy-module>
