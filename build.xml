@@ -124,7 +124,12 @@
 		</api>
 	</target>
 
-	<target name="findbugs" depends="compile, test.compile, findbugs.taskdef">
+	<taskdef
+			resource="edu/umd/cs/findbugs/anttask/tasks.properties"
+			classpath="lib/findbugs/spotbugs-ant.jar"
+			onerror="failall" />
+
+	<target name="findbugs" depends="compile, test.compile">
 		<findbugs
 					jvmargs="-Xmx250M"
 					failOnError="true"
