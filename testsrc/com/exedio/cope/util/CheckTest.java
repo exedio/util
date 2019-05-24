@@ -144,6 +144,31 @@ public class CheckTest
 			"name must not be negative, but was -0.001");
 	}
 
+	@Test void testRequireNonNegativeDuration()
+	{
+		final Duration value = ofNanos(1);
+		assertSame(value, requireNonNegative(value, "name"));
+	}
+	@Test void testRequireNonNegativeDurationZero()
+	{
+		assertSame(Duration.ZERO, requireNonNegative(Duration.ZERO, "name"));
+	}
+	@Test void testRequireNonNegativeDurationNegative()
+	{
+		assertFails(() ->
+			requireNonNegative(ofNanos(1).negated(), "name"),
+			IllegalArgumentException.class,
+			"name must not be negative, but was PT-0.000000001S");
+	}
+	@Test void testRequireNonNegativeDurationNull()
+	{
+		//noinspection RedundantCast
+		assertFails(() ->
+			requireNonNegative((Duration)null, "name"),
+			NullPointerException.class,
+			"name");
+	}
+
 	@Test void testRequireAtLeast()
 	{
 		final Duration value = ofSeconds(55);

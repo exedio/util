@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static java.util.Objects.requireNonNull;
 
 import java.lang.reflect.Array;
+import java.time.Duration;
 
 public final class Check
 {
@@ -62,6 +63,14 @@ public final class Check
 	public static double requireNonNegative(final double value, final String name)
 	{
 		if(value<0)
+			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
+		return value;
+	}
+
+	public static Duration requireNonNegative(final Duration value, final String name)
+	{
+		requireNonNull(value, name);
+		if(value.isNegative())
 			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
 		return value;
 	}
