@@ -6,6 +6,15 @@ import java.awt.Color
 
 timestamps
 {
+	def isRelease = env.BRANCH_NAME.toString().equals("master")
+
+	properties([
+			buildDiscarder(logRotator(
+					numToKeepStr         : isRelease ? '1000' : '30',
+					artifactNumToKeepStr : isRelease ? '1000' :  '2'
+			))
+	])
+
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && OpenJdk18Debian9')
 	{
@@ -22,15 +31,6 @@ timestamps
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss")
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-
-				def isRelease = env.BRANCH_NAME.toString().equals("master")
-
-				properties([
-						buildDiscarder(logRotator(
-								numToKeepStr         : isRelease ? '1000' : '30',
-								artifactNumToKeepStr : isRelease ? '1000' :  '2'
-						))
-				])
 
 				sh 'echo' +
 						' scmResult=' + scmResult +
