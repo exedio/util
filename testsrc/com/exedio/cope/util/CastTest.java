@@ -45,6 +45,7 @@ public class CastTest
 
 	@Test void testVerboseCastClassNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(() ->
 			verboseCast(null, string1),
 			NullPointerException.class, null);
@@ -52,6 +53,7 @@ public class CastTest
 
 	@Test void testVerboseCastAllNull()
 	{
+		//noinspection ConstantConditions
 		assertFails(() ->
 			verboseCast(null, null),
 			NullPointerException.class, null);
@@ -62,7 +64,7 @@ public class CastTest
 		assertFails(() ->
 			verboseCast(Integer.class, string1),
 			ClassCastException.class,
-			"expected a java.lang.Integer, but was a java.lang.String");
+			"Cannot cast java.lang.String to java.lang.Integer");
 	}
 
 	@Test void testCastElements()
@@ -96,6 +98,6 @@ public class CastTest
 		assertFails(() ->
 			castElements(Integer.class, strings),
 			ClassCastException.class,
-			"expected a java.lang.Integer, but was a java.lang.String");
+			"Cannot cast java.lang.String to java.lang.Integer");
 	}
 }

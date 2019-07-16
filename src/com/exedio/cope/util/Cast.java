@@ -29,18 +29,10 @@ public final class Cast
 	}
 
 	/**
-	 * Does the same as {@link Class#cast(Object)},
-	 * but throws a ClassCastException
-	 * with a more verbose message.
+	 * Does the same as {@link Class#cast(Object)}.
 	 */
 	public static <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
-		// NOTE:
-		// This code is redundant to the following call to Class#cast(Object),
-		// but creates an exception with a much more verbose message.
-		if(o!=null && !clazz.isInstance(o))
-			throw new ClassCastException("expected a " + clazz.getName() + ", but was a " + o.getClass().getName());
-
 		return clazz.cast(o);
 	}
 
