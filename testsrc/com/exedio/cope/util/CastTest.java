@@ -20,7 +20,6 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Cast.castElements;
-import static com.exedio.cope.util.Cast.verboseCast;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -36,33 +35,37 @@ public class CastTest
 	private static final String string1 = "string1";
 	private static final Object string1Object = string1;
 
+	@Deprecated // OK: testing deprecated API
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test void testVerboseCast()
 	{
-		assertNull(verboseCast(String.class, null));
-		assertSame(string1, verboseCast(String.class, string1Object));
+		assertNull(Cast.verboseCast(String.class, null));
+		assertSame(string1, Cast.verboseCast(String.class, string1Object));
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void testVerboseCastClassNull()
 	{
 		//noinspection ConstantConditions
 		assertFails(() ->
-			verboseCast(null, string1),
+			Cast.verboseCast(null, string1),
 			NullPointerException.class, null);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void testVerboseCastAllNull()
 	{
 		//noinspection ConstantConditions
 		assertFails(() ->
-			verboseCast(null, null),
+			Cast.verboseCast(null, null),
 			NullPointerException.class, null);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void testVerboseCastWrongCast()
 	{
 		assertFails(() ->
-			verboseCast(Integer.class, string1),
+			Cast.verboseCast(Integer.class, string1),
 			ClassCastException.class,
 			"Cannot cast java.lang.String to java.lang.Integer");
 	}

@@ -29,8 +29,9 @@ public final class Cast
 	}
 
 	/**
-	 * Does the same as {@link Class#cast(Object)}.
+	 * @deprecated Use {@link Class#cast(Object)} instead.
 	 */
+	@Deprecated
 	public static <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
 		return clazz.cast(o);
@@ -43,7 +44,7 @@ public final class Cast
 
 		final ArrayList<E> result = new ArrayList<>(c.size());
 		for(final Object o : c)
-			result.add(verboseCast(clazz, o));
+			result.add(clazz.cast(o));
 		return result;
 	}
 }
