@@ -48,8 +48,6 @@ public class PropertiesTest
 		final String stringOptional = value("stringOptional", "stringOptional.defaultValue");
 		final String stringHidden = valueHidden("stringHidden", null);
 		final String stringHiddenOptional = valueHidden("stringHiddenOptional", "stringHiddenOptional.defaultValue");
-		final Day dayMandatory = value("dayMandatory", (Day) null);
-		final Day dayOptional = value("dayOptional", new Day(1009,7,13));
 
 		TestProperties(final java.util.Properties source, final String sourceDescription)
 		{
@@ -69,8 +67,6 @@ public class PropertiesTest
 		final Field<?> stringOptionalF       = getField("stringOptional");
 		final Field<?> stringHiddenF         = getField("stringHidden");
 		final Field<?> stringHiddenOptionalF = getField("stringHiddenOptional");
-		final Field<?> dayMandatoryF = getField("dayMandatory");
-		final Field<?> dayOptionalF  = getField("dayOptional");
 
 
 		void assertIt()
@@ -85,8 +81,6 @@ public class PropertiesTest
 					stringOptionalF,
 					stringHiddenF,
 					stringHiddenOptionalF,
-					dayMandatoryF,
-					dayOptionalF,
 			}), getFields());
 
 			assertEquals("boolFalse", boolFalseF.getKey());
@@ -96,8 +90,6 @@ public class PropertiesTest
 			assertEquals("stringOptional", stringOptionalF.getKey());
 			assertEquals("stringHidden", stringHiddenF.getKey());
 			assertEquals("stringHiddenOptional", stringHiddenOptionalF.getKey());
-			assertEquals("dayMandatory", dayMandatoryF.getKey());
-			assertEquals("dayOptional", dayOptionalF.getKey());
 
 			assertEquals(Boolean.FALSE, boolFalseF.getDefaultValue());
 			assertEquals(Boolean.TRUE, boolTrueF.getDefaultValue());
@@ -107,8 +99,6 @@ public class PropertiesTest
 			assertEquals("stringOptional.defaultValue", stringOptionalF.getDefaultValue());
 			assertEquals(null, stringHiddenF.getDefaultValue());
 			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValue());
-			assertEquals(null, dayMandatoryF.getDefaultValue());
-			assertEquals(new Day(1009,7,13), dayOptionalF.getDefaultValue());
 
 			assertEquals("false", boolFalseF.getDefaultValueString());
 			assertEquals("true",  boolTrueF.getDefaultValueString());
@@ -118,8 +108,6 @@ public class PropertiesTest
 			assertEquals("stringOptional.defaultValue", stringOptionalF.getDefaultValueString());
 			assertEquals(null, stringHiddenF.getDefaultValueString());
 			assertEquals("stringHiddenOptional.defaultValue", stringHiddenOptionalF.getDefaultValueString());
-			assertEquals(null, dayMandatoryF.getDefaultValueString());
-			assertEquals("1009/7/13", dayOptionalF.getDefaultValueString());
 
 			assertEquals(null, boolFalseF.getDefaultValueFailure());
 			assertEquals(null, boolTrueF.getDefaultValueFailure());
@@ -128,8 +116,6 @@ public class PropertiesTest
 			assertEquals(null, stringOptionalF.getDefaultValueFailure());
 			assertEquals(null, stringHiddenF.getDefaultValueFailure());
 			assertEquals(null, stringHiddenOptionalF.getDefaultValueFailure());
-			assertEquals(null, dayMandatoryF.getDefaultValueFailure());
-			assertEquals(null, dayOptionalF.getDefaultValueFailure());
 
 			assertEquals(false, boolFalseF.hasHiddenValue());
 			assertEquals(false, boolTrueF.hasHiddenValue());
@@ -138,8 +124,6 @@ public class PropertiesTest
 			assertEquals(false, stringOptionalF.hasHiddenValue());
 			assertEquals(true, stringHiddenF.hasHiddenValue());
 			assertEquals(true, stringHiddenOptionalF.hasHiddenValue());
-			assertEquals(false, dayMandatoryF.hasHiddenValue());
-			assertEquals(false, dayOptionalF.hasHiddenValue());
 		}
 	}
 
@@ -148,7 +132,6 @@ public class PropertiesTest
 		final java.util.Properties pminimal = new java.util.Properties();
 		pminimal.setProperty("stringMandatory", "stringMandatory.minimalValue");
 		pminimal.setProperty("stringHidden", "stringHidden.minimalValue");
-		pminimal.setProperty("dayMandatory", "1000-08-31");
 
 		final Properties.Source sminimal = view(pminimal, "minimal");
 		final TestProperties minimal = new TestProperties(sminimal);
@@ -171,18 +154,11 @@ public class PropertiesTest
 		assertEquals("stringOptional.defaultValue", minimal.stringOptionalF.getValue());
 		assertEquals("stringHidden.minimalValue", minimal.stringHiddenF.getValue());
 		assertEquals("stringHiddenOptional.defaultValue", minimal.stringHiddenOptionalF.getValue());
-		assertEquals(new Day(1000,8,31), minimal.dayMandatory);
-		assertEquals(new Day(1009,7,13), minimal.dayOptional);
-		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.getValue());
-		assertEquals(new Day(1000,8,31), minimal.dayMandatoryF.get());
-		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.getValue());
-		assertEquals(new Day(1009,7,13), minimal.dayOptionalF.get());
 
 		assertEquals("false", minimal.boolFalseF.getValueString());
 		assertEquals("true", minimal.boolTrueF.getValueString());
 		assertEquals("10", minimal.int10F.getValueString());
 		assertEquals("stringMandatory.minimalValue", minimal.stringMandatoryF.getValueString());
-		assertEquals("1000/8/31", minimal.dayMandatoryF.getValueString());
 
 		assertEquals(false, minimal.boolFalseF.isSpecified());
 		assertEquals(false, minimal.boolTrueF.isSpecified());
@@ -191,8 +167,6 @@ public class PropertiesTest
 		assertEquals(false, minimal.stringOptionalF.isSpecified());
 		assertEquals(true, minimal.stringHiddenF.isSpecified());
 		assertEquals(false, minimal.stringHiddenOptionalF.isSpecified());
-		assertEquals(true, minimal.dayMandatoryF.isSpecified());
-		assertEquals(false, minimal.dayOptionalF.isSpecified());
 
 		minimal.ensureEquality(minimal);
 
@@ -219,8 +193,6 @@ public class PropertiesTest
 			p.setProperty("stringOptional", "stringOptional.explicitValue");
 			p.setProperty("stringHidden", "stringHidden.explicitValue");
 			p.setProperty("stringHiddenOptional", "stringHiddenOptional.explicitValue");
-			p.setProperty("dayMandatory", "2000-11-4");
-			p.setProperty("dayOptional", "2001-3-31");
 
 			final TestProperties tp = new TestProperties(p, "maximal");
 			assertEquals("maximal", tp.getSource());
@@ -240,12 +212,6 @@ public class PropertiesTest
 			assertEquals("stringOptional.explicitValue", tp.stringOptionalF.getValue());
 			assertEquals("stringHidden.explicitValue", tp.stringHiddenF.getValue());
 			assertEquals("stringHiddenOptional.explicitValue", tp.stringHiddenOptionalF.getValue());
-			assertEquals(new Day(2000,11,4), tp.dayMandatory);
-			assertEquals(new Day(2001,3,31), tp.dayOptional);
-			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.getValue());
-			assertEquals(new Day(2000,11,4), tp.dayMandatoryF.get());
-			assertEquals(new Day(2001,3,31), tp.dayOptionalF.getValue());
-			assertEquals(new Day(2001,3,31), tp.dayOptionalF.get());
 
 			assertEquals(true, tp.boolFalseF.isSpecified());
 			assertEquals(true, tp.boolTrueF.isSpecified());
@@ -254,8 +220,6 @@ public class PropertiesTest
 			assertEquals(true, tp.stringOptionalF.isSpecified());
 			assertEquals(true, tp.stringHiddenF.isSpecified());
 			assertEquals(true, tp.stringHiddenOptionalF.isSpecified());
-			assertEquals(true, tp.dayMandatoryF.isSpecified());
-			assertEquals(true, tp.dayOptionalF.isSpecified());
 		}
 		{
 			final java.util.Properties p = copy(pminimal);
@@ -275,9 +239,7 @@ public class PropertiesTest
 				"stringMandatory, " +
 				"stringOptional, " +
 				"stringHidden, " +
-				"stringHiddenOptional, " +
-				"dayMandatory, " +
-				"dayOptional].");
+				"stringHiddenOptional].");
 			assertFails(() ->
 				tp.ensureValidity("otherKey"),
 				IllegalArgumentException.class,
@@ -289,9 +251,7 @@ public class PropertiesTest
 				"stringMandatory, " +
 				"stringOptional, " +
 				"stringHidden, " +
-				"stringHiddenOptional, " +
-				"dayMandatory, " +
-				"dayOptional] " +
+				"stringHiddenOptional] " +
 				"or one starting with [otherKey].");
 		}
 
@@ -374,47 +334,6 @@ public class PropertiesTest
 				"stringHidden", "stringHidden.inconsistentValue",
 				"inconsistent initialization for stringHidden between minimal and inconsistent.stringHidden.",
 				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
-
-		// Day
-		assertWrong(pminimal,
-				"wrong.dayMandatory.missing",
-				"dayMandatory", null,
-				"property dayMandatory in wrong.dayMandatory.missing " +
-				"must be specified as there is no default");
-		assertWrong(pminimal,
-				"wrong.dayMandatory.invalidFormat",
-				"dayMandatory", "no-date-set",
-				"property dayMandatory in wrong.dayMandatory.invalidFormat " +
-				"must be a day formatted as yyyy-mm-dd, but was 'no-date-set'");
-		assertWrong(pminimal,
-				"wrong.dayMandatory.invalidYear",
-				"dayMandatory", "200-04-04",
-				"property dayMandatory in wrong.dayMandatory.invalidYear " +
-				"must be a day formatted as yyyy-mm-dd, but was '200-04-04'");
-		assertWrong(pminimal,
-				"wrong.dayMandatory.invalidMonth",
-				"dayMandatory", "2000-40-04",
-				"property dayMandatory in wrong.dayMandatory.invalidMonth " +
-				"must be a day formatted as yyyy-mm-dd, but was '2000-40-04'");
-		assertWrong(pminimal,
-				"wrong.dayMandatory.invalidDay",
-				"dayMandatory", "2000-04-40",
-				"property dayMandatory in wrong.dayMandatory.invalidDay " +
-				"must be a day formatted as yyyy-mm-dd, but was '2000-04-40'");
-		assertInconsistent(pminimal,
-				"inconsistent.dayMandatory",
-				"dayMandatory", "3000-01-01",
-				"inconsistent initialization for dayMandatory between minimal and inconsistent.dayMandatory," +
-					" expected 1000/8/31 but got 3000/1/1.",
-				"inconsistent initialization for dayMandatory between inconsistent.dayMandatory and minimal," +
-					" expected 3000/1/1 but got 1000/8/31.");
-		assertInconsistent(pminimal,
-				"inconsistent.dayOptional",
-				"dayOptional", "3001-02-01",
-				"inconsistent initialization for dayOptional between minimal and inconsistent.dayOptional," +
-					" expected 1009/7/13 but got 3001/2/1.",
-				"inconsistent initialization for dayOptional between inconsistent.dayOptional and minimal," +
-					" expected 3001/2/1 but got 1009/7/13.");
 	}
 
 	@SuppressWarnings("unused")
