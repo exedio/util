@@ -127,7 +127,6 @@ public class PropertiesDurationDaysTest
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final String key,
 			final String value,

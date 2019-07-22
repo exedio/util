@@ -130,7 +130,6 @@ public class PropertiesPathTest
 	 * Asserts the property with given key and value set in the given java.util.Properties template will cause an IllegalPropertiesException
 	 * with given message when a cope.util.Properties is created.
 	 */
-	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final java.util.Properties template,
 			final String sourceDescription,

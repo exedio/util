@@ -148,7 +148,6 @@ public class PropertiesEnumTest
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final String key,
 			final String value,

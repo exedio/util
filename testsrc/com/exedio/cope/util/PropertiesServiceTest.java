@@ -327,7 +327,6 @@ public class PropertiesServiceTest
 
 	static final String NESTED = NestedService.class.getName();
 
-	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final String key,
 			final String value,
@@ -345,7 +344,6 @@ public class PropertiesServiceTest
 				key, message, cause);
 	}
 
-	@SuppressWarnings("unused")
 	private static void assertWrong(
 			final String key1,
 			final String value1,
