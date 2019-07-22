@@ -86,7 +86,7 @@ public abstract class Properties
 	@Deprecated
 	protected Properties(final Source source, final Source context)
 	{
-		this.source = source;
+		this.source = requireNonNull(source, "source");
 		this.sourceDescription = source.getDescription();
 		this.context = context;
 	}

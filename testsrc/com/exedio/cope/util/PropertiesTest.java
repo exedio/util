@@ -422,7 +422,7 @@ public class PropertiesTest
 	{
 		assertFails(() ->
 			new Properties(null){},
-			NullPointerException.class, null);
+			NullPointerException.class, "source");
 	}
 
 
