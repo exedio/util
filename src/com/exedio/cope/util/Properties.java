@@ -37,6 +37,7 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import java.time.zone.ZoneRulesException;
@@ -521,6 +522,24 @@ public abstract class Properties
 				(minimum>Integer.MIN_VALUE ? (" greater or equal " + minimum) : "") + ", ";
 	}
 
+
+	protected final LocalDate value(final String key, final LocalDate defaultValue)
+	{
+		return parseField(key, LocalDate.class, null, defaultValue, (value) ->
+		{
+			try
+			{
+				return LocalDate.parse(value);
+			}
+			catch(final DateTimeParseException e)
+			{
+				throw newException(key,
+						"must be a local date formatted as yyyy-mm-dd, " +
+						"but was '" + value + '\'',
+						e);
+			}
+		}).get();
+	}
 
 	@SuppressWarnings("deprecation") // needed for idea
 	protected final Day value(final String key, final Day defaultValue)
