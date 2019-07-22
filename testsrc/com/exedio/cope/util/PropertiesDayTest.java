@@ -39,8 +39,8 @@ public class PropertiesDayTest
 		assertEquals(new Day(1009, 7, 13), props.optional);
 		assertEquals(new Day(1009, 7, 13), props.optionalF.getValue());
 		assertEquals(new Day(1009, 7, 13), props.optionalF.get());
-		assertEquals("1000/8/31", props.mandatoryF.getValueString());
-		assertEquals("1009/7/13", props.optionalF .getValueString());
+		assertEquals("1000-08-31", props.mandatoryF.getValueString());
+		assertEquals("1009-07-13", props.optionalF .getValueString());
 		assertEquals(true,  props.mandatoryF.isSpecified());
 		assertEquals(false, props.optionalF .isSpecified());
 	}
@@ -59,8 +59,8 @@ public class PropertiesDayTest
 		assertEquals(new Day(2001,  3, 31), props.optional);
 		assertEquals(new Day(2001,  3, 31), props.optionalF.getValue());
 		assertEquals(new Day(2001,  3, 31), props.optionalF.get());
-		assertEquals("2000/11/4", props.mandatoryF.getValueString());
-		assertEquals("2001/3/31", props.optionalF .getValueString());
+		assertEquals("2000-11-04", props.mandatoryF.getValueString());
+		assertEquals("2001-03-31", props.optionalF .getValueString());
 		assertEquals(true, props.mandatoryF.isSpecified());
 		assertEquals(true, props.optionalF .isSpecified());
 	}
@@ -138,8 +138,8 @@ public class PropertiesDayTest
 			assertEquals(null,                 mandatoryF.getDefaultValue());
 			assertEquals(new Day(1009, 7, 13), optionalF .getDefaultValue());
 
-			assertEquals(null,       mandatoryF.getDefaultValueString());
-			assertEquals("1009/7/13", optionalF.getDefaultValueString());
+			assertEquals(null,        mandatoryF.getDefaultValueString());
+			assertEquals("1009-07-13", optionalF.getDefaultValueString());
 
 			assertEquals(null, mandatoryF.getDefaultValueFailure());
 			assertEquals(null,  optionalF.getDefaultValueFailure());

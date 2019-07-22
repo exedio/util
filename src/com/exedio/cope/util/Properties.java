@@ -553,7 +553,7 @@ public abstract class Properties
 	@Deprecated
 	protected final Field<Day> field(final String key, final Day defaultValue)
 	{
-		return parseField(key, Day.class, null, defaultValue, (s) ->
+		return parseField(key, Day.class, null, () -> defaultValue, false, (s) ->
 		{
 			try
 			{
@@ -573,7 +573,7 @@ public abstract class Properties
 						"but was '" + s + '\'',
 						e);
 			}
-		});
+		}, d -> d.toLocalDate().toString());
 	}
 
 
