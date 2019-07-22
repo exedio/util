@@ -561,11 +561,10 @@ public abstract class Properties
 				if(!matcher.matches())
 					throw new IllegalArgumentException("Input sequence does not match the pattern.");
 
-				final int year = Integer.parseInt(matcher.group(1));
-				final int month = Integer.parseInt(matcher.group(2));
-				final int day = Integer.parseInt(matcher.group(3));
-
-				return new Day(year, month, day);
+				return new Day(
+						Integer.parseInt(matcher.group(1)),  // year
+						Integer.parseInt(matcher.group(2)),  // month
+						Integer.parseInt(matcher.group(3))); // day
 			}
 			catch(final IllegalArgumentException e)
 			{
