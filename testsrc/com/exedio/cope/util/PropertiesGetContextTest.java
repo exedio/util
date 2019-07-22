@@ -19,106 +19,57 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Collection;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({
-		"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS",
-		"SIC_INNER_SHOULD_BE_STATIC_ANON"}) // is more compact to write in tests
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class PropertiesGetContextTest
 {
 	static class TestProperties extends Properties
 	{
-		@SuppressWarnings("unused")
-		@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 		final String stringMandatory = value("stringMandatory", (String)null);
 
-		@Deprecated
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
 			super(getSource(source, sourceDescription), context);
 		}
 	}
 
-	@Test void testGetContext()
+	@Test void testContextFails()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
-		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
-
 		final Properties.Source context = new AssertionErrorPropertiesSource();
-		@SuppressWarnings("deprecation") // needed for idea
-		final TestProperties properties = new TestProperties(pcontext, "context", context);
-		assertSame(context, properties.getContext());
-
-		@SuppressWarnings("deprecation") // needed for idea
-		final TestProperties none = new TestProperties(pcontext, "none", null);
-		//noinspection ResultOfMethodCallIgnored
 		assertFails(
-			none::getContext,
-			IllegalStateException.class,
-			"no context available");
+				() -> new TestProperties(pcontext, "context", context),
+				IllegalArgumentException.class,
+				"context no longer supported");
 	}
 
-	@Deprecated
-	@Test void testGetContextDeprecated()
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testContextNull()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
 		pcontext.setProperty("stringMandatory", "stringMandatory.minimalValue");
-		final TestProperties context = new TestProperties(pcontext, "context", new AssertionErrorPropertiesSource(){
+		final TestProperties context = new TestProperties(pcontext, "context", null);
+		assertEquals("stringMandatory.minimalValue", context.stringMandatory);
 
-			@Override
-			public String get(final String key)
-			{
-				if("a".equals(key))
-					return "b";
-				else if("a1".equals(key))
-					return "b1";
-				else if("n".equals(key))
-					return null;
-				else
-					throw new RuntimeException(key);
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return Collections.unmodifiableList(asList("a", "a1"));
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return "TestGetContextDescription";
-			}
-
-			@Override
-			public String toString()
-			{
-				return "TestGetContextToString";
-			}
-		});
-		assertEquals("b", context.getContext("a"));
-		assertEquals("b1", context.getContext("a1"));
-
-		//noinspection ConstantConditions
+		//noinspection ConstantConditions OK: testing deprecated API
 		assertFails(() ->
 			context.getContext(null),
 			NullPointerException.class, "key");
+
+		//noinspection ConstantConditions OK: testing deprecated API
 		assertFails(() ->
 			context.getContext("n"),
-			IllegalArgumentException.class,
-			"no value available for key >n< in context TestGetContextDescription");
-
-		final TestProperties none = new TestProperties(pcontext, "none", null);
-		assertFails(() ->
-			none.getContext("c"),
 			IllegalStateException.class,
-			"no context available");
+			"context no longer supported");
+
+		assertFails(
+			context::getContext,
+			IllegalStateException.class,
+			"context no longer supported");
 	}
 }

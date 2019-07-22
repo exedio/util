@@ -71,25 +71,25 @@ public abstract class Properties
 	final HashMap<String, PropertiesField<?>> detectDuplicatePrefixes = new HashMap<>();
 	final Source source;
 	final String sourceDescription;
-	private final Source context;
 
-	@SuppressWarnings("deprecation") // needed for idea
 	protected Properties(final Source source)
 	{
-		this(source, null);
+		this.source = requireNonNull(source, "source");
+		this.sourceDescription = source.getDescription();
 	}
 
 	/**
 	 * @deprecated
 	 * Use {@link #Properties(Source)} instead.
-	 * Using context is deprecated at all.
+	 * Using context is no longer supported.
 	 */
 	@Deprecated
 	protected Properties(final Source source, final Source context)
 	{
-		this.source = requireNonNull(source, "source");
-		this.sourceDescription = source.getDescription();
-		this.context = context;
+		this(source);
+		//noinspection VariableNotUsedInsideIf OK: context no longer supported
+		if(context!=null)
+			throw new IllegalArgumentException(CONTEXT_NOT_SUPPORTED);
 	}
 
 	/**
@@ -124,42 +124,16 @@ public abstract class Properties
 	}
 
 	/**
-	 * @throws IllegalStateException if there is no context for these properties.
+	 * @deprecated
+	 * Use {@link #Properties(Source)} instead.
+	 * Using context is no longer supported.
+	 * @throws IllegalStateException always
 	 */
+	@Deprecated
+	@SuppressWarnings("MethodMayBeStatic") // OK: no longer supported
 	public final Source getContext()
 	{
-		if(context==null)
-			throw new IllegalStateException("no context available");
-
-		return context;
-	}
-
-	final String resolve(final String key)
-	{
-		final String raw = source.get(key);
-		if(raw==null || context==null)
-			return raw;
-
-		final StringBuilder bf = new StringBuilder();
-		int previous = 0;
-		for(int dollar = raw.indexOf("${"); dollar>=0; dollar = raw.indexOf("${", previous))
-		{
-			final int contextKeyBegin = dollar+2;
-			final int contextKeyEnd = raw.indexOf('}', contextKeyBegin);
-			if(contextKeyEnd<0)
-				throw new IllegalArgumentException("missing '}' in " + raw);
-			if(contextKeyBegin==contextKeyEnd)
-				throw new IllegalArgumentException("${} not allowed in " + raw);
-			final String contextKey = raw.substring(contextKeyBegin, contextKeyEnd);
-			final String replaced = context.get(contextKey);
-			if(replaced==null)
-				throw new IllegalArgumentException("key '" + contextKey + "\' not defined by context " + context.getDescription());
-			bf.append(raw, previous, dollar).
-				append(replaced);
-			previous = contextKeyEnd + 1;
-		}
-		bf.append(raw.substring(previous));
-		return bf.toString();
+		throw new IllegalStateException(CONTEXT_NOT_SUPPORTED);
 	}
 
 	public interface Source
@@ -380,7 +354,7 @@ public abstract class Properties
 			if(key.startsWith(prefix))
 				throw new IllegalArgumentException("properties field '" + prefix + "' collides with field '" + key + '\'');
 
-		final String s = resolve(key);
+		final String s = source.get(key);
 		final E defaultValue;
 		final String defaultValueFailure;
 		final boolean specified;
@@ -1331,24 +1305,20 @@ public abstract class Properties
 	}
 
 	/**
-	 * @throws IllegalArgumentException if the context does not contain a value for {@code key}.
-	 * @throws IllegalStateException if there is no context for these properties.
-	 * @deprecated Use {@link #getContext()} instead.
+	 * @throws IllegalStateException always
+	 * @deprecated Using context is no longer supported.
 	 */
 	@Deprecated
+	@SuppressWarnings("MethodMayBeStatic") // OK: context no longer supported
 	public final String getContext(final String key)
 	{
 		if(key==null)
 			throw new NullPointerException("key");
-		if(context==null)
-			throw new IllegalStateException("no context available");
-
-		final String result = context.get(key);
-		if(result==null)
-			throw new IllegalArgumentException("no value available for key >" + key + "< in context " + context.getDescription());
-
-		return result;
+		throw new IllegalStateException(CONTEXT_NOT_SUPPORTED);
 	}
+
+	@Deprecated
+	private static final String CONTEXT_NOT_SUPPORTED = "context no longer supported";
 
 	/**
 	 * @deprecated Use {@link Sources#SYSTEM_PROPERTIES} instead
