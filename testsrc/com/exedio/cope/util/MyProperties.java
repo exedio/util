@@ -25,12 +25,6 @@ public class MyProperties extends Properties
 		super(source);
 	}
 
-	@Deprecated
-	protected MyProperties(final Source source, final Source context)
-	{
-		super(source, context);
-	}
-
 	// for testing only
 
 	@SuppressWarnings("unchecked")
