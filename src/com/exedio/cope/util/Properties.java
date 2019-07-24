@@ -79,20 +79,6 @@ public abstract class Properties
 	}
 
 	/**
-	 * @deprecated
-	 * Use {@link #Properties(Source)} instead.
-	 * Using context is no longer supported.
-	 */
-	@Deprecated
-	protected Properties(final Source source, final Source context)
-	{
-		this(source);
-		//noinspection VariableNotUsedInsideIf OK: context no longer supported
-		if(context!=null)
-			throw new IllegalArgumentException(CONTEXT_NOT_SUPPORTED);
-	}
-
-	/**
 	 * This default implementation returns {@link #getProbes()}.
 	 * @deprecated Use {@link Probe} instead
 	 */
@@ -121,19 +107,6 @@ public abstract class Properties
 	public final String getSource()
 	{
 		return sourceDescription;
-	}
-
-	/**
-	 * @deprecated
-	 * Use {@link #Properties(Source)} instead.
-	 * Using context is no longer supported.
-	 * @throws IllegalStateException always
-	 */
-	@Deprecated
-	@SuppressWarnings("MethodMayBeStatic") // OK: no longer supported
-	public final Source getContext()
-	{
-		throw new IllegalStateException(CONTEXT_NOT_SUPPORTED);
 	}
 
 	public interface Source
@@ -1281,6 +1254,20 @@ public abstract class Properties
 	// ------------------- deprecated stuff -------------------
 
 	/**
+	 * @deprecated
+	 * Use {@link #Properties(Source)} instead.
+	 * Using context is no longer supported.
+	 */
+	@Deprecated
+	protected Properties(final Source source, final Source context)
+	{
+		this(source);
+		//noinspection VariableNotUsedInsideIf OK: context no longer supported
+		if(context!=null)
+			throw new IllegalArgumentException(CONTEXT_NOT_SUPPORTED);
+	}
+
+	/**
 	 * @deprecated Use {@link Sources#EMPTY} instead
 	 */
 	@Deprecated
@@ -1314,6 +1301,19 @@ public abstract class Properties
 	{
 		if(key==null)
 			throw new NullPointerException("key");
+		throw new IllegalStateException(CONTEXT_NOT_SUPPORTED);
+	}
+
+	/**
+	 * @deprecated
+	 * Use {@link #Properties(Source)} instead.
+	 * Using context is no longer supported.
+	 * @throws IllegalStateException always
+	 */
+	@Deprecated
+	@SuppressWarnings("MethodMayBeStatic") // OK: no longer supported
+	public final Source getContext()
+	{
 		throw new IllegalStateException(CONTEXT_NOT_SUPPORTED);
 	}
 
