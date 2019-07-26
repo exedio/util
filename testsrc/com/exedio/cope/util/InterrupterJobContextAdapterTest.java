@@ -37,6 +37,7 @@ public class InterrupterJobContextAdapterTest
 		}
 
 		@Override
+		@SuppressWarnings("unused") // needed for idea
 		public boolean isRequested()
 		{
 			isRequestedCount++;

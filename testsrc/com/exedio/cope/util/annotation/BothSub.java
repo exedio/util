@@ -28,6 +28,7 @@ class BothSub extends BothSuper
 	int field = 0;
 
 	@Override
+	@SuppressWarnings("unused")
 	@AnnoDeclared("BothSubMethodDeclared")
 	@AnnoInherited("BothSubMethodInherited")
 	void method()

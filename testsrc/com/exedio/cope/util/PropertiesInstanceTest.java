@@ -108,6 +108,7 @@ public class PropertiesInstanceTest
 
 	@Test void testFactoryNull()
 	{
+		//noinspection ResultOfMethodCallIgnored
 		assertFails(
 				() -> create((Factory<?>)null),
 				NullPointerException.class,

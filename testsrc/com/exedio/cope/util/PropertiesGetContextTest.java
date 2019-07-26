@@ -56,12 +56,10 @@ public class PropertiesGetContextTest
 		final TestProperties context = new TestProperties(pcontext, "context", null);
 		assertEquals("stringMandatory.minimalValue", context.stringMandatory);
 
-		//noinspection ConstantConditions OK: testing deprecated API
 		assertFails(() ->
 			context.getContext(null),
 			NullPointerException.class, "key");
 
-		//noinspection ConstantConditions OK: testing deprecated API
 		assertFails(() ->
 			context.getContext("n"),
 			IllegalStateException.class,

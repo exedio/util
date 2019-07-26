@@ -394,7 +394,6 @@ public abstract class Properties
 	}
 
 
-	@SuppressWarnings("deprecation") // needed for idea
 	protected final boolean value(final String key, final boolean defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -421,7 +420,6 @@ public abstract class Properties
 	}
 
 
-	@SuppressWarnings("deprecation") // needed for idea
 	protected final int value(final String key, final int defaultValue, final int minimum)
 	{
 		return field(key, defaultValue, minimum).get();
@@ -488,7 +486,6 @@ public abstract class Properties
 		}).get();
 	}
 
-	@SuppressWarnings("deprecation") // needed for idea
 	protected final Day value(final String key, final Day defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -524,7 +521,6 @@ public abstract class Properties
 	}
 
 
-	@SuppressWarnings("deprecation") // needed for idea
 	protected final String value(final String key, final String defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -551,7 +547,6 @@ public abstract class Properties
 	}
 
 
-	@SuppressWarnings("deprecation") // needed for idea
 	protected final File valueFile(final String key)
 	{
 		return fieldFile(key).get();
@@ -868,7 +863,6 @@ public abstract class Properties
 	 * {@code error: reference to value is ambiguous},
 	 * use {@link #valnp(String, Factory)} instead.
 	 */
-	@SuppressWarnings("deprecation") // needed for idea
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();

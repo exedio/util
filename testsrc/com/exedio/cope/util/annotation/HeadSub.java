@@ -24,6 +24,7 @@ class HeadSub extends HeadSuper
 	int field = 0;
 
 	@Override
+	@SuppressWarnings("unused")
 	void method()
 	{
 		// empty
