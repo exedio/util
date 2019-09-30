@@ -39,7 +39,7 @@
 		<dependency org="org.easymock" name="easymock" rev="3.6" conf="test->default">
 			<exclude org="org.objenesis" name="objenesis" />
 		</dependency>
-		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.7.6.201602180812" conf="jacoco->default" />
+		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.5" conf="jacoco->default" />
 		<dependency org="com.github.spotbugs" name="spotbugs-ant" rev="3.1.12" conf="findbugs->default">
 			<exclude org="net.jcip" module="jcip-annotations" />
 		</dependency>

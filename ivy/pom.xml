@@ -64,7 +64,7 @@
     <dependency>
       <groupId>org.jacoco</groupId>
       <artifactId>org.jacoco.ant</artifactId>
-      <version>0.7.6.201602180812</version>
+      <version>0.8.5</version>
       <optional>true</optional>
     </dependency>
     <dependency>
