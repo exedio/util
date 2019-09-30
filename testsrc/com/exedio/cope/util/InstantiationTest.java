@@ -31,7 +31,7 @@ public class InstantiationTest
 	private static final int warmup = 50000;
 
 	@Disabled
-	@SuppressWarnings("unused")
+	@SuppressWarnings({"unused","deprecation"})
 	@Test void test() throws ReflectiveOperationException
 	{
 		{
