@@ -6,6 +6,7 @@ import java.awt.Color
 
 timestamps
 {
+	def jdk = 'openjdk-8-deb9'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -16,7 +17,7 @@ timestamps
 	])
 
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && OpenJdk18Debian9')
+	node('GitCloneExedio && ' + jdk)
 	{
 		try
 		{
@@ -29,7 +30,7 @@ timestamps
 				computeGitTree(scmResult)
 
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss")
-				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
+				env.JAVA_HOME = tool jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
 				sh 'echo' +
