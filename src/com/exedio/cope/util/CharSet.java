@@ -359,6 +359,10 @@ public final class CharSet implements Serializable
 			case '\n': bf.append("[.newline.]");         break;
 			case '\r': bf.append("[.carriage-return.]"); break;
 			case '\b': bf.append("[.backspace.]");       break;
+			case   11: bf.append("[.vertical-tab.]");    break;
+			case   12: bf.append("[.form-feed.]");       break;
+			case   14: bf.append("[.SO.]");              break;
+			case   31: bf.append("[.US.]");              break;
 			case  '~': bf.append("[.tilde.]");           break;
 			case  ',': bf.append("[.comma.]");           break;
 			case  '[': bf.append("[.left-square-bracket.]"); break;

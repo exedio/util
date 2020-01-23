@@ -188,6 +188,7 @@ public class CharSetTest
 		assertRegexp("^[-, -\\u{ffff}]*$", new CharSet(' ', '\uffff'));
 		assertRegexp("^[[.left-square-bracket.]-[.right-square-bracket.]]*$", new CharSet('[', ']'));
 		assertRegexp("^[-,[.comma.]-.]*$", new CharSet(',', '.'));
+		assertRegexp("^[[.US.]- ]*$", new CharSet('\u001f', ' '));
 	}
 
 	private static void assertEqualsStrict(final CharSet cs1, final CharSet cs2)
@@ -288,6 +289,11 @@ public class CharSetTest
 	{
 		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
 		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
+		assertEquals("[[.NUL.]-[.US.]]", new CharSet(' ', '\uffff').getRegularExpressionForInvalid7BitChars());
+		assertEquals(
+				"[[.NUL.]-[.backspace.],[.vertical-tab.]-[.form-feed.],[.SO.]-[.US.]]",
+				new CharSet('\t', '\n', '\r', '\r', ' ', (char)0xD799, (char)0xE000, (char)0xFFFF).getRegularExpressionForInvalid7BitChars()
+		);
 	}
 
 	@Test void remove()
