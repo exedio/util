@@ -297,12 +297,9 @@ public final class CharSet implements Serializable
 		final StringBuilder bf = new StringBuilder();
 		bf.append("[");
 
-		boolean prependComma = false;
-
 		if(contains('-'))
 		{
 			bf.append('-');
-			prependComma = true;
 		}
 
 		for(int i = 0; i<set.length; i+=2)
@@ -317,9 +314,6 @@ public final class CharSet implements Serializable
 
 			if(from<=to)
 			{
-				if(prependComma)
-					bf.append(',');
-
 				if(from==to)
 					append(bf, from);
 				else // from<to
@@ -328,8 +322,6 @@ public final class CharSet implements Serializable
 					bf.append('-');
 					append(bf, to);
 				}
-
-				prependComma = true;
 			}
 		}
 

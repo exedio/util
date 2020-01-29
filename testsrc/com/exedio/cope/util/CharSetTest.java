@@ -111,7 +111,7 @@ public class CharSetTest
 	@Test void complex()
 	{
 		final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
-		assertRegexp("^[C,M-O,m-o]*$", cs);
+		assertRegexp("^[CM-Om-o]*$", cs);
 		assertEquals("[C-C,M-O,m-o]", cs.toString(), cs.toString());
 		assertFalse(cs.contains('A'));
 		assertTrue(cs.contains('C'));
@@ -173,21 +173,21 @@ public class CharSetTest
 	}
 	@Test void regexp()
 	{
-		assertRegexp("^[-,a-z]*$", new CharSet('-', '-', 'a', 'z'));
-		assertRegexp("^[-,(-)]*$", new CharSet('(', ')', '-', '-'));
-		assertRegexp("^[-,(-),0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
-		assertRegexp("^[[.tab.]-[.newline.],[.carriage-return.],0-9]*$", new CharSet('\t', '\n', '\r', '\r', '0', '9'));
-		assertRegexp("^[[.backspace.],0-9]*$", new CharSet('\b', '\b', '0', '9'));
+		assertRegexp("^[-a-z]*$", new CharSet('-', '-', 'a', 'z'));
+		assertRegexp("^[-(-)]*$", new CharSet('(', ')', '-', '-'));
+		assertRegexp("^[-(-)0-9]*$", new CharSet('(', ')', '-', '-', '0', '9'));
+		assertRegexp("^[[.tab.]-[.newline.][.carriage-return.]0-9]*$", new CharSet('\t', '\n', '\r', '\r', '0', '9'));
+		assertRegexp("^[[.backspace.]0-9]*$", new CharSet('\b', '\b', '0', '9'));
 		assertRegexp("^[[.NUL.]]*$", new CharSet('\0', '\0'));
-		assertRegexp("^[[.NUL.]- ,0-9]*$", new CharSet('\0', ' ', '0', '9'));
-		assertRegexp("^[0-9,[.tilde.]]*$", new CharSet('0', '9', '~', '~'));
-		assertRegexp("^[-, -[.tilde.]]*$", new CharSet(' ', '~')); // TODO leading dash is unnecessary
-		assertRegexp("^[ ,0-9]*$", new CharSet(' ', ' ', '0', '9'));
-		assertRegexp("^[-, -\\u{fc}]*$"  , new CharSet(' ', '\u00fc')); // uuml
-		assertRegexp("^[-, -\\u{abcd}]*$", new CharSet(' ', '\uabcd'));
-		assertRegexp("^[-, -\\u{ffff}]*$", new CharSet(' ', '\uffff'));
+		assertRegexp("^[[.NUL.]- 0-9]*$", new CharSet('\0', ' ', '0', '9'));
+		assertRegexp("^[0-9[.tilde.]]*$", new CharSet('0', '9', '~', '~'));
+		assertRegexp("^[- -[.tilde.]]*$", new CharSet(' ', '~')); // TODO leading dash is unnecessary
+		assertRegexp("^[ 0-9]*$", new CharSet(' ', ' ', '0', '9'));
+		assertRegexp("^[- -\\u{fc}]*$"  , new CharSet(' ', '\u00fc')); // uuml
+		assertRegexp("^[- -\\u{abcd}]*$", new CharSet(' ', '\uabcd'));
+		assertRegexp("^[- -\\u{ffff}]*$", new CharSet(' ', '\uffff'));
 		assertRegexp("^[[.left-square-bracket.]-[.right-square-bracket.]]*$", new CharSet('[', ']'));
-		assertRegexp("^[-,[.comma.]-.]*$", new CharSet(',', '.'));
+		assertRegexp("^[-[.comma.]-.]*$", new CharSet(',', '.'));
 		assertRegexp("^[[.US.]- ]*$", new CharSet('\u001f', ' '));
 	}
 
@@ -287,11 +287,11 @@ public class CharSetTest
 
 	@Test void invertedRegexp()
 	{
-		assertEquals("[-,[.NUL.]-/,{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
-		assertEquals("[[.NUL.]- ,\",(-),[.comma.],:-<,>,[.left-square-bracket.]-[.right-square-bracket.],\u007f]", EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
+		assertEquals("[-[.NUL.]-/{-\u007f]", new CharSet('0', 'z').getRegularExpressionForInvalid7BitChars());
+		assertEquals("[[.NUL.]- \"(-)[.comma.]:-<>[.left-square-bracket.]-[.right-square-bracket.]\u007f]", EMAIL_INTERNATIONAL.getRegularExpressionForInvalid7BitChars());
 		assertEquals("[[.NUL.]-[.US.]]", new CharSet(' ', '\uffff').getRegularExpressionForInvalid7BitChars());
 		assertEquals(
-				"[[.NUL.]-[.backspace.],[.vertical-tab.]-[.form-feed.],[.SO.]-[.US.]]",
+				"[[.NUL.]-[.backspace.][.vertical-tab.]-[.form-feed.][.SO.]-[.US.]]",
 				new CharSet('\t', '\n', '\r', '\r', ' ', (char)0xD799, (char)0xE000, (char)0xFFFF).getRegularExpressionForInvalid7BitChars()
 		);
 	}
