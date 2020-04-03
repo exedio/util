@@ -109,7 +109,7 @@ public final class Pool<E>
 		this.counter = counter;
 	}
 
-	@SuppressWarnings({"unchecked", "static-method", "SuspiciousArrayCast"}) // OK: no generic arrays
+	@SuppressWarnings({"unchecked", "SuspiciousArrayCast"}) // OK: no generic arrays
 	private E[] cast(final Object[] o)
 	{
 		return (E[])o;

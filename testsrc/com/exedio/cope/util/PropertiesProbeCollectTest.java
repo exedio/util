@@ -160,7 +160,7 @@ public class PropertiesProbeCollectTest
 				wrap(props.getProbes()));
 	}
 
-	@SuppressWarnings({"static-method", "MethodMayBeStatic"})
+	@SuppressWarnings("MethodMayBeStatic")
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 	static class Upper extends Properties
 	{
@@ -192,7 +192,7 @@ public class PropertiesProbeCollectTest
 
 	static class Private extends Properties
 	{
-		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
+		@SuppressWarnings("MethodMayBeStatic")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		@Probe private String probePrivate() { return "resultPrivate"; }
 

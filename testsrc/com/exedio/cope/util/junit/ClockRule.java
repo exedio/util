@@ -34,13 +34,11 @@ public final class ClockRule
 		// just make private
 	}
 
-	@SuppressWarnings("static-method")
 	public void override(final Strategy strategy)
 	{
 		Clock.override(strategy);
 	}
 
-	@SuppressWarnings("static-method")
 	public void clear()
 	{
 		clearOverride();
