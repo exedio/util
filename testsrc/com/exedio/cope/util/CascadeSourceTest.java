@@ -129,7 +129,7 @@ public class CascadeSourceTest
 		final Source source3 = view(new Properties(), "description3");
 		final Source cascaded2 = cascade(cascaded1, source3);
 		assertEquals("description1 / description2 / description3", cascaded2.getDescription());
-		assertEquals(asList(cascaded1, source3), cascadedSources(cascaded2));
+		assertEquals(asList(source1, source2, source3), cascadedSources(cascaded2));
 	}
 
 	private static List<Source> cascadedSources(final Source source)
