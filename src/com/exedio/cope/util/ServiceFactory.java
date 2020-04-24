@@ -66,7 +66,6 @@ public final class ServiceFactory<T,P>
 	}
 
 	@Override
-	@SuppressWarnings("ObjectInstantiationInEqualsHashCode") // OK: called rarely
 	public int hashCode()
 	{
 		return

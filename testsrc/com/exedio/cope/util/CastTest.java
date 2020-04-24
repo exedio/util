@@ -39,6 +39,7 @@ public class CastTest
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test void testVerboseCast()
 	{
+		//noinspection ConstantConditions
 		assertNull(Cast.verboseCast(String.class, null));
 		assertSame(string1, Cast.verboseCast(String.class, string1Object));
 	}
