@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
@@ -878,6 +879,39 @@ public abstract class Properties
 					"but was " + classRaw.getName(), e);
 		}
 		return new ServiceFactory<>(constructor, properties);
+	}
+
+	@Nonnull
+	protected final List<String> valuesSpaceSeparated(final String key, final String... defaultValue)
+	{
+		requireNonNull(defaultValue, "defaultValue");
+		for(int i = 0; i<defaultValue.length; i++)
+		{
+			final String s = defaultValue[i];
+			if(s==null)
+				throw new NullPointerException(
+						"defaultValue[" + i + ']');
+			if(s.isEmpty())
+				throw new IllegalArgumentException(
+						"defaultValue[" + i + "] must not be empty");
+			if(s.contains(" "))
+				throw new IllegalArgumentException(
+						"defaultValue[" + i + "] must not contain spaces, " +
+						"but was >" + s + '<');
+		}
+
+		@SuppressWarnings({"rawtypes", "unchecked"})
+		final Class<List<String>> valueClass = (Class<List<String>>)(Class)List.class;
+		final String delimiter = " ";
+
+		return parseField(key, valueClass, null, () -> asList(defaultValue), false, value ->
+		{
+			final ArrayList<String> result = new ArrayList<>();
+			for(final StringTokenizer t = new StringTokenizer(value, delimiter); t.hasMoreTokens(); )
+				result.add(t.nextToken());
+			return List.copyOf(result);
+		},
+		value -> String.join(delimiter, value)).get();
 	}
 
 
