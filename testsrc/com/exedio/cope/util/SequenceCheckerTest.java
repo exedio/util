@@ -220,7 +220,7 @@ public class SequenceCheckerTest
 		assertFails(() ->
 			new SequenceChecker(0),
 			IllegalArgumentException.class,
-			"capacity must be greater than zero, but was 0");
+			"capacity must be greater zero, but was 0");
 	}
 
 	private void assertIt()

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Check.requireGreaterZero;
+
 import java.util.Arrays;
 
 /**
@@ -44,10 +46,7 @@ public final class SequenceChecker
 
 	public SequenceChecker(final int capacity)
 	{
-		if(capacity<1)
-			throw new IllegalArgumentException("capacity must be greater than zero, but was " + capacity);
-
-		this.capacity = capacity;
+		this.capacity = requireGreaterZero(capacity, "capacity");
 		buffer = new boolean[capacity];
 		Arrays.fill(buffer, true);
 		//System.out.println("----------------");
