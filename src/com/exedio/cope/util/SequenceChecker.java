@@ -18,10 +18,10 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 
-import java.util.Arrays;
+import com.exedio.cope.util.SequenceChecker2.Result;
+import java.util.function.IntConsumer;
 
 /**
  * <p><strong>Note that this class is not synchronized.</strong>
@@ -30,141 +30,51 @@ import java.util.Arrays;
  */
 public final class SequenceChecker
 {
-	private final int capacity;
-
-	private final boolean[] buffer;
-	private int bufferNext = 0;
-
-	private boolean afterFirst = false;
-	private int firstNumber;
-	private int maxNumber;
+	private final SequenceChecker2 backing;
 
 	private int countInOrder = 0;
 	private int countOutOfOrder = 0;
 	private int countDuplicate = 0;
 	private int countLost = 0;
 	private int countLate = 0;
-	private int pending = 0;
 
 	public SequenceChecker(final int capacity)
 	{
-		this.capacity = requireGreaterZero(capacity, "capacity");
-		buffer = new boolean[capacity];
-		Arrays.fill(buffer, true);
-		//System.out.println("----------------");
+		this.backing = new SequenceChecker2(capacity);
 	}
 
 	public int getCapacity()
 	{
-		return capacity;
+		return backing.getCapacity();
 	}
-
-	/*private String toStringInternal()
-	{
-		final StringBuilder result = new StringBuilder();
-		result.append('[');
-		for(int i = 0; i<buffer.length; i++)
-		{
-			result.append((i==bufferNext) ? '>' : ' ');
-			result.append(buffer[i] ? '+' : '.');
-		}
-		result.append(']');
-		return result.toString();
-	}*/
 
 	/**
 	 * @return whether the given number is a duplicate
 	 */
 	public boolean check(final int number)
 	{
-		//System.out.println("-----------" + number + "----" + toStringInternal());
-		if(afterFirst)
+		final Result result = backing.check(number, counterLost);
+		switch(result)
 		{
-			if(number>maxNumber)
-			{
-				//System.out.println("-----------" + number + "----countInOrder");
-				final int todo = number - maxNumber;
-				int lostUpdate = 0;
-				for(int i = 0; i<todo; i++)
-				{
-					if(!buffer[bufferNext])
-						lostUpdate++;
-					buffer[bufferNext] = (i==(todo-1));
-
-					bufferNext++;
-					if(bufferNext>=capacity)
-						bufferNext = 0;
-				}
-				maxNumber = number;
-				pending += todo-1-lostUpdate;
-				if(lostUpdate!=0)
-					countLost += lostUpdate;
-
-				countInOrder++;
-				return false;
-			}
-			else if(number<firstNumber)
-			{
-				//System.out.println("-----------" + number + "----ignore");
-				// forget, since I don't know anything about numbers before firstNumber
-				return false;
-			}
-			else if(number>(maxNumber-capacity))
-			{
-				int pos = bufferNext - (maxNumber-number) - 1;
-				if(pos<0)
-					pos += capacity;
-
-				//System.out.println("-----------" + number + "----outOfOrder or duplicate ---- on " + pos);
-				if(buffer[pos])
-				{
-					//System.out.println("-----------" + number + "----duplicate");
-					countDuplicate++;
-					return true;
-				}
-				else
-				{
-					//System.out.println("-----------" + number + "----outOfOrder");
-					buffer[pos] = true;
-					pending--;
-
-					countOutOfOrder++;
-					return false;
-				}
-			}
-			else
-			{
-				countLate++;
-				return false;
-			}
+			case early:      break;
+			case inOrder:    countInOrder   ++; break;
+			case outOfOrder: countOutOfOrder++; break;
+			case duplicate:  countDuplicate ++; break;
+			case late:       countLate      ++; break;
 		}
-		else
-		{
-			afterFirst = true;
-			firstNumber = number;
-			maxNumber = number;
-
-			countInOrder++;
-			return false;
-		}
+		return result == Result.duplicate;
 	}
+
+	private final IntConsumer counterLost = (value) -> countLost+=value;
 
 	public int getFirstNumber()
 	{
-		assertAfterFirst();
-		return firstNumber;
+		return backing.getFirstNumber();
 	}
 
 	public int getMaxNumber()
 	{
-		assertAfterFirst();
-		return maxNumber;
-	}
-
-	private void assertAfterFirst()
-	{
-		if(!afterFirst)
-			throw new IllegalStateException("did not yet check first number");
+		return backing.getMaxNumber();
 	}
 
 	public Info getInfo()
@@ -175,17 +85,13 @@ public final class SequenceChecker
 				countDuplicate,
 				countLost,
 				countLate,
-				pending);
+				backing.getPending());
 	}
 
 	// just for junit tests
 	int countPending()
 	{
-		int result = 0;
-		for(final boolean b : buffer)
-			if(!b)
-				result++;
-		return result;
+		return backing.countPending();
 	}
 
 	public static final class Info
@@ -197,7 +103,7 @@ public final class SequenceChecker
 		private final int late;
 		private final int pending;
 
-		Info(
+		public Info(
 				final int inOrder,
 				final int outOfOrder,
 				final int duplicate,
