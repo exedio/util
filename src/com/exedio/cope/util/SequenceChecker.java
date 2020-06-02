@@ -43,6 +43,7 @@ public final class SequenceChecker
 	private int countDuplicate = 0;
 	private int countLost = 0;
 	private int countLate = 0;
+	private int pending = 0;
 
 	public SequenceChecker(final int capacity)
 	{
@@ -85,7 +86,10 @@ public final class SequenceChecker
 				for(int i = 0; i<todo; i++)
 				{
 					if(!buffer[bufferNext])
+					{
 						countLost++;
+						pending--;
+					}
 					buffer[bufferNext] = (i==(todo-1));
 
 					bufferNext++;
@@ -93,6 +97,7 @@ public final class SequenceChecker
 						bufferNext = 0;
 				}
 				maxNumber = number;
+				pending += todo-1;
 
 				countInOrder++;
 				return false;
@@ -120,6 +125,7 @@ public final class SequenceChecker
 				{
 					//System.out.println("-----------" + number + "----outOfOrder");
 					buffer[pos] = true;
+					pending--;
 
 					countOutOfOrder++;
 					return false;
@@ -162,18 +168,23 @@ public final class SequenceChecker
 
 	public Info getInfo()
 	{
-		int countPending = 0;
-		for(final boolean b : buffer)
-			if(!b)
-				countPending++;
-
 		return new Info(
 				countInOrder,
 				countOutOfOrder,
 				countDuplicate,
 				countLost,
 				countLate,
-				countPending);
+				pending);
+	}
+
+	// just for junit tests
+	int countPending()
+	{
+		int result = 0;
+		for(final boolean b : buffer)
+			if(!b)
+				result++;
+		return result;
 	}
 
 	public static final class Info

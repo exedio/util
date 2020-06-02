@@ -242,6 +242,7 @@ public class SequenceCheckerTest
 		assertEquals(0, sci.getLost(),       "countLost");
 		assertEquals(0, sci.getLate(),       "countLate");
 		assertEquals(0, sci.getPending(),    "countPending");
+		assertEquals(0, sc.countPending(),   "countPending");
 	}
 
 	private void assertIt(
@@ -264,5 +265,6 @@ public class SequenceCheckerTest
 		assertEquals(countLost,       sci.getLost(),       "countLost");
 		assertEquals(countLate,       sci.getLate(),       "countLate");
 		assertEquals(countPending,    sci.getPending(),    "countPending");
+		assertEquals(countPending,    sc.countPending(),   "countPending");
 	}
 }
