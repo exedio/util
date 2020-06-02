@@ -144,18 +144,20 @@ public final class SequenceChecker
 
 	public int getFirstNumber()
 	{
-		if(!afterFirst)
-			throw new IllegalStateException("did not yet check first number");
-
+		assertAfterFirst();
 		return firstNumber;
 	}
 
 	public int getMaxNumber()
 	{
+		assertAfterFirst();
+		return maxNumber;
+	}
+
+	private void assertAfterFirst()
+	{
 		if(!afterFirst)
 			throw new IllegalStateException("did not yet check first number");
-
-		return maxNumber;
 	}
 
 	public Info getInfo()
