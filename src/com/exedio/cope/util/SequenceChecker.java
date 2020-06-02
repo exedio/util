@@ -19,6 +19,7 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 import java.util.Arrays;
 
@@ -204,12 +205,12 @@ public final class SequenceChecker
 				final int late,
 				final int pending)
 		{
-			this.inOrder    = inOrder;
-			this.outOfOrder = outOfOrder;
-			this.duplicate  = duplicate;
-			this.lost       = lost;
-			this.late       = late;
-			this.pending    = pending;
+			this.inOrder    = requireNonNegative(inOrder,    "inOrder");
+			this.outOfOrder = requireNonNegative(outOfOrder, "outOfOrder");
+			this.duplicate  = requireNonNegative(duplicate,  "duplicate");
+			this.lost       = requireNonNegative(lost,       "lost");
+			this.late       = requireNonNegative(late,       "late");
+			this.pending    = requireNonNegative(pending,    "pending");
 		}
 
 		public int getInOrder()
