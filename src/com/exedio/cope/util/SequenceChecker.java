@@ -83,13 +83,11 @@ public final class SequenceChecker
 			{
 				//System.out.println("-----------" + number + "----countInOrder");
 				final int todo = number - maxNumber;
+				int lostUpdate = 0;
 				for(int i = 0; i<todo; i++)
 				{
 					if(!buffer[bufferNext])
-					{
-						countLost++;
-						pending--;
-					}
+						lostUpdate++;
 					buffer[bufferNext] = (i==(todo-1));
 
 					bufferNext++;
@@ -97,7 +95,9 @@ public final class SequenceChecker
 						bufferNext = 0;
 				}
 				maxNumber = number;
-				pending += todo-1;
+				pending += todo-1-lostUpdate;
+				if(lostUpdate!=0)
+					countLost += lostUpdate;
 
 				countInOrder++;
 				return false;
