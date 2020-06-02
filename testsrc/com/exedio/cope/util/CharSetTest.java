@@ -33,6 +33,7 @@ import static com.exedio.cope.util.CharSet.EMAIL_RESTRICTIVE;
 import static com.exedio.cope.util.CharSet.HEX_LOWER;
 import static com.exedio.cope.util.CharSet.HEX_UPPER;
 import static com.exedio.cope.util.CharSet.NUMERIC;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -95,6 +96,7 @@ public class CharSetTest
 	@Test void simple()
 	{
 		final CharSet cs = new CharSet('C', 'C');
+		assertArrayEquals(new char[]{'C', 'C'}, cs.getCharacters());
 		assertRegexp("^[C]*$", cs);
 		assertEquals("[C-C]", cs.toString(), cs.toString());
 		assertFalse(cs.contains('A'));
@@ -111,6 +113,7 @@ public class CharSetTest
 	@Test void complex()
 	{
 		final CharSet cs = new CharSet('C', 'C', 'M', 'O', 'm', 'o');
+		assertArrayEquals(new char[]{'C', 'C', 'M', 'O', 'm', 'o'}, cs.getCharacters());
 		assertRegexp("^[CM-Om-o]*$", cs);
 		assertEquals("[C-C,M-O,m-o]", cs.toString(), cs.toString());
 		assertFalse(cs.contains('A'));
@@ -124,6 +127,15 @@ public class CharSetTest
 		assertTrue(cs.contains('m'));
 		assertTrue(cs.contains('o'));
 		assertFalse(cs.contains('q'));
+	}
+	@Test void getCharactersClone()
+	{
+		final CharSet cs = new CharSet('C', 'C');
+		assertArrayEquals(new char[]{'C', 'C'}, cs.getCharacters());
+		assertEquals("[C-C]", cs.toString());
+		cs.getCharacters()[0] = 'A';
+		assertArrayEquals(new char[]{'C', 'C'}, cs.getCharacters());
+		assertEquals("[C-C]", cs.toString());
 	}
 	@Test void isSubsetOfAscii()
 	{

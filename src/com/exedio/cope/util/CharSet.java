@@ -119,6 +119,11 @@ public final class CharSet implements Serializable
 		this.set = set;
 	}
 
+	public char[] getCharacters()
+	{
+		return set.clone();
+	}
+
 	public boolean isSubsetOfAscii()
 	{
 		return set[set.length-1]<=127;
