@@ -6,7 +6,7 @@ import java.awt.Color
 
 timestamps
 {
-	def jdk = 'openjdk-8-deb9'
+	def jdk = 'openjdk-8'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -17,7 +17,7 @@ timestamps
 	])
 
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && ' + jdk)
+	node('GitCloneExedio && docker')
 	{
 		try
 		{
@@ -28,15 +28,23 @@ timestamps
 
 				def buildTag = makeBuildTag(checkout(scm))
 
-				env.JAVA_HOME = tool type: 'jdk', name: jdk
-				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-
-				sh "ant/bin/ant -noinput clean jenkins" +
-						' "-Dbuild.revision=${BUILD_NUMBER}"' +
-						' "-Dbuild.tag=' + buildTag + '"' +
-						' -Dbuild.status=' + (isRelease?'release':'integration') +
-						' -Ddisable-ansi-colors=true' +
-						' -Dfindbugs.output=xml'
+				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
+				def dockerDate = new Date().format("yyyyMMdd")
+				def mainImage = docker.build(
+						'exedio-jenkins:' + dockerName + '-' + dockerDate,
+						'--build-arg JDK=' + jdk + ' ' +
+						'conf/main')
+				mainImage.inside(
+						"--name '" + dockerName + "' " +
+						"--network none")
+				{
+					sh "ant/bin/ant -noinput clean jenkins" +
+							' "-Dbuild.revision=${BUILD_NUMBER}"' +
+							' "-Dbuild.tag=' + buildTag + '"' +
+							' -Dbuild.status=' + (isRelease?'release':'integration') +
+							' -Ddisable-ansi-colors=true' +
+							' -Dfindbugs.output=xml'
+				}
 
 				recordIssues(
 						enabledForFailure: true,
