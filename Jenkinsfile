@@ -40,7 +40,7 @@ timestamps
 						"--security-opt no-new-privileges " +
 						"--network none")
 				{
-					sh "ant/bin/ant -noinput clean jenkins" +
+					sh "java -jar lib/ant/ant-launcher.jar -noinput clean jenkins" +
 							' "-Dbuild.revision=${BUILD_NUMBER}"' +
 							' "-Dbuild.tag=' + buildTag + '"' +
 							' -Dbuild.status=' + (isRelease?'release':'integration') +

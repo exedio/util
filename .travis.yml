@@ -4,4 +4,4 @@ jdk:
   - openjdk8
   - openjdk11
 
-script: "ant/bin/ant -noinput clean jenkins"
+script: "java -jar lib/ant/ant-launcher.jar -noinput clean jenkins"
