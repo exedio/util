@@ -921,9 +921,50 @@ public abstract class Properties
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
 		final PropertiesField<T> result = new PropertiesField<>(this, key, factory);
-		for(final Prober prober : result.value.probers)
-			probers.add(prober.prefix(key));
+		for(final Callable<?> prober : result.value.getProbes())
+			probersNested.add(prefix(prober, key));
 		return result;
+	}
+
+	private final ArrayList<Callable<Object>> probersNested = new ArrayList<>();
+
+	@Nonnull
+	private static Callable<Object> prefix(final Callable<?> prober, final String key)
+	{
+		if(prober instanceof Prober)
+			return ((Prober)prober).prefix(key);
+
+		if(prober instanceof PrefixCallable)
+			return ((PrefixCallable)prober).prefix(key);
+
+		return new PrefixCallable(prober, key);
+	}
+
+	private static final class PrefixCallable implements Callable<Object>
+	{
+		private final Callable<?> prober;
+		private final String key;
+
+		PrefixCallable(final Callable<?> prober, final String key)
+		{
+			this.prober = prober;
+			this.key = key;
+		}
+
+		PrefixCallable prefix(final String key)
+		{
+			return new PrefixCallable(prober, key + '.' + this.key);
+		}
+
+		@Override public Object call() throws Exception
+		{
+			return prober.call();
+		}
+
+		@Override public String toString()
+		{
+			return key + '.' + prober;
+		}
 	}
 
 	@FunctionalInterface
@@ -1172,7 +1213,7 @@ public abstract class Properties
 	}
 
 	@SuppressWarnings("ThisEscapedInObjectConstruction")
-	final ArrayList<Prober> probers = initProbes(this);
+	final ArrayList<Prober> probersOwn = initProbes(this);
 
 	static final ArrayList<Prober> initProbes(final Properties instance)
 	{
@@ -1271,7 +1312,20 @@ public abstract class Properties
 	 */
 	public final List<? extends Callable<?>> getProbes()
 	{
-		return Collections.unmodifiableList(probers);
+		final ArrayList<Callable<?>> result = new ArrayList<>(probersOwn);
+		result.addAll(probeMore());
+		result.addAll(probersNested);
+		return Collections.unmodifiableList(result);
+	}
+
+	/**
+	 * Specifies probes additionally to methods annotated by @{@link Probe Probe}.
+	 * Make sure, probes do implement {@link Object#toString()} with an informative name.
+	 * This default implementation returns an empty list.
+	 */
+	public List<? extends Callable<?>> probeMore()
+	{
+		return Collections.emptyList();
 	}
 
 	// ------------------- deprecated stuff -------------------
