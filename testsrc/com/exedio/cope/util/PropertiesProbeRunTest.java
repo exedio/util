@@ -21,7 +21,9 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
@@ -29,6 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class PropertiesProbeRunTest
 {
@@ -39,7 +42,7 @@ public class PropertiesProbeRunTest
 
 		assertUnmodifiable(probes);
 		assertEqualsUnmodifiable(probes, props.getProbes());
-		assertEquals(8, probes.size());
+		assertEquals(9, probes.size());
 
 		final Callable<?> probeReturn = probes.get(0);
 		final Callable<?> probePrimit = probes.get(1);
@@ -49,6 +52,7 @@ public class PropertiesProbeRunTest
 		final Callable<?> probeError  = probes.get(5);
 		final Callable<?> probeThrow  = probes.get(6);
 		final Callable<?> probeAbort  = probes.get(7);
+		assertSame(MORE,                probes.get(8));
 
 		assertEquals("10Return", probeReturn.toString());
 		assertEquals("20Primit", probePrimit.toString());
@@ -92,8 +96,12 @@ public class PropertiesProbeRunTest
 		@Probe String probe70Throw()  throws MyThrowable { throw new MyThrowable(); }
 		@Probe String probe80Abort()  throws ProbeAbortedException { throw newProbeAbortedException("probeAbort"); }
 
+		@Override public List<Callable<?>> probeMore() { return asList(MORE); }
+
 		MyProps() { super(Sources.EMPTY); }
 	}
+
+	private static final Callable<?> MORE = () -> { throw new AssertionFailedError(); };
 
 	static class MyThrowable extends Throwable
 	{
