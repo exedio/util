@@ -1,4 +1,7 @@
 
+
+// Test
+
 import hudson.plugins.jacoco.model.CoverageGraphLayout
 import hudson.plugins.jacoco.model.CoverageGraphLayout.CoverageType
 import hudson.plugins.jacoco.model.CoverageGraphLayout.CoverageValue
