@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Date;
@@ -32,7 +31,6 @@ public class CounterTest
 	@SuppressWarnings({"unused", "FieldAccessedSynchronizedAndUnsynchronized"})
 	private long countNaked;
 	@SuppressWarnings("VolatileLongOrDoubleField")
-	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long countVolatile;
 	private VolatileLong countVolatileObject = null;
 	private final Object lock = new Object();
@@ -114,7 +112,6 @@ public class CounterTest
 	private static final class VolatileLong
 	{
 		@SuppressWarnings("VolatileLongOrDoubleField")
-		@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 		private volatile long value = 0;
 
 		VolatileLong()

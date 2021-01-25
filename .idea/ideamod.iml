@@ -3,7 +3,6 @@
   <component name="EclipseModuleManager">
     <libelement value="jar://$MODULE_DIR$/lib/easymock.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/cglib-nodep.jar!/" />
-    <libelement value="jar://$MODULE_DIR$/lib/findbugs-annotations.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/slf4j-api.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/logback-core.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/logback-classic.jar!/" />
@@ -27,8 +26,7 @@
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib/ide" />
-          <root url="jar://$MODULE_DIR$/lib/findbugs/spotbugs-annotations.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/findbugs/jsr305.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jsr305/jsr305.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>

@@ -26,15 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Properties.Source;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.HashSet;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
-@SuppressFBWarnings({
-		"NP_NULL_PARAM_DEREF_NONVIRTUAL",
-		"SIC_INNER_SHOULD_BE_STATIC_ANON"})
 public class ProxySourceTest
 {
 	@Test void test()

@@ -27,10 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.PropertiesInstance.NotSetException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class PropertiesInstanceTest
 {
 	@Test void testSet()

@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
@@ -76,7 +75,6 @@ public final class Pool<E>
 	}
 
 	@Deprecated
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static PoolProperties source(final int idleLimit, final int idleInitial)
 	{
 		final java.util.Properties props = new java.util.Properties();

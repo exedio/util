@@ -28,14 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Properties.Source;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({
-		"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS",
-		"NP_NULL_PARAM_DEREF_NONVIRTUAL"})
 public class PrefixSourceTest
 {
 	private static class MockSource extends AssertionErrorPropertiesSource
@@ -75,7 +71,6 @@ public class PrefixSourceTest
 			return description;
 		}
 
-		@SuppressFBWarnings("NP_TOSTRING_COULD_RETURN_NULL")
 		@Override
 		public String toString()
 		{

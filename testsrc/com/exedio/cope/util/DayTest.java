@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.util.junit.ClockRule;
 import com.exedio.cope.util.junit.TimeZoneDefaultRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -48,7 +47,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(TimeZoneDefaultRule.class)
 @SuppressWarnings("unused")
-@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class DayTest
 {
 	@Test void printDefaultTimeZone()
@@ -304,7 +302,6 @@ public class DayTest
 	}
 
 	@ExtendWith(ClockRule.Extension.class)
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	@Test void currentDay(final ClockRule clock)
 	{
 		clock.override(() -> new Day(1986, 4, 26).getTimeInMillisFrom(getTimeZone("Etc/GMT")));

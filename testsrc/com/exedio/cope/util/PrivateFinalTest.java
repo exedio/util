@@ -20,7 +20,6 @@ package com.exedio.cope.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -28,7 +27,6 @@ import org.junit.jupiter.api.Test;
  * even when trying with inner classes.
  */
 @SuppressWarnings("MethodMayBeStatic")
-@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 public class PrivateFinalTest
 {
 	static class Inner

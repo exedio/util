@@ -44,8 +44,7 @@ timestamps
 							' "-Dbuild.revision=${BUILD_NUMBER}"' +
 							' "-Dbuild.tag=' + buildTag + '"' +
 							' -Dbuild.status=' + (isRelease?'release':'integration') +
-							' -Ddisable-ansi-colors=true' +
-							' -Dfindbugs.output=xml'
+							' -Ddisable-ansi-colors=true'
 				}
 
 				recordIssues(
@@ -55,7 +54,6 @@ timestamps
 						qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
 						tools: [
 							java(),
-							spotBugs(pattern: 'build/findbugs.xml', useRankAsPriority: true),
 						],
 				)
 				jacoco(

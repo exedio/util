@@ -25,10 +25,8 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesNestedTest
 {
 	static class Outer extends MyProperties
@@ -247,7 +245,6 @@ public class PropertiesNestedTest
 		assertEquals(false, outer.nestedDrinner2.isSpecified());
 	}
 
-	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
 	@Test void testWrong()
 	{
 		final java.util.Properties source = new java.util.Properties();
@@ -270,7 +267,6 @@ public class PropertiesNestedTest
 		assertTrue(cause.getCause() instanceof NumberFormatException);
 	}
 
-	@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
 	@Test void testWrongDrinner()
 	{
 		final java.util.Properties source = new java.util.Properties();

@@ -27,7 +27,6 @@ import static com.exedio.cope.util.StrictFile.renameTo;
 import static com.exedio.cope.util.StrictFile.setLastModified;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.TemporaryFolder;
 
 @ExtendWith(TemporaryFolder.Extension.class)
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class StrictFileTest
 {
 	@Test void testCreateNewFile(final TemporaryFolder folder) throws IOException

@@ -23,12 +23,10 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PoolTest
 {
 	@Test void testSimple()
@@ -463,7 +461,6 @@ public class PoolTest
 		f.assertV(2);
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testErrorDeprecated()
 	{
 		assertFails(() ->
@@ -492,7 +489,6 @@ public class PoolTest
 	}
 
 	@SuppressWarnings("unused")
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testError()
 	{
 		//noinspection ConstantConditions

@@ -22,7 +22,6 @@ import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -146,7 +145,6 @@ public abstract class Properties
 		String getDescription();
 	}
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS") // backwards compatibility
 	public final class Field<E>
 	{
 		final String key;
@@ -1141,7 +1139,6 @@ public abstract class Properties
 		private final Method method;
 		private final String name;
 
-		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Prober(final Properties instance, final Method method, final Probe ann)
 		{
 			this.instance = instance;

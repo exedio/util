@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
@@ -44,7 +43,6 @@ public class InterruptersIteratorTest
 		}
 
 		@Override
-		@SuppressFBWarnings("IT_NO_SUCH_ELEMENT") // OK
 		public String next()
 		{
 			throw new RuntimeException();
@@ -88,7 +86,6 @@ public class InterruptersIteratorTest
 		verify(interrupter);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	@SuppressWarnings("ResultOfMethodCallIgnored") // results are meaningless with easymock
 	@Test void testLaterInterrupt()
 	{
@@ -123,7 +120,6 @@ public class InterruptersIteratorTest
 		verify(interrupter);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED")
 	@SuppressWarnings("ResultOfMethodCallIgnored") // results are meaningless with easymock
 	@Test void testNoInterrupt()
 	{

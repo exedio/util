@@ -26,12 +26,10 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class JobContextDeferOrStopIfRequestedTest
 {
 	@Test void testPositive()

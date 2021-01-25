@@ -30,13 +30,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("ConstantConditions")
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class CheckTest
 {
 	@Test void testRequireGreaterZeroInt()
@@ -196,7 +194,6 @@ public class CheckTest
 			"minimum");
 	}
 
-	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test void testRequireNonEmptyString()
 	{
 		assertSame("x", requireNonEmpty("x", "name"));

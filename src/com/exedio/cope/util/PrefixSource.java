@@ -19,7 +19,6 @@
 package com.exedio.cope.util;
 
 import com.exedio.cope.util.Properties.Source;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -96,7 +95,6 @@ public final class PrefixSource implements Source
 			: ("unknown prefix " + prefix);
 	}
 
-	@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE") // happens in code generated for plus operator
 	@Override
 	public String toString()
 	{

@@ -20,14 +20,11 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON") // is more compact to write in tests
 public class PropertiesDuplicateTest
 {
 	@SuppressWarnings("unused")
-	@SuppressFBWarnings({"URF_UNREAD_FIELD","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"}) // is read by reflection
 	static class KeyNullProperties extends Properties
 	{
 		final boolean value = value(null, false);
@@ -47,7 +44,6 @@ public class PropertiesDuplicateTest
 
 
 	@SuppressWarnings("unused")
-	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class KeyEmptyProperties extends Properties
 	{
 		final boolean value = value("", false);
@@ -82,7 +78,6 @@ public class PropertiesDuplicateTest
 
 
 	@SuppressWarnings("unused")
-	@SuppressFBWarnings("URF_UNREAD_FIELD") // is read by reflection
 	static class DuplicateProperties extends Properties
 	{
 		final boolean duplicate1 = value("duplicate", false);

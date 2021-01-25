@@ -25,7 +25,6 @@ package org.junit.rules;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -97,7 +96,6 @@ public final class TemporaryFolder
 		}
 
 		@Override
-		@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 		public void afterEach(final ExtensionContext context) throws IOException
 		{
 			if(folder!=null)

@@ -22,7 +22,6 @@ import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -225,7 +224,6 @@ public class PropertiesProbeCollectTest
 	}
 
 	@SuppressWarnings("MethodMayBeStatic")
-	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 	static class Upper extends Properties
 	{
 		@Probe private String probeA() { return "resultUpperA"; }
@@ -257,7 +255,6 @@ public class PropertiesProbeCollectTest
 	static class Private extends Properties
 	{
 		@SuppressWarnings("MethodMayBeStatic")
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		@Probe private String probePrivate() { return "resultPrivate"; }
 
 		Private() { super(Sources.EMPTY); }

@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.Test;
@@ -309,7 +308,6 @@ public class PropertiesDurationTest
 	}
 	static class PropsMinimumNull extends Properties
 	{
-		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 		PropsMinimumNull()
 		{
 			super(Sources.EMPTY);
@@ -326,7 +324,6 @@ public class PropertiesDurationTest
 	}
 	static class PropsMinimumNullWithMaximum extends Properties
 	{
-		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 		PropsMinimumNullWithMaximum()
 		{
 			super(Sources.EMPTY);
@@ -343,7 +340,6 @@ public class PropertiesDurationTest
 	}
 	static class PropsMaximumNull extends Properties
 	{
-		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 		PropsMaximumNull()
 		{
 			super(Sources.EMPTY);
