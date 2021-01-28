@@ -36,7 +36,6 @@ public class CastTest
 	@Deprecated // OK: testing deprecated API
 	@Test void testVerboseCast()
 	{
-		//noinspection ConstantConditions
 		assertNull(Cast.verboseCast(String.class, null));
 		assertSame(string1, Cast.verboseCast(String.class, string1Object));
 	}

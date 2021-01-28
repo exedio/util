@@ -62,19 +62,6 @@ public final class SequenceChecker2
 		return capacity;
 	}
 
-	/*private String toStringInternal()
-	{
-		final StringBuilder result = new StringBuilder();
-		result.append('[');
-		for(int i = 0; i<buffer.length; i++)
-		{
-			result.append((i==bufferNext) ? '>' : ' ');
-			result.append(buffer[i] ? '+' : '.');
-		}
-		result.append(']');
-		return result.toString();
-	}*/
-
 	/**
 	 * @return whether the given number is a duplicate
 	 */
