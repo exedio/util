@@ -1,4 +1,0 @@
-job-jenkins:
-  image: java:openjdk-8-jdk
-  script:
-  - "ant/bin/ant -noinput clean jenkins"
