@@ -153,6 +153,21 @@
 				<assertions><enable/></assertions>
 			</java>
 		</jacoco:coverage>
+		<jacoco:report>
+			<executiondata>
+				<file file="build/jacoco.exec" />
+			</executiondata>
+			<structure name="CopeUtil">
+				<classfiles>
+					<fileset dir="build/classes/src" />
+				</classfiles>
+				<sourcefiles encoding="UTF-8">
+					<fileset dir="src" />
+				</sourcefiles>
+			</structure>
+			<html destdir="build/html" />
+			<xml destfile="build/report.xml" />
+		</jacoco:report>
 	</target>
 
 
