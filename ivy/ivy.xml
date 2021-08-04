@@ -33,7 +33,7 @@
 			<conf name="ide" mapped="sources" />
 		</dependency>
 		<!-- build dependencies -->
-		<dependency org="org.apache.ant" name="ant" rev="1.10.9" conf="ant->default" />
+		<dependency org="org.apache.ant" name="ant" rev="1.10.11" conf="ant->default" />
 		<dependency org="ch.qos.logback" name="logback-classic" rev="1.2.3" conf="test->default" />
 		<dependency org="org.junit.jupiter"  name="junit-jupiter-api"      rev="5.3.2" conf="test->default; ide->sources" />
 		<dependency org="org.junit.jupiter"  name="junit-jupiter-engine"   rev="5.3.2" conf="test->default" />
