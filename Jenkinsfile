@@ -16,6 +16,7 @@ properties([
 		))
 ])
 
+tryCompleted = false
 try
 {
 	parallel "Main": { // trailing brace suppresses Syntax error in idea
@@ -172,9 +173,13 @@ try
 			}
 		}
 	}
+	tryCompleted = true
 }
 finally
 {
+	if(!tryCompleted)
+		currentBuild.result = 'FAILURE'
+
 	node('email')
 	{
 		step([$class: 'Mailer',
