@@ -24,7 +24,7 @@ import com.exedio.cope.util.Properties.Source;
 import java.util.Collection;
 
 /**
- * An proxy implementation of {@link Source}.
+ * A proxy implementation of {@link Source}.
  *
  * All methods implementing {@link Source}
  * do forward to another {@link Source}.

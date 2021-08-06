@@ -127,7 +127,7 @@ public class PropertiesFileTest
 
 	/**
 	 * Asserts the property with given key and value set in the given java.util.Properties template will cause an IllegalPropertiesException
-	 * with given message when a cope.util.Properties is created.
+	 * with given message when a cope.util.Properties instance is created.
 	 */
 	private static void assertWrong(
 			final java.util.Properties template,

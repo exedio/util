@@ -308,7 +308,7 @@ public class PoolTest
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
 
-		// dont put into idle, because its closed
+		// don't put into idle, because its closed
 		c1.isValidOnPut = false;
 		cp.put(c1);
 		assertEquals(0, cp.getInfo().getIdleLevel());

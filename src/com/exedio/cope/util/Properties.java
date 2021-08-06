@@ -63,7 +63,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("AbstractClassWithoutAbstractMethods") // OK: instantiating makes no sense without subclass
 public abstract class Properties
 {
-	 // yyyy-mm-dd, allow to leave out leading zeros on month and day but not on year, otherwise 14-1-1 may result in another day as expected
+	 // yyyy-mm-dd, allow leaving out leading zeros on month and day but not on year, otherwise 14-1-1 may result in another day as expected
 	static final Pattern DAY_PATTERN = Pattern.compile("(\\d{4})-(\\d{1,2})-(\\d{1,2})");
 
 	final ArrayList<Field<?>> fields = new ArrayList<>();
@@ -355,7 +355,7 @@ public abstract class Properties
 				String f = null;
 				// Parsing the default value may fail, for instance because the Class
 				// or the MessageDigest does not exist. In such cases the failure
-				// must be suppressed. Otherwise it would not help to override the default.
+				// must be suppressed. Otherwise, it would not help to override the default.
 				try
 				{
 					d = defaultValueSupplier.get();
