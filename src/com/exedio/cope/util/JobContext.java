@@ -94,7 +94,7 @@ public interface JobContext
 	 * for the specified amount of time.
 	 * In contrast to {@link Thread#sleep(long) Thread.sleep} it aborts prematurely
 	 * by throwing a {@link JobStop},
-	 * if the the job has been requested to stop or
+	 * if the job has been requested to stop or
 	 * becomes requested to stop while sleeping.
 	 * <p>
 	 * In general the job should not call this method directly,
@@ -123,10 +123,10 @@ public interface JobContext
 	 * for the specified amount of time.
 	 * In contrast to {@link Thread#sleep(long) Thread.sleep} it aborts prematurely
 	 * by throwing a {@link JobStop},
-	 * if the the job has been requested to stop or
+	 * if the job has been requested to stop or
 	 * becomes requested to stop while sleeping.
 	 * <p>
-	 * The job may call this method, if the job itself (and not it context)
+	 * The job may call this method, if the job itself (and not its context)
 	 * requires some time to elapse.
 	 * I contrast to {@link #stopIfRequested()} and {@link #deferOrStopIfRequested(JobContext)}
 	 * there is no obligation to call this method in reasonably short
@@ -164,7 +164,7 @@ public interface JobContext
 	 * Should be called only, if
 	 * {@link #supportsMessage()}
 	 * returns true.
-	 * Otherwise calls are ignored.
+	 * Otherwise, calls are ignored.
 	 */
 	void setMessage(String message);
 
@@ -189,7 +189,7 @@ public interface JobContext
 	 * Should be called only, if
 	 * {@link #supportsProgress()}
 	 * returns true.
-	 * Otherwise calls are ignored.
+	 * Otherwise, calls are ignored.
 	 */
 	void incrementProgress();
 
@@ -212,7 +212,7 @@ public interface JobContext
 	 * Should be called only, if
 	 * {@link #supportsProgress()}
 	 * returns true.
-	 * Otherwise calls are ignored.
+	 * Otherwise, calls are ignored.
 	 */
 	void incrementProgress(int delta);
 
@@ -235,7 +235,7 @@ public interface JobContext
 	 * Should be called only, if
 	 * {@link #supportsCompleteness()}
 	 * returns true.
-	 * Otherwise calls are ignored.
+	 * Otherwise, calls are ignored.
 	 */
 	void setCompleteness(double completeness);
 }

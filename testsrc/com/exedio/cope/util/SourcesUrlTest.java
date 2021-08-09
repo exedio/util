@@ -23,6 +23,7 @@ import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.util.Properties.Source;
 import java.net.URL;
@@ -34,6 +35,7 @@ public class SourcesUrlTest
 	@Test void testIt()
 	{
 		final URL url = SourcesUrlTest.class.getResource("sourcesUrlTest.properties");
+		assertNotNull(url);
 		final Source s = load(url);
 		assertFails(() ->
 			s.get(null),

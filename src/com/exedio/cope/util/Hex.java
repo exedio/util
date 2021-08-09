@@ -91,7 +91,7 @@ public final class Hex
 		int i2 = 0;
 		for(int i = 0; i<length; i++)
 		{
-			result[i] = (byte)( // don't know, why I need this cast
+			result[i] = (byte)( // don't know why I need this cast
 				(decodeLower(string.charAt(i2++))<<4) |
 				(decodeLower(string.charAt(i2++))   )   );
 		}

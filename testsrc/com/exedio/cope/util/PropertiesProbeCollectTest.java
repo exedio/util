@@ -377,6 +377,7 @@ public class PropertiesProbeCollectTest
 		}
 	}
 
+	@SuppressWarnings("MethodOnlyUsedFromInnerClass") // OK: bug in idea, method used by multiple inner classes
 	private static Callable<?> more(final String name, final String result)
 	{
 		return new More(name, "result" + result);

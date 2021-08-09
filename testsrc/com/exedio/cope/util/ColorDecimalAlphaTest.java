@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * This test evaluates, whether its ok to use {@link Color}
+ * This test evaluates, whether it is ok to use {@link Color}
  * for storing rgba values suitable for Cascading Style Sheets (CSS).
  * Especially regarding rounding issues between the 0.00 - 1.00 syntax
  * of CSS and the bytes stores in {@link java.awt.Color Color}.

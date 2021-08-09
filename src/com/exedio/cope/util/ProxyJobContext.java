@@ -23,7 +23,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.Duration;
 
 /**
- * An proxy implementation of {@link JobContext}.
+ * A proxy implementation of {@link JobContext}.
  *
  * All methods implementing {@link JobContext}
  * do forward to another {@link JobContext}.
