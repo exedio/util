@@ -160,11 +160,10 @@ public interface JobContext
 
 	/**
 	 * Indicates a message describing the current status of the job.
-	 *
-	 * Should be called only, if
-	 * {@link #supportsMessage()}
-	 * returns true.
-	 * Otherwise, calls are ignored.
+	 * <p>
+	 * Calls to this method can be safely omitted as long as
+	 * {@link #supportsMessage()} returns false.
+	 * This is recommended if it conserves resources on the callers side.
 	 */
 	void setMessage(String message);
 
@@ -185,11 +184,10 @@ public interface JobContext
 	 *
 	 * Calling this method is equivalent to calling
 	 * {@link #incrementProgress(int) incrementProgress}(1).
-	 *
-	 * Should be called only, if
-	 * {@link #supportsProgress()}
-	 * returns true.
-	 * Otherwise, calls are ignored.
+	 * <p>
+	 * Calls to this method can be safely omitted as long as
+	 * {@link #supportsProgress()} returns false.
+	 * This is recommended if it conserves resources on the callers side.
 	 */
 	void incrementProgress();
 
@@ -208,11 +206,10 @@ public interface JobContext
 	 *
 	 * Calling this method with <i>delta</i> of 0 is equivalent
 	 * to not calling this method at all.
-	 *
-	 * Should be called only, if
-	 * {@link #supportsProgress()}
-	 * returns true.
-	 * Otherwise, calls are ignored.
+	 * <p>
+	 * Calls to this method can be safely omitted as long as
+	 * {@link #supportsProgress()} returns false.
+	 * This is recommended if it conserves resources on the callers side.
 	 */
 	void incrementProgress(int delta);
 
@@ -231,11 +228,10 @@ public interface JobContext
 	 * Parameter <i>completeness</i> should be between 0 and 1.
 	 * Values out of range are accepted as well,
 	 * thus no exception is thrown in that case.
-	 *
-	 * Should be called only, if
-	 * {@link #supportsCompleteness()}
-	 * returns true.
-	 * Otherwise, calls are ignored.
+	 * <p>
+	 * Calls to this method can be safely omitted as long as
+	 * {@link #supportsCompleteness()} returns false.
+	 * This is recommended if it conserves resources on the callers side.
 	 */
 	void setCompleteness(double completeness);
 }
