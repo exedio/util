@@ -6,8 +6,6 @@ name: Java CI
 on:
   push:
     branches: [ master, rw7-patch-1 ]
-  pull_request:
-    branches: [ master, rw7-patch-1 ]
 
 jobs:
   build:
