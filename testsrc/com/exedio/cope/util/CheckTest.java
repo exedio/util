@@ -167,6 +167,42 @@ public class CheckTest
 			"name");
 	}
 
+	@Test void testRequireAtLeastInt()
+	{
+		assertEquals(55, requireAtLeast(55, "name", 55));
+	}
+	@Test void testRequireAtLeastIntFails()
+	{
+		assertFails(() ->
+			requireAtLeast(54, "name", 55),
+			IllegalArgumentException.class,
+			"name must be at least 55, but was 54");
+	}
+
+	@Test void testRequireAtLeastLong()
+	{
+		assertEquals(55l, requireAtLeast(55l, "name", 55l));
+	}
+	@Test void testRequireAtLeastLongFails()
+	{
+		assertFails(() ->
+			requireAtLeast(54l, "name", 55l),
+			IllegalArgumentException.class,
+			"name must be at least 55, but was 54");
+	}
+
+	@Test void testRequireAtLeastDouble()
+	{
+		assertEquals(55.5, requireAtLeast(55.5, "name", 55.5));
+	}
+	@Test void testRequireAtLeastDoubleFails()
+	{
+		assertFails(() ->
+			requireAtLeast(55.4, "name", 55.5),
+			IllegalArgumentException.class,
+			"name must be at least 55.5, but was 55.4");
+	}
+
 	@Test void testRequireAtLeast()
 	{
 		final Duration value = ofSeconds(55);
