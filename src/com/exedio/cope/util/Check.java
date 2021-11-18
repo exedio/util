@@ -75,6 +75,27 @@ public final class Check
 		return value;
 	}
 
+	public static int requireAtLeast(final int value, final String name, final int minimum)
+	{
+		if(value<minimum)
+			throw new IllegalArgumentException(name + " must be at least " + minimum + ", but was " + value);
+		return value;
+	}
+
+	public static long requireAtLeast(final long value, final String name, final long minimum)
+	{
+		if(value<minimum)
+			throw new IllegalArgumentException(name + " must be at least " + minimum + ", but was " + value);
+		return value;
+	}
+
+	public static double requireAtLeast(final double value, final String name, final double minimum)
+	{
+		if(value<minimum)
+			throw new IllegalArgumentException(name + " must be at least " + minimum + ", but was " + value);
+		return value;
+	}
+
 	public static <E extends Comparable<E>> E requireAtLeast(final E value, final String name, final E minimum)
 	{
 		requireNonNull(value, name);
