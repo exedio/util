@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -111,6 +112,24 @@ public final class Sources
 	public static Source load(final Path path)
 	{
 		return view(loadProperties(path), path.toAbsolutePath().toString());
+	}
+
+	public static Source loadIfExists(final Path path)
+	{
+		final Properties properties;
+		try
+		{
+			properties = loadPropertiesAndClose(Files.newInputStream(path));
+		}
+		catch(final NoSuchFileException e)
+		{
+			return EMPTY;
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException("property file " + path.toAbsolutePath() + " failed to load.", e);
+		}
+		return view(properties, path.toAbsolutePath().toString());
 	}
 
 	public static Properties loadProperties(final File file)

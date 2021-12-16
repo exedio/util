@@ -22,7 +22,9 @@ import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.load;
+import static com.exedio.cope.util.Sources.loadIfExists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
@@ -89,6 +91,31 @@ public class SourcesFileTest
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
+	@Test final void testPathIfExists(final TemporaryFolder folder) throws IOException
+	{
+		final File file = folder.newFile("file");
+		final Properties p = new Properties();
+		p.setProperty("testKey1", "testValue1");
+		p.setProperty("testKey2", "testValue2");
+		store(p, file);
+
+		final Source s = loadIfExists(file.toPath());
+		assertFails(() ->
+			s.get(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			s.get(""),
+			IllegalArgumentException.class,
+			"key must not be empty");
+		assertEquals(null, s.get("xxx"));
+		assertEquals("testValue1", s.get("testKey1"));
+		assertEquals("testValue2", s.get("testKey2"));
+		assertContains("testKey1", "testKey2", s.keySet());
+		assertUnmodifiable(s.keySet());
+		assertEquals(file.getAbsolutePath(), s.getDescription());
+		assertEquals(file.getAbsolutePath(), s.toString());
+	}
+
 	@Test final void testNotExists(final TemporaryFolder folder) throws IOException
 	{
 		final File file = folder.newFile("file");
@@ -109,6 +136,13 @@ public class SourcesFileTest
 			RuntimeException.class,
 			"property file " + file.toAbsolutePath() + " not found.",
 			NoSuchFileException.class);
+	}
+
+	@Test final void testNotExistsPathIfExists(final TemporaryFolder folder) throws IOException
+	{
+		final Path file = folder.newFile("file").toPath();
+		Files.delete(file);
+		assertSame(Sources.EMPTY, loadIfExists(file));
 	}
 
 	private static void store(final Properties p, final File file) throws IOException
