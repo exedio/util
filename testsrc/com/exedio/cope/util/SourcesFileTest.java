@@ -26,9 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,6 +64,31 @@ public class SourcesFileTest
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
 
+	@Test final void testPath(final TemporaryFolder folder) throws IOException
+	{
+		final File file = folder.newFile("file");
+		final Properties p = new Properties();
+		p.setProperty("testKey1", "testValue1");
+		p.setProperty("testKey2", "testValue2");
+		store(p, file);
+
+		final Source s = load(file.toPath());
+		assertFails(() ->
+			s.get(null),
+			NullPointerException.class, "key");
+		assertFails(() ->
+			s.get(""),
+			IllegalArgumentException.class,
+			"key must not be empty");
+		assertEquals(null, s.get("xxx"));
+		assertEquals("testValue1", s.get("testKey1"));
+		assertEquals("testValue2", s.get("testKey2"));
+		assertContains("testKey1", "testKey2", s.keySet());
+		assertUnmodifiable(s.keySet());
+		assertEquals(file.getAbsolutePath(), s.getDescription());
+		assertEquals(file.getAbsolutePath(), s.toString());
+	}
+
 	@Test final void testNotExists(final TemporaryFolder folder) throws IOException
 	{
 		final File file = folder.newFile("file");
@@ -70,7 +97,18 @@ public class SourcesFileTest
 			load(file),
 			RuntimeException.class,
 			"property file " + file.getAbsolutePath() + " not found.",
-			FileNotFoundException.class);
+			NoSuchFileException.class);
+	}
+
+	@Test final void testNotExistsPath(final TemporaryFolder folder) throws IOException
+	{
+		final Path file = folder.newFile("file").toPath();
+		Files.delete(file);
+		assertFails(() ->
+			load(file),
+			RuntimeException.class,
+			"property file " + file.toAbsolutePath() + " not found.",
+			NoSuchFileException.class);
 	}
 
 	private static void store(final Properties p, final File file) throws IOException
