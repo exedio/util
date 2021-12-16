@@ -23,10 +23,11 @@ import static com.exedio.cope.util.Clock.currentTimeMillis;
 
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -104,18 +105,28 @@ public final class Sources
 
 	public static Source load(final File file)
 	{
-		return view(loadProperties(file), file.getAbsolutePath());
+		return load(file.toPath());
+	}
+
+	public static Source load(final Path path)
+	{
+		return view(loadProperties(path), path.toAbsolutePath().toString());
 	}
 
 	public static Properties loadProperties(final File file)
 	{
+		return loadProperties(file.toPath());
+	}
+
+	private static Properties loadProperties(final Path path)
+	{
 		try
 		{
-			return loadPropertiesAndClose(new FileInputStream(file));
+			return loadPropertiesAndClose(Files.newInputStream(path));
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException("property file " + file.getAbsolutePath() + " not found.", e);
+			throw new RuntimeException("property file " + path.toAbsolutePath() + " not found.", e);
 		}
 	}
 
