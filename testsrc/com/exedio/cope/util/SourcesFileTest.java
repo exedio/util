@@ -43,12 +43,7 @@ public class SourcesFileTest
 {
 	@Test final void testIt(final TemporaryFolder folder) throws IOException
 	{
-		final File file = folder.newFile("file");
-		final Properties p = new Properties();
-		p.setProperty("testKey1", "testValue1");
-		p.setProperty("testKey2", "testValue2");
-		store(p, file);
-
+		final File file = newFile(folder);
 		final Source s = load(file);
 		assertFails(() ->
 			s.get(null),
@@ -68,12 +63,7 @@ public class SourcesFileTest
 
 	@Test final void testPath(final TemporaryFolder folder) throws IOException
 	{
-		final File file = folder.newFile("file");
-		final Properties p = new Properties();
-		p.setProperty("testKey1", "testValue1");
-		p.setProperty("testKey2", "testValue2");
-		store(p, file);
-
+		final File file = newFile(folder);
 		final Source s = load(file.toPath());
 		assertFails(() ->
 			s.get(null),
@@ -93,12 +83,7 @@ public class SourcesFileTest
 
 	@Test final void testPathIfExists(final TemporaryFolder folder) throws IOException
 	{
-		final File file = folder.newFile("file");
-		final Properties p = new Properties();
-		p.setProperty("testKey1", "testValue1");
-		p.setProperty("testKey2", "testValue2");
-		store(p, file);
-
+		final File file = newFile(folder);
 		final Source s = loadIfExists(file.toPath());
 		assertFails(() ->
 			s.get(null),
@@ -143,6 +128,17 @@ public class SourcesFileTest
 		final Path file = folder.newFile("file").toPath();
 		Files.delete(file);
 		assertSame(Sources.EMPTY, loadIfExists(file));
+	}
+
+
+	private static File newFile(final TemporaryFolder folder) throws IOException
+	{
+		final File result = folder.newFile("file");
+		final Properties p = new Properties();
+		p.setProperty("testKey1", "testValue1");
+		p.setProperty("testKey2", "testValue2");
+		store(p, result);
+		return result;
 	}
 
 	private static void store(final Properties p, final File file) throws IOException
