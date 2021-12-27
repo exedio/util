@@ -26,7 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Properties.Source;
+import java.lang.reflect.Field;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
@@ -113,6 +115,31 @@ public class CascadeSourceTest
 		// the following line throws a NullPointerException,
 		// if sources are not copied.
 		assertEquals("description1 / description2", s.getDescription());
+	}
+
+	@Test void testNested()
+			throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException
+	{
+		final Source source1 = view(new Properties(), "description1");
+		final Source source2 = view(new Properties(), "description2");
+		final Source cascaded1 = cascade(source1, source2);
+		assertEquals("description1 / description2", cascaded1.getDescription());
+		assertEquals(asList(source1, source2), cascadedSources(cascaded1));
+
+		final Source source3 = view(new Properties(), "description3");
+		final Source cascaded2 = cascade(cascaded1, source3);
+		assertEquals("description1 / description2 / description3", cascaded2.getDescription());
+		assertEquals(asList(cascaded1, source3), cascadedSources(cascaded2));
+	}
+
+	private static List<Source> cascadedSources(final Source source)
+			throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException
+	{
+		final Class<?> cascadeClass = Class.forName("com.exedio.cope.util.CascadeSource$Cascade");
+		assertEquals(cascadeClass, source.getClass());
+		final Field sourcesField = cascadeClass.getDeclaredField("sources");
+		sourcesField.setAccessible(true);
+		return asList((Source[])sourcesField.get(source));
 	}
 
 	@Test void testReload()
