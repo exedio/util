@@ -19,8 +19,10 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Sources.EMPTY;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Properties.Source;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -48,13 +50,21 @@ final class CascadeSource
 
 		Cascade(final Source... sources)
 		{
-			// TODO check for nested cascades
 			// TODO check for nested empty
 
 			// make a copy to avoid modifications afterwards
-			this.sources = new Source[sources.length];
-			System.arraycopy(sources, 0, this.sources, 0, sources.length);
+			final ArrayList<Source> sourcesList = new ArrayList<>(sources.length);
+			for(final Source source : sources)
+			{
+				if(source instanceof Cascade)
+					sourcesList.addAll(asList(((Cascade)source).sources));
+				else
+					sourcesList.add(source);
+			}
+			this.sources = sourcesList.toArray(EMPTY_SOURCES);
 		}
+
+		private static final Source[] EMPTY_SOURCES = new Source[0];
 
 		@Override
 		public String get(final String key)
