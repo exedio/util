@@ -20,6 +20,9 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Sources.EMPTY;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties.Source;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 final class CascadeSource
 {
@@ -141,6 +145,16 @@ final class CascadeSource
 			return result.toString();
 		}
 	}
+
+	static List<Source> decascade(final Source source)
+	{
+		requireNonNull(source, "source");
+
+		return source instanceof Cascade
+				? unmodifiableList(asList(((Cascade)source).sources))
+				: singletonList(source);
+	}
+
 
 	private CascadeSource()
 	{

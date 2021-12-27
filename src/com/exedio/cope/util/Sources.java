@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.function.Supplier;
@@ -178,6 +179,11 @@ public final class Sources
 	public static Source cascade(final Source... sources)
 	{
 		return CascadeSource.cascade(sources);
+	}
+
+	public static List<Source> decascade(final Source source)
+	{
+		return CascadeSource.decascade(source);
 	}
 
 

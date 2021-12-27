@@ -19,7 +19,9 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
+import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.util.Sources.decascade;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -125,11 +127,13 @@ public class CascadeSourceTest
 		final Source cascaded1 = cascade(source1, source2);
 		assertEquals("description1 / description2", cascaded1.getDescription());
 		assertEquals(asList(source1, source2), cascadedSources(cascaded1));
+		assertEqualsUnmodifiable(asList(source1, source2), decascade(cascaded1));
 
 		final Source source3 = view(new Properties(), "description3");
 		final Source cascaded2 = cascade(cascaded1, source3);
 		assertEquals("description1 / description2 / description3", cascaded2.getDescription());
 		assertEquals(asList(source1, source2, source3), cascadedSources(cascaded2));
+		assertEqualsUnmodifiable(asList(source1, source2, source3), decascade(cascaded2));
 	}
 
 	private static List<Source> cascadedSources(final Source source)
@@ -140,6 +144,20 @@ public class CascadeSourceTest
 		final Field sourcesField = cascadeClass.getDeclaredField("sources");
 		sourcesField.setAccessible(true);
 		return asList((Source[])sourcesField.get(source));
+	}
+
+	@Test void testDecascadeNull()
+	{
+		assertFails(
+				() -> decascade(null),
+				NullPointerException.class,
+				"source");
+	}
+
+	@Test void testDecascadeNone()
+	{
+		final Source source = view(new Properties(), "description1");
+		assertEqualsUnmodifiable(asList(source), decascade(source));
 	}
 
 	@Test void testReload()
