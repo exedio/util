@@ -114,6 +114,7 @@ public class PrivateFinalTest
 	{
 		return "OuterFinal";
 	}
+	@SuppressWarnings("NewClassNamingConvention")
 	static class ExtendsOuter extends PrivateFinalTest
 	{
 		@SuppressWarnings("MethodOverridesInaccessibleMethodOfSuper")
