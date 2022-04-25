@@ -112,6 +112,7 @@ public interface JobContext
 	 * The default implementation fails for {@code duration}s
 	 * too large for {@link Duration#toNanos()}, which is approximately 292 years.
 	 */
+	@SuppressWarnings("JavadocLinkAsPlainText") // OK: bug in idea
 	default void sleepAndStopIfRequested(final Duration duration) throws JobStop
 	{
 		JobContexts.sleepAndStopIfRequestedPolling(this, duration);
