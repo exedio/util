@@ -33,7 +33,7 @@ public class ThreeValuedLogicTest
 {
 	/**
 	 * The table below is from
-	 * https://en.wikipedia.org/wiki/Null_%28SQL%29#Comparisons_with_NULL_and_the_three-valued_logic_.283VL.29
+	 * <a href="https://en.wikipedia.org/wiki/Null_%28SQL%29#Comparisons_with_NULL_and_the_three-valued_logic_.283VL.29">Comparisons with NULL and the three-valued logic</a>
 	 */
 	@Test void test()
 	{

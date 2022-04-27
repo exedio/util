@@ -59,6 +59,7 @@ public class PropertiesPathTest
 		}
 	}
 
+	@SuppressWarnings("DuplicateExpressions")
 	@Test void testIt()
 	{
 		final java.util.Properties pminimal = new java.util.Properties();

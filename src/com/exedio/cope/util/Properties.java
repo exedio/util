@@ -897,7 +897,7 @@ public abstract class Properties
 	 * <p>
 	 * {@code error: reference to value is ambiguous}
 	 * <p>
-	 * https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842
+	 * <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842">JDK-8170842</a>
 	 */
 	@Nonnull
 	protected final <T extends Properties> T valnp(final String key, final Factory<T> factory)
