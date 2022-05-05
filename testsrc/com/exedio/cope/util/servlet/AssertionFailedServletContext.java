@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.servletutil;
+package com.exedio.cope.util.servlet;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -33,7 +33,7 @@ import javax.servlet.ServletRegistration;
 import javax.servlet.SessionCookieConfig;
 import javax.servlet.SessionTrackingMode;
 import javax.servlet.descriptor.JspConfigDescriptor;
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
 
 public class AssertionFailedServletContext implements ServletContext
 {

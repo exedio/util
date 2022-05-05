@@ -31,10 +31,21 @@
 		</compile>
 	</target>
 
-	<target name="test.compile" depends="compile">
+	<target name="servlet.compile" depends="compile">
+		<compile srcdir="servletsrc">
+			<classpath>
+				<pathelement location="build/classes/src" />
+				<fileset dir="lib/servlet" />
+				<pathelement location="lib/jsr305/jsr305.jar" />
+			</classpath>
+		</compile>
+	</target>
+
+	<target name="test.compile" depends="compile,servlet.compile">
 		<compile srcdir="testsrc">
 			<classpath>
 				<pathelement location="build/classes/src" />
+				<pathelement location="build/classes/servletsrc" />
 				<fileset dir="lib/test" />
 			</classpath>
 		</compile>
@@ -62,6 +73,7 @@
 			<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
 			<classpath>
 				<pathelement location="build/classes/src" />
+				<pathelement location="build/classes/servletsrc" />
 				<pathelement location="build/classes/testsrc" />
 				<fileset dir="lib/test" />
 			</classpath>
@@ -81,8 +93,9 @@
 
 	<target name="test" depends="test.run" />
 
-	<target name="jar" depends="compile">
+	<target name="jar" depends="compile,servlet.compile">
 		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
+			<fileset dir="build/classes/servletsrc"/>
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope util"/>
 				<attribute name="Specification-Version" value="${build.tag}"/>
@@ -99,6 +112,9 @@
 		<mkdir dir="build" />
 		<zip destfile="build/exedio-cope-util-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
 			<zipfileset dir="${basedir}/src">
+				<include name="**/*.java" />
+			</zipfileset>
+			<zipfileset dir="${basedir}/servletsrc">
 				<include name="**/*.java" />
 			</zipfileset>
 		</zip>
@@ -140,6 +156,7 @@
 				<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
 				<classpath>
 					<pathelement location="build/classes/src" />
+					<pathelement location="build/classes/servletsrc" />
 					<pathelement location="build/classes/testsrc" />
 					<fileset dir="lib/test" />
 				</classpath>

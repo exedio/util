@@ -16,18 +16,24 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.servletutil;
+package com.exedio.cope.util.servlet;
 
-import static com.exedio.cope.servletutil.ServletSource.create;
+import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
+import static com.exedio.cope.util.servlet.ServletSource.create;
+import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.junit.Assert;
 import com.exedio.cope.util.Properties.Source;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Vector;
+import org.junit.jupiter.api.Test;
 
-public class ServletSourceTest extends CopeAssert
+public class ServletSourceTest
 {
+	@Test
 	public void testNormal()
 	{
 		final Source s = create(new TestContext("/testContextPath", "testContextPath."));
@@ -37,12 +43,13 @@ public class ServletSourceTest extends CopeAssert
 		assertFails(s, "p3", "testContextPath.p3");
 		assertFails(s, "top", "testContextPath.top");
 		assertEquals("/testContextPath", s.get("contextPath"));
-		assertEqualsUnmodifiable(list("contextPath", "p1", "p2"), s.keySet());
+		assertEqualsUnmodifiable(asList("contextPath", "p1", "p2"), s.keySet());
 		assertSame(s, s.reload());
 		assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.getDescription());
 		assertEquals("ServletContext '/testContextPath' (prefix testContextPath.)", s.toString());
 	}
 
+	@Test
 	public void testRoot()
 	{
 		final Source s = create(new TestContext("", "root."));
@@ -52,12 +59,13 @@ public class ServletSourceTest extends CopeAssert
 		assertFails(s, "p3", "root.p3");
 		assertFails(s, "top", "root.top");
 		assertEquals("", s.get("contextPath"));
-		assertEqualsUnmodifiable(list("contextPath", "p1", "p2"), s.keySet());
+		assertEqualsUnmodifiable(asList("contextPath", "p1", "p2"), s.keySet());
 		assertSame(s, s.reload());
 		assertEquals("ServletContext '' (prefix root.)", s.getDescription());
 		assertEquals("ServletContext '' (prefix root.)", s.toString());
 	}
 
+	@Test
 	public void testWithoutSlash()
 	{
 		final Source s = create(new TestContext("ding", "ding."));
@@ -67,12 +75,13 @@ public class ServletSourceTest extends CopeAssert
 		assertFails(s, "p3", "ding.p3");
 		assertFails(s, "top", "ding.top");
 		assertEquals("ding", s.get("contextPath"));
-		assertEqualsUnmodifiable(list("contextPath", "p1", "p2"), s.keySet());
+		assertEqualsUnmodifiable(asList("contextPath", "p1", "p2"), s.keySet());
 		assertSame(s, s.reload());
 		assertEquals("ServletContext 'ding' (prefix ding.)", s.getDescription());
 		assertEquals("ServletContext 'ding' (prefix ding.)", s.toString());
 	}
 
+	@Test
 	public void testNull()
 	{
 		final Source s = create(new TestContext(null, ""));
@@ -82,7 +91,7 @@ public class ServletSourceTest extends CopeAssert
 		assertFails(s, "p3", "p3");
 		assertEquals("vtop", s.get("top"));
 		assertEquals(null, s.get("contextPath"));
-		assertEqualsUnmodifiable(list("contextPath", "p1", "p2", "top"), s.keySet());
+		assertEqualsUnmodifiable(asList("contextPath", "p1", "p2", "top"), s.keySet());
 		assertSame(s, s.reload());
 		assertEquals("ServletContext 'null'", s.getDescription());
 		assertEquals("ServletContext 'null'", s.toString());
@@ -131,7 +140,7 @@ public class ServletSourceTest extends CopeAssert
 		public Enumeration<String> getInitParameterNames()
 		{
 			//noinspection UseOfObsoleteCollectionType
-			return new Vector<>(Arrays.asList(prefix+"p1", prefix+"p2", "top")).elements();
+			return new Vector<>(asList(prefix+"p1", prefix+"p2", "top")).elements();
 		}
 
 		@Override
@@ -139,5 +148,15 @@ public class ServletSourceTest extends CopeAssert
 		{
 			return contextPath;
 		}
+	}
+
+	static void assertKey(final Source s)
+	{
+		Assert.assertFails(
+				() -> s.get(null),
+				NullPointerException.class, "key");
+		Assert.assertFails(
+				() -> s.get(""),
+				IllegalArgumentException.class, "key must not be empty");
 	}
 }

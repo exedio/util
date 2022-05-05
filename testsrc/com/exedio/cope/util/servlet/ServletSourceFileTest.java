@@ -16,15 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.servletutil;
+package com.exedio.cope.util.servlet;
 
-import static com.exedio.cope.servletutil.ServletSource.create;
+import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
+import static com.exedio.cope.util.servlet.ServletSource.create;
+import static com.exedio.cope.util.servlet.ServletSourceTest.assertKey;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static java.util.Locale.ENGLISH;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Properties.Source;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,39 +38,38 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class ServletSourceFileTest extends CopeAssert
+public class ServletSourceFileTest
 {
 	private File file;
 
 	private String reloadDate;
 
-	@Override
-	protected void setUp() throws Exception
+	@BeforeEach
+	private void beforeEach()
 	{
-		super.setUp();
-
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", ENGLISH);
 		final long reloadMillis = 5555555;
 		reloadDate = df.format(new Date(reloadMillis));
 		Clock.override(() -> reloadMillis);
 	}
 
-	@Override
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
-	protected void tearDown() throws Exception
+	@AfterEach
+	private void afterEach()
 	{
 		Clock.clearOverride();
 
 		if(file!=null)
 		{
-			file.delete();
+			StrictFile.delete(file);
 			file = null;
 		}
-
-		super.tearDown();
 	}
 
+	@Test
 	public void testNormal()
 	{
 		final Source s = create(new TestContext("/testContextPath", "testContextPath.", file()));
@@ -85,6 +88,7 @@ public class ServletSourceFileTest extends CopeAssert
 		assertEquals(file.getAbsolutePath() + "(reloadable)", r.toString());
 	}
 
+	@Test
 	public void testRoot()
 	{
 		final Source s = create(new TestContext("", "root.", file()));
@@ -103,6 +107,7 @@ public class ServletSourceFileTest extends CopeAssert
 		assertEquals(file.getAbsolutePath() + "(reloadable)", r.toString());
 	}
 
+	@Test
 	public void testWithoutSlash()
 	{
 		final Source s = create(new TestContext("ding", "ding.", file()));
@@ -121,6 +126,7 @@ public class ServletSourceFileTest extends CopeAssert
 		assertEquals(file.getAbsolutePath() + "(reloadable)", r.toString());
 	}
 
+	@Test
 	public void testNull()
 	{
 		final Source s = create(new TestContext(null, "", file()));
