@@ -15,11 +15,12 @@
 		<conf name="runtime" />
 		<conf name="sources" />
 		<conf name="changelog" />
-		<conf visibility="private" name="test" extends="runtime" />
+		<conf visibility="private" name="servlet" extends="runtime" />
+		<conf visibility="private" name="test" extends="runtime,servlet" />
 		<conf visibility="private" name="jacoco" />
 		<conf visibility="private" name="ant" />
 		<conf visibility="private" name="jsr305" />
-		<conf visibility="private" name="ide" extends="runtime,test"
+		<conf visibility="private" name="ide" extends="runtime,servlet,test"
 				description="classpath for IDEs such as Eclipse and IntelliJ, includes java sources and changelogs" />
 	</configurations>
 	<publications>
@@ -32,6 +33,7 @@
 			<conf name="runtime" mapped="default" />
 			<conf name="ide" mapped="sources" />
 		</dependency>
+		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" conf="servlet->default; ide->sources" />
 		<!-- build dependencies -->
 		<dependency org="org.apache.ant" name="ant" rev="1.10.11" conf="ant->default" />
 		<dependency org="ch.qos.logback" name="logback-classic" rev="1.2.3" conf="test->default" />
