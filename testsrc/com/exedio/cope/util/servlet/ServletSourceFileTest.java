@@ -72,7 +72,26 @@ public class ServletSourceFileTest
 	@Test
 	public void testNormal()
 	{
-		final Source s = create(new TestContext("/testContextPath", "testContextPath.", file()));
+		final Source s = create(new TestContext("/testContextPath", "testContextPath.", file(), false));
+		assertKey(s);
+		assertEquals("v1", s.get("p1"));
+		assertEquals("v2", s.get("p2"));
+		assertEquals(null, s.get("p3"));
+		assertEquals(null, s.get("top"));
+		assertEquals("/testContextPath", s.get("contextPath"));
+		assertContainsUnmodifiable("p1", "p2", "contextPath", s.keySet());
+		final Source r = s.reload();
+		assertNotSame(s, r);
+		assertEquals(file.getAbsolutePath() + "(" + reloadDate + ")", s.getDescription());
+		assertEquals(file.getAbsolutePath() + "(" + reloadDate + " reload 1)", r.getDescription());
+		assertEquals(file.getAbsolutePath() + "(reloadable)", s.toString());
+		assertEquals(file.getAbsolutePath() + "(reloadable)", r.toString());
+	}
+
+	@Test
+	public void testNormalNewKey()
+	{
+		final Source s = create(new TestContext("/testContextPath", "testContextPath.", file(), true));
 		assertKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
@@ -91,7 +110,7 @@ public class ServletSourceFileTest
 	@Test
 	public void testRoot()
 	{
-		final Source s = create(new TestContext("", "root.", file()));
+		final Source s = create(new TestContext("", "root.", file(), false));
 		assertKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
@@ -110,7 +129,7 @@ public class ServletSourceFileTest
 	@Test
 	public void testWithoutSlash()
 	{
-		final Source s = create(new TestContext("ding", "ding.", file()));
+		final Source s = create(new TestContext("ding", "ding.", file(), false));
 		assertKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
@@ -129,7 +148,7 @@ public class ServletSourceFileTest
 	@Test
 	public void testNull()
 	{
-		final Source s = create(new TestContext(null, "", file()));
+		final Source s = create(new TestContext(null, "", file(), false));
 		assertKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
@@ -170,20 +189,37 @@ public class ServletSourceFileTest
 	{
 		private final String contextPath;
 		private final String prefix;
+		private final String fileKey;
+		private final String nullKey;
 		private final File file;
 
-		TestContext(final String contextPath, final String prefix, final File file)
+		TestContext(final String contextPath, final String prefix, final File file, final boolean newKeyInsteadOfOld)
 		{
 			this.contextPath = contextPath;
 			this.prefix = prefix;
 			this.file = file;
+
+			final String newKey = prefix + "com.exedio.cope.util.servlet.ServletSource.propertiesFile";
+			final String oldKey = prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile";
+			if(newKeyInsteadOfOld)
+			{
+				fileKey = oldKey;
+				nullKey = newKey;
+			}
+			else
+			{
+				fileKey = newKey;
+				nullKey = oldKey;
+			}
 		}
 
 		@Override
 		public String getInitParameter(final String name)
 		{
-			if((prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile").equals(name))
+			if(fileKey.equals(name))
 				return file.getAbsolutePath();
+			else if(nullKey.equals(name))
+				return null;
 			else
 				throw new IllegalArgumentException(name);
 		}

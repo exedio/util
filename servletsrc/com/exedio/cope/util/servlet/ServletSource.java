@@ -55,7 +55,14 @@ public final class ServletSource
 		final Source initParam = PrefixSource.wrap(new InitParameter(context), prefix);
 		final Source keys;
 		{
-			final String file = initParam.get("com.exedio.cope.servletutil.ServletSource.propertiesFile");
+			final String fileNew = initParam.get("com.exedio.cope.util.servlet.ServletSource.propertiesFile");
+			final String fileOld = initParam.get("com.exedio.cope.servletutil.ServletSource.propertiesFile");
+			if(fileNew!=null && fileOld!=null)
+				throw new IllegalArgumentException(
+						"Both " +
+						prefix + "com.exedio.cope.util.servlet.ServletSource.propertiesFile=" + fileNew + " and " +
+						prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile=" + fileOld + " are set");
+			final String file = fileNew!=null ? fileNew : fileOld;
 			keys =
 				file!=null
 				? reloadable(() -> load(new File(file)))

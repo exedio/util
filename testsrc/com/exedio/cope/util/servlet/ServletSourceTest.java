@@ -128,7 +128,9 @@ public class ServletSourceTest
 				return "v1";
 			else if((prefix + "p2").equals(name))
 				return "v2";
-			else if((prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile").equals(name))
+			else if(
+					(prefix + "com.exedio.cope.util.servlet.ServletSource.propertiesFile").equals(name) ||
+					(prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile" ).equals(name))
 				return null;
 			else if("top".equals(name))
 				return "vtop";
