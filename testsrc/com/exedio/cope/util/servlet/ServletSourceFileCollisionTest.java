@@ -33,10 +33,10 @@ public class ServletSourceFileCollisionTest
 				() -> create(context),
 				IllegalArgumentException.class,
 				"Both " +
-				"testContextPath.com.exedio.cope.util.servlet.ServletSource.propertiesFile=valueNew " +
+				"com.exedio.cope.util.servlet.ServletSource.propertiesFile=valueNew " +
 				"and " +
-				"testContextPath.com.exedio.cope.servletutil.ServletSource.propertiesFile=valueOld " +
-				"are set");
+				"com.exedio.cope.servletutil.ServletSource.propertiesFile=valueOld " +
+				"in ServletContext '/testContextPath' (prefix testContextPath.) are set");
 	}
 
 	private static class TestContext extends AssertionFailedServletContext
