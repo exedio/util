@@ -44,7 +44,7 @@ public final class ServletSource
 		final String contextPath = context.getContextPath();
 		final String prefix;
 		if(contextPath==null)
-			prefix = null;
+			prefix = "";
 		else if(contextPath.isEmpty())
 			prefix = "root.";
 		else if(contextPath.startsWith("/"))
