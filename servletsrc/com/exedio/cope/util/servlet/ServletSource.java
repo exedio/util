@@ -60,8 +60,9 @@ public final class ServletSource
 			if(fileNew!=null && fileOld!=null)
 				throw new IllegalArgumentException(
 						"Both " +
-						prefix + "com.exedio.cope.util.servlet.ServletSource.propertiesFile=" + fileNew + " and " +
-						prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile=" + fileOld + " are set");
+						"com.exedio.cope.util.servlet.ServletSource.propertiesFile=" + fileNew + " and " +
+						"com.exedio.cope.servletutil.ServletSource.propertiesFile=" + fileOld + " in " +
+						initParam.getDescription() + " are set");
 			final String file = fileNew!=null ? fileNew : fileOld;
 			keys =
 				file!=null
