@@ -491,18 +491,15 @@ public class PoolTest
 	@SuppressWarnings("unused")
 	@Test void testError()
 	{
-		//noinspection ConstantConditions
 		assertFails(() ->
 			new Pool<>((Factory)null, null, null),
 			NullPointerException.class, "factory");
 		final Factory f = new Factory(asList());
-		//noinspection ConstantConditions
 		assertFails(() ->
 			new Pool<>(f, null, null),
 			NullPointerException.class, "properties");
 		final Pool<Pooled> p =
 				new Pool<>(f, PoolProperties.factory(50).create(Sources.EMPTY), null);
-		//noinspection ConstantConditions OK: testing bad API usage
 		assertFails(
 				() -> p.put(null),
 				NullPointerException.class, null);
