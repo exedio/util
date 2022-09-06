@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
@@ -86,10 +88,8 @@ public final class Pool<E>
 
 	public Pool(final Factory<E> factory, final PoolProperties properties, final PoolCounter counter)
 	{
-		if(factory==null)
-			throw new NullPointerException("factory");
-		if(properties==null)
-			throw new NullPointerException("properties");
+		requireNonNull(factory, "factory");
+		requireNonNull(properties, "properties");
 
 		this.factory = factory;
 		this.idleLimit = properties.idleLimit;
@@ -165,8 +165,7 @@ public final class Pool<E>
 	 */
 	public void put(final E e)
 	{
-		if(e==null)
-			throw new NullPointerException();
+		requireNonNull(e);
 
 		if(counter!=null)
 			counter.incrementPut();
