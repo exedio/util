@@ -19,10 +19,16 @@
 package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
+import static com.exedio.cope.util.PoolTest.meter;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -193,15 +199,26 @@ public class PoolWithCounterTest
 		}
 	}
 
-	private static void assertIt(final Pool<Pooled> pool, final int getCounter, final int putCounter)
+	private void assertIt(final Pool<Pooled> pool, final int getCounter, final int putCounter)
 	{
 		final PoolCounter poolCounter = pool.getInfo().getCounter();
 		assertEquals(getCounter, poolCounter.getGetCounter());
 		assertEquals(putCounter, poolCounter.getPutCounter());
+		final Counter getMeter = (Counter)meter(METER_NAME + ".usage", Tags.of("some", "tag", "operation", "get"), meterRegistry);
+		final Counter putMeter = (Counter)meter(METER_NAME + ".usage", Tags.of("some", "tag", "operation", "put"), meterRegistry);
+		assertNotSame(getMeter, putMeter);
+		assertEquals(getCounter, getMeter.count());
+		assertEquals(putCounter, putMeter.count());
 	}
 
-	private static Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
+	private Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
 	{
-		return PoolTest.newPool(factory, idleLimit, idleInitial, new PoolCounter());
+		final Pool<Pooled> result = PoolTest.newPool(factory, idleLimit, idleInitial, new PoolCounter());
+		result.register(METER_NAME, Tags.of("some", "tag"), meterRegistry);
+		return result;
 	}
+
+	private final MeterRegistry meterRegistry = new PrometheusMeterRegistry(key -> null);
+
+	private static final String METER_NAME = PoolWithCounterTest.class.getName();
 }
