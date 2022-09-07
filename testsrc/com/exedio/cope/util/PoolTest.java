@@ -579,9 +579,23 @@ public class PoolTest
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	private static Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
 	{
-		return new Pool<>(factory, idleLimit, idleInitial, null);
+		return newPool(factory, idleLimit, idleInitial, null);
+	}
+
+	static <P> Pool<P> newPool(
+			final Pool.Factory<P> factory,
+			final int idleLimit, final int idleInitial,
+			final PoolCounter poolCounter)
+	{
+		final java.util.Properties props = new java.util.Properties();
+		props.setProperty("idleLimit", String.valueOf(idleLimit));
+		props.setProperty("idleInitial", String.valueOf(idleInitial));
+		final PoolProperties p = PoolProperties.factory(50).create(
+				Sources.view(props, "Pool#Pool(Factory, int, int, PoolCounter)"));
+		assertEquals(idleLimit, p.getIdleLimit());
+		assertEquals(idleInitial, p.getIdleInitial());
+		return new Pool<>(factory, p, poolCounter);
 	}
 }

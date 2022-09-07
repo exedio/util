@@ -64,28 +64,6 @@ public final class Pool<E>
 	private final AtomicInteger invalidOnGet = new AtomicInteger(0);
 	private final AtomicInteger invalidOnPut = new AtomicInteger(0);
 
-	/**
-	 * @deprecated Use {@link #Pool(Factory, PoolProperties, PoolCounter)} instead.
-	 */
-	@Deprecated
-	public Pool(final Factory<E> factory, final int idleLimit, final int idleInitial, final PoolCounter counter)
-	{
-		this(
-				factory,
-				source(idleLimit, idleInitial),
-				counter);
-	}
-
-	@Deprecated
-	private static PoolProperties source(final int idleLimit, final int idleInitial)
-	{
-		final java.util.Properties props = new java.util.Properties();
-		props.setProperty("idleLimit", String.valueOf(idleLimit));
-		props.setProperty("idleInitial", String.valueOf(idleInitial));
-		return PoolProperties.factory(50).create(
-				Sources.view(props, "Pool#Pool(Factory, int, int, PoolCounter)"));
-	}
-
 	public Pool(final Factory<E> factory, final PoolProperties properties, final PoolCounter counter)
 	{
 		requireNonNull(factory, "factory");

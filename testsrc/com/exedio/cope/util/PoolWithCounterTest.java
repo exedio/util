@@ -200,9 +200,8 @@ public class PoolWithCounterTest
 		assertEquals(putCounter, poolCounter.getPutCounter());
 	}
 
-	@SuppressWarnings("deprecation")
 	private static Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
 	{
-		return new Pool<>(factory, idleLimit, idleInitial, new PoolCounter());
+		return PoolTest.newPool(factory, idleLimit, idleInitial, new PoolCounter());
 	}
 }
