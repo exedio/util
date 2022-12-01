@@ -1,5 +1,7 @@
 package com.exedio.cope.util;
 
+import static java.util.Objects.requireNonNullElse;
+
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -37,10 +39,7 @@ public final class PropertiesValidatorMain
 			final Result validationResult = validate(filePath, className);
 			if ( validationResult.exitCode == 0 )
 			{
-				if (validationResult.message != null)
-					System.out.println(validationResult.message);
-				else
-					System.out.println("ok");
+				System.out.println(requireNonNullElse(validationResult.message, "ok"));
 			}
 			else
 			{
