@@ -138,6 +138,8 @@ public final class CopeAssert
 	}
 
 	private static final HashSet<String> UNMODIFIABLE_COLLECTIONS = new HashSet<>(asList(
+			"java.util.ImmutableCollections$List12",
+			"java.util.ImmutableCollections$ListN",
 			"java.util.Collections$UnmodifiableCollection",
 			"java.util.Collections$UnmodifiableRandomAccessList",
 			"java.util.Collections$SingletonList",
