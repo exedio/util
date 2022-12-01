@@ -100,7 +100,7 @@ public final class TemporaryFolder
 		{
 			if(folder!=null)
 			{
-				Files.walkFileTree(folder.root.toPath(), new SimpleFileVisitor<Path>()
+				Files.walkFileTree(folder.root.toPath(), new SimpleFileVisitor<>()
 				{
 					@Override
 					public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException

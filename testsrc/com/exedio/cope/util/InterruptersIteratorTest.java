@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("deprecation") // OK: testing deprecated api
 public class InterruptersIteratorTest
 {
-	private static final Iterator<String> ITERATOR_FAIL = new Iterator<String>()
+	private static final Iterator<String> ITERATOR_FAIL = new Iterator<>()
 	{
 		@Override
 		public boolean hasNext()

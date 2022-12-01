@@ -165,13 +165,9 @@ public final class Sources
 	private static Properties loadPropertiesAndClose(final InputStream stream) throws IOException
 	{
 		final Properties result = new Properties();
-		try
+		try(stream)
 		{
 			result.load(stream);
-		}
-		finally
-		{
-			stream.close();
 		}
 		return result;
 	}
