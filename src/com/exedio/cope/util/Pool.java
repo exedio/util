@@ -18,10 +18,15 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.noop.NoopCounter;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,9 +65,11 @@ public final class Pool<E>
 	private int idleLevel, idleFrom, idleTo;
 	private final Object lock = new Object();
 
+	private Counter get = noopCounter;
+	private Counter put = noopCounter;
 	private final PoolCounter counter;
-	private final AtomicInteger invalidOnGet = new AtomicInteger(0);
-	private final AtomicInteger invalidOnPut = new AtomicInteger(0);
+	private Counter invalidOnGet = noopCounter;
+	private Counter invalidOnPut = noopCounter;
 
 	public Pool(final Factory<E> factory, final PoolProperties properties, final PoolCounter counter)
 	{
@@ -89,6 +96,34 @@ public final class Pool<E>
 	private E[] cast(final Object[] o)
 	{
 		return (E[])o;
+	}
+
+	public void register(
+			final String name,
+			final Tags tags,
+			final MeterRegistry registry)
+	{
+		requireNonEmpty(name, "name");
+		requireNonNull(tags, "tags");
+		requireNonNull(registry, "registry");
+
+		final Counter.Builder usage = Counter.builder(name + ".usage").
+				tags(tags).
+				description("Pool#[get|put]");
+		final Counter.Builder invalid = Counter.builder(name + ".invalid").
+				tags(tags).
+				description("Factory#isValidOn[Get|Put]");
+
+		final Counter get          = usage  .tag("operation", "get").register(registry);
+		final Counter put          = usage  .tag("operation", "put").register(registry);
+		final Counter invalidOnGet = invalid.tag("operation", "get").register(registry);
+		final Counter invalidOnPut = invalid.tag("operation", "put").register(registry);
+
+		// separate assignments make method as atomic as possible
+		this.get = get;
+		this.put = put;
+		this.invalidOnGet = invalidOnGet;
+		this.invalidOnPut = invalidOnPut;
 	}
 
 	private int inc(int pos)
@@ -120,7 +155,7 @@ public final class Pool<E>
 			if(factory.isValidOnGet(result))
 				break;
 
-			invalidOnGet.incrementAndGet();
+			invalidOnGet.increment();
 
 			result = null;
 		}
@@ -130,6 +165,7 @@ public final class Pool<E>
 		if(result==null)
 			result = factory.create();
 
+		get.increment();
 		if(counter!=null)
 			counter.incrementGet();
 
@@ -145,12 +181,13 @@ public final class Pool<E>
 	{
 		requireNonNull(e);
 
+		put.increment();
 		if(counter!=null)
 			counter.incrementPut();
 
 		if(!factory.isValidOnPut(e))
 		{
-			invalidOnPut.incrementAndGet();
+			invalidOnPut.increment();
 			return;
 		}
 
@@ -218,8 +255,8 @@ public final class Pool<E>
 				idleLimit,
 				idleInitial,
 				idleLevel,
-				invalidOnGet.get(),
-				invalidOnPut.get(),
+				invalidOnGet,
+				invalidOnPut,
 				counter!=null ? new PoolCounter(counter) : null);
 	}
 
@@ -232,6 +269,31 @@ public final class Pool<E>
 		private final int invalidOnPut;
 		private final PoolCounter counter;
 
+		Info(
+				final int idleLimit,
+				final int idleInitial,
+				final int idleLevel,
+				final Counter invalidOnGet,
+				final Counter invalidOnPut,
+				final PoolCounter counter)
+		{
+			this(idleLimit, idleInitial, idleLevel, count(invalidOnGet), count(invalidOnPut), counter);
+		}
+
+		private static int count(final Counter counter)
+		{
+			final double d = counter.count();
+			final long l = Math.round(d);
+			//noinspection FloatingPointEquality OK: tests backward conversion
+			if(l!=d)
+				throw new IllegalStateException(counter.getId().toString() + '/' + d);
+			return Math.toIntExact(l);
+		}
+
+		/**
+		 * @deprecated Do not use this class anymore, use micrometer instead.
+		 */
+		@Deprecated
 		public Info(
 				final int idleLimit,
 				final int idleInitial,
@@ -287,4 +349,10 @@ public final class Pool<E>
 			return counter;
 		}
 	}
+
+	private static final Counter noopCounter = new NoopCounter(new Meter.Id(
+			Pool.class.getName(),
+			Tags.empty(),
+			null, null,
+			Meter.Type.COUNTER));
 }

@@ -21,11 +21,21 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class PoolTest
 {
@@ -290,11 +300,18 @@ public class PoolTest
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
+		final Counter iog = (Counter)meter(METER_NAME + ".invalid", Tags.of("some", "tag", "operation", "get"));
+		final Counter iop = (Counter)meter(METER_NAME + ".invalid", Tags.of("some", "tag", "operation", "put"));
+		assertEquals(0, iog.count());
+		assertEquals(0, iop.count());
+		assertNotSame(iog, iop);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		assertEquals(0, cp.getInfo().getInvalidOnGet());
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
+		assertEquals(0, iog.count());
+		assertEquals(0, iop.count());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(0);
@@ -304,6 +321,8 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		assertEquals(0, cp.getInfo().getInvalidOnGet());
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
+		assertEquals(0, iog.count());
+		assertEquals(0, iop.count());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -314,6 +333,8 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		assertEquals(0, cp.getInfo().getInvalidOnGet());
 		assertEquals(1, cp.getInfo().getInvalidOnPut());
+		assertEquals(0, iog.count());
+		assertEquals(1, iop.count());
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -323,6 +344,8 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		assertEquals(0, cp.getInfo().getInvalidOnGet());
 		assertEquals(1, cp.getInfo().getInvalidOnPut());
+		assertEquals(0, iog.count());
+		assertEquals(1, iop.count());
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
@@ -423,6 +446,11 @@ public class PoolTest
 		f.assertV(0);
 
 		final Pool<Pooled> cp = newPool(f, 1, 0);
+		final Counter iog = (Counter)meter(METER_NAME + ".invalid", Tags.of("some", "tag", "operation", "get"));
+		final Counter iop = (Counter)meter(METER_NAME + ".invalid", Tags.of("some", "tag", "operation", "put"));
+		assertEquals(0, iog.count());
+		assertEquals(0, iop.count());
+		assertNotSame(iog, iop);
 		assertEquals(1, cp.getInfo().getIdleLimit());
 		assertEquals(0, cp.getInfo().getIdleInitial());
 		assertEquals(0, cp.getInfo().getIdleLevel());
@@ -437,6 +465,8 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		assertEquals(0, cp.getInfo().getInvalidOnGet());
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
+		assertEquals(0, iog.count());
+		assertEquals(0, iop.count());
 		c1.assertV(0, 0, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -446,6 +476,8 @@ public class PoolTest
 		assertEquals(1, cp.getInfo().getIdleLevel());
 		assertEquals(0, cp.getInfo().getInvalidOnGet());
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
+		assertEquals(0, iog.count());
+		assertEquals(0, iop.count());
 		c1.assertV(0, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(1);
@@ -456,6 +488,8 @@ public class PoolTest
 		assertEquals(0, cp.getInfo().getIdleLevel());
 		assertEquals(1, cp.getInfo().getInvalidOnGet());
 		assertEquals(0, cp.getInfo().getInvalidOnPut());
+		assertEquals(1, iog.count());
+		assertEquals(0, iop.count());
 		c1.assertV(1, 1, 0);
 		c2.assertV(0, 0, 0);
 		f.assertV(2);
@@ -503,6 +537,25 @@ public class PoolTest
 		assertFails(
 				() -> p.put(null),
 				NullPointerException.class, null);
+	}
+
+	@Test void testRegisterError()
+	{
+		final Factory f = new Factory(asList());
+		final Pool<Pooled> p =
+				new Pool<>(f, PoolProperties.factory(50).create(Sources.EMPTY), null);
+		assertFails(
+				() -> p.register(null, null, null),
+				NullPointerException.class, "name");
+		assertFails(
+				() -> p.register("", null, null),
+				IllegalArgumentException.class, "name must not be empty");
+		assertFails(
+				() -> p.register("myName", null, null),
+				NullPointerException.class, "tags");
+		assertFails(
+				() -> p.register("myName", Tags.empty(), null),
+				NullPointerException.class, "registry");
 	}
 
 	static class Factory implements Pool.Factory<Pooled>
@@ -579,10 +632,16 @@ public class PoolTest
 		}
 	}
 
-	private static Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
+	private Pool<Pooled> newPool(final Pool.Factory<Pooled> factory, final int idleLimit, final int idleInitial)
 	{
-		return newPool(factory, idleLimit, idleInitial, null);
+		final Pool<Pooled> result = newPool(factory, idleLimit, idleInitial, null);
+		result.register(METER_NAME, Tags.of("some", "tag"), meterRegistry);
+		return result;
 	}
+
+	private final MeterRegistry meterRegistry = new PrometheusMeterRegistry(key -> null);
+
+	private static final String METER_NAME = PoolWithCounterTest.class.getName();
 
 	static <P> Pool<P> newPool(
 			final Pool.Factory<P> factory,
@@ -597,5 +656,35 @@ public class PoolTest
 		assertEquals(idleLimit, p.getIdleLimit());
 		assertEquals(idleInitial, p.getIdleInitial());
 		return new Pool<>(factory, p, poolCounter);
+	}
+
+	private Meter meter(
+			final String name,
+			final Tags tags)
+	{
+		return meter(name, tags, meterRegistry);
+	}
+
+	static Meter meter(
+			final String name,
+			final Tags tags,
+			final MeterRegistry registry)
+	{
+		Meter result = null;
+		for(final Meter m : registry.getMeters())
+		{
+			final Meter.Id id = m.getId();
+			if(id.getName().equals(name) &&
+				Tags.of(id.getTags()).equals(tags))
+			{
+				assertNotNull(      id.getDescription(), "description: " + name);
+				assertNotEquals("", id.getDescription(), "description: " + name);
+				assertNull(result);
+				result = m;
+			}
+		}
+		if(result==null)
+			throw new AssertionFailedError("not found: >" + name + "< " + tags);
+		return result;
 	}
 }
