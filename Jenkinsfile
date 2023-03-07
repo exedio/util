@@ -175,6 +175,13 @@ try
 			{
 				error 'FAILURE because fetching dependencies produces git diff:\n' + gitStatus
 			}
+			// There should be an assertIvyExtends for each <conf name="abc" extends="def" /> in ivy/ivy.xml.
+			assertIvyExtends("servlet", "runtime")
+			assertIvyExtends("test", "runtime")
+			assertIvyExtends("test", "servlet")
+			assertIvyExtends("ide", "runtime")
+			assertIvyExtends("ide", "servlet")
+			assertIvyExtends("ide", "test")
 		}
 	}
 
@@ -237,6 +244,25 @@ def makeBuildTag(scmResult)
 			new Date().format("yyyy-MM-dd") + ' ' +
 			scmResult.GIT_COMMIT + ' ' +
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
+}
+
+def assertIvyExtends(extendingConf, parentConf)
+{
+	def status = sh (
+			script: "LC_ALL=C" +
+					" diff --recursive lib/" + parentConf + " lib/" + extendingConf +
+					" | grep --invert-match '^Only in lib/" + extendingConf + ": '" +
+					" > ivy/artifacts/ivyExtends" + extendingConf + ".txt",
+			returnStatus: true)
+	if(status!=0 && status!=1) // https://www.man7.org/linux/man-pages/man1/diff.1.html
+	{
+		error 'FAILURE because diff had trouble'
+	}
+	def result = readFile "ivy/artifacts/ivyExtends" + extendingConf + ".txt"
+	if(result!='')
+	{
+		error 'FAILURE because ivy conf "' + extendingConf + '" does not just add jar-files to "' + parentConf + '":\n' + result
+	}
 }
 
 def shSilent(script)
