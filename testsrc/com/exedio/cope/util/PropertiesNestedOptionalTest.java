@@ -178,7 +178,7 @@ public class PropertiesNestedOptionalTest
 		assertNull(outer.nestedTrue);
 	}
 
-	@SuppressWarnings("ConstantConditions")
+	@SuppressWarnings("DataFlowIssue")
 	@Test void testDefaultsNested()
 	{
 		final java.util.Properties source = new java.util.Properties();
@@ -205,7 +205,7 @@ public class PropertiesNestedOptionalTest
 		assertEquals(102, innerTrue.inner2);
 	}
 
-	@SuppressWarnings("ConstantConditions")
+	@SuppressWarnings("DataFlowIssue")
 	@Test void testSet()
 	{
 		final java.util.Properties source = new java.util.Properties();

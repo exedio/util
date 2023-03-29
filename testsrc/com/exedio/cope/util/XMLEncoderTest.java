@@ -54,7 +54,7 @@ public class XMLEncoderTest
 		assertIt("&amp;&amp;&amp;&amp;&amp;", "&&&&&");
 		assertIt("&amp;x&amp;x&amp;x&amp;x&amp;", "&x&x&x&x&");
 
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		assertFails(() ->
 			XMLEncoder.append(null, null),
 			NullPointerException.class, null);
@@ -62,7 +62,7 @@ public class XMLEncoderTest
 		assertFails(() ->
 			XMLEncoder.append(null, "x"),
 			NullPointerException.class, null);
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		assertFails(() ->
 			XMLEncoder.append(new StringBuilder(), null),
 			NullPointerException.class, null);
