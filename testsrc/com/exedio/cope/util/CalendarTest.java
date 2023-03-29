@@ -135,7 +135,7 @@ public class CalendarTest
 		cal.set(field, 0);
 		assertEquals(
 				getDate, cal.getTime(),
-				"" + df().format(getDate) + " / " + df().format(cal.getTime()));
+				df().format(getDate) + " / " + df().format(cal.getTime()));
 	}
 
 	private static SimpleDateFormat df()

@@ -57,7 +57,7 @@ public class PropertiesProbeCollectFailTest
 
 	static class Params extends Properties
 	{
-		@Probe int probeParams(final int a) { throw new AssertionError("" + a); }
+		@Probe int probeParams(final int a) { throw new AssertionError(a); }
 
 		Params() { super(Sources.EMPTY); }
 	}
