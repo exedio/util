@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -121,7 +122,7 @@ public final class ExedioVersions
 				return new Spec(
 						matcher.group("branch"),
 						Integer.parseInt(matcher.group("revision")),
-						date!=null ? LocalDate.from(DateTimeFormatter.ofPattern("uuuu-MM-dd").parse(date)) : null);
+						date!=null ? LocalDate.from(DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.US).parse(date)) : null);
 			}
 		}
 
