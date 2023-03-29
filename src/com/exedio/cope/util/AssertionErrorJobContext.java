@@ -24,7 +24,7 @@ import java.time.Duration;
  * An implementation of {@link JobContext} where
  * all methods do fail with a
  * {@link AssertionError}.
- *
+ * <p>
  * You may want to subclass this class instead of
  * implementing {@link JobContext} directly
  * to make your subclass cope with new methods

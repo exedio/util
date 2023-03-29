@@ -25,7 +25,7 @@ import java.util.Collection;
  * An implementation of {@link Source} where
  * all methods do fail with a
  * {@link AssertionError}.
- *
+ * <p>
  * You may want to subclass this class instead of
  * implementing {@link Source} directly
  * to make your subclass cope with new methods
