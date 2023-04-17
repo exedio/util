@@ -25,10 +25,10 @@ import java.util.Collection;
 
 /**
  * A proxy implementation of {@link Source}.
- *
+ * <p>
  * All methods implementing {@link Source}
  * do forward to another {@link Source}.
- *
+ * <p>
  * You may want to subclass this class instead of
  * implementing {@link Source} directly
  * to make your subclass cope with new methods

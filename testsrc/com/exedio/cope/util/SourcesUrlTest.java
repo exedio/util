@@ -63,7 +63,7 @@ public class SourcesUrlTest
 
 	@Test void testNull()
 	{
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		assertFails(() ->
 			load((URL)null),
 			NullPointerException.class, null);

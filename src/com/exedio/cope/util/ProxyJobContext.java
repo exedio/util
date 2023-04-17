@@ -24,10 +24,10 @@ import java.time.Duration;
 
 /**
  * A proxy implementation of {@link JobContext}.
- *
+ * <p>
  * All methods implementing {@link JobContext}
  * do forward to another {@link JobContext}.
- *
+ * <p>
  * You may want to subclass this class instead of
  * implementing {@link JobContext} directly
  * to make your subclass cope with new methods

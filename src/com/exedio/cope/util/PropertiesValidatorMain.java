@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Class with main method to validate a properties file against a Properties class.
  * This checks only syntax: if the Properties class can be instantiated using the given file with no exception.
- *
+ * <p>
  * Arguments:
  *  - Properties file: path (absolute path is strongly recommended)
  *  - Properties class name: full qualified class name of the properties class.

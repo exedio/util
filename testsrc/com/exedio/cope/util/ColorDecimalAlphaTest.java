@@ -38,7 +38,7 @@ public class ColorDecimalAlphaTest
 	{
 		for(int alphaPercent = 0; alphaPercent<=100; alphaPercent++)
 		{
-			final String expectedDecimal = "" + (alphaPercent/100) + ',' + ((alphaPercent/10)%10) + ((alphaPercent)%10);
+			final String expectedDecimal = (alphaPercent/100) + "," + ((alphaPercent/10)%10) + ((alphaPercent)%10);
 			final int alphaByte = (int)(alphaPercent * 2.55f);
 			@SuppressWarnings("cast")
 			final float alphaFloat = ((float)alphaByte)/255f;
@@ -46,7 +46,7 @@ public class ColorDecimalAlphaTest
 			assertEquals(alphaByte, alphaByteFromFloat);
 			final String actualDecimal = new DecimalFormat("#########0.00").format(alphaFloat);
 			assertEquals(expectedDecimal, actualDecimal);
-			System.out.println("" + alphaPercent + " " + alphaByte + "  " + alphaByteFromFloat + "  " + expectedDecimal + "  " + actualDecimal + "  " + alphaFloat);
+			System.out.println(alphaPercent + " " + alphaByte + "  " + alphaByteFromFloat + "  " + expectedDecimal + "  " + actualDecimal + "  " + alphaFloat);
 			final Color color = new Color(0.22f, 0.33f, 0.44f, alphaFloat);
 			assertEquals(alphaByte, color.getAlpha());
 			assertEquals(alphaFloat, color.getRGBComponents(null)[3]);

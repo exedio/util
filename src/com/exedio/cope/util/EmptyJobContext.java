@@ -20,11 +20,11 @@ package com.exedio.cope.util;
 
 /**
  * An empty implementation of {@link JobContext}.
- *
+ * <p>
  * All methods implementing {@link JobContext}
  * do as little as possible as allowed by the
  * specification of {@link JobContext}.
- *
+ * <p>
  * You may want to subclass this class instead of
  * implementing {@link JobContext} directly
  * to make your subclass cope with new methods

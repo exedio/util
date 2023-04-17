@@ -43,7 +43,7 @@ public class CastTest
 	@Deprecated // OK: testing deprecated API
 	@Test void testVerboseCastClassNull()
 	{
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		assertFails(() ->
 			Cast.verboseCast(null, string1),
 			NullPointerException.class, null);
@@ -52,7 +52,7 @@ public class CastTest
 	@Deprecated // OK: testing deprecated API
 	@Test void testVerboseCastAllNull()
 	{
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		assertFails(() ->
 			Cast.verboseCast(null, null),
 			NullPointerException.class, null);

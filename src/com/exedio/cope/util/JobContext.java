@@ -26,7 +26,7 @@ import java.time.Duration;
  * An interface for controlling long-running jobs.
  * Instances of this interface are not required to work
  * for multiple threads accessing the methods concurrently.
- *
+ * <p>
  * This interface has been inspired by
  * <a href="https://www.sauronsoftware.it/projects/cron4j/api/it/sauronsoftware/cron4j/TaskExecutionContext.html">TaskExecutionContext</a>
  * of <a href="https://www.sauronsoftware.it/projects/cron4j">cron4j</a>.
@@ -112,7 +112,6 @@ public interface JobContext
 	 * The default implementation fails for {@code duration}s
 	 * too large for {@link Duration#toNanos()}, which is approximately 292 years.
 	 */
-	@SuppressWarnings("JavadocLinkAsPlainText") // OK: bug in idea
 	default void sleepAndStopIfRequested(final Duration duration) throws JobStop
 	{
 		JobContexts.sleepAndStopIfRequestedPolling(this, duration);
@@ -182,7 +181,7 @@ public interface JobContext
 	 * Indicates, that the job has proceeded.
 	 * There is no information available,
 	 * when the job will return.
-	 *
+	 * <p>
 	 * Calling this method is equivalent to calling
 	 * {@link #incrementProgress(int) incrementProgress}(1).
 	 * <p>
@@ -196,15 +195,15 @@ public interface JobContext
 	 * Indicates, that the job has proceeded.
 	 * There is no information available,
 	 * when the job will return.
-	 *
+	 * <p>
 	 * Calling this method is equivalent to calling
 	 * {@link #incrementProgress()}
 	 * for the number of <i>delta</i> times.
-	 *
+	 * <p>
 	 * Parameter <i>delta</i> should be greater or equal 0.
 	 * Values out of range are accepted as well,
 	 * thus no exception is thrown in that case.
-	 *
+	 * <p>
 	 * Calling this method with <i>delta</i> of 0 is equivalent
 	 * to not calling this method at all.
 	 * <p>
@@ -225,7 +224,7 @@ public interface JobContext
 
 	/**
 	 * Indicates the current completeness of the job.
-	 *
+	 * <p>
 	 * Parameter <i>completeness</i> should be between 0 and 1.
 	 * Values out of range are accepted as well,
 	 * thus no exception is thrown in that case.

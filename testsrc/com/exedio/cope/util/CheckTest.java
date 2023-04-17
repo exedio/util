@@ -34,7 +34,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings("DataFlowIssue")
 public class CheckTest
 {
 	@Test void testRequireGreaterZeroInt()

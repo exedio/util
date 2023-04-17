@@ -737,7 +737,7 @@ public abstract class Properties
 	 * Implementations of {@code superclass} to be instantiated by
 	 * {@link ServiceFactory#newInstance(Object)}
 	 * must have a suitable constructor:
-	 *
+	 * <p>
 	 * The type of the first parameter is specified by parameter {@code parameterType} of this method.
 	 * The type of the second parameter is specified by annotation @{@link ServiceProperties}
 	 * at the implementation class.

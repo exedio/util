@@ -320,6 +320,7 @@ public class DayTest
 		assertEquals(ldy, Day.toLocalDate(day));
 		assertEquals(day, Day.from(ldy));
 
+		//noinspection ConstantValue
 		assertEquals(null, Day.toLocalDate(null));
 		assertEquals(null, Day.from(null));
 	}

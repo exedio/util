@@ -49,7 +49,7 @@ public class ServletSourceFileTest
 	private String reloadDate;
 
 	@BeforeEach
-	private void beforeEach()
+	final void beforeEach()
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", ENGLISH);
 		final long reloadMillis = 5555555;
@@ -58,7 +58,7 @@ public class ServletSourceFileTest
 	}
 
 	@AfterEach
-	private void afterEach()
+	final void afterEach()
 	{
 		Clock.clearOverride();
 
