@@ -229,7 +229,6 @@ public class SequenceChecker2Test
 		assertIt(3,13, 0, 2);
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testException()
 	{
 		assertFails(() ->

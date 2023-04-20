@@ -124,7 +124,6 @@ public class PrefixSourceTest
 		assertNull(wrap(null, ""));
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testFail()
 	{
 		//noinspection DataFlowIssue

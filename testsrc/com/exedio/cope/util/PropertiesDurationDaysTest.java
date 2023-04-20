@@ -150,7 +150,6 @@ public class PropertiesDurationDaysTest
 	}
 
 
-	@SuppressWarnings("unused")
 	@Test void testDefaultViolatesMinimum()
 	{
 		assertFails(

@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 public class PropertiesProbeCollectFailTest
 {
 	@Test
-	@SuppressWarnings("unused")
 	public void testStatic()
 	{
 		assertFails(
@@ -45,7 +44,6 @@ public class PropertiesProbeCollectFailTest
 
 
 	@Test
-	@SuppressWarnings("unused")
 	public void testParams()
 	{
 		assertFails(
@@ -65,7 +63,6 @@ public class PropertiesProbeCollectFailTest
 
 
 	@Test
-	@SuppressWarnings("unused")
 	public void testCollision()
 	{
 		assertFails(

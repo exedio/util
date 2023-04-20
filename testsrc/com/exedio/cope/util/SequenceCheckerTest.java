@@ -214,7 +214,6 @@ public class SequenceCheckerTest
 		assertIt(3,13, 2, 2, 0, 5, 2, 2);
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testException()
 	{
 		assertFails(() ->
