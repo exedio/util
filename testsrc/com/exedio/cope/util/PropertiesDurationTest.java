@@ -299,7 +299,6 @@ public class PropertiesDurationTest
 	}
 
 
-	@SuppressWarnings("unused")
 	@Test void testMinimumNull()
 	{
 		assertFails(
@@ -348,7 +347,6 @@ public class PropertiesDurationTest
 	}
 
 
-	@SuppressWarnings("unused")
 	@Test void testDefaultViolatesMinimum()
 	{
 		assertFails(

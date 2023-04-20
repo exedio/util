@@ -522,7 +522,6 @@ public class PoolTest
 		newPool(f, 0, 0);
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testError()
 	{
 		assertFails(() ->

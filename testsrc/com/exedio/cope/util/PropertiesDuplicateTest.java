@@ -24,10 +24,9 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesDuplicateTest
 {
-	@SuppressWarnings("unused")
 	static class KeyNullProperties extends Properties
 	{
-		final boolean value = value(null, false);
+		@SuppressWarnings("unused") final boolean value = value(null, false);
 		KeyNullProperties()
 		{
 			super(EMPTY_WITHOUT_KEY_CHECK);
@@ -43,10 +42,9 @@ public class PropertiesDuplicateTest
 	}
 
 
-	@SuppressWarnings("unused")
 	static class KeyEmptyProperties extends Properties
 	{
-		final boolean value = value("", false);
+		@SuppressWarnings("unused") final boolean value = value("", false);
 		KeyEmptyProperties()
 		{
 			super(EMPTY_WITHOUT_KEY_CHECK);
@@ -77,11 +75,10 @@ public class PropertiesDuplicateTest
 	};
 
 
-	@SuppressWarnings("unused")
 	static class DuplicateProperties extends Properties
 	{
-		final boolean duplicate1 = value("duplicate", false);
-		final boolean duplicate2 = value("duplicate", true);
+		@SuppressWarnings("unused") final boolean duplicate1 = value("duplicate", false);
+		@SuppressWarnings("unused") final boolean duplicate2 = value("duplicate", true);
 
 		DuplicateProperties()
 		{
@@ -89,7 +86,6 @@ public class PropertiesDuplicateTest
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testDuplicate()
 	{
 		assertFails(
@@ -110,7 +106,6 @@ public class PropertiesDuplicateTest
 
 	static final Properties.Factory<Nested> factory = Nested::new;
 
-	@SuppressWarnings("unused")
 	@Test void testSimpleNestedEquals()
 	{
 		class Props extends Properties
@@ -129,7 +124,6 @@ public class PropertiesDuplicateTest
 			"properties field 'duplicate' collides with field 'duplicate.'");
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testSimpleNestedStartsWith()
 	{
 		class Props extends Properties
@@ -148,7 +142,6 @@ public class PropertiesDuplicateTest
 			"properties field 'duplicate' collides with field 'duplicate.x'");
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testNestedSimpleEquals()
 	{
 		class Props extends Properties
@@ -167,7 +160,6 @@ public class PropertiesDuplicateTest
 			"properties field 'duplicate.' collides with field 'duplicate.'"); // TODO remove dot
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testNestedSimpleStartsWith()
 	{
 		class Props extends Properties
@@ -186,7 +178,6 @@ public class PropertiesDuplicateTest
 			"properties field 'duplicate.' collides with field 'duplicate.x'"); // TODO remove dot
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testNestedNestedEquals()
 	{
 		class Props extends Properties
@@ -205,7 +196,6 @@ public class PropertiesDuplicateTest
 			"properties field 'duplicate.' collides with properties field 'duplicate.'");
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testNestedNestedStartsWith()
 	{
 		class Props extends Properties
@@ -224,7 +214,6 @@ public class PropertiesDuplicateTest
 			"properties field 'duplicate.x.' collides with properties field 'duplicate.'");
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testNestedNestedStartsWith2()
 	{
 		class Props extends Properties

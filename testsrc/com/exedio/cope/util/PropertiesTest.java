@@ -331,7 +331,6 @@ public class PropertiesTest
 				"inconsistent initialization for stringHidden between inconsistent.stringHidden and minimal.");
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testSourceNull()
 	{
 		assertFails(() ->

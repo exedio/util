@@ -235,7 +235,6 @@ public class ProxyJobContextTest
 	}
 
 
-	@SuppressWarnings("unused")
 	@Test void testNull()
 	{
 		assertFails(() ->

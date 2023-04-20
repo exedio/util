@@ -209,7 +209,6 @@ public class PoolCounterTest
 		assertTrue(p.isConsistent(), "isConsistent");
 	}
 
-	@SuppressWarnings("unused")
 	@Test void testFail()
 	{
 		//noinspection DataFlowIssue

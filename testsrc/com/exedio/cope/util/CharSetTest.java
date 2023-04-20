@@ -43,7 +43,6 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("HardcodedLineSeparator")
 public class CharSetTest
 {
-	@SuppressWarnings("unused")
 	@Test void inconsistent1()
 	{
 		assertFails(() ->
@@ -51,7 +50,6 @@ public class CharSetTest
 			IllegalArgumentException.class,
 			"inconsistent character set, character 'A' on position 1 is less than character 'Z' on position 0");
 	}
-	@SuppressWarnings("unused")
 	@Test void inconsistent2()
 	{
 		assertFails(() ->
@@ -59,7 +57,6 @@ public class CharSetTest
 			IllegalArgumentException.class,
 			"inconsistent character set, character 'A' on position 1 is less than character 'B' on position 0");
 	}
-	@SuppressWarnings("unused")
 	@Test void inconsistent3()
 	{
 		assertFails(() ->
@@ -67,7 +64,6 @@ public class CharSetTest
 			IllegalArgumentException.class,
 			"inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'B' on position 2");
 	}
-	@SuppressWarnings("unused")
 	@Test void inconsistent4()
 	{
 		assertFails(() ->
@@ -75,7 +71,6 @@ public class CharSetTest
 			IllegalArgumentException.class,
 			"inconsistent character set, character 'M' on position 3 is less than character 'N' on position 2");
 	}
-	@SuppressWarnings("unused")
 	@Test void inconsistentOverlapping()
 	{
 		assertFails(() ->
@@ -83,7 +78,6 @@ public class CharSetTest
 			IllegalArgumentException.class,
 			"inconsistent character set, the character area extending to 'C' on position 1 overlaps with the area starting with character 'C' on position 2");
 	}
-	@SuppressWarnings("unused")
 	@Test void inconsistentNoDistance()
 	{
 		assertFails(() ->

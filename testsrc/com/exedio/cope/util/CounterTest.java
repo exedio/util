@@ -126,7 +126,6 @@ public class CounterTest
 	}
 
 	@Disabled
-	@SuppressWarnings("unused")
 	@Test final void testNow()
 	{
 		final int N = 10_000_000;
