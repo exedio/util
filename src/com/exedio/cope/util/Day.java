@@ -27,6 +27,7 @@ import static java.util.Calendar.YEAR;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -209,6 +210,11 @@ public final class Day implements Serializable, Comparable<Day>
 		final GregorianCalendar cal = getGregorianCalendar(GMT);
 		cal.add(DATE, days);
 		return new Day(cal);
+	}
+
+	public int daysUntil(final Day other)
+	{
+		return Math.toIntExact(ChronoUnit.DAYS.between(toLocalDate(), other.toLocalDate()));
 	}
 
 	private static final TimeZone GMT = getTimeZone("Etc/GMT");
