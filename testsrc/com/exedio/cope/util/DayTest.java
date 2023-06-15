@@ -347,4 +347,15 @@ public class DayTest
 				IllegalArgumentException.class,
 				"year must be in range 1000..9999, but was: 999");
 	}
+	@Test void daysUntil()
+	{
+		assertEquals(1, new Day(2005, 2, 22).daysUntil(new Day(2005, 2, 23)));
+		assertEquals(1, new Day(2005, 2, 28).daysUntil(new Day(2005, 3,  1)));
+		assertEquals(1, new Day(2005, 12, 31).daysUntil(new Day(2006, 1,  1)));
+		assertEquals(5, new Day(2005, 2, 22).daysUntil(new Day(2005, 2, 27) ));
+		assertEquals(-5, new Day(2005, 2, 22).daysUntil(new Day(2005, 2, 17)));
+		assertEquals(3287181, new Day(1000, 1, 1).daysUntil(new Day(9999, 12, 31)));
+		assertEquals(1, new Day(2023, 2, 28).daysUntil(new Day(2023, 3, 1)));
+		assertEquals(2, new Day(2024, 2, 28).daysUntil(new Day(2024, 3, 1)));
+	}
 }
