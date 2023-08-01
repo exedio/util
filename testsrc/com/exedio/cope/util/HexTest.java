@@ -65,7 +65,7 @@ public class HexTest
 		assertEquals("02030A0B", Hex.encodeUpper(new byte[]{2, 3, 0xa, 0xb}, 0, 4));
 	}
 
-	@SuppressWarnings("ConstantConditions")
+	@SuppressWarnings("ConstantValue")
 	@Test void testNull()
 	{
 		assertEquals(null, Hex.encodeLower(null));

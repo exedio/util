@@ -37,7 +37,7 @@ public class DateInstantTest
 		assertEquals(date, from(instant));
 	}
 
-	@SuppressWarnings("ConstantConditions")
+	@SuppressWarnings("ConstantValue")
 	@Test void testNull()
 	{
 		assertEquals(null, to(null));
