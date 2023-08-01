@@ -159,6 +159,7 @@ public class JobContextSleepPollingNondeterministicTest
 			catch(final AssertionFailedError e)
 			{
 				if(e.getMessage().startsWith(NON_DETERMINISTIC_MESSAGE + " ==> ")) // relies on junit internal
+					//noinspection CallToPrintStackTrace
 					e.printStackTrace();
 				else
 					fail("run " + i + ": " + e.getMessage(), e);
