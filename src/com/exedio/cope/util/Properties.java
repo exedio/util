@@ -976,7 +976,7 @@ public abstract class Properties
 		private final String key;
 		final T value;
 
-		@SuppressWarnings("ThisEscapedInObjectConstruction")
+		@SuppressWarnings({"ThisEscapedInObjectConstruction", "ExtractMethodRecommender"})
 		PropertiesField(final Properties properties, final String key, final Factory<T> factory)
 		{
 			this.key = key;

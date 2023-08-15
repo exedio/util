@@ -62,7 +62,7 @@ public final class EqualsAssert
 		}
 	}
 
-	@SuppressWarnings({"EqualsWithItself", "ObjectEqualsNull", "ConstantConditions"})
+	@SuppressWarnings({"EqualsWithItself", "ConstantValue"})
 	private static void assertEqualsSpecial(final Object object)
 	{
 		assertTrue (object.equals(object));

@@ -58,9 +58,9 @@ public class JobContextsIteratorTest
 
 	@Test void testFail()
 	{
-		//noinspection ConstantConditions
+		//noinspection ConstantValue
 		assertSame(null, iterator(null, null));
-		//noinspection ConstantConditions
+		//noinspection ConstantValue
 		assertSame(null, iterator(null, CONTEXT_FAIL));
 		assertSame   (ITERATOR_FAIL, iterator(ITERATOR_FAIL, null));
 		assertNotSame(ITERATOR_FAIL, iterator(ITERATOR_FAIL, CONTEXT_FAIL));

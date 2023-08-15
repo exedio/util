@@ -46,6 +46,7 @@ public final class PropertiesValidatorMain
 				if (validationResult.message != null)
 					System.err.println(validationResult.message);
 				else
+					//noinspection CallToPrintStackTrace
 					validationResult.exception.printStackTrace();
 				System.exit(validationResult.exitCode);
 			}
@@ -53,6 +54,7 @@ public final class PropertiesValidatorMain
 		// handle any uncaught runtime exception
 		catch (final RuntimeException e)
 		{
+			//noinspection CallToPrintStackTrace
 			e.printStackTrace();
 			System.exit(1);
 		}
