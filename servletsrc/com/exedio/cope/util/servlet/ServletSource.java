@@ -31,6 +31,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import javax.servlet.ServletContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ServletSource
 {
@@ -65,6 +67,11 @@ public final class ServletSource
 						KEY  + '=' + fileNew + " and " +
 						KEYO + '=' + fileOld + " in " +
 						initParam.getDescription() + " are set");
+
+			//noinspection VariableNotUsedInsideIf
+			if(fileOld!=null)
+				log.warn(KEYO + " is deprecated, use " + KEY + " instead");
+
 			final String file = fileNew!=null ? fileNew : fileOld;
 			keys =
 				file!=null
@@ -150,4 +157,6 @@ public final class ServletSource
 			return new ContextPath(contextPath, reloadedTarget);
 		}
 	}
+
+	private static final Logger log = LoggerFactory.getLogger(ServletSource.class);
 }
