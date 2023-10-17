@@ -1138,12 +1138,14 @@ public abstract class Properties
 		private final Properties instance;
 		private final Method method;
 		private final String name;
+		private final int order;
 
 		Prober(final Properties instance, final Method method, final Probe ann)
 		{
 			this.instance = instance;
 			this.method = method;
 			this.name = name(method, ann);
+			this.order = ann.order();
 
 			if((method.getModifiers() & Modifier.STATIC)!=0)
 				throw new IllegalArgumentException(
@@ -1170,6 +1172,7 @@ public abstract class Properties
 			this.instance = template.instance;
 			this.method = template.method;
 			this.name = prefix + '.' + template.name;
+			this.order = template.order;
 		}
 
 		@Override
@@ -1227,19 +1230,31 @@ public abstract class Properties
 		{
 			final Class<?> clazz = i.previous();
 			final TreeMap<String,Prober> classMethods = new TreeMap<>();
+			//noinspection ComparatorCombinators
+			final TreeSet<Prober> classMethodsOrdered = new TreeSet<>((o1, o2) ->
+			{
+				final int orderResult = Integer.compare(o1.order, o2.order);
+				if(orderResult!=0)
+					return orderResult;
+
+				return o1.name.compareTo(o2.name);
+			});
 			for(final Method method : clazz.getDeclaredMethods())
 			{
 				final Probe ann = method.getAnnotation(Probe.class);
 				if(ann!=null)
-					add(classMethods, new Prober(instance, method, ann));
+					add(classMethods, classMethodsOrdered, new Prober(instance, method, ann));
 			}
-			result.addAll(classMethods.values());
+			result.addAll(classMethodsOrdered);
 		}
 
 		return result;
 	}
 
-	private static void add(final TreeMap<String,Prober> probers, final Prober prober)
+	private static void add(
+			final TreeMap<String,Prober> probers,
+			final TreeSet<Prober> probersOrdered,
+			final Prober prober)
 	{
 		final Prober collision = probers.putIfAbsent(prober.name, prober);
 		if(collision!=null)
@@ -1260,6 +1275,7 @@ public abstract class Properties
 					"@Probe method has duplicate name '" + prober.name + "': " +
 					a.method + " vs. " + b.method);
 		}
+		probersOrdered.add(prober);
 	}
 
 	/**
@@ -1282,6 +1298,11 @@ public abstract class Properties
 		 * Names must be unique within a class.
 		 */
 		String name() default "";
+
+		/**
+		 * Allows to change the order of probes within {@link #getProbes()}.
+		 */
+		int order() default 0;
 	}
 
 	@SuppressWarnings("MethodMayBeStatic") // OK: should be called from instance context only
