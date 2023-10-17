@@ -34,10 +34,12 @@ public class PropertiesProbeCollectTest
 		final Order props = new Order();
 
 		assertEquals(asList(
+				wrap("Y", "OrderY"),
 				wrap("A", "OrderA"),
 				wrap("B", "OrderB"),
 				wrap("C", "OrderC"),
 				wrap("D", "OrderD"),
+				wrap("X", "OrderX"),
 				wrap("X", "MoreX"),
 				wrap("Y", "MoreY")),
 				wrap(props.getProbes()));
@@ -49,6 +51,8 @@ public class PropertiesProbeCollectTest
 		@Probe String probeA() { return "resultOrderA"; } // deliberately out of order
 		@Probe String probeD() { return "resultOrderD"; }
 		@Probe String probeC() { return "resultOrderC"; } // deliberately out of order
+		@Probe(order= 1) String probeX() { return "resultOrderX"; }
+		@Probe(order=-1) String probeY() { return "resultOrderY"; }
 
 		@Override public List<? extends Callable<?>> probeMore()
 		{
@@ -214,12 +218,16 @@ public class PropertiesProbeCollectTest
 		final Lower props = new Lower();
 
 		assertEquals(asList(
+				wrap("Y", "UpperY"),
 				wrap("A", "UpperA"),
 				wrap("B", "UpperB"),
 				wrap("C", "UpperC"),
+				wrap("X", "UpperX"),
+				wrap("Y", "LowerY"),
 				wrap("A", "LowerA"),
 				wrap("B", "LowerB"),
-				wrap("C", "LowerC")),
+				wrap("C", "LowerC"),
+				wrap("X", "LowerX")),
 				wrap(props.getProbes()));
 	}
 
@@ -229,6 +237,8 @@ public class PropertiesProbeCollectTest
 		@Probe private String probeA() { return "resultUpperA"; }
 		@Probe private String probeC() { return "resultUpperC"; } // deliberately out of order
 		@Probe private String probeB() { return "resultUpperB"; }
+		@Probe(order= 1) private String probeX() { return "resultUpperX"; }
+		@Probe(order=-1) private String probeY() { return "resultUpperY"; }
 
 		Upper() { super(Sources.EMPTY); }
 	}
@@ -239,6 +249,8 @@ public class PropertiesProbeCollectTest
 		@Probe String probeA() { return "resultLowerA"; }
 		@Probe String probeC() { return "resultLowerC"; } // deliberately out of order
 		@Probe String probeB() { return "resultLowerB"; }
+		@Probe(order= 1) String probeX() { return "resultLowerX"; }
+		@Probe(order=-1) String probeY() { return "resultLowerY"; }
 	}
 
 
