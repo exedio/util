@@ -33,7 +33,7 @@
 		<artifact name="exedio-cope-util" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION">
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25">
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.26">
 			<conf name="runtime" mapped="default" />
 			<conf name="ide" mapped="sources" />
 		</dependency>
