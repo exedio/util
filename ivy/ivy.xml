@@ -35,7 +35,7 @@
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION">
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25">
 			<conf name="runtime" mapped="default" />
-			<conf name="ide" mapped="sources" />
+			<!-- sources do not work reliably on ivy cache hits -->
 		</dependency>
 		<dependency org="io.micrometer" name="micrometer-core" rev="1.8.5" conf="runtime->default; ide->sources">
 			<exclude org="org.hdrhistogram" module="HdrHistogram" />
