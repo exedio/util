@@ -26,7 +26,7 @@ import java.util.StringTokenizer;
 import org.junit.jupiter.api.Test;
 
 /**
- * Characterization test for EnumMap and containsKey.
+ * Characterization test {@link Properties#valuesSpaceSeparated(String, String...)}.
  */
 public class StringSplitCharacterizationTest
 {
