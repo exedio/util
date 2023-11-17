@@ -33,6 +33,6 @@ import java.lang.annotation.Target;
  */
 @Target({TYPE, FIELD, METHOD, CONSTRUCTOR})
 @Retention(RetentionPolicy.SOURCE)
-@interface UsageEntryPoint
+public @interface UsageEntryPoint
 {
 }
