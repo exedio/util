@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ivy-module [
+		<!ENTITY artifacts.name "exedio-cope-util">
+		]>
 <ivy-module
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		version="2.0"
@@ -28,9 +31,9 @@
 				description="classpath for IDEs such as Eclipse and IntelliJ, includes java sources and changelogs" />
 	</configurations>
 	<publications>
-		<artifact name="exedio-cope-util" conf="runtime"   type="jar" ext="jar" />
-		<artifact name="exedio-cope-util" conf="sources"   type="src" ext="zip" />
-		<artifact name="exedio-cope-util" conf="changelog" type="log" ext="txt" />
+		<artifact name="&artifacts.name;" conf="runtime"   type="jar" ext="jar" />
+		<artifact name="&artifacts.name;" conf="sources"   type="src" ext="zip" />
+		<artifact name="&artifacts.name;" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION">
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25">
