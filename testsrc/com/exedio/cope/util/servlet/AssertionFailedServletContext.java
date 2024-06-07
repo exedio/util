@@ -228,6 +228,12 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
+	public ServletRegistration.Dynamic addJspFile(final String servletName, final String jspFile)
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
 	public <T extends Servlet> T createServlet(final Class<T> type)
 	{
 		throw new AssertionFailedError();
@@ -343,6 +349,48 @@ public class AssertionFailedServletContext implements ServletContext
 
 	@Override
 	public void declareRoles(final String... strings)
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public String getVirtualServerName()
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public int getSessionTimeout()
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public void setSessionTimeout(final int sessionTimeout)
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public String getRequestCharacterEncoding()
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public void setRequestCharacterEncoding(final String encoding)
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public String getResponseCharacterEncoding()
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public void setResponseCharacterEncoding(final String encoding)
 	{
 		throw new AssertionFailedError();
 	}
