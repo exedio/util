@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* servlet-api 4.0.1 required.
 * @UsageEntryPoint annotation added.
 * List<String> Properties#valuesSpaceSeparated added.
 * Holder added.
