@@ -55,6 +55,7 @@ public class ExedioVersionsTest
 		assertSpec("master",    68, of(2020, 12,  3), "git master " + GIT1 + " " + GIT2 + " jenkins 68 2020-12-03_15-58-24"); // insightwysiwyg
 		assertSpec("master",   107, of(2018,  5, 23), "git master " + GIT1 + " " + GIT2 + " jenkins 107 2018-05-23_18-43-46"); // servletutil
 		assertSpec("wicket9",  985, of(2022,  8, 29), "build wicket9 985 2022-08-29 " + GIT1 + " " + GIT2); // insight
+		assertSpec("wicket10",  85, of(2024, 10, 31), "build wicket10 85 2024-10-31 " + GIT1 + " " + GIT2); // insight
 		assertSpec("master",    74, null,             "git origin/master " + GIT1 + " jenkins 74 ldapconnector 74");
 		assertSpec("master",     4, of(2018,  2, 14), "git origin/master " + GIT1 + " jenkins 4 tomcatfilestore_tomcat8 2018-02-14_14-59-29");
 	}
