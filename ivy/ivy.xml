@@ -59,7 +59,7 @@
 		<dependency org="org.easymock" name="easymock" rev="3.6" conf="test->default">
 			<exclude org="org.objenesis" name="objenesis" />
 		</dependency>
-		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.5" conf="jacoco->default" />
+		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.12" conf="jacoco->default" />
 		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="jsr305->default" />
 		<dependency org="com.exedio" name="pipeline-gdsl" rev="26" conf="jenkins->runtime; ide->changelog" />
 	</dependencies>
