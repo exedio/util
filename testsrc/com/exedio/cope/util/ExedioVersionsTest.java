@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import java.time.LocalDate;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 public class ExedioVersionsTest
@@ -81,7 +82,7 @@ public class ExedioVersionsTest
 	@Test void testRegister()
 	{
 		final SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		register(registry, new Pack("com.exedio.copeutil", "build master 978 2022-05-09"));
+		register(registry, Stream.of(new Pack("com.exedio.copeutil", "build master 978 2022-05-09")));
 		final Gauge revision = (Gauge)registry.getMeters().get(0);
 		assertEquals(
 				"MeterId{" +
@@ -102,9 +103,9 @@ public class ExedioVersionsTest
 	@Test void testRegisterSubPackage()
 	{
 		final SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		register(registry,
+		register(registry, Stream.of(
 				new Pack("com.exedio.copeutil",     "build master 978 2022-05-09"),
-				new Pack("com.exedio.copeutil.sub", "build master 978 2022-05-09"));
+				new Pack("com.exedio.copeutil.sub", "build master 978 2022-05-09")));
 		assertEquals(asList(
 				"MeterId{" +
 					"name='com.exedio.cope.util.ExedioVersions.revision', " +
@@ -118,9 +119,9 @@ public class ExedioVersionsTest
 	@Test void testRegisterSubPackageFirst()
 	{
 		final SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		register(registry,
+		register(registry, Stream.of(
 				new Pack("com.exedio.copeutil.sub", "build master 978 2022-05-09"),
-				new Pack("com.exedio.copeutil",     "build master 978 2022-05-09"));
+				new Pack("com.exedio.copeutil",     "build master 978 2022-05-09")));
 		assertEquals(asList(
 				"MeterId{" +
 					"name='com.exedio.cope.util.ExedioVersions.revision', " +
@@ -134,8 +135,8 @@ public class ExedioVersionsTest
 	@Test void testRegisterOld()
 	{
 		final SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		register(registry,
-				new Pack("com.exedio.xxx", "git master abc jenkins 345 2020-08-11_07-42-06"));
+		register(registry, Stream.of(
+				new Pack("com.exedio.xxx", "git master abc jenkins 345 2020-08-11_07-42-06")));
 		assertEquals(asList(
 				"MeterId{" +
 					"name='com.exedio.cope.util.ExedioVersions.date', " +
@@ -149,8 +150,8 @@ public class ExedioVersionsTest
 	@Test void testRegisterOldWithoutDate()
 	{
 		final SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		register(registry,
-				new Pack("com.exedio.xxx", "git master abc jenkins 345"));
+		register(registry, Stream.of(
+				new Pack("com.exedio.xxx", "git master abc jenkins 345")));
 		assertEquals(asList(
 				"MeterId{" +
 					"name='com.exedio.cope.util.ExedioVersions.revision', " +
