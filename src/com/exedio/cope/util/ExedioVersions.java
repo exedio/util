@@ -23,7 +23,6 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -65,25 +64,20 @@ public final class ExedioVersions
 
 	static void register(final MeterRegistry registry, final Pack... packages)
 	{
-		//noinspection ZeroLengthArrayAllocation
-		final Pack[] exedioPackages = Stream.of(packages).
-				filter(p -> p.getName().startsWith("com.exedio.")).
-				collect(Collectors.toList()).toArray(new Pack[]{});
-
-		Arrays.sort(exedioPackages);
-
 		final HashSet<String> versionsDone = new HashSet<>();
-
-		for(final Pack pack : exedioPackages)
+		Stream.of(packages).
+				filter(p -> p.getName().startsWith("com.exedio.")).
+				sorted().
+				forEach(pack ->
 		{
 			final String packName = pack.getName();
 			final String version = pack.getSpecificationVersion();
 			if(version==null || version.isEmpty() || !versionsDone.add(version))
-				continue;
+				return;
 
 			final Spec spec = spec(version);
 			if(spec==null)
-				continue;
+				return;
 
 			final String className = ExedioVersions.class.getName();
 			final Tags tags = Tags.of(
@@ -101,7 +95,7 @@ public final class ExedioVersions
 						tags(tags).
 						register(registry);
 			}
-		}
+		});
 	}
 
 	static Spec spec(final String input)
