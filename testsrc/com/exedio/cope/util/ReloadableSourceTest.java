@@ -70,7 +70,9 @@ public class ReloadableSourceTest
 	{
 		assertFails(
 				() -> reloadable(null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.util.function.Supplier.get()\" " +
+				"because \"sourceSupplier\" is null");
 	}
 
 	@Test void testSupplierResultNull()

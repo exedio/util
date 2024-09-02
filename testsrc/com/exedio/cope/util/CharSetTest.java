@@ -100,7 +100,9 @@ public class CharSetTest
 		assertEquals(-1, cs.indexOfNotContains("CC"));
 		assertFails(() ->
 			cs.indexOfNotContains(null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.CharSequence.length()\" " +
+			"because \"s\" is null");
 	}
 	@Test void complex()
 	{

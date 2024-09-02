@@ -61,7 +61,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> createNewFile(null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.createNewFile()\" " +
+				"because \"file\" is null");
 	}
 
 	@Test final void testDelete(final TemporaryFolder folder) throws IOException
@@ -78,7 +80,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> delete(null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.delete()\" " +
+				"because \"file\" is null");
 	}
 
 	@Test final void testMkdir(final TemporaryFolder folder) throws IOException
@@ -96,7 +100,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> mkdir(null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.mkdir()\" " +
+				"because \"file\" is null");
 	}
 
 	@Test final void testMkdirs(final TemporaryFolder folder) throws IOException
@@ -114,7 +120,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> mkdirs(null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.mkdirs()\" " +
+				"because \"file\" is null");
 	}
 
 	@Test final void testRenameTo(final TemporaryFolder folder) throws IOException
@@ -132,7 +140,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> renameTo(null, null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.renameTo(java.io.File)\" " +
+				"because \"file\" is null");
 	}
 
 	@Test final void testRenameToNullSource()
@@ -140,7 +150,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> renameTo(null, new File(".")),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.renameTo(java.io.File)\" " +
+				"because \"file\" is null");
 	}
 
 	@Test final void testRenameToNullDest()
@@ -188,7 +200,9 @@ public class StrictFileTest
 		//noinspection DataFlowIssue
 		assertFails(
 				() -> setLastModified(null, 555000),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.io.File.setLastModified(long)\" " +
+				"because \"file\" is null");
 	}
 
 	@Test void testSetLastModifiedNegative(final TemporaryFolder folder) throws IOException

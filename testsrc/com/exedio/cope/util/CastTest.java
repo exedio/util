@@ -46,7 +46,9 @@ public class CastTest
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			Cast.verboseCast(null, string1),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.Class.cast(Object)\" " +
+			"because \"clazz\" is null");
 	}
 
 	@Deprecated // OK: testing deprecated API
@@ -55,7 +57,9 @@ public class CastTest
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			Cast.verboseCast(null, null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.Class.cast(Object)\" " +
+			"because \"clazz\" is null");
 	}
 
 	@Deprecated // OK: testing deprecated API
@@ -84,7 +88,9 @@ public class CastTest
 		final List<String> strings = asList(string1);
 		assertFails(() ->
 			castElements(null, strings),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.Class.cast(Object)\" " +
+			"because \"clazz\" is null");
 	}
 
 	@Test void testCastElementsAllNull()

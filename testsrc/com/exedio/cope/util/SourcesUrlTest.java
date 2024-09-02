@@ -66,6 +66,8 @@ public class SourcesUrlTest
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			load((URL)null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.net.URL.openStream()\" " +
+			"because \"url\" is null");
 	}
 }

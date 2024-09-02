@@ -57,20 +57,30 @@ public class XMLEncoderTest
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			XMLEncoder.append(null, null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"String.length()\" " +
+			"because \"st\" is null");
 		XMLEncoder.append(null, ""); // TODO should throw a NullPointerException
 		assertFails(() ->
 			XMLEncoder.append(null, "x"),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.StringBuilder.append(java.lang.CharSequence, int, int)\" " +
+			"because \"bf\" is null");
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			XMLEncoder.append(new StringBuilder(), null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"String.length()\" " +
+			"because \"st\" is null");
 		assertFails(() ->
 			XMLEncoder.append(null, 'x'),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.StringBuilder.append(char)\" " +
+			"because \"bf\" is null");
 		assertFails(() ->
 			XMLEncoder.append(null, '&'),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.lang.StringBuilder.append(String)\" " +
+			"because \"bf\" is null");
 	}
 }
