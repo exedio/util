@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class ExedioVersions
@@ -35,7 +34,6 @@ public final class ExedioVersions
 	@SuppressWarnings("unused") // OK: cannot be tested
 	public static void register(final MeterRegistry registry)
 	{
-		//noinspection ZeroLengthArrayAllocation
 		register(registry, Stream.of(Package.getPackages()).map(p -> new Pack(){
 			@Override
 			public String getName()
@@ -47,7 +45,7 @@ public final class ExedioVersions
 			{
 				return p.getSpecificationVersion();
 			}
-		}).collect(Collectors.toList()).toArray(new Pack[]{}));
+		}));
 	}
 
 	interface Pack extends Comparable<Pack>
@@ -62,10 +60,10 @@ public final class ExedioVersions
 		}
 	}
 
-	static void register(final MeterRegistry registry, final Pack... packages)
+	static void register(final MeterRegistry registry, final Stream<Pack> packages)
 	{
 		final HashSet<String> versionsDone = new HashSet<>();
-		Stream.of(packages).
+		packages.
 				filter(p -> p.getName().startsWith("com.exedio.")).
 				sorted().
 				forEach(pack ->
