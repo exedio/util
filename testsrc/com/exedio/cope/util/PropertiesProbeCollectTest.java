@@ -353,39 +353,8 @@ public class PropertiesProbeCollectTest
 		return new Wrapper(probe.toString(), (String)probe.call());
 	}
 
-	static class Wrapper
+	record Wrapper(String name, String result)
 	{
-		final String name;
-		final String result;
-
-		Wrapper(final String name, final String result)
-		{
-			this.name = name;
-			this.result = result;
-		}
-
-		@Override
-		public boolean equals(final Object other)
-		{
-			if(!(other instanceof final Wrapper o))
-				return false;
-
-			return
-					name.equals(o.name) &&
-					result.equals(o.result);
-		}
-
-		@Override
-		public int hashCode()
-		{
-			return name.hashCode() ^ result.hashCode();
-		}
-
-		@Override
-		public String toString()
-		{
-			return name + '/' + result;
-		}
 	}
 
 	private static Callable<?> more(final String name, final String result)
@@ -393,17 +362,8 @@ public class PropertiesProbeCollectTest
 		return new More(name, "result" + result);
 	}
 
-	private static final class More implements Callable<String>
+	private record More(String name, String result) implements Callable<String>
 	{
-		final String name;
-		final String result;
-
-		More(final String name, final String result)
-		{
-			this.name = name;
-			this.result = result;
-		}
-
 		@Override
 		public String call()
 		{

@@ -972,17 +972,8 @@ public abstract class Properties
 		return new PrefixCallable(prober, key);
 	}
 
-	private static final class PrefixCallable implements Callable<Object>
+	private record PrefixCallable(Callable<?> prober, String key) implements Callable<Object>
 	{
-		private final Callable<?> prober;
-		private final String key;
-
-		PrefixCallable(final Callable<?> prober, final String key)
-		{
-			this.prober = prober;
-			this.key = key;
-		}
-
 		PrefixCallable prefix(final String key)
 		{
 			return new PrefixCallable(prober, key + '.' + this.key);
