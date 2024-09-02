@@ -367,10 +367,9 @@ public class PropertiesProbeCollectTest
 		@Override
 		public boolean equals(final Object other)
 		{
-			if(!(other instanceof Wrapper))
+			if(!(other instanceof final Wrapper o))
 				return false;
 
-			final Wrapper o = (Wrapper)other;
 			return
 					name.equals(o.name) &&
 					result.equals(o.result);

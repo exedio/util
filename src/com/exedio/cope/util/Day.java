@@ -223,10 +223,9 @@ public final class Day implements Serializable, Comparable<Day>
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Day))
+		if(!(other instanceof final Day o))
 			return false;
 
-		final Day o = (Day)other;
 		return day==o.day && month==o.month && year==o.year;
 	}
 
