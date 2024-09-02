@@ -353,27 +353,26 @@ public final class CharSet implements Serializable
 		switch(c)
 		{
 			// see https://dev.mysql.com/doc/refman/5.5/en/regexp.html
-			case    0: bf.append("[.NUL.]");             break;
-			case '\t': bf.append("[.tab.]");             break;
-			case '\n': bf.append("[.newline.]");         break;
-			case '\r': bf.append("[.carriage-return.]"); break;
-			case '\b': bf.append("[.backspace.]");       break;
-			case   11: bf.append("[.vertical-tab.]");    break;
-			case   12: bf.append("[.form-feed.]");       break;
-			case   14: bf.append("[.SO.]");              break;
-			case   31: bf.append("[.US.]");              break;
-			case  '~': bf.append("[.tilde.]");           break;
-			case  ',': bf.append("[.comma.]");           break;
-			case  '[': bf.append("[.left-square-bracket.]"); break;
-			case  ']': bf.append("[.right-square-bracket.]"); break;
-			default:
+			case    0 -> bf.append("[.NUL.]");
+			case '\t' -> bf.append("[.tab.]");
+			case '\n' -> bf.append("[.newline.]");
+			case '\r' -> bf.append("[.carriage-return.]");
+			case '\b' -> bf.append("[.backspace.]");
+			case   11 -> bf.append("[.vertical-tab.]");
+			case   12 -> bf.append("[.form-feed.]");
+			case   14 -> bf.append("[.SO.]");
+			case   31 -> bf.append("[.US.]");
+			case  '~' -> bf.append("[.tilde.]");
+			case  ',' -> bf.append("[.comma.]");
+			case  '[' -> bf.append("[.left-square-bracket.]");
+			case  ']' -> bf.append("[.right-square-bracket.]");
+			default ->
 			{
 				if(c<' ' || c>127)
 					bf.append("\\u{").append(Integer.toHexString(c)).append('}');
 				else
 					bf.append(c);
 
-				break;
 			}
 		}
 	}

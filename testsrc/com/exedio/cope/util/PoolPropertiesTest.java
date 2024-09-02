@@ -37,12 +37,12 @@ public class PoolPropertiesTest
 			@Override
 			public String get(final String key)
 			{
-				switch(key)
+				return switch(key)
 				{
-					case "idleInitial": return "22";
-					case "idleLimit":   return "33";
-				}
-				return super.get(key);
+					case "idleInitial" -> "22";
+					case "idleLimit"   -> "33";
+					default -> super.get(key);
+				};
 			}
 			@Override
 			public String getDescription()

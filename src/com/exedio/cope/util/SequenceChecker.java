@@ -56,11 +56,11 @@ public final class SequenceChecker
 		final Result result = backing.check(number, counterLost);
 		switch(result)
 		{
-			case early:      break;
-			case inOrder:    countInOrder   ++; break;
-			case outOfOrder: countOutOfOrder++; break;
-			case duplicate:  countDuplicate ++; break;
-			case late:       countLate      ++; break;
+			case early      -> { }
+			case inOrder    -> countInOrder   ++;
+			case outOfOrder -> countOutOfOrder++;
+			case duplicate  -> countDuplicate ++;
+			case late       -> countLate      ++;
 		}
 		return result == Result.duplicate;
 	}

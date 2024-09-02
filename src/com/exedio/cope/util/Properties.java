@@ -410,17 +410,16 @@ public abstract class Properties
 	protected final Field<Boolean> field(final String key, final boolean defaultValue)
 	{
 		return parseField(key, Boolean.class, null, defaultValue, (s) ->
-		{
 			switch(s)
 			{
-				case "true" : return true;
-				case "false": return false;
-				default:
+				case "true"  -> true;
+				case "false" -> false;
+				default ->
 					throw newException(key,
 							"must be either 'true' or 'false', " +
 									"but was '" + s + '\'');
 			}
-		});
+		);
 	}
 
 

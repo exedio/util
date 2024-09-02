@@ -39,12 +39,12 @@ final class CascadeSource
 			if(source==null)
 				throw new NullPointerException();
 
-		switch(sources.length)
+		return switch(sources.length)
 		{
-			case  0: return EMPTY;
-			case  1: return sources[0];
-			default: return new Cascade(sources);
-		}
+			case 0  -> EMPTY;
+			case 1  -> sources[0];
+			default -> new Cascade(sources);
+		};
 	}
 
 	private static class Cascade implements Source
