@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.function.Function.identity;
 
 import java.io.File;
+import java.io.Serial;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -1352,6 +1353,7 @@ public abstract class Properties
 			super(message);
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 @SuppressWarnings("TransientFieldNotInitialized") // OK: handled by readResolve
 public final class MessageDigestFactory implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final String algorithm;
@@ -106,6 +108,7 @@ public final class MessageDigestFactory implements Serializable
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 	 */
+	@Serial
 	private Object readResolve()
 	{
 		return new MessageDigestFactory(algorithm);

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serial;
+
 /**
  * Signals, that a job is to be terminated as soon as possible,
  * when calling
@@ -27,6 +29,7 @@ package com.exedio.cope.util;
  */
 public class JobStop extends RuntimeException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
