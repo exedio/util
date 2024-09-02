@@ -83,6 +83,7 @@
 			<arg line="--select-class ${test}" if:set="test" unless:set="method" />
 			<arg line="--select-method ${test}#${method}" if:set="method" />
 			<arg line="--reports-dir build/testresults/@{name}" />
+			<jvmarg value="-XX:-ShowCodeDetailsInExceptionMessages" />
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<sysproperty key="user.timezone" value="@{userTimezone}" />
 			<assertions><enable/></assertions>
@@ -167,6 +168,7 @@
 				<arg line="--select-class ${test}" if:set="test" unless:set="method" />
 				<arg line="--select-method ${test}#${method}" if:set="method" />
 				<arg line="--reports-dir build/jacocotestresults" />
+				<jvmarg value="-XX:-ShowCodeDetailsInExceptionMessages" />
 				<assertions><enable/></assertions>
 			</java>
 		</jacoco:coverage>
