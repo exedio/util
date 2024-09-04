@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -105,6 +106,7 @@ public class PropertiesProbeRunTest
 
 	static class MyThrowable extends Throwable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		MyThrowable()

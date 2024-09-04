@@ -25,6 +25,7 @@ import static java.util.Calendar.MILLISECOND;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -64,6 +65,7 @@ public final class Day implements Serializable, Comparable<Day>
 		return value!=null ? new Day(value) : null;
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final int year;

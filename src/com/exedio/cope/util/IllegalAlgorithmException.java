@@ -18,10 +18,12 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serial;
 import java.security.NoSuchAlgorithmException;
 
 public final class IllegalAlgorithmException extends IllegalArgumentException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final String algorithm;

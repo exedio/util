@@ -20,8 +20,11 @@ package com.exedio.cope.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
+
 public final class IllegalPropertiesException extends IllegalArgumentException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final String key;

@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static java.lang.Character.isDefined;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import java.util.List;
 public final class CharSet implements Serializable
 {
 	// TODO deserialization should not duplicate predefined charsets
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public static final CharSet ALPHA = new CharSet('A', 'Z', 'a', 'z');

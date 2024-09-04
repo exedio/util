@@ -18,6 +18,7 @@
 
 package com.exedio.cope.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -27,6 +28,7 @@ import java.util.Comparator;
 @Deprecated
 public final class ClassComparator implements Comparator<Class<?>>, Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

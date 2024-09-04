@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
+import java.io.Serial;
 
 public final class PropertiesInstance<P extends Properties>
 {
@@ -78,6 +79,7 @@ public final class PropertiesInstance<P extends Properties>
 
 	public static final class NotSetException extends IllegalStateException
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		NotSetException() { } // just make it package private
