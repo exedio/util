@@ -133,18 +133,8 @@ public final class ExedioVersions
 		}
 	}
 
-	static final class Spec
+	record Spec(String branch, int revision, LocalDate date)
 	{
-		final String branch;
-		final int revision;
-		final LocalDate date;
-
-		Spec(final String branch, final int revision, final LocalDate date)
-		{
-			this.branch = branch;
-			this.revision = revision;
-			this.date = date;
-		}
 	}
 
 	private ExedioVersions()

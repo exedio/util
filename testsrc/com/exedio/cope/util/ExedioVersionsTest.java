@@ -70,9 +70,9 @@ public class ExedioVersionsTest
 		final ExedioVersions.Spec actual = spec(input);
 		assertNotNull(actual, "actual");
 		assertAll(
-				() -> assertEquals(branch, actual.branch, "branch"),
-				() -> assertEquals(revision, actual.revision, "revision"),
-				() -> assertEquals(date, actual.date, "date"));
+				() -> assertEquals(branch, actual.branch(), "branch"),
+				() -> assertEquals(revision, actual.revision(), "revision"),
+				() -> assertEquals(date, actual.date(), "date"));
 	}
 
 	private static final String GIT1 = "c85aff35c85aff35c85aff35c85aff35c85aff35";
