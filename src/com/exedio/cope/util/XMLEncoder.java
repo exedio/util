@@ -39,13 +39,13 @@ public final class XMLEncoder
 			final String replacement;
 			switch(c)
 			{
-				case '&': replacement = "&amp;" ; break;
-				case '<': replacement = "&lt;"  ; break;
-				case '>': replacement = "&gt;"  ; break;
-				case '"': replacement = "&quot;"; break;
-				case '\'':replacement = "&apos;"; break;
-				default:
-					continue;
+				case '&'  -> replacement = "&amp;";
+				case '<'  -> replacement = "&lt;";
+				case '>'  -> replacement = "&gt;";
+				case '"'  -> replacement = "&quot;";
+				case '\'' -> replacement = "&apos;";
+				default ->
+					{ continue; }
 			}
 			if(bf==null)
 				bf = new StringBuilder();
@@ -71,13 +71,13 @@ public final class XMLEncoder
 			final String replacement;
 			switch(c)
 			{
-				case '&': replacement = "&amp;" ; break;
-				case '<': replacement = "&lt;"  ; break;
-				case '>': replacement = "&gt;"  ; break;
-				case '"': replacement = "&quot;"; break;
-				case '\'':replacement = "&apos;"; break;
-				default:
-					continue;
+				case '&'  -> replacement = "&amp;";
+				case '<'  -> replacement = "&lt;";
+				case '>'  -> replacement = "&gt;";
+				case '"'  -> replacement = "&quot;";
+				case '\'' -> replacement = "&apos;";
+				default ->
+					{ continue; }
 			}
 			if(lastPos<pos)
 				bf.append(st, lastPos, pos);
@@ -93,14 +93,15 @@ public final class XMLEncoder
 		final String replacement;
 		switch(c)
 		{
-			case '&': replacement = "&amp;" ; break;
-			case '<': replacement = "&lt;"  ; break;
-			case '>': replacement = "&gt;"  ; break;
-			case '"': replacement = "&quot;"; break;
-			case '\'':replacement = "&apos;"; break;
-			default:
+			case '&'  -> replacement = "&amp;";
+			case '<'  -> replacement = "&lt;";
+			case '>'  -> replacement = "&gt;";
+			case '"'  -> replacement = "&quot;";
+			case '\'' -> replacement = "&apos;";
+			default -> {
 				bf.append(c);
 				return;
+			}
 		}
 		bf.append(replacement);
 	}
