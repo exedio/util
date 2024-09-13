@@ -35,7 +35,7 @@ final class CascadeSource
 {
 	static Source cascade(final Source... sources)
 	{
-		for(final Source source : sources)
+		for(final Source source : requireNonNull(sources, "sources"))
 			if(source==null)
 				throw new NullPointerException();
 
