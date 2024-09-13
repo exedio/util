@@ -75,7 +75,7 @@ public class CascadeSourceTest
 	{
 		assertFails(() ->
 			cascade((Source[])null),
-			NullPointerException.class, null);
+			NullPointerException.class, "sources");
 	}
 
 	@Test void nullElementSingleton()
