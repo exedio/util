@@ -117,7 +117,9 @@ public class DayTest
 	{
 		assertFails(() ->
 			new Day(5555l, null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot invoke \"java.util.TimeZone.getOffset(long)\" " +
+			"because \"tz\" is null");
 	}
 	@Deprecated // OK testing deprecated API
 	@Test void conversionDateDeprecated(final TimeZoneDefaultRule timeZoneDefault) throws ParseException

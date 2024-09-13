@@ -214,7 +214,9 @@ public class PoolCounterTest
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			new PoolCounter((int[])null),
-			NullPointerException.class, null);
+			NullPointerException.class,
+			"Cannot read the array length " +
+			"because \"idleLimits\" is null");
 		assertFails(() ->
 			new PoolCounter(new int[0]),
 			IllegalArgumentException.class,
