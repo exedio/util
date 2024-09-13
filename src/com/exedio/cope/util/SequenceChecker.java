@@ -94,56 +94,73 @@ public final class SequenceChecker
 		return backing.countPending();
 	}
 
-	public static final class Info
+	public record Info(
+			int inOrder,
+			int outOfOrder,
+			int duplicate,
+			int lost,
+			int late,
+			int pending)
 	{
-		private final int inOrder;
-		private final int outOfOrder;
-		private final int duplicate;
-		private final int lost;
-		private final int late;
-		private final int pending;
-
-		public Info(
-				final int inOrder,
-				final int outOfOrder,
-				final int duplicate,
-				final int lost,
-				final int late,
-				final int pending)
+		public Info
 		{
-			this.inOrder    = requireNonNegative(inOrder,    "inOrder");
-			this.outOfOrder = requireNonNegative(outOfOrder, "outOfOrder");
-			this.duplicate  = requireNonNegative(duplicate,  "duplicate");
-			this.lost       = requireNonNegative(lost,       "lost");
-			this.late       = requireNonNegative(late,       "late");
-			this.pending    = requireNonNegative(pending,    "pending");
+			requireNonNegative(inOrder,    "inOrder");
+			requireNonNegative(outOfOrder, "outOfOrder");
+			requireNonNegative(duplicate,  "duplicate");
+			requireNonNegative(lost,       "lost");
+			requireNonNegative(late,       "late");
+			requireNonNegative(pending,    "pending");
 		}
 
+		/**
+		 * @deprecated Use {@link #inOrder()} instead.
+		 */
+		@Deprecated
 		public int getInOrder()
 		{
 			return inOrder;
 		}
 
+		/**
+		 * @deprecated Use {@link #outOfOrder()} instead.
+		 */
+		@Deprecated
 		public int getOutOfOrder()
 		{
 			return outOfOrder;
 		}
 
+		/**
+		 * @deprecated Use {@link #duplicate()} instead.
+		 */
+		@Deprecated
 		public int getDuplicate()
 		{
 			return duplicate;
 		}
 
+		/**
+		 * @deprecated Use {@link #lost()} instead.
+		 */
+		@Deprecated
 		public int getLost()
 		{
 			return lost;
 		}
 
+		/**
+		 * @deprecated Use {@link #late()} instead.
+		 */
+		@Deprecated
 		public int getLate()
 		{
 			return late;
 		}
 
+		/**
+		 * @deprecated Use {@link #pending()} instead.
+		 */
+		@Deprecated
 		public int getPending()
 		{
 			return pending;
@@ -177,36 +194,36 @@ public final class SequenceChecker
 		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getInOrder()
 		{
-			return info.getInOrder();
+			return info.inOrder();
 		}
 
 		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getOutOfOrder()
 		{
-			return info.getOutOfOrder();
+			return info.outOfOrder();
 		}
 
 		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getDuplicate()
 		{
-			return info.getDuplicate();
+			return info.duplicate();
 		}
 
 		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getLost()
 		{
-			return info.getLost();
+			return info.lost();
 		}
 
 		@SuppressWarnings("unused") // OK: renamed deprecated API
 		public int getLate()
 		{
-			return info.getLate();
+			return info.late();
 		}
 	}
 
 	/**
-	 * @deprecated Use {@link Info#getInOrder()} instead.
+	 * @deprecated Use {@link Info#inOrder()} instead.
 	 */
 	@Deprecated
 	public int getCountInOrder()
@@ -215,7 +232,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Info#getOutOfOrder()} instead.
+	 * @deprecated Use {@link Info#outOfOrder()} instead.
 	 */
 	@Deprecated
 	public int getCountOutOfOrder()
@@ -224,7 +241,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Info#getDuplicate()} instead.
+	 * @deprecated Use {@link Info#duplicate()} instead.
 	 */
 	@Deprecated
 	public int getCountDuplicate()
@@ -233,7 +250,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Info#getLost()} instead.
+	 * @deprecated Use {@link Info#lost()} instead.
 	 */
 	@Deprecated
 	public int getCountLost()
@@ -242,7 +259,7 @@ public final class SequenceChecker
 	}
 
 	/**
-	 * @deprecated Use {@link Info#getLate()} instead.
+	 * @deprecated Use {@link Info#late()} instead.
 	 */
 	@Deprecated
 	public int getCountLate()

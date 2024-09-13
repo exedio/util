@@ -235,12 +235,12 @@ public class SequenceCheckerTest
 			sc.getMaxNumber(),
 			IllegalStateException.class,
 			"did not yet check first number");
-		assertEquals(0, sci.getInOrder(),    "countInOrder");
-		assertEquals(0, sci.getOutOfOrder(), "countOutOfOrder");
-		assertEquals(0, sci.getDuplicate(),  "countDuplicate");
-		assertEquals(0, sci.getLost(),       "countLost");
-		assertEquals(0, sci.getLate(),       "countLate");
-		assertEquals(0, sci.getPending(),    "countPending");
+		assertEquals(0, sci.inOrder(),    "countInOrder");
+		assertEquals(0, sci.outOfOrder(), "countOutOfOrder");
+		assertEquals(0, sci.duplicate(),  "countDuplicate");
+		assertEquals(0, sci.lost(),       "countLost");
+		assertEquals(0, sci.late(),       "countLate");
+		assertEquals(0, sci.pending(),    "countPending");
 		assertEquals(0, sc.countPending(),   "countPending");
 	}
 
@@ -258,12 +258,12 @@ public class SequenceCheckerTest
 		final SequenceChecker.Info sci = sc.getInfo();
 		assertEquals(firstNumber,     sc.getFirstNumber(), "firstNumber");
 		assertEquals(maxNumber,       sc.getMaxNumber(),   "maxNumber");
-		assertEquals(countInOrder,    sci.getInOrder(),    "countInOrder");
-		assertEquals(countOutOfOrder, sci.getOutOfOrder(), "countOutOfOrder");
-		assertEquals(countDuplicate,  sci.getDuplicate(),  "countDuplicate");
-		assertEquals(countLost,       sci.getLost(),       "countLost");
-		assertEquals(countLate,       sci.getLate(),       "countLate");
-		assertEquals(countPending,    sci.getPending(),    "countPending");
+		assertEquals(countInOrder,    sci.inOrder(),    "countInOrder");
+		assertEquals(countOutOfOrder, sci.outOfOrder(), "countOutOfOrder");
+		assertEquals(countDuplicate,  sci.duplicate(),  "countDuplicate");
+		assertEquals(countLost,       sci.lost(),       "countLost");
+		assertEquals(countLate,       sci.late(),       "countLate");
+		assertEquals(countPending,    sci.pending(),    "countPending");
 		assertEquals(countPending,    sc.countPending(),   "countPending");
 	}
 }
