@@ -29,22 +29,22 @@ public class SequenceCheckerInfoTest
 	@Test void test()
 	{
 		final Info i = new Info(11, 22, 33, 44, 55, 66);
-		assertEquals(11, i.getInOrder());
-		assertEquals(22, i.getOutOfOrder());
-		assertEquals(33, i.getDuplicate());
-		assertEquals(44, i.getLost());
-		assertEquals(55, i.getLate());
-		assertEquals(66, i.getPending());
+		assertEquals(11, i.inOrder());
+		assertEquals(22, i.outOfOrder());
+		assertEquals(33, i.duplicate());
+		assertEquals(44, i.lost());
+		assertEquals(55, i.late());
+		assertEquals(66, i.pending());
 	}
 	@Test void testMinimum()
 	{
 		final Info i = new Info(0, 0, 0, 0, 0, 0);
-		assertEquals(0, i.getInOrder());
-		assertEquals(0, i.getOutOfOrder());
-		assertEquals(0, i.getDuplicate());
-		assertEquals(0, i.getLost());
-		assertEquals(0, i.getLate());
-		assertEquals(0, i.getPending());
+		assertEquals(0, i.inOrder());
+		assertEquals(0, i.outOfOrder());
+		assertEquals(0, i.duplicate());
+		assertEquals(0, i.lost());
+		assertEquals(0, i.late());
+		assertEquals(0, i.pending());
 	}
 	@Test void testNegative()
 	{
