@@ -36,12 +36,12 @@ public final class ExedioVersions
 	{
 		register(registry, Stream.of(Package.getPackages()).map(p -> new Pack(){
 			@Override
-			public String getName()
+			public String name()
 			{
 				return p.getName();
 			}
 			@Override
-			public String getSpecificationVersion()
+			public String version()
 			{
 				return p.getSpecificationVersion();
 			}
@@ -50,13 +50,13 @@ public final class ExedioVersions
 
 	interface Pack extends Comparable<Pack>
 	{
-		String getName();
-		String getSpecificationVersion();
+		String name();
+		String version();
 
 		@Override
 		default int compareTo(final Pack o)
 		{
-			return getName().compareTo(o.getName());
+			return name().compareTo(o.name());
 		}
 	}
 
@@ -64,12 +64,12 @@ public final class ExedioVersions
 	{
 		final HashSet<String> versionsDone = new HashSet<>();
 		packages.
-				filter(p -> p.getName().startsWith("com.exedio.")).
+				filter(p -> p.name().startsWith("com.exedio.")).
 				sorted().
 				forEach(pack ->
 		{
-			final String packName = pack.getName();
-			final String version = pack.getSpecificationVersion();
+			final String packName = pack.name();
+			final String version = pack.version();
 			if(version==null || version.isEmpty() || !versionsDone.add(version))
 				return;
 

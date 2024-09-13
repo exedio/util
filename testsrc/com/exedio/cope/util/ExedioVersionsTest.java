@@ -159,27 +159,7 @@ public class ExedioVersionsTest
 				registry.getMeters().stream().map(m -> m.getId().toString()).sorted().collect(toList()));
 	}
 
-	static class Pack implements ExedioVersions.Pack
+	record Pack(String name, String version) implements ExedioVersions.Pack
 	{
-		final String name;
-		final String version;
-
-		Pack(final String name, final String version)
-		{
-			this.name = name;
-			this.version = version;
-		}
-
-		@Override
-		public String getName()
-		{
-			return name;
-		}
-
-		@Override
-		public String getSpecificationVersion()
-		{
-			return version;
-		}
 	}
 }
