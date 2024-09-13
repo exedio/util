@@ -47,10 +47,8 @@ final class CascadeSource
 		};
 	}
 
-	private static class Cascade implements Source
+	private record Cascade(Source... sources) implements Source
 	{
-		private final Source[] sources;
-
 		Cascade(final Source... sources)
 		{
 			// TODO check for nested empty

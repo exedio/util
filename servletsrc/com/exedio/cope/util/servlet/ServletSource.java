@@ -82,15 +82,8 @@ public final class ServletSource
 		return new ContextPath(contextPath, keys);
 	}
 
-	private static final class InitParameter implements Source
+	private record InitParameter(ServletContext context) implements Source
 	{
-		private final ServletContext context;
-
-		InitParameter(final ServletContext context)
-		{
-			this.context = context;
-		}
-
 		@Override
 		public String get(final String key)
 		{
