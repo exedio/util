@@ -26,7 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.util.Properties.Source;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import org.junit.jupiter.api.Test;
@@ -53,10 +55,11 @@ public class SourcesUrlTest
 		assertEquals(url.toString(), s.toString());
 	}
 
-	@Test void testNotExists()
+	@Test void testNotExists() throws URISyntaxException, MalformedURLException
 	{
+		final URL url = new URI("https://sourcetest.invalid/sourcesUrlTest.properties").toURL();
 		assertFails(() ->
-			load(new URI("https://sourcetest.invalid/sourcesUrlTest.properties").toURL()),
+			load(url),
 			RuntimeException.class,
 			"property url https://sourcetest.invalid/sourcesUrlTest.properties not found.",
 			UnknownHostException.class);
