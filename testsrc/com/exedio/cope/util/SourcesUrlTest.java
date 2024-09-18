@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.util.Properties.Source;
+import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,7 @@ public class SourcesUrlTest
 	@Test void testNotExists()
 	{
 		assertFails(() ->
-			load(new URL("https://sourcetest.invalid/sourcesUrlTest.properties")),
+			load(new URI("https://sourcetest.invalid/sourcesUrlTest.properties").toURL()),
 			RuntimeException.class,
 			"property url https://sourcetest.invalid/sourcesUrlTest.properties not found.",
 			UnknownHostException.class);
