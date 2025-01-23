@@ -97,7 +97,7 @@
       <exclusions>
         <exclusion>
           <groupId>org.objenesis</groupId>
-          <artifactId>*</artifactId>
+          <artifactId>objenesis</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
