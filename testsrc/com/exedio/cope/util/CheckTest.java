@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Check.requireAtLeast;
 import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireInRange;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.util.Check.requireNonNegative;
@@ -228,6 +229,22 @@ public class CheckTest
 			requireAtLeast(ofSeconds(55), "name", null),
 			NullPointerException.class,
 			"minimum");
+	}
+	@Test void testRequireInRangeInt()
+	{
+		assertEquals(-3, requireInRange(-3, "name", -3, 12));
+		assertEquals(11, requireInRange(11, "name", -3, 12));
+	}
+	@Test void testRequireInRangeIntFails()
+	{
+		assertFails(() ->
+				requireInRange(-4, "name", -3, 12),
+				IllegalArgumentException.class,
+				"name must be at least -3 and lower than 12, but was -4");
+		assertFails(() ->
+						requireInRange(12, "name", -3, 12),
+				IllegalArgumentException.class,
+				"name must be at least -3 and lower than 12, but was 12");
 	}
 
 	@Test void testRequireNonEmptyString()
