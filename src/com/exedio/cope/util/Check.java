@@ -105,6 +105,13 @@ public final class Check
 		return value;
 	}
 
+	public static int requireInRange(final int value, final String name, final int minimumInclusive, final int maximumExclusive)
+	{
+		if(value<minimumInclusive || value>=maximumExclusive)
+			throw new IllegalArgumentException(name + " must be at least " + minimumInclusive + " and lower than " + maximumExclusive + ", but was " + value);
+		return value;
+	}
+
 	public static String requireNonEmpty(final String value, final String name)
 	{
 		if(value==null)
