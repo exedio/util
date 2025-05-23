@@ -315,4 +315,21 @@ public class CharSetTest
 		assertEquals(new CharSet('0', '0', '9', '9'), new CharSet('0', '1', '3', '6', '8', '9').remove('1', '8'));
 		assertEquals(null, new CharSet('0', '1', '3', '6', '8', '9').remove('0', '9'));
 	}
+
+	@Test void surrogates()
+	{
+		final String grinningFace = "\ud83d\ude00"; // Unicode code point U+1F600
+		final CharSet surrogates = new CharSet(Character.MIN_SURROGATE, Character.MAX_SURROGATE);
+		final CharSet noSurrogates = new CharSet('\u0000', (char)(Character.MIN_SURROGATE-1), (char)(Character.MAX_SURROGATE+1), '\uffff');
+		final CharSet noControlsExceptNewlineAndTab = new CharSet('\t', '\n', '\r', '\r', ' ', '\uffff');
+		assertEquals(-1, surrogates.indexOfNotContains(grinningFace));
+		assertEquals(0, surrogates.indexOfNotContains("xyz"));
+		assertEquals(0, noSurrogates.indexOfNotContains(grinningFace));
+		assertEquals(-1, noSurrogates.indexOfNotContains("xyz"));
+		assertEquals(-1, noControlsExceptNewlineAndTab.indexOfNotContains(grinningFace));
+		assertEquals(2, noControlsExceptNewlineAndTab.indexOfNotContains(grinningFace+'\u0007'));
+		new CharSet('a', '\ud812'); // TODO: it should not be possible to create a CharSet that allows some (but not all) surrogates
+		new CharSet('\ud812', '\ue000'); // TODO: it should not be possible to create a CharSet that allows some (but not all) surrogates
+		new CharSet('\ud812', '\ud813'); // TODO: it should not be possible to create a CharSet that allows some (but not all) surrogates
+	}
 }
