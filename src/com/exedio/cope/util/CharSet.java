@@ -116,6 +116,10 @@ public final class CharSet implements Serializable
 					throw new IllegalArgumentException("inconsistent character set, no distance between character '" + endOfLastArea + "' on position " + (i-1) + " and character '" + areaStart + "' on position " + i);
 			}
 			endOfLastArea = areaEnd;
+			if (Character.isSurrogate(areaStart) && areaStart!=Character.MIN_SURROGATE)
+				throw new IllegalArgumentException("CharSet must allow either none or all surrogate chars - \\u" + Integer.toString(areaStart, 16) + " on position " + i + " is not a valid area start");
+			if (Character.isSurrogate(areaEnd) && areaEnd!=Character.MAX_SURROGATE)
+				throw new IllegalArgumentException("CharSet must allow either none or all surrogate chars - \\u" + Integer.toString(areaEnd, 16) + " on position " + (i+1) + " is not a valid area end");
 		}
 
 		this.set = set;
