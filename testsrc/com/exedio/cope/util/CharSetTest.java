@@ -328,8 +328,20 @@ public class CharSetTest
 		assertEquals(-1, noSurrogates.indexOfNotContains("xyz"));
 		assertEquals(-1, noControlsExceptNewlineAndTab.indexOfNotContains(grinningFace));
 		assertEquals(2, noControlsExceptNewlineAndTab.indexOfNotContains(grinningFace+'\u0007'));
-		new CharSet('a', '\ud812'); // TODO: it should not be possible to create a CharSet that allows some (but not all) surrogates
-		new CharSet('\ud812', '\ue000'); // TODO: it should not be possible to create a CharSet that allows some (but not all) surrogates
-		new CharSet('\ud812', '\ud813'); // TODO: it should not be possible to create a CharSet that allows some (but not all) surrogates
+		assertFails(
+				() -> new CharSet('a', '\ud812'),
+				IllegalArgumentException.class,
+				"CharSet must allow either none or all surrogate chars - \\ud812 on position 1 is not a valid area end"
+		);
+		assertFails(
+				() -> new CharSet('\ud812', '\ue000'),
+				IllegalArgumentException.class,
+				"CharSet must allow either none or all surrogate chars - \\ud812 on position 0 is not a valid area start"
+		);
+		assertFails(
+				() -> new CharSet('\ud812', '\ud813'),
+				IllegalArgumentException.class,
+				"CharSet must allow either none or all surrogate chars - \\ud812 on position 0 is not a valid area start"
+		);
 	}
 }
