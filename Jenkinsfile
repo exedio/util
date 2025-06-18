@@ -70,6 +70,9 @@ try
 				skipPublishingChecks: true,
 				sourceDirectories: [[path: 'src']]
 			)
+			shSilent("rm -rf coverage-java/ coverage-sources.zip")
+			assertGitUnchanged()
+
 			archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
 			plot(
 				csvFileName: 'plots.csv',
