@@ -30,7 +30,7 @@ public final class XMLEncoder
 		if(st==null)
 			return null;
 
-		StringBuilder bf = null;
+		StringBuilder sb = null;
 		final int length = st.length();
 		int lastPos = 0;
 		for(int pos = 0; pos<length; pos++)
@@ -47,21 +47,21 @@ public final class XMLEncoder
 				default ->
 					{ continue; }
 			}
-			if(bf==null)
-				bf = new StringBuilder();
+			if(sb==null)
+				sb = new StringBuilder();
 			if(lastPos<pos)
-				bf.append(st, lastPos, pos);
-			bf.append(replacement);
+				sb.append(st, lastPos, pos);
+			sb.append(replacement);
 			lastPos = pos + 1;
 		}
-		if(bf==null)
+		if(sb==null)
 			return st;
 		if(lastPos<length)
-			bf.append(st, lastPos, length);
-		return bf.toString();
+			sb.append(st, lastPos, length);
+		return sb.toString();
 	}
 
-	public static void append(final StringBuilder bf, final String st)
+	public static void append(final StringBuilder sb, final String st)
 	{
 		final int length = st.length();
 		int lastPos = 0;
@@ -80,15 +80,15 @@ public final class XMLEncoder
 					{ continue; }
 			}
 			if(lastPos<pos)
-				bf.append(st, lastPos, pos);
-			bf.append(replacement);
+				sb.append(st, lastPos, pos);
+			sb.append(replacement);
 			lastPos = pos + 1;
 		}
 		if(lastPos<length)
-			bf.append(st, lastPos, length);
+			sb.append(st, lastPos, length);
 	}
 
-	public static void append(final StringBuilder bf, final char c)
+	public static void append(final StringBuilder sb, final char c)
 	{
 		final String replacement;
 		switch(c)
@@ -99,10 +99,10 @@ public final class XMLEncoder
 			case '"'  -> replacement = "&quot;";
 			case '\'' -> replacement = "&apos;";
 			default -> {
-				bf.append(c);
+				sb.append(c);
 				return;
 			}
 		}
-		bf.append(replacement);
+		sb.append(replacement);
 	}
 }

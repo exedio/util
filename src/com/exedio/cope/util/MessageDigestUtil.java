@@ -39,9 +39,9 @@ public final class MessageDigestUtil
 		}
 		catch(final NoSuchAlgorithmException e)
 		{
-			final StringBuilder bf = new StringBuilder("no such MessageDigest ");
-			bf.append(algorithm);
-			bf.append(", choose one of: ");
+			final StringBuilder sb = new StringBuilder("no such MessageDigest ");
+			sb.append(algorithm);
+			sb.append(", choose one of: ");
 
 			boolean first = true;
 			Provider lastProvider = null;
@@ -53,10 +53,10 @@ public final class MessageDigestUtil
 					{
 						if(lastProvider!=provider)
 						{
-							bf.append('(');
-							bf.append(provider.getName());
-							bf.append(')');
-							bf.append(':');
+							sb.append('(');
+							sb.append(provider.getName());
+							sb.append(')');
+							sb.append(':');
 							lastProvider = provider;
 							first = true;
 						}
@@ -64,14 +64,14 @@ public final class MessageDigestUtil
 						if(first)
 							first = false;
 						else
-							bf.append(',');
+							sb.append(',');
 
-						bf.append(service.getAlgorithm());
+						sb.append(service.getAlgorithm());
 					}
 				}
 			}
 
-			throw new IllegalAlgorithmException(algorithm, bf.toString(), e);
+			throw new IllegalAlgorithmException(algorithm, sb.toString(), e);
 		}
 	}
 

@@ -192,29 +192,29 @@ public final class CharSet implements Serializable
 	@Override
 	public String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append('[');
-		toString(bf, set[0]);
-		bf.append('-');
-		toString(bf, set[1]);
+		final StringBuilder sb = new StringBuilder();
+		sb.append('[');
+		toString(sb, set[0]);
+		sb.append('-');
+		toString(sb, set[1]);
 		for(int i = 2; i<set.length; i+=2)
 		{
-			bf.append(',');
-			toString(bf, set[i]);
-			bf.append('-');
-			toString(bf, set[i+1]);
+			sb.append(',');
+			toString(sb, set[i]);
+			sb.append('-');
+			toString(sb, set[i+1]);
 		}
-		bf.append(']');
+		sb.append(']');
 
-		return bf.toString();
+		return sb.toString();
 	}
 
-	private static void toString(final StringBuilder bf, final char c)
+	private static void toString(final StringBuilder sb, final char c)
 	{
 		if(isDefined(c))
-			bf.append(c);
+			sb.append(c);
 		else
-			bf.append("nd{").
+			sb.append("nd{").
 				append(Integer.toHexString(c)).
 				append('}');
 	}
@@ -305,12 +305,12 @@ public final class CharSet implements Serializable
 	private StringBuilder getRegularExpressionCharacterClass()
 	{
 		// [0-9,a-z,A-Z]
-		final StringBuilder bf = new StringBuilder();
-		bf.append("[");
+		final StringBuilder sb = new StringBuilder();
+		sb.append("[");
 
 		if(contains('-'))
 		{
-			bf.append('-');
+			sb.append('-');
 		}
 
 		for(int i = 0; i<set.length; i+=2)
@@ -326,18 +326,18 @@ public final class CharSet implements Serializable
 			if(from<=to)
 			{
 				if(from==to)
-					append(bf, from);
+					append(sb, from);
 				else // from<to
 				{
-					append(bf, from);
-					bf.append('-');
-					append(bf, to);
+					append(sb, from);
+					sb.append('-');
+					append(sb, to);
 				}
 			}
 		}
 
-		bf.append("]");
-		return bf;
+		sb.append("]");
+		return sb;
 	}
 
 	public String getRegularExpressionForInvalid7BitChars()
@@ -352,30 +352,30 @@ public final class CharSet implements Serializable
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
-	private static void append(final StringBuilder bf, final char c)
+	private static void append(final StringBuilder sb, final char c)
 	{
 		switch(c)
 		{
 			// see https://dev.mysql.com/doc/refman/5.5/en/regexp.html
-			case    0 -> bf.append("[.NUL.]");
-			case '\t' -> bf.append("[.tab.]");
-			case '\n' -> bf.append("[.newline.]");
-			case '\r' -> bf.append("[.carriage-return.]");
-			case '\b' -> bf.append("[.backspace.]");
-			case   11 -> bf.append("[.vertical-tab.]");
-			case   12 -> bf.append("[.form-feed.]");
-			case   14 -> bf.append("[.SO.]");
-			case   31 -> bf.append("[.US.]");
-			case  '~' -> bf.append("[.tilde.]");
-			case  ',' -> bf.append("[.comma.]");
-			case  '[' -> bf.append("[.left-square-bracket.]");
-			case  ']' -> bf.append("[.right-square-bracket.]");
+			case    0 -> sb.append("[.NUL.]");
+			case '\t' -> sb.append("[.tab.]");
+			case '\n' -> sb.append("[.newline.]");
+			case '\r' -> sb.append("[.carriage-return.]");
+			case '\b' -> sb.append("[.backspace.]");
+			case   11 -> sb.append("[.vertical-tab.]");
+			case   12 -> sb.append("[.form-feed.]");
+			case   14 -> sb.append("[.SO.]");
+			case   31 -> sb.append("[.US.]");
+			case  '~' -> sb.append("[.tilde.]");
+			case  ',' -> sb.append("[.comma.]");
+			case  '[' -> sb.append("[.left-square-bracket.]");
+			case  ']' -> sb.append("[.right-square-bracket.]");
 			default ->
 			{
 				if(c<' ' || c>127)
-					bf.append("\\u{").append(Integer.toHexString(c)).append('}');
+					sb.append("\\u{").append(Integer.toHexString(c)).append('}');
 				else
-					bf.append(c);
+					sb.append(c);
 
 			}
 		}
