@@ -1116,14 +1116,14 @@ public abstract class Properties
 					for(final Field<?> field : fields)
 						allowedValueList.add(field.key);
 
-					final StringBuilder bf = new StringBuilder();
-					bf.append("property ").append(key).
+					final StringBuilder sb = new StringBuilder();
+					sb.append("property ").append(key).
 						append(" in ").append(sourceDescription).
 						append(" is not allowed, but only one of ").append(allowedValueList);
 					if(!allowedPrefixes.isEmpty())
-						bf.append(" or one starting with ").append(allowedPrefixes);
-					bf.append('.');
-					throw new IllegalArgumentException(bf.toString());
+						sb.append(" or one starting with ").append(allowedPrefixes);
+					sb.append('.');
+					throw new IllegalArgumentException(sb.toString());
 				}
 			}
 		}

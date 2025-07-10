@@ -28,14 +28,14 @@ public class XMLEncoderTest
 	private static void assertIt(final String expected, final String actual)
 	{
 		assertEquals(expected, XMLEncoder.encode(actual));
-		final StringBuilder bf = new StringBuilder();
-		XMLEncoder.append(bf, actual);
-		assertEquals(expected, bf.toString());
+		final StringBuilder sb = new StringBuilder();
+		XMLEncoder.append(sb, actual);
+		assertEquals(expected, sb.toString());
 		if(actual.length()==1)
 		{
-			bf.setLength(0);
-			XMLEncoder.append(bf, actual.charAt(0));
-			assertEquals(expected, bf.toString());
+			sb.setLength(0);
+			XMLEncoder.append(sb, actual.charAt(0));
+			assertEquals(expected, sb.toString());
 		}
 	}
 
@@ -65,7 +65,7 @@ public class XMLEncoderTest
 			XMLEncoder.append(null, "x"),
 			NullPointerException.class,
 			"Cannot invoke \"java.lang.StringBuilder.append(java.lang.CharSequence, int, int)\" " +
-			"because \"bf\" is null");
+			"because \"sb\" is null");
 		//noinspection DataFlowIssue
 		assertFails(() ->
 			XMLEncoder.append(new StringBuilder(), null),
@@ -76,11 +76,11 @@ public class XMLEncoderTest
 			XMLEncoder.append(null, 'x'),
 			NullPointerException.class,
 			"Cannot invoke \"java.lang.StringBuilder.append(char)\" " +
-			"because \"bf\" is null");
+			"because \"sb\" is null");
 		assertFails(() ->
 			XMLEncoder.append(null, '&'),
 			NullPointerException.class,
 			"Cannot invoke \"java.lang.StringBuilder.append(String)\" " +
-			"because \"bf\" is null");
+			"because \"sb\" is null");
 	}
 }

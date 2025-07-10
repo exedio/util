@@ -83,9 +83,9 @@ public class HexTest
 	{
 		assertEquals(expected, Hex.encodeLower(actual));
 		assertEquals(expected.toUpperCase(Locale.UK), Hex.encodeUpper(actual));
-		final StringBuilder bf = new StringBuilder();
-		Hex.append(bf, actual, actual.length);
-		assertEquals(expected, bf.toString());
+		final StringBuilder sb = new StringBuilder();
+		Hex.append(sb, actual, actual.length);
+		assertEquals(expected, sb.toString());
 
 		assertTrue(Arrays.equals(actual, Hex.decodeLower(expected)));
 	}
