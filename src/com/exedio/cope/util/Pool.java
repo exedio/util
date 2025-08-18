@@ -260,6 +260,7 @@ public final class Pool<E>
 				counter!=null ? new PoolCounter(counter) : null);
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	public static final class Info
 	{
 		private final int idleLimit;
