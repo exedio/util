@@ -844,6 +844,7 @@ public abstract class Properties
 						throw (RuntimeException)target;
 					else
 						// TODO test
+						//noinspection DuplicateExpressions
 						throw newException(key,
 								"names a class " + classRaw.getName() + " " +
 								"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + "), " +
@@ -852,6 +853,7 @@ public abstract class Properties
 				catch(final ReflectiveOperationException e)
 				{
 					// TODO test
+					//noinspection DuplicateExpressions
 					throw newException(key,
 							"names a class " + classRaw.getName() + " " +
 							"annotated by @" + ServiceProperties.class.getSimpleName() + '(' + propertiesClass.getName() + "), " +
@@ -1048,7 +1050,7 @@ public abstract class Properties
 	}
 
 
-	@SuppressWarnings({"unused", "ResultOfObjectAllocationIgnored"})
+	@SuppressWarnings({"unused", "ResultOfObjectAllocationIgnored", "MethodMayBeStatic"})
 	final <E> void copy(final String key, final Field<E> field)
 	{
 		new Field<>(key, field);

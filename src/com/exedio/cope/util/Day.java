@@ -48,6 +48,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *
  * @author Ralf Wiebicke
  */
+@SuppressWarnings("ClassCanBeRecord")
 public final class Day implements Serializable, Comparable<Day>
 {
 	public static Day valueOf(final Date value, final TimeZone zone)

@@ -131,7 +131,9 @@ public class CalendarTest
 
 		cal.setTime(setDate);
 		assertEquals(setDate, cal.getTime());
+		//noinspection MagicConstant
 		assertEquals(fieldValue, cal.get(field));
+		//noinspection MagicConstant
 		cal.set(field, 0);
 		assertEquals(
 				getDate, cal.getTime(),
