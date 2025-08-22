@@ -22,12 +22,112 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
+import java.util.function.LongSupplier;
 
 public final class JobContexts
 {
 	// vain -------------------
 
 	public static final JobContext EMPTY = new EmptyJobContext();
+
+
+	// defer -------------------
+
+	public static JobContext deferToProgress(
+			final JobContext target,
+			final Duration durationPerProgress)
+	{
+		return deferToProgress(target, durationPerProgress, System::nanoTime);
+	}
+
+	private static final Duration DEFERRAL_LIMIT = Duration.ofMinutes(1);
+
+	static JobContext deferToProgress(
+			final JobContext target,
+			final Duration durationPerProgress,
+			final LongSupplier now)
+	{
+		requireNonNull(durationPerProgress, "durationPerProgress");
+		if(durationPerProgress.isZero())
+			return target;
+		if(durationPerProgress.isNegative())
+			throw new IllegalArgumentException("durationPerProgress must be greater or equal zero, but was " + durationPerProgress);
+		// plausibility check
+		if(durationPerProgress.compareTo(DEFERRAL_LIMIT)>0)
+			throw new IllegalArgumentException("durationPerProgress must be less or equal " + DEFERRAL_LIMIT + ", but was " + durationPerProgress);
+
+		return new DeferToProgress(
+				target, now,
+				durationPerProgress.toNanos()); // checks whether fits into nanos
+	}
+
+	private static final class DeferToProgress extends ProxyJobContext
+	{
+		private final LongSupplier now;
+		private final long nanosPerProgress;
+
+		private boolean noProgressYet = true;
+		private long firstProgressNanos = Long.MAX_VALUE;
+		private long progress = 0;
+
+		private DeferToProgress(
+				final JobContext target,
+				final LongSupplier now,
+				final long nanosPerProgress)
+		{
+			super(target);
+			this.now = now;
+			this.nanosPerProgress = nanosPerProgress;
+		}
+
+		@Override
+		public Duration requestsDeferral()
+		{
+			return max(
+					super.requestsDeferral(),
+					requestsDeferralMine());
+		}
+
+		private Duration requestsDeferralMine()
+		{
+			if(noProgressYet)
+				return Duration.ZERO;
+
+			// TODO will fail for long durations
+			final long passedNanos = Math.subtractExact(now.getAsLong(), firstProgressNanos);
+			final long requiredNanos = Math.multiplyExact(progress, nanosPerProgress);
+			final long nanosToWait = Math.subtractExact(requiredNanos, passedNanos);
+			if(nanosToWait<=0)
+				return Duration.ZERO;
+
+			return Duration.ofNanos(nanosToWait);
+		}
+
+		@Override
+		public void incrementProgress()
+		{
+			super.incrementProgress();
+			handleFirstProgress();
+			progress++;
+		}
+
+		@Override
+		public void incrementProgress(final int delta)
+		{
+			super.incrementProgress(delta);
+			handleFirstProgress();
+			progress += delta;
+		}
+
+		private void handleFirstProgress()
+		{
+			if(noProgressYet)
+			{
+				firstProgressNanos = now.getAsLong();
+				noProgressYet = false;
+			}
+		}
+	}
 
 
 	// sleep ------------------

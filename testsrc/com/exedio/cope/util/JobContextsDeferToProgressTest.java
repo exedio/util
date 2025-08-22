@@ -24,7 +24,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
-import static com.exedio.cope.util.MyJobContexts.deferToProgress;
+import static com.exedio.cope.util.JobContexts.deferToProgress;
 import static java.time.Duration.ZERO;
 import static java.time.Duration.ofMinutes;
 import static java.time.Duration.ofNanos;
