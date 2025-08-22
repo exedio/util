@@ -128,7 +128,6 @@ public final class JobContexts
 		}
 
 		@Override
-		@Deprecated // Needed for jdk 1.5
 		public boolean hasNext()
 		{
 			try
