@@ -20,11 +20,11 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package com.exedio.project.feature.util;
+package com.exedio.cope.util;
 
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
-import static com.exedio.project.feature.util.MyJobContexts.deferToProgress;
-import static com.exedio.project.junit.Assert.assertFails;
+import static com.exedio.cope.util.MyJobContexts.deferToProgress;
 import static java.time.Duration.ZERO;
 import static java.time.Duration.ofMinutes;
 import static java.time.Duration.ofNanos;
@@ -32,8 +32,6 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.util.AssertionErrorJobContext;
-import com.exedio.cope.util.JobContext;
 import java.time.Duration;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;

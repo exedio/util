@@ -20,12 +20,10 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package com.exedio.project.feature.util;
+package com.exedio.cope.util;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.ProxyJobContext;
 import java.time.Duration;
 import java.util.function.LongSupplier;
 
