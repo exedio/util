@@ -38,6 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public final class CopeAssert
 {
@@ -53,6 +54,15 @@ public final class CopeAssert
 				!expected.containsAll(actual) ||
 				!actual.containsAll(expected))
 			fail("expected "+expected+", but was "+actual);
+
+		expected.stream().distinct().forEach(p -> {
+			final long expectedCount = expected.stream().filter(t -> Objects.equals(p, t)).count();
+			final long actualCount = actual.stream().filter(t -> Objects.equals(p, t)).count();
+			if (expectedCount != actualCount)
+			{
+				fail("expected "+expected+", but was "+actual);
+			}
+		});
 	}
 
 	public static <T> void assertContains(final Collection<T> actual)
