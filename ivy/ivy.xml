@@ -31,7 +31,7 @@
 		<conf visibility="private" name="ide" extends="runtime,servlet,test"
 				description="classpath for IDEs such as Eclipse and IntelliJ, includes java sources and changelogs" />
 	</configurations>
-	<publications>
+	<publications defaultconf="SPECIFY_A_CONFIGURATION">
 		<artifact name="&artifacts.name;" conf="runtime"   type="jar" ext="jar" />
 		<artifact name="&artifacts.name;" conf="sources"   type="src" ext="zip" />
 		<artifact name="&artifacts.name;" conf="changelog" type="log" ext="txt" />
