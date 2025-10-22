@@ -780,7 +780,7 @@ public abstract class Properties
 		{
 			try
 			{
-				return Class.forName(name);
+				return replaceAlias(Class.forName(name), key);
 			}
 			catch(final ClassNotFoundException e)
 			{
@@ -881,6 +881,21 @@ public abstract class Properties
 					"but was " + classRaw.getName(), e);
 		}
 		return new ServiceFactory<>(constructor, properties);
+	}
+
+	private Class<?> replaceAlias(final Class<?> clazz, final String key)
+	{
+		Class<?> result = clazz;
+		for(int count = 30; count>0; count--)
+		{
+			final var ann = result.getAnnotation(ServiceAlias.class);
+			if(ann==null)
+				return result;
+
+			result = ann.value();
+		}
+		throw newException(key,
+				"@ServiceAlias loop for " + clazz.getName() + " aborted after 30 iterations");
 	}
 
 	@Nonnull
