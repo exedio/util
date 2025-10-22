@@ -150,6 +150,68 @@ public class PropertiesServiceTest
 				ClassNotFoundException.class);
 	}
 
+	@Test void testAlias()
+	{
+		final java.util.Properties p = minimal();
+		p.setProperty("mandatory", ThreeAlias.class.getName());
+		p.setProperty("optional",  FourAlias.class.getName());
+		final MyProps props = new MyProps(p);
+		props.assertIt();
+
+		assertEquals(Three.class, props.mandatory.getServiceClass());
+		assertEquals(Four .class, props.optional .getServiceClass());
+		assertEquals(Three.class, props.mandatoryF.getValue());
+		assertEquals(Four .class, props.optionalF .getValue());
+		assertEquals(Three.class.getName(), props.mandatoryF.getValueString());
+		assertEquals(Four .class.getName(), props.optionalF .getValueString());
+		assertTrue(props.mandatoryF.isSpecified());
+		assertTrue(props.optionalF .isSpecified());
+
+		final MyService mandatory = props.mandatory.newInstance("mandatoryParameter");
+		final MyService optional  = props.optional .newInstance("optionalParameter");
+		assertEquals(Three.class, mandatory.getClass());
+		assertEquals(Four .class, optional .getClass());
+		assertEquals("mandatoryParameter", mandatory.parameter);
+		assertEquals("optionalParameter",  optional .parameter);
+	}
+
+	@Test void testAlias2()
+	{
+		final java.util.Properties p = minimal();
+		p.setProperty("mandatory", ThreeAlias2.class.getName());
+		p.setProperty("optional",  FourAlias2.class.getName());
+		final MyProps props = new MyProps(p);
+		props.assertIt();
+		props.assertIt();
+
+		assertEquals(Three.class, props.mandatory.getServiceClass());
+		assertEquals(Four .class, props.optional .getServiceClass());
+		assertEquals(Three.class, props.mandatoryF.getValue());
+		assertEquals(Four .class, props.optionalF .getValue());
+		assertEquals(Three.class.getName(), props.mandatoryF.getValueString());
+		assertEquals(Four .class.getName(), props.optionalF .getValueString());
+		assertTrue(props.mandatoryF.isSpecified());
+		assertTrue(props.optionalF .isSpecified());
+
+		final MyService mandatory = props.mandatory.newInstance("mandatoryParameter");
+		final MyService optional  = props.optional .newInstance("optionalParameter");
+		assertEquals(Three.class, mandatory.getClass());
+		assertEquals(Four .class, optional .getClass());
+		assertEquals("mandatoryParameter", mandatory.parameter);
+		assertEquals("optionalParameter",  optional .parameter);
+	}
+
+	@Test void testAliasLoop()
+	{
+		final java.util.Properties p = minimal();
+		p.setProperty("mandatory", AliasLoop1.class.getName());
+		assertFails(
+				() -> new MyProps(p),
+				IllegalPropertiesException.class,
+				"property mandatory in sourceDescription @ServiceAlias loop for " + AliasLoop1.class.getName() + " " +
+				"aborted after 30 iterations");
+	}
+
 	@Test void testWrongAbstract()
 	{
 		final String name = WrongAbstract.class.getName();
@@ -238,6 +300,15 @@ public class PropertiesServiceTest
 	static final String TWO   = Two  .class.getName();
 	static final String THREE = Three.class.getName();
 	static final String FOUR  = Four .class.getName();
+
+	@ServiceAlias(Three.class) private static final class ThreeAlias { private ThreeAlias(@SuppressWarnings("unused") final double dummy) {} }
+	@ServiceAlias(Four .class) private static final class FourAlias  { private FourAlias (@SuppressWarnings("unused") final double dummy) {} }
+
+	@ServiceAlias(ThreeAlias.class) private static final class ThreeAlias2 { private ThreeAlias2(@SuppressWarnings("unused") final double dummy) {} }
+	@ServiceAlias(FourAlias .class) private static final class FourAlias2  { private FourAlias2 (@SuppressWarnings("unused") final double dummy) {} }
+
+	@ServiceAlias(AliasLoop2.class) @SuppressWarnings("EmptyClass") private static final class AliasLoop1 { }
+	@ServiceAlias(AliasLoop1.class) @SuppressWarnings("EmptyClass") private static final class AliasLoop2 { }
 
 	static class MyProps extends MyProperties
 	{
