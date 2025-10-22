@@ -61,6 +61,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("AbstractClassWithoutAbstractMethods") // OK: instantiating makes no sense without subclass
 public abstract class Properties
@@ -890,7 +892,16 @@ public abstract class Properties
 		{
 			final var ann = result.getAnnotation(ServiceAlias.class);
 			if(ann==null)
+			{
+				if(clazz!=result)
+					log.warn(
+							"key {} set to {}, better use alias {} (specified by @ServiceAlias annotation)",
+							key,
+							clazz.getName(),
+							result.getName());
+
 				return result;
+			}
 
 			result = ann.value();
 		}
@@ -1388,6 +1399,8 @@ public abstract class Properties
 	{
 		return Collections.emptyList();
 	}
+
+	private static final Logger log = LoggerFactory.getLogger(Properties.class);
 
 	// ------------------- deprecated stuff -------------------
 
