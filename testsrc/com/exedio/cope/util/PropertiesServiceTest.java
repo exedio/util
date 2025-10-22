@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 public class PropertiesServiceTest
 {
@@ -80,8 +81,10 @@ public class PropertiesServiceTest
 		assertEquals(55, nested.properties.nestedB);
 	}
 
-	@Test void testSet()
+	@ExtendWith(Log.class)
+	@Test void testSet(final Log log)
 	{
+		log.start();
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", THREE);
 		p.setProperty("optional",  FOUR);
@@ -96,6 +99,7 @@ public class PropertiesServiceTest
 		assertEquals(FOUR,  props.optionalF .getValueString());
 		assertTrue(props.mandatoryF.isSpecified());
 		assertTrue(props.optionalF .isSpecified());
+		log.assertEmpty();
 	}
 
 	@Test void testSetNested()
@@ -150,12 +154,23 @@ public class PropertiesServiceTest
 				ClassNotFoundException.class);
 	}
 
-	@Test void testAlias()
+	@ExtendWith(Log.class)
+	@Test void testAlias(final Log log)
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", ThreeAlias.class.getName());
 		p.setProperty("optional",  FourAlias.class.getName());
+		log.start();
 		final MyProps props = new MyProps(p);
+		log.assertWarn(
+				"key mandatory set to " + ThreeAlias.class.getName() + ", " +
+				"better use alias " + THREE + " " +
+				"(specified by @ServiceAlias annotation)");
+		log.assertWarn(
+				"key optional set to " +  FourAlias.class.getName() + ", " +
+				"better use alias " + FOUR + " " +
+				"(specified by @ServiceAlias annotation)");
+		log.assertEmpty();
 		props.assertIt();
 
 		assertEquals(Three.class, props.mandatory.getServiceClass());
@@ -175,12 +190,23 @@ public class PropertiesServiceTest
 		assertEquals("optionalParameter",  optional .parameter);
 	}
 
-	@Test void testAlias2()
+	@ExtendWith(Log.class)
+	@Test void testAlias2(final Log log)
 	{
 		final java.util.Properties p = minimal();
 		p.setProperty("mandatory", ThreeAlias2.class.getName());
 		p.setProperty("optional",  FourAlias2.class.getName());
+		log.start();
 		final MyProps props = new MyProps(p);
+		log.assertWarn(
+				"key mandatory set to " + ThreeAlias2.class.getName() + ", " +
+				"better use alias " + THREE + " " +
+				"(specified by @ServiceAlias annotation)");
+		log.assertWarn(
+				"key optional set to " + FourAlias2.class.getName() + ", " +
+				"better use alias " + FOUR + " " +
+				"(specified by @ServiceAlias annotation)");
+		log.assertEmpty();
 		props.assertIt();
 		props.assertIt();
 
