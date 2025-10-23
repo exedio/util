@@ -37,7 +37,7 @@
 		<artifact name="&artifacts.name;" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION">
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25">
+		<dependency org="org.slf4j" name="slf4j-api" rev="2.0.16">
 			<conf name="runtime" mapped="default" />
 			<!-- sources do not work reliably on ivy cache hits -->
 		</dependency>
