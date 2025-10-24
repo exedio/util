@@ -37,7 +37,7 @@
 		<artifact name="&artifacts.name;" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION">
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25">
+		<dependency org="org.slf4j" name="slf4j-api" rev="2.0.16">
 			<conf name="runtime" mapped="default" />
 			<!-- sources do not work reliably on ivy cache hits -->
 		</dependency>
@@ -48,7 +48,7 @@
 		<!-- build dependencies -->
 		<dependency org="org.apache.ant" name="ant" rev="1.10.11" conf="ant->default" />
 		<dependency org="org.apache.ivy" name="ivy" rev="2.5.2" conf="ivy->default" />
-		<dependency org="ch.qos.logback" name="logback-classic" rev="1.2.3" conf="test->default" />
+		<dependency org="ch.qos.logback" name="logback-classic" rev="1.5.16" conf="test->default" />
 		<dependency org="io.micrometer" name="micrometer-registry-prometheus" rev="1.8.5" conf="test->default">
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel" />
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel_agent" />
