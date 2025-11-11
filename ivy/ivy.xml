@@ -62,5 +62,7 @@
 		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.12" conf="jacoco->default" />
 		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="jsr305->default" />
 		<dependency org="com.exedio" name="pipeline-gdsl" rev="26" conf="jenkins->runtime; ide->changelog" />
+
+		<exclude org="javax.servlet" module="javax.servlet-api" /><!-- old javax.servlet package instead of new jakarta.servlet -->
 	</dependencies>
 </ivy-module>
