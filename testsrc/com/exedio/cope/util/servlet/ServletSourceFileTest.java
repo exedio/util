@@ -21,8 +21,8 @@ package com.exedio.cope.util.servlet;
 import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
 import static com.exedio.cope.util.servlet.ServletSource.create;
 import static com.exedio.cope.util.servlet.ServletSourceTest.assertKey;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static java.util.Locale.ENGLISH;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
