@@ -25,12 +25,12 @@ import static com.exedio.cope.util.Sources.reloadable;
 import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ProxyPropertiesSource;
+import jakarta.servlet.ServletContext;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
-import jakarta.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
