@@ -55,6 +55,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -984,6 +985,66 @@ public abstract class Properties
 		for(final Callable<?> prober : result.value.getProbes())
 			probersNested.add(prefix(prober, key));
 		return result;
+	}
+
+	/**
+	 * @param valueFunction BiFunction that takes property key and default value, returns actual value
+	 */
+	protected final <T> List<T> valueList(
+			final String key,
+			final BiFunction<String,T,T> valueFunction,
+			final int minSize,
+			@Nullable final List<? extends T> defaultValue)
+	{
+		if (defaultValue!=null && defaultValue.size()<minSize)
+			throw new IllegalArgumentException(
+					"default of " + key + " must not have size smaller than minSize of " + minSize + ", " +
+					"but was " + defaultValue);
+		if (defaultValue!=null && defaultValue.stream().anyMatch(Objects::isNull))
+			throw new IllegalArgumentException("default of " + key + " must not contain null");
+		final int count = value(key + ".count", defaultValue==null ? minSize : defaultValue.size(), minSize);
+		final List<T> result = new ArrayList<>();
+		for (int i=0; i<count; i++)
+		{
+			final T nextDefault = defaultValue==null || defaultValue.size()<=i ? null : defaultValue.get(i);
+			result.add( valueFunction.apply(key + "." + i, nextDefault) );
+		}
+		return List.copyOf(result);
+	}
+
+	/**
+	 * @param valueFunction Function that takes property key, returns actual value
+	 */
+	protected final <T> List<T> valueList(final String key, final Function<String,T> valueFunction, final int minSize)
+	{
+		return valueList(key, (k, d) -> valueFunction.apply(k), minSize, null);
+	}
+
+	protected final List<String> valueStringList(final String key, final int minSize)
+	{
+		return valueStringList(key, minSize, null);
+	}
+
+	protected final List<String> valueStringList(final String key, final int minSize, final List<String> defaultValues)
+	{
+		return valueList(key, this::value, minSize, defaultValues);
+	}
+
+	/**
+	 * @param defaultValue must provide defaults for all required values
+	 *                       (i.e., must have at least {@code minEntries} entries and not contain null)
+	 */
+	protected final List<Integer> valueIntegerList(
+			final String key,
+			final int minSize,
+			final int minValue,
+			final List<Integer> defaultValue)
+	{
+		return valueList(
+				key,
+				(k,d) -> value(k, requireNonNull(d, "integer list needs defaults"), minValue),
+				minSize,
+				defaultValue);
 	}
 
 	private final ArrayList<Callable<Object>> probersNested = new ArrayList<>();
