@@ -116,7 +116,7 @@ public class DayTest
 	@Test void nullZone()
 	{
 		assertFails(() ->
-			new Day(5555l, null),
+			new Day(5555L, null),
 			NullPointerException.class,
 			"Cannot invoke \"java.util.TimeZone.getOffset(long)\" " +
 			"because \"tz\" is null");

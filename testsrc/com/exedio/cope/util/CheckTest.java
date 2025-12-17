@@ -59,19 +59,19 @@ public class CheckTest
 
 	@Test void testRequireGreaterZeroLong()
 	{
-		assertEquals(1, requireGreaterZero(1l, "name"));
+		assertEquals(1, requireGreaterZero(1L, "name"));
 	}
 	@Test void testRequireGreaterZeroLongZero()
 	{
 		assertFails(() ->
-			requireGreaterZero(0l, "name"),
+			requireGreaterZero(0L, "name"),
 			IllegalArgumentException.class,
 			"name must be greater zero, but was 0");
 	}
 	@Test void testRequireGreaterZeroLongNegative()
 	{
 		assertFails(() ->
-			requireGreaterZero(-1l, "name"),
+			requireGreaterZero(-1L, "name"),
 			IllegalArgumentException.class,
 			"name must be greater zero, but was -1");
 	}
@@ -113,16 +113,16 @@ public class CheckTest
 
 	@Test void testRequireNonNegativeLong()
 	{
-		assertEquals(1l, requireNonNegative(1l, "name"));
+		assertEquals(1L, requireNonNegative(1L, "name"));
 	}
 	@Test void testRequireNonNegativeLongZero()
 	{
-		assertEquals(0l, requireNonNegative(0l, "name"));
+		assertEquals(0L, requireNonNegative(0L, "name"));
 	}
 	@Test void testRequireNonNegativeLongNegative()
 	{
 		assertFails(() ->
-			requireNonNegative(-1l, "name"),
+			requireNonNegative(-1L, "name"),
 			IllegalArgumentException.class,
 			"name must not be negative, but was -1");
 	}
@@ -133,7 +133,7 @@ public class CheckTest
 	}
 	@Test void testRequireNonNegativeDoubleZero()
 	{
-		assertEquals(0l, requireNonNegative(0d, "name"));
+		assertEquals(0L, requireNonNegative(0d, "name"));
 	}
 	@Test void testRequireNonNegativeDoubleNegative()
 	{
@@ -182,12 +182,12 @@ public class CheckTest
 
 	@Test void testRequireAtLeastLong()
 	{
-		assertEquals(55l, requireAtLeast(55l, "name", 55l));
+		assertEquals(55L, requireAtLeast(55L, "name", 55L));
 	}
 	@Test void testRequireAtLeastLongFails()
 	{
 		assertFails(() ->
-			requireAtLeast(54l, "name", 55l),
+			requireAtLeast(54L, "name", 55L),
 			IllegalArgumentException.class,
 			"name must be at least 55, but was 54");
 	}

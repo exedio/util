@@ -280,9 +280,9 @@ public class PropertiesTest
 		}
 		assertWrong(pminimal,
 				"wrong.intAny.noNumber",
-				"intAny", "" + (Integer.MAX_VALUE + 1l),
+				"intAny", "" + (Integer.MAX_VALUE + 1L),
 				"property intAny in wrong.intAny.noNumber " +
-				"must be an integer, but was '" + (Integer.MAX_VALUE + 1l) + "'");
+				"must be an integer, but was '" + (Integer.MAX_VALUE + 1L) + "'");
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",
 				"int10", "4",

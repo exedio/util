@@ -45,7 +45,7 @@ public class ReloadableSourceTest
 		final Source s = view(properties, "description");
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", ENGLISH);
 
-		final long reload1Millis = 514857711111l; // 1986-04-26 02:01:51.111 CEST (+0200)
+		final long reload1Millis = 514857711111L; // 1986-04-26 02:01:51.111 CEST (+0200)
 		clock.override(() -> reload1Millis);
 		final Source reloaded1 = reloadable(() -> s);
 		assertEquals("valueA", reloaded1.get("keyA"));
@@ -55,7 +55,7 @@ public class ReloadableSourceTest
 		assertEquals("description(" + df.format(new Date(reload1Millis)) + ")", reloaded1.getDescription());
 		assertEquals("description(reloadable)", reloaded1.toString());
 
-		final long reload2Millis = 549072422222l; // 1987-05-27 02:07:02.222 CEST (+0200)
+		final long reload2Millis = 549072422222L; // 1987-05-27 02:07:02.222 CEST (+0200)
 		clock.override(() -> reload2Millis);
 		final Source reloaded2 = reloaded1.reload();
 		assertEquals("valueA", reloaded2.get("keyA"));
