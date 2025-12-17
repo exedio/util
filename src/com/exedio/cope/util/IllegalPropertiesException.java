@@ -25,7 +25,7 @@ import java.io.Serial;
 public final class IllegalPropertiesException extends IllegalArgumentException
 {
 	@Serial
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	private final String key;
 	private final String sourceDescription;

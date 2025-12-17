@@ -1433,7 +1433,7 @@ public abstract class Properties
 		}
 
 		@Serial
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 1L;
 	}
 
 	/**

@@ -80,7 +80,7 @@ public final class PropertiesInstance<P extends Properties>
 	public static final class NotSetException extends IllegalStateException
 	{
 		@Serial
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 1L;
 
 		NotSetException() { } // just make it package private
 	}

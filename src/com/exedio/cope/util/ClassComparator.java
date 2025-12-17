@@ -29,7 +29,7 @@ import java.util.Comparator;
 public final class ClassComparator implements Comparator<Class<?>>, Serializable
 {
 	@Serial
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @deprecated This class is not used in the cope runtime library anymore.
