@@ -29,7 +29,7 @@ import java.util.Arrays;
 public final class MessageDigestFactory implements Serializable
 {
 	@Serial
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	private final String algorithm;
 

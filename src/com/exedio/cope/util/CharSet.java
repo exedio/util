@@ -30,7 +30,7 @@ public final class CharSet implements Serializable
 {
 	// TODO deserialization should not duplicate predefined charsets
 	@Serial
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	public static final CharSet ALPHA = new CharSet('A', 'Z', 'a', 'z');
 	public static final CharSet ALPHA_UPPER = new CharSet('A', 'Z');

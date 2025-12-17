@@ -24,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
 public final class IllegalAlgorithmException extends IllegalArgumentException
 {
 	@Serial
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	private final String algorithm;
 

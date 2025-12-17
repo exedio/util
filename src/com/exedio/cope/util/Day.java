@@ -67,7 +67,7 @@ public final class Day implements Serializable, Comparable<Day>
 	}
 
 	@Serial
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	private final int year;
 	private final int month;

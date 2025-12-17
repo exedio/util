@@ -107,7 +107,7 @@ public class PropertiesProbeRunTest
 	static class MyThrowable extends Throwable
 	{
 		@Serial
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 1L;
 
 		MyThrowable()
 		{
