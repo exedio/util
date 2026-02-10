@@ -100,6 +100,7 @@
 				filesonly="true"
 				duplicate="fail"
 				strict="fail"
+				modificationtime="2026-02-10T11:22:33Z"
 				level="9">
 			<fileset dir="build/classes/servletsrc"/>
 			<manifest>
@@ -121,6 +122,7 @@
 				filesonly="true"
 				whenempty="fail"
 				duplicate="fail"
+				modificationtime="2026-02-10T11:22:33Z"
 				level="9">
 			<zipfileset dir="${basedir}/src">
 				<include name="**/*.java" />
