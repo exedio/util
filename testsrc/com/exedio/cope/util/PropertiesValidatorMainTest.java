@@ -66,7 +66,7 @@ public class PropertiesValidatorMainTest
 		assertNull(result.message);
 		assertNotNull(result.exception);
 		assertEquals(IllegalPropertiesException.class, result.exception.getClass());
-		assertEquals("property mandatoryString in "+file.getAbsolutePath()+" must be specified as there is no default", result.exception.getMessage());
+		assertEquals("property 'mandatoryString' in "+file.getAbsolutePath()+" must be specified as there is no default", result.exception.getMessage());
 		assertEquals(1, result.exitCode);
 	}
 
@@ -81,7 +81,7 @@ public class PropertiesValidatorMainTest
 		assertNull(result.message);
 		assertNotNull(result.exception);
 		assertEquals(IllegalPropertiesException.class, result.exception.getClass());
-		assertEquals("property testBoolean in "+file.getAbsolutePath()+" must be either 'true' or 'false', but was 'noBoolean'", result.exception.getMessage());
+		assertEquals("property 'testBoolean' in "+file.getAbsolutePath()+" must be either 'true' or 'false', but was 'noBoolean'", result.exception.getMessage());
 		assertEquals(1, result.exitCode);
 	}
 

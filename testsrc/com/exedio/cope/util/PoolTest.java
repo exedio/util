@@ -504,19 +504,19 @@ public class PoolTest
 		assertFails(() ->
 			newPool(null, -1, 0),
 			IllegalPropertiesException.class,
-					"property idleLimit in Pool#Pool(Factory, int, int, PoolCounter) " +
+					"property 'idleLimit' in Pool#Pool(Factory, int, int, PoolCounter) " +
 					"must be an integer greater or equal 0, "+
 					"but was -1");
 		assertFails(() ->
 			newPool(null, -1, -1),
 			IllegalPropertiesException.class,
-					"property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) " +
+					"property 'idleInitial' in Pool#Pool(Factory, int, int, PoolCounter) " +
 					"must be an integer greater or equal 0, " +
 					"but was -1");
 		assertFails(() ->
 			newPool(null, 0, 1),
 			IllegalPropertiesException.class,
-					"property idleInitial in Pool#Pool(Factory, int, int, PoolCounter) " +
+					"property 'idleInitial' in Pool#Pool(Factory, int, int, PoolCounter) " +
 					"must be less or equal idleLimit=0, " +
 					"but was 1");
 		newPool(f, 0, 0);

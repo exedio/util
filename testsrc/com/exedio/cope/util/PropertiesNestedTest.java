@@ -254,13 +254,13 @@ public class PropertiesNestedTest
 		final IllegalPropertiesException e = assertFails(() ->
 			new Outer(source),
 			IllegalPropertiesException.class,
-			"property nestedO.inner1 in someDescription " + detail,
+			"property 'nestedO.inner1' in someDescription " + detail,
 			IllegalPropertiesException.class);
 		assertEquals("nestedO.inner1", e.getKey());
 		assertEquals(detail, e.getDetail());
 		final IllegalPropertiesException cause = (IllegalPropertiesException)e.getCause();
 		assertEquals(
-				"property inner1 in someDescription (prefix nestedO.) " + detail,
+				"property 'inner1' in someDescription (prefix nestedO.) " + detail,
 				cause.getMessage());
 		assertEquals("inner1", cause.getKey());
 		assertEquals(detail, cause.getDetail());
@@ -276,19 +276,19 @@ public class PropertiesNestedTest
 		final IllegalPropertiesException e = assertFails(() ->
 			new Outer(source),
 			IllegalPropertiesException.class,
-			"property nestedO.nestedI.drinner1 in someDescription " + detail,
+			"property 'nestedO.nestedI.drinner1' in someDescription " + detail,
 			IllegalPropertiesException.class);
 		assertEquals("nestedO.nestedI.drinner1", e.getKey());
 		assertEquals(detail, e.getDetail());
 		final IllegalPropertiesException cause = (IllegalPropertiesException)e.getCause();
 		assertEquals(
-				"property nestedI.drinner1 in someDescription (prefix nestedO.) " + detail,
+				"property 'nestedI.drinner1' in someDescription (prefix nestedO.) " + detail,
 				cause.getMessage());
 		assertEquals("nestedI.drinner1", cause.getKey());
 		assertEquals(detail, cause.getDetail());
 		final IllegalPropertiesException causeCause = (IllegalPropertiesException)cause.getCause();
 		assertEquals(
-				"property drinner1 in someDescription (prefix nestedO.nestedI.) " + detail,
+				"property 'drinner1' in someDescription (prefix nestedO.nestedI.) " + detail,
 				causeCause.getMessage());
 		assertEquals("drinner1", causeCause.getKey());
 		assertEquals(detail, causeCause.getDetail());

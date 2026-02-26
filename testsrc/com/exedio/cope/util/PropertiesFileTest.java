@@ -101,7 +101,7 @@ public class PropertiesFileTest
 		assertWrong(pminimal,
 				"wrong.file.missing",
 				"file", null,
-				"property file in wrong.file.missing " +
+				"property 'file' in wrong.file.missing " +
 				"must be specified as there is no default");
 
 		final File file2 = new File("file2");

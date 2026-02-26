@@ -32,7 +32,7 @@ public class PropertiesMessageDigestWrongDefaultTest
 		assertFails(
 				() -> new MyProps(new java.util.Properties()),
 				IllegalPropertiesException.class,
-				"property field in DESC must specify a digest, but was 'WRONG'",
+				"property 'field' in DESC must specify a digest, but was 'WRONG'",
 				IllegalAlgorithmException.class);
 	}
 

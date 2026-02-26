@@ -103,7 +103,7 @@ public class PropertiesPathTest
 		assertWrong(pminimal,
 				"wrong.file.missing",
 				"file", null,
-				"property file in wrong.file.missing " +
+				"property 'file' in wrong.file.missing " +
 				"must be specified as there is no default");
 
 		final Path file2 = Paths.get("file2");

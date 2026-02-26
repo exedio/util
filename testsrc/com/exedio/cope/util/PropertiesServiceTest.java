@@ -234,7 +234,7 @@ public class PropertiesServiceTest
 		assertFails(
 				() -> new MyProps(p),
 				IllegalPropertiesException.class,
-				"property mandatory in sourceDescription @ServiceAlias loop for " + AliasLoop1.class.getName() + " " +
+				"property 'mandatory' in sourceDescription @ServiceAlias loop for " + AliasLoop1.class.getName() + " " +
 				"aborted after 30 iterations");
 	}
 
