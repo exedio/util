@@ -527,7 +527,7 @@ public abstract class Properties
 						"but was '" + s + '\'',
 						e);
 			}
-		}, d -> d.toLocalDate().toString());
+		}, d -> requireNonNull(d).toLocalDate().toString());
 	}
 
 
@@ -940,7 +940,7 @@ public abstract class Properties
 				result.add(t.nextToken());
 			return List.copyOf(result);
 		},
-		value -> String.join(delimiter, value)).get();
+		value -> String.join(delimiter, requireNonNull(value))).get();
 	}
 
 
