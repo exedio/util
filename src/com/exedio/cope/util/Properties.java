@@ -1137,7 +1137,7 @@ public abstract class Properties
 	}
 
 
-	@SuppressWarnings({"unused", "ResultOfObjectAllocationIgnored", "MethodMayBeStatic"})
+	@SuppressWarnings({"unused", "ResultOfObjectAllocationIgnored"})
 	final <E> void copy(final String key, final Field<E> field)
 	{
 		new Field<>(key, field);
