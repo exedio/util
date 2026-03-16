@@ -64,6 +64,6 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 	@Override
 	public String getMessage()
 	{
-		return "property " + key + " in " + sourceDescription + ' ' + detail;
+		return "property '" + key + "' in " + sourceDescription + ' ' + detail;
 	}
 }

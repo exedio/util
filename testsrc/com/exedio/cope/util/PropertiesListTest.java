@@ -66,7 +66,7 @@ public class PropertiesListTest
 		assertFails(
 				() -> new MyProps(p),
 				IllegalPropertiesException.class,
-				"property withDefaults.count in sourceDescription must be an integer greater or equal 1, but was 0"
+				"property 'withDefaults.count' in sourceDescription must be an integer greater or equal 1, but was 0"
 		);
 	}
 
@@ -89,7 +89,7 @@ public class PropertiesListTest
 		assertFails(
 				() -> new MyProps(p),
 				IllegalPropertiesException.class,
-				"property strings.0 in sourceDescription must be specified as there is no default");
+				"property 'strings.0' in sourceDescription must be specified as there is no default");
 	}
 
 	@Test
@@ -125,7 +125,7 @@ public class PropertiesListTest
 		assertFails(
 				() -> new MyProps(p),
 				IllegalPropertiesException.class,
-				"property integers.0 in sourceDescription must be an integer greater or equal 40, but was 39"
+				"property 'integers.0' in sourceDescription must be an integer greater or equal 40, but was 39"
 		);
 	}
 
@@ -165,7 +165,7 @@ public class PropertiesListTest
 		assertFails(
 				() -> new ComplexProps(new java.util.Properties()),
 				IllegalPropertiesException.class,
-				"property sub.0.d in sourceDescription must be specified as there is no default",
+				"property 'sub.0.d' in sourceDescription must be specified as there is no default",
 				IllegalPropertiesException.class
 		);
 	}

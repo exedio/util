@@ -254,12 +254,12 @@ public class PropertiesTest
 		assertWrong(pminimal,
 				"wrong.bool.true",
 				"boolFalse", "True",
-				"property boolFalse in wrong.bool.true " +
+				"property 'boolFalse' in wrong.bool.true " +
 				"must be either 'true' or 'false', but was 'True'");
 		assertWrong(pminimal,
 				"wrong.bool.false",
 				"boolFalse", "falsE",
-				"property boolFalse in wrong.bool.false " +
+				"property 'boolFalse' in wrong.bool.false " +
 				"must be either 'true' or 'false', but was 'falsE'");
 		assertInconsistent(pminimal,
 				"inconsistent.bool",
@@ -281,17 +281,17 @@ public class PropertiesTest
 		assertWrong(pminimal,
 				"wrong.intAny.noNumber",
 				"intAny", "" + (Integer.MAX_VALUE + 1L),
-				"property intAny in wrong.intAny.noNumber " +
+				"property 'intAny' in wrong.intAny.noNumber " +
 				"must be an integer, but was '" + (Integer.MAX_VALUE + 1L) + "'");
 		assertWrong(pminimal,
 				"wrong.int.tooSmall",
 				"int10", "4",
-				"property int10 in wrong.int.tooSmall " +
+				"property 'int10' in wrong.int.tooSmall " +
 				"must be an integer greater or equal 5, but was 4");
 		assertWrong(pminimal,
 				"wrong.int.noNumber",
 				"int10", "10x",
-				"property int10 in wrong.int.noNumber " +
+				"property 'int10' in wrong.int.noNumber " +
 				"must be an integer greater or equal 5, but was '10x'");
 		assertInconsistent(pminimal,
 				"inconsistent.int",
@@ -305,11 +305,11 @@ public class PropertiesTest
 		assertWrong(pminimal,
 				"wrong.stringMandatory.missing",
 				"stringMandatory", null,
-				"property stringMandatory in wrong.stringMandatory.missing must be specified as there is no default");
+				"property 'stringMandatory' in wrong.stringMandatory.missing must be specified as there is no default");
 		assertWrong(pminimal,
 				"wrong.stringHidden.missing",
 				"stringHidden", null,
-				"property stringHidden in wrong.stringHidden.missing must be specified as there is no default");
+				"property 'stringHidden' in wrong.stringHidden.missing must be specified as there is no default");
 		assertInconsistent(pminimal,
 				"inconsistent.stringMandatory",
 				"stringMandatory", "stringMandatory.inconsistentValue",
