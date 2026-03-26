@@ -62,10 +62,8 @@ final class CascadeSource
 				else
 					sourcesList.add(source);
 			}
-			this.sources = sourcesList.toArray(EMPTY_SOURCES);
+			this.sources = sourcesList.toArray(Source[]::new);
 		}
-
-		private static final Source[] EMPTY_SOURCES = new Source[0];
 
 		@Override
 		public String get(final String key)
