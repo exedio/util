@@ -46,7 +46,7 @@ public class PropertiesGetContextTest
 				"context no longer supported");
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	@Test void testContextNull()
 	{
 		final java.util.Properties pcontext = new java.util.Properties();
