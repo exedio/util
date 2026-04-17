@@ -35,6 +35,7 @@ public class JobStop extends RuntimeException
 	/**
 	 * @param message Should contain detailed information about the request to stop the job
 	 */
+	@SuppressWarnings("unused") // TODO should be called by some test
 	public JobStop(final String message)
 	{
 		super(message);

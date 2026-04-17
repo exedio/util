@@ -21,7 +21,6 @@ package com.exedio.cope.util;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
 import java.util.function.LongSupplier;
 
 public final class JobContexts
@@ -191,86 +190,6 @@ public final class JobContexts
 			throw new RuntimeException("sleep " + millis, e);
 		}
 		ctx.stopIfRequested();
-	}
-
-
-	// iterator ---------------
-
-	@Deprecated
-	public static <E> java.util.Iterator<E> iterator(
-			final java.util.Iterator<E> iterator,
-			final JobContext ctx)
-	{
-		return
-			(iterator!=null && ctx!=null)
-			? new Iterator<>(iterator, ctx)
-			: iterator;
-	}
-
-	@Deprecated
-	private static final class Iterator<E> implements java.util.Iterator<E>
-	{
-		private final java.util.Iterator<E> iterator;
-		private final JobContext ctx;
-		private boolean stopRequested = false;
-		private String  stopRequestedMessage = null;
-
-		@Deprecated
-		Iterator(
-				final java.util.Iterator<E> iterator,
-				final JobContext ctx)
-		{
-			assert iterator!=null;
-			assert ctx!=null;
-
-			this.iterator = iterator;
-			this.ctx = ctx;
-		}
-
-		@Override
-		public boolean hasNext()
-		{
-			try
-			{
-				ctx.stopIfRequested();
-			}
-			catch(final JobStop js)
-			{
-				stopRequested = true;
-				stopRequestedMessage = js.getMessage();
-				return false;
-			}
-
-			return iterator.hasNext();
-		}
-
-		/**
-		 * Must not call {@link JobContext#stopIfRequested()} here,
-		 * because {@link #hasNext()} may already have promised
-		 * to have one more element.
-		 */
-		@Override
-		public E next()
-		{
-			if(stopRequested)
-				throw new NoSuchElementException("stopRequested: " + stopRequestedMessage);
-
-			return iterator.next();
-		}
-
-		/**
-		 * Must not call {@link JobContext#stopIfRequested()} here,
-		 * because {@link #hasNext()} may already have promised
-		 * to have one more element.
-		 */
-		@Override
-		public void remove()
-		{
-			if(stopRequested)
-				throw new NoSuchElementException("stopRequested: " + stopRequestedMessage);
-
-			iterator.remove();
-		}
 	}
 
 
