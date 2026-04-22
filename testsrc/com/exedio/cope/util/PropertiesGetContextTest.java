@@ -32,7 +32,7 @@ public class PropertiesGetContextTest
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		TestProperties(final java.util.Properties source, final String sourceDescription, final Source context)
 		{
-			super(getSource(source, sourceDescription), context);
+			super(Sources.view(source, sourceDescription), context);
 		}
 	}
 
