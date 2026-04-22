@@ -82,12 +82,6 @@ public class PropertiesDeprecatedTest
 			assertEquals(false, stringOptional.hasHiddenValue());
 			assertEquals(false, file.hasHiddenValue());
 		}
-
-		@SuppressWarnings("deprecation")
-		void assertItDeprecated()
-		{
-			assertEqualsUnmodifiable(asList(), getTests());
-		}
 	}
 
 	@Test void testIt()
@@ -99,6 +93,5 @@ public class PropertiesDeprecatedTest
 
 		final TestProperties minimal = new TestProperties(pminimal);
 		minimal.assertIt();
-		minimal.assertItDeprecated();
 	}
 }

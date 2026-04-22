@@ -83,16 +83,6 @@ public abstract class Properties
 		this.sourceDescription = source.getDescription();
 	}
 
-	/**
-	 * This default implementation returns {@link #getProbes()}.
-	 * @deprecated Use {@link Probe} instead
-	 */
-	@Deprecated
-	public List<? extends Callable<?>> getTests()
-	{
-		return getProbes();
-	}
-
 	public final Field<?> getField(final String key)
 	{
 		Sources.checkKey(key);
@@ -1441,7 +1431,6 @@ public abstract class Properties
 	 * Probes are methods annotated by {@link Probe}.
 	 * The result includes probes of super classes and probes of
 	 * {@link #value(String, Factory) nested} properties.
-	 * @see #getTests()
 	 */
 	public final List<? extends Callable<?>> getProbes()
 	{
