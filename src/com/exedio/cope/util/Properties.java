@@ -562,6 +562,7 @@ public abstract class Properties
 	 */
 	@Deprecated
 	@Nonnull
+	@SuppressWarnings("DeprecatedIsStillUsed") // OK: rare case where non-deprecated API calls deprecated API
 	protected final Field<File> fieldFile(final String key)
 	{
 		return parseField(key, File.class, null, null, File::new);

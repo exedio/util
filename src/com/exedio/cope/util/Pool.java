@@ -295,6 +295,7 @@ public final class Pool<E>
 		 * @deprecated Do not use this class anymore, use micrometer instead.
 		 */
 		@Deprecated
+		@SuppressWarnings("DeprecatedIsStillUsed")
 		public Info(
 				final int idleLimit,
 				final int idleInitial,
