@@ -220,7 +220,7 @@ public final class Sources
 		{
 			final SimpleDateFormat df = new SimpleDateFormat(
 					"(yyyy-MM-dd HH:mm:ss.SSS z (Z)" + (reloadedCount>0 ? (" 'reload' " + reloadedCount) : "") + ")",
-					Locale.ENGLISH);
+					Locale.ROOT);
 			return
 					super.getDescription() +
 					df.format(new Date(reloadedMillis));

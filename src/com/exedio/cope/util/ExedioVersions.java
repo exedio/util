@@ -114,7 +114,7 @@ public final class ExedioVersions
 				return new Spec(
 						matcher.group("branch"),
 						Integer.parseInt(matcher.group("revision")),
-						date!=null ? LocalDate.from(DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.US).parse(date)) : null);
+						date!=null ? LocalDate.from(DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT).parse(date)) : null);
 			}
 		}
 
