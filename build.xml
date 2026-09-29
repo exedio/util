@@ -65,6 +65,7 @@
 		<echo message="@{userTimezone} (@{name})" />
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
+		<mkdir dir="build/testhomedir" />
 		<java taskname="junit" fork="yes" dir="${basedir}"
 				failonerror="true"
 				classname="org.junit.platform.console.ConsoleLauncher">
@@ -84,6 +85,7 @@
 			<arg line="--select-method ${test}#${method}" if:set="method" />
 			<arg line="--reports-dir build/testresults/@{name}" />
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
+			<sysproperty key="user.home"      value="${basedir}/build/testhomedir" />
 			<sysproperty key="user.timezone" value="@{userTimezone}" />
 			<assertions><enable/></assertions>
 			<!--jvmarg value="-Xcomp" /--><!-- for performance tests -->
@@ -161,6 +163,7 @@
 	<target name="jacoco" depends="test.compile, checkAntIfUnless" unless="skip.jacoco">
 		<mkdir dir="build/jacocotestresults" />
 		<mkdir dir="build/jacocotesttmpdir" />
+		<mkdir dir="build/jacocotesthomedir" />
 		<jacoco:coverage destfile="build/jacoco.exec">
 			<java taskname="jacoco" fork="yes" dir="${basedir}"
 					failonerror="true"
@@ -174,6 +177,7 @@
 					<fileset dir="lib/test" />
 				</classpath>
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/jacocotesttmpdir" />
+				<sysproperty key="user.home"      value="${basedir}/build/jacocotesthomedir" />
 				<arg line="--fail-if-no-tests" />
 				<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />
 				<arg line="--exclude-tag nondeterministic" unless:set="test" if:set="test.deterministicOnly" />
