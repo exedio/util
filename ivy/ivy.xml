@@ -36,7 +36,7 @@
 		<artifact name="&artifacts.name;" conf="runtime"   type="jar" ext="jar" />
 		<artifact name="&artifacts.name;" conf="sources"   type="src" ext="zip" />
 		<artifact name="&artifacts.name;" conf="changelog" type="log" ext="txt" />
-		<artifact name="&artifacts.name;" conf="skills"   type="skills" ext="zip" />
+		<artifact name="&artifacts.name;" conf="skills"    type="skills" ext="zip" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION">
 		<dependency org="org.slf4j" name="slf4j-api" rev="2.0.16">
