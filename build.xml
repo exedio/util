@@ -139,7 +139,7 @@
 	<target name="skills.zip">
 		<mkdir dir="build" />
 		<delete file="build/${artifacts.name}-skills.zip" />
-		<zip destfile="build/${artifacts.name}-skills.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
+		<zip destfile="build/${artifacts.name}-skills.zip" filesonly="true" whenempty="fail" duplicate="fail" modificationtime="2026-02-10T11:22:33Z" level="9">
 			<zipfileset dir="${basedir}/.agents/skills/properties" prefix="properties">
 				<include name="**/*" />
 			</zipfileset>
