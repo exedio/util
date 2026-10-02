@@ -136,6 +136,16 @@
 		<plot file="build/${artifacts.name}-src.zip" />
 	</target>
 
+	<target name="skills.zip">
+		<mkdir dir="build" />
+		<delete file="build/${artifacts.name}-skills.zip" />
+		<zip destfile="build/${artifacts.name}-skills.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
+			<zipfileset dir="${basedir}/.agents/skills/properties" prefix="properties">
+				<include name="**/*" />
+			</zipfileset>
+		</zip>
+	</target>
+
 	<target name="clean">
 		<delete dir="build" />
 		<delete dir="api" /><!-- not created anymore-->
@@ -206,12 +216,13 @@
 
 
 	<target name="build" depends="compile, test, jar, api" />
-	<target name="all" depends="build, jar.src, jacoco" />
+	<target name="all" depends="build, jar.src, skills.zip, jacoco" />
 
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/${artifacts.name}.jar" />
 			<fileset file="${basedir}/build/${artifacts.name}-src.zip" />
+			<fileset file="${basedir}/build/${artifacts.name}-skills.zip" />
 			<fileset file="${basedir}/${artifacts.name}-log.txt" />
 		</copy>
 		<copy file="ivy/ivy.xml" todir="build/success" overwrite="true">
@@ -222,7 +233,7 @@
 		</copy>
 	</target>
 
-	<target name="publishlocally" depends="jar, jar.src">
+	<target name="publishlocally" depends="jar, jar.src, skills.zip">
 		<ant dir="ivy" target="publishlocally" />
 	</target>
 
