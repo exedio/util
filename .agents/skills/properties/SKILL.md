@@ -21,7 +21,7 @@ Before changing behavior, read the relevant methods in `src/com/exedio/cope/util
 
 Use `valnp("prefix", Child::new)` for a nested `Properties` object. Its child's keys are flat and prefixed, such as `prefix.timeout`; nested fields are included in the parent's field list and checked for key collisions. `valnp` also avoids a documented Java overload-ambiguity issue with `value`. For an optional nested object, use `value("prefix", false, Child::new)` and handle the resulting nullable value.
 
-Use `valueService` when configuration selects a service implementation. Follow its constructor and `@ServiceProperties` requirements, and inspect `ServiceFactory` and nearby implementations rather than adding custom reflection or class loading.
+Use `valueService` when configuration selects a service implementation. One useful case is substituting an in-process mock for a remote service: keep both implementations behind the same service interface, then select the mock by class name in test configuration. For example, Cope's vault can use `VaultHttpService` in a remote setup and `VaultMockService` in tests via `vault.default.service=com.exedio.cope.vaultmock.VaultMockService`; the mock implements the same `VaultService` contract without making network calls. The chosen class must still satisfy `valueService`'s constructor and optional `@ServiceProperties` requirements. Inspect `ServiceFactory` and nearby implementations rather than adding custom reflection or class loading.
 
 ## Validation and diagnostics
 
