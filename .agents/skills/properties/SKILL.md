@@ -23,6 +23,8 @@ Use `valnp("prefix", Child::new)` for a nested `Properties` object. Its child's 
 
 Use `valueService` when configuration selects a service implementation. One useful case is substituting an in-process mock for a remote service: keep both implementations behind the same service interface, then select the mock by class name in test configuration. For example, Cope's vault can use `VaultHttpService` in a remote setup and `VaultMockService` in tests via `vault.default.service=com.exedio.cope.vaultmock.VaultMockService`; the mock implements the same `VaultService` contract without making network calls. The chosen class must still satisfy `valueService`'s constructor and optional `@ServiceProperties` requirements. Inspect `ServiceFactory` and nearby implementations rather than adding custom reflection or class loading.
 
+Prefer these shapes over standalone feature flags when they express the same choice: an optional nested group such as `value("feature", false, FeatureProperties::new)` uses `feature=true` to activate its `feature.*` settings, avoiding a separate `feature.enabled` property; service selection can choose the mock implementation directly, avoiding `useMock`. Keep a separate flag when it controls behavior independently of the nested group or selected service.
+
 ## Validation and diagnostics
 
 Unknown-key checks are explicit: call `ensureValidity(...)` where the configuration boundary should reject unrecognized keys. Optional allowed prefixes should be narrowly chosen. `getOrphanedKeys()` can aid diagnostics, but it returns `null` when the source cannot enumerate keys; do not treat that as an empty set. Use `getField` or `getFields` for metadata and `isSpecified()` to distinguish an explicit value from a default.
