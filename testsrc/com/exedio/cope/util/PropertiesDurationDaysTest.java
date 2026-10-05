@@ -94,7 +94,7 @@ public class PropertiesDurationDaysTest
 	}
 
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final Duration min = value("min", ofDays(4), ofDays(3));
 		final Duration max = value("max", ofDays(5), ofDays(2), ofDays(8));
@@ -104,8 +104,8 @@ public class PropertiesDurationDaysTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> minF = getField("min");
-		final Field<?> maxF = getField("max");
+		final Field<?> minF = getFielX("min");
+		final Field<?> maxF = getFielX("max");
 
 
 		void assertIt()

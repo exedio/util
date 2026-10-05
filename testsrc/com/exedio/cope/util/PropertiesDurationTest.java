@@ -227,7 +227,7 @@ public class PropertiesDurationTest
 	}
 
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final Duration mandatory = value("mandatory", null, ofMinutes(21));
 		final Duration optional  = value("optional" , ofMinutes(44), ofMinutes(41));
@@ -238,9 +238,9 @@ public class PropertiesDurationTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> mandatoryF = getField("mandatory");
-		final Field<?> optionalF  = getField("optional");
-		final Field<?> maxF       = getField("max");
+		final Field<?> mandatoryF = getFielX("mandatory");
+		final Field<?> optionalF  = getFielX("optional");
+		final Field<?> maxF       = getFielX("max");
 
 
 		void assertIt()

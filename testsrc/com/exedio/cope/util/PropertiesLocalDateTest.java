@@ -116,7 +116,7 @@ public class PropertiesLocalDateTest
 	}
 
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final LocalDate mandatory = value("mandatory", (LocalDate)null);
 		final LocalDate optional  = value("optional", of(1009, 7, 13));
@@ -126,8 +126,8 @@ public class PropertiesLocalDateTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> mandatoryF = getField("mandatory");
-		final Field<?> optionalF  = getField("optional");
+		final Field<?> mandatoryF = getFielX("mandatory");
+		final Field<?> optionalF  = getFielX("optional");
 
 
 		void assertIt()

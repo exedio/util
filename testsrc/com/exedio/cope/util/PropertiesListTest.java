@@ -188,11 +188,11 @@ public class PropertiesListTest
 		final List<File> files = valueList("files", this::valueFile, 0);
 		final List<Integer> integers = valueIntegerList("integers", 0, 40, List.of(123));
 
-		final Field<?> stringsCount = getField("strings.count");
-		final Field<?> withDefaultsCount = getField("withDefaults.count");
-		final Field<?> withDefaults0 = getField("withDefaults.0");
-		final Field<?> filesCount = getField("files.count");
-		final Field<?> integersCount = getField("integers.count");
+		final Field<?> stringsCount = getFielX("strings.count");
+		final Field<?> withDefaultsCount = getFielX("withDefaults.count");
+		final Field<?> withDefaults0 = getFielX("withDefaults.0");
+		final Field<?> filesCount = getFielX("files.count");
+		final Field<?> integersCount = getFielX("integers.count");
 
 		MyProps(final java.util.Properties source)
 		{

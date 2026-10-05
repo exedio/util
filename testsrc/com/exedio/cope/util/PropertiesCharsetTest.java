@@ -109,7 +109,7 @@ public class PropertiesCharsetTest
 	}
 
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final Charset mandatory = value("mandatory", (Charset)null);
 		final Charset optional  = value("optional" , US_ASCII);
@@ -119,8 +119,8 @@ public class PropertiesCharsetTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> mandatoryF = getField("mandatory");
-		final Field<?> optionalF  = getField("optional");
+		final Field<?> mandatoryF = getFielX("mandatory");
+		final Field<?> optionalF  = getFielX("optional");
 
 
 		void assertIt()

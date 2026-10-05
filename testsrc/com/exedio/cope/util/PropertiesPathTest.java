@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesPathTest
 {
-	static class TestProperties extends Properties
+	static class TestProperties extends JunitProperties
 	{
 		final Path file = valuePath("file");
 
@@ -41,7 +41,7 @@ public class PropertiesPathTest
 			super(view(source, sourceDescription));
 		}
 
-		final Field<?> fileF = getField("file");
+		final Field<?> fileF = getFielX("file");
 
 
 		void assertIt()

@@ -104,7 +104,7 @@ public class PropertiesZoneIdTest
 	}
 
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final ZoneId mandatory = value("mandatory", (ZoneId)null);
 		final ZoneId optional  = value("optional" , of("Europe/Moscow"));
@@ -114,8 +114,8 @@ public class PropertiesZoneIdTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> mandatoryF = getField("mandatory");
-		final Field<?> optionalF  = getField("optional");
+		final Field<?> mandatoryF = getFielX("mandatory");
+		final Field<?> optionalF  = getFielX("optional");
 
 
 		void assertIt()

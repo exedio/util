@@ -60,7 +60,7 @@ public class PropertiesServiceWrongDefaultTest
 		}
 	}
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final ServiceFactory<MyService, String> field =
 				valueService("field", MyService.class.getName() + "DoesNotExist", MyService.class, String.class);
@@ -70,7 +70,7 @@ public class PropertiesServiceWrongDefaultTest
 			super(view(source, "DESC"));
 		}
 
-		final Field<?> fieldF = getField("field");
+		final Field<?> fieldF = getFielX("field");
 
 		void assertIt()
 		{
