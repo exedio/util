@@ -27,12 +27,13 @@
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib/ide" />
-          <root url="jar://$MODULE_DIR$/lib/jsr305/jsr305.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/compile-annotations" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
           <root url="file://$MODULE_DIR$/lib/ide" />
         </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/compile-annotations" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/lib/ide" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/lib/ide" recursive="false" type="SOURCES" />
       </library>
