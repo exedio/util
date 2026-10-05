@@ -60,8 +60,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -193,7 +193,7 @@ public abstract class Properties
 					template.getString);
 		}
 
-		@Nonnull
+		@NonNull
 		public String getKey()
 		{
 			return key;
@@ -254,7 +254,7 @@ public abstract class Properties
 		 * Do no apply {@link Object#toString()} to the result,
 		 * but use {@link #getValueString()} instead.
 		 */
-		@Nonnull
+		@NonNull
 		public E getValue()
 		{
 			return value;
@@ -263,7 +263,7 @@ public abstract class Properties
 		/**
 		 * Returns {@link #getString(Object) getString}({@link #getValue()}).
 		 */
-		@Nonnull
+		@NonNull
 		public String getValueString()
 		{
 			return getString.apply(value);
@@ -282,7 +282,7 @@ public abstract class Properties
 			return someValue!=null ? getString.apply(valueClass.cast(someValue)) : null;
 		}
 
-		@Nonnull
+		@NonNull
 		public E get()
 		{
 			return value;
@@ -295,7 +295,7 @@ public abstract class Properties
 		}
 	}
 
-	@Nonnull
+	@NonNull
 	private <E> Field<E> parseField(
 			final String key,
 			final Class<E> valueClass,
@@ -306,7 +306,7 @@ public abstract class Properties
 		return parseField(key, valueClass, minimum, () -> defaultValue, false, parser, Object::toString);
 	}
 
-	@Nonnull
+	@NonNull
 	private <E> Field<E> parseField(
 			final String key,
 			final Class<E> valueClass,
@@ -375,7 +375,7 @@ public abstract class Properties
 				value, getString);
 	}
 
-	@Nonnull
+	@NonNull
 	private <E> Field<E> parseFieldOrDefault(
 			final String key,
 			final Class<E> valueClass,
@@ -425,7 +425,7 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, int, int)} instead
 	 */
 	@Deprecated
-	@Nonnull
+	@NonNull
 	protected final Field<Integer> field(final String key, final int defaultValue, final int minimum)
 	{
 		if(defaultValue<minimum)
@@ -465,7 +465,7 @@ public abstract class Properties
 	}
 
 
-	@Nonnull
+	@NonNull
 	protected final LocalDate value(final String key, final LocalDate defaultValue)
 	{
 		return parseField(key, LocalDate.class, null, defaultValue, (value) ->
@@ -484,7 +484,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@Nonnull
+	@NonNull
 	protected final Day value(final String key, final Day defaultValue)
 	{
 		return field(key, defaultValue).get();
@@ -494,7 +494,7 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, Day)} instead
 	 */
 	@Deprecated
-	@Nonnull
+	@NonNull
 	protected final Field<Day> field(final String key, final Day defaultValue)
 	{
 		return parseField(key, Day.class, null, () -> defaultValue, false, (s) ->
@@ -521,13 +521,13 @@ public abstract class Properties
 	}
 
 
-	@Nonnull
+	@NonNull
 	protected final String value(final String key, final String defaultValue)
 	{
 		return field(key, defaultValue).get();
 	}
 
-	@Nonnull
+	@NonNull
 	protected final String valueHidden(final String key, final String defaultValue)
 	{
 		return parseField(key, String.class, null, () -> defaultValue, true, identity(), identity()).get();
@@ -537,21 +537,21 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, String)} instead
 	 */
 	@Deprecated
-	@Nonnull
+	@NonNull
 	protected final Field<String> field(final String key, final String defaultValue)
 	{
 		return parseField(key, String.class, null, defaultValue, identity());
 	}
 
 
-	@Nonnull
+	@NonNull
 	protected final Path valuePath(final String key)
 	{
 		return parseField(key, Path.class, null, null, Paths::get).get();
 	}
 
 
-	@Nonnull
+	@NonNull
 	protected final File valueFile(final String key)
 	{
 		return fieldFile(key).get();
@@ -561,7 +561,7 @@ public abstract class Properties
 	 * @deprecated Use {@link #valueFile(String)} instead
 	 */
 	@Deprecated
-	@Nonnull
+	@NonNull
 	@SuppressWarnings("DeprecatedIsStillUsed") // OK: rare case where non-deprecated API calls deprecated API
 	protected final Field<File> fieldFile(final String key)
 	{
@@ -569,19 +569,19 @@ public abstract class Properties
 	}
 
 
-	@Nonnull
+	@NonNull
 	protected final <E extends Enum<E>> E value(final String key, final Class<E> valueClass)
 	{
 		return value(key, valueClass, null);
 	}
 
-	@Nonnull
+	@NonNull
 	protected final <E extends Enum<E>> E value(final String key, final E defaultValue)
 	{
 		return value(key, defaultValue.getDeclaringClass(), defaultValue);
 	}
 
-	@Nonnull
+	@NonNull
 	private <E extends Enum<E>> E value(
 			final String key,
 			final Class<E> valueClass,
@@ -598,7 +598,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@Nonnull
+	@NonNull
 	protected final Charset value(final String key, final Charset defaultValue)
 	{
 		return parseField(key, Charset.class, null, defaultValue, (value) ->
@@ -616,7 +616,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@Nonnull
+	@NonNull
 	protected final ZoneId value(final String key, final ZoneId defaultValue)
 	{
 		return parseField(key, ZoneId.class, null, defaultValue, (value) ->
@@ -634,7 +634,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@Nonnull
+	@NonNull
 	protected final Duration value(
 			final String key,
 			final Duration defaultValue,
@@ -645,7 +645,7 @@ public abstract class Properties
 
 	private static final Duration DURATION_MAX_VALUE = Duration.ofSeconds(Long.MAX_VALUE, 999_999_999);
 
-	@Nonnull
+	@NonNull
 	protected final Duration value(
 			final String key,
 			final Duration defaultValue,
@@ -712,7 +712,7 @@ public abstract class Properties
 		return "P" + days + 'D' + withoutDays.toString().substring(1);
 	}
 
-	@Nonnull
+	@NonNull
 	protected final MessageDigestFactory valueMessageDigest(final String key, final String defaultValue)
 	{
 		return parseFieldOrDefault(key, MessageDigestFactory.class, defaultValue, (value) ->
@@ -740,7 +740,7 @@ public abstract class Properties
 	 * Please note that @{@link ServiceProperties} could be
 	 * {@link java.lang.annotation.Inherited inherited} from a superclass.
 	 */
-	@Nonnull
+	@NonNull
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
 			final Class<T> superclass,
@@ -749,7 +749,7 @@ public abstract class Properties
 		return valueService(key, (String)null, superclass, parameterType);
 	}
 
-	@Nonnull
+	@NonNull
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
 			final Class<? extends T> defaultValue,
@@ -761,7 +761,7 @@ public abstract class Properties
 				superclass, parameterType);
 	}
 
-	@Nonnull
+	@NonNull
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
 			final String defaultValue,
@@ -901,7 +901,7 @@ public abstract class Properties
 				"@ServiceAlias loop for " + clazz.getName() + " aborted after 30 iterations");
 	}
 
-	@Nonnull
+	@NonNull
 	protected final List<String> valuesSpaceSeparated(final String key, final String... defaultValue)
 	{
 		requireNonNull(defaultValue, "defaultValue");
@@ -940,7 +940,7 @@ public abstract class Properties
 	 * {@code error: reference to value is ambiguous},
 	 * use {@link #valnp(String, Factory)} instead.
 	 */
-	@Nonnull
+	@NonNull
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();
@@ -953,7 +953,7 @@ public abstract class Properties
 	 * <p>
 	 * <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842">JDK-8170842</a>
 	 */
-	@Nonnull
+	@NonNull
 	protected final <T extends Properties> T valnp(final String key, final Factory<T> factory)
 	{
 		return value(key, factory);
@@ -969,7 +969,7 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, Factory)} instead
 	 */
 	@Deprecated
-	@Nonnull
+	@NonNull
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
 		final PropertiesField<T> result = new PropertiesField<>(this, key, factory);
@@ -1040,7 +1040,7 @@ public abstract class Properties
 
 	private final ArrayList<Callable<Object>> probersNested = new ArrayList<>();
 
-	@Nonnull
+	@NonNull
 	private static Callable<Object> prefix(final Callable<?> prober, final String key)
 	{
 		if(prober instanceof Prober)

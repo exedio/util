@@ -60,6 +60,7 @@
 		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.&junit.version.minor;" conf="test->default" />
 		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.12" conf="jacoco->default" />
 		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="compile-annotations->default" />
+		<dependency org="org.jspecify" name="jspecify" rev="1.0.0" conf="compile-annotations->default; ide->sources" />
 		<dependency org="com.exedio" name="pipeline-gdsl" rev="26" conf="jenkins->runtime; ide->changelog" />
 
 		<exclude org="javax.servlet" module="javax.servlet-api" /><!-- old javax.servlet package instead of new jakarta.servlet -->
