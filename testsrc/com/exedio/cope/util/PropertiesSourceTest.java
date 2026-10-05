@@ -35,12 +35,7 @@ public class PropertiesSourceTest
 		final java.util.Properties p = new java.util.Properties();
 		p.setProperty("testKey", "testValue");
 		final Properties.Source s = view(p, "testDescription");
-		assertFails(() ->
-			s.get(null),
-			NullPointerException.class, "key");
-		assertFails(() ->
-			s.get(""),
-			IllegalArgumentException.class, "key must not be empty");
+		assertSourceCheckKey(s);
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue", s.get("testKey"));
 		assertEquals(new HashSet<>(asList("testKey")), s.keySet());
@@ -48,5 +43,17 @@ public class PropertiesSourceTest
 		assertSame(s, s.reload());
 		assertEquals("testDescription", s.getDescription());
 		assertEquals("testDescription", s.toString());
+	}
+
+	public static void assertSourceCheckKey(final Properties.Source source)
+	{
+		assertFails(
+				() -> source.get(null),
+				NullPointerException.class,
+				"key");
+		assertFails(
+				() -> source.get(""),
+				IllegalArgumentException.class,
+				"key must not be empty");
 	}
 }

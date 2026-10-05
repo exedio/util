@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.junit.Assert.assertFails;
+import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.Sources.SYSTEM_PROPERTIES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -30,12 +30,7 @@ public class SystemPropertySourceTest
 {
 	@Test void testIt()
 	{
-		assertFails(() ->
-			SYSTEM_PROPERTIES.get(null),
-			NullPointerException.class, "key");
-		assertFails(() ->
-			SYSTEM_PROPERTIES.get(""),
-			IllegalArgumentException.class, "key must not be empty");
+		assertSourceCheckKey(SYSTEM_PROPERTIES);
 		assertEquals(null, SYSTEM_PROPERTIES.get("xxx"));
 		assertNull(SYSTEM_PROPERTIES.keySet());
 		assertSame(SYSTEM_PROPERTIES, SYSTEM_PROPERTIES.reload());

@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
+import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.Sources.load;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -40,12 +41,7 @@ public class SourcesUrlTest
 		final URL url = SourcesUrlTest.class.getResource("sourcesUrlTest.properties");
 		assertNotNull(url);
 		final Source s = load(url);
-		assertFails(() ->
-			s.get(null),
-			NullPointerException.class, "key");
-		assertFails(() ->
-			s.get(""),
-			IllegalArgumentException.class, "key must not be empty");
+		assertSourceCheckKey(s);
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));

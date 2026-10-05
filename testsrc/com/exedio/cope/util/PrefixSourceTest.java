@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.cope.util.PrefixSource.wrap;
+import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -86,13 +87,7 @@ public class PrefixSourceTest
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
 		assertEquals(null, ps.get("none"));
-		assertFails(() ->
-			ps.get(""),
-			IllegalArgumentException.class,
-			"key must not be empty");
-		assertFails(() ->
-			ps.get(null),
-			NullPointerException.class, "key");
+		assertSourceCheckKey(ps);
 		assertEqualsUnmodifiable(asList("one", "two", ""), ps.keySet());
 		assertEquals("description (prefix prefix.)", ps.getDescription());
 		assertEquals("toString(description) (prefix prefix.)", ps.toString());
@@ -109,13 +104,7 @@ public class PrefixSourceTest
 		assertEquals("prefix.one/val", ps.get("one"));
 		assertEquals("prefix.two/val", ps.get("two"));
 		assertEquals(null, ps.get("none"));
-		assertFails(() ->
-			ps.get(""),
-			IllegalArgumentException.class,
-			"key must not be empty");
-		assertFails(() ->
-			ps.get(null),
-			NullPointerException.class, "key");
+		assertSourceCheckKey(ps);
 		assertEquals(null, ps.keySet());
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 		assertEquals(null, ps.toString());
