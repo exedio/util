@@ -1501,8 +1501,7 @@ public abstract class Properties
 	@SuppressWarnings("MethodMayBeStatic") // OK: context no longer supported
 	public final String getContext(final String key)
 	{
-		if(key==null)
-			throw new NullPointerException("key");
+		requireNonNull(key, "key");
 		throw new IllegalStateException(CONTEXT_NOT_SUPPORTED);
 	}
 
