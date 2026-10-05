@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
+import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.decascade;
 import static com.exedio.cope.util.Sources.view;
@@ -63,12 +64,7 @@ public class CascadeSourceTest
 		assertEquals("description1 / description2", s.getDescription());
 		assertEquals("description1 / description2", s.toString());
 
-		assertFails(() ->
-			s.get(""),
-			IllegalArgumentException.class, "key must not be empty");
-		assertFails(() ->
-			s.get(null),
-			NullPointerException.class, "key");
+		assertSourceCheckKey(s);
 	}
 
 	@Test void nullArray()

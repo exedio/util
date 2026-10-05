@@ -19,13 +19,13 @@
 package com.exedio.cope.util.servlet;
 
 import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
+import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.servlet.ServletSource.create;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.junit.Assert;
 import com.exedio.cope.util.Properties.Source;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -37,7 +37,7 @@ public class ServletSourceTest
 	public void testNormal()
 	{
 		final Source s = create(new TestContext("/testContextPath", "testContextPath."));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertFails(s, "p3", "testContextPath.p3");
@@ -53,7 +53,7 @@ public class ServletSourceTest
 	public void testRoot()
 	{
 		final Source s = create(new TestContext("", "root."));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertFails(s, "p3", "root.p3");
@@ -69,7 +69,7 @@ public class ServletSourceTest
 	public void testWithoutSlash()
 	{
 		final Source s = create(new TestContext("ding", "ding."));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertFails(s, "p3", "ding.p3");
@@ -85,7 +85,7 @@ public class ServletSourceTest
 	public void testNull()
 	{
 		final Source s = create(new TestContext(null, ""));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertFails(s, "p3", "p3");
@@ -150,15 +150,5 @@ public class ServletSourceTest
 		{
 			return contextPath;
 		}
-	}
-
-	static void assertKey(final Source s)
-	{
-		Assert.assertFails(
-				() -> s.get(null),
-				NullPointerException.class, "key");
-		Assert.assertFails(
-				() -> s.get(""),
-				IllegalArgumentException.class, "key must not be empty");
 	}
 }

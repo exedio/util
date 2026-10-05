@@ -19,8 +19,8 @@
 package com.exedio.cope.util.servlet;
 
 import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
+import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.servlet.ServletSource.create;
-import static com.exedio.cope.util.servlet.ServletSourceTest.assertKey;
 import static java.util.Locale.ENGLISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -73,7 +73,7 @@ public class ServletSourceFileTest
 	public void testNormal()
 	{
 		final Source s = create(new TestContext("/testContextPath", "testContextPath.", file(), false));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertEquals(null, s.get("p3"));
@@ -92,7 +92,7 @@ public class ServletSourceFileTest
 	public void testNormalNewKey()
 	{
 		final Source s = create(new TestContext("/testContextPath", "testContextPath.", file(), true));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertEquals(null, s.get("p3"));
@@ -111,7 +111,7 @@ public class ServletSourceFileTest
 	public void testRoot()
 	{
 		final Source s = create(new TestContext("", "root.", file(), false));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertEquals(null, s.get("p3"));
@@ -130,7 +130,7 @@ public class ServletSourceFileTest
 	public void testWithoutSlash()
 	{
 		final Source s = create(new TestContext("ding", "ding.", file(), false));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertEquals(null, s.get("p3"));
@@ -149,7 +149,7 @@ public class ServletSourceFileTest
 	public void testNull()
 	{
 		final Source s = create(new TestContext(null, "", file(), false));
-		assertKey(s);
+		assertSourceCheckKey(s);
 		assertEquals("v1", s.get("p1"));
 		assertEquals("v2", s.get("p2"));
 		assertEquals(null, s.get("p3"));
