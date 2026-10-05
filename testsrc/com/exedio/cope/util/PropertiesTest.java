@@ -165,6 +165,7 @@ public class PropertiesTest
 
 		minimal.ensureEquality(minimal);
 
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> minimal.getField(null),
 				NullPointerException.class, "key");
@@ -333,6 +334,7 @@ public class PropertiesTest
 
 	@Test void testSourceNull()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			new Properties(null){},
 			NullPointerException.class, "source");

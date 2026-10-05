@@ -142,6 +142,7 @@ public class PropertiesListTest
 				IllegalArgumentException.class,
 				"default of broken must not contain null"
 		);
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> new EmptyProps().valueIntegerList("broken", 1, 0, null),
 				NullPointerException.class,

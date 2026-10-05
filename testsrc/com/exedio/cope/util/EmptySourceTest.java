@@ -22,6 +22,7 @@ import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.Sources.EMPTY;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -33,7 +34,7 @@ public class EmptySourceTest
 	{
 		assertSourceCheckKey(EMPTY);
 		assertEquals(null, EMPTY.get("xxx"));
-		assertUnmodifiable(EMPTY.keySet());
+		assertUnmodifiable(requireNonNull(EMPTY.keySet()));
 		assertEquals(asList(), EMPTY.keySet());
 		assertSame(EMPTY, EMPTY.reload());
 		assertEquals("empty", EMPTY.getDescription());

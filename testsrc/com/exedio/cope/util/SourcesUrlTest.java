@@ -23,6 +23,7 @@ import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.Sources.load;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -46,7 +47,7 @@ public class SourcesUrlTest
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));
 		assertContains("testKey1", "testKey2", s.keySet());
-		assertUnmodifiable(s.keySet());
+		assertUnmodifiable(requireNonNull(s.keySet()));
 		assertEquals(url.toString(), s.getDescription());
 		assertEquals(url.toString(), s.toString());
 	}

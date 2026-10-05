@@ -26,7 +26,7 @@ public class PropertiesDuplicateTest
 {
 	static class KeyNullProperties extends Properties
 	{
-		@SuppressWarnings("unused") final boolean value = value(null, false);
+		@SuppressWarnings({"unused","DataFlowIssue"}) final boolean value = value(null, false);
 		KeyNullProperties()
 		{
 			super(EMPTY_WITHOUT_KEY_CHECK);
