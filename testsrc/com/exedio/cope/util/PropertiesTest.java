@@ -33,7 +33,7 @@ import org.junit.jupiter.api.function.Executable;
 
 public class PropertiesTest
 {
-	static class TestProperties extends Properties
+	static class TestProperties extends JunitProperties
 	{
 		final boolean boolFalse = value("boolFalse", false);
 		final boolean boolTrue = value("boolTrue", true);
@@ -54,14 +54,14 @@ public class PropertiesTest
 			super(source);
 		}
 
-		final Field<?> boolFalseF = getField("boolFalse");
-		final Field<?> boolTrueF  = getField("boolTrue");
-		final Field<?> intAnyF = getField("intAny");
-		final Field<?> int10F  = getField("int10");
-		final Field<?> stringMandatoryF      = getField("stringMandatory");
-		final Field<?> stringOptionalF       = getField("stringOptional");
-		final Field<?> stringHiddenF         = getField("stringHidden");
-		final Field<?> stringHiddenOptionalF = getField("stringHiddenOptional");
+		final Field<?> boolFalseF = getFielX("boolFalse");
+		final Field<?> boolTrueF  = getFielX("boolTrue");
+		final Field<?> intAnyF = getFielX("intAny");
+		final Field<?> int10F  = getFielX("int10");
+		final Field<?> stringMandatoryF      = getFielX("stringMandatory");
+		final Field<?> stringOptionalF       = getFielX("stringOptional");
+		final Field<?> stringHiddenF         = getFielX("stringHidden");
+		final Field<?> stringHiddenOptionalF = getFielX("stringHiddenOptional");
 
 
 		void assertIt()

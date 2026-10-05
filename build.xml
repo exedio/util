@@ -47,6 +47,7 @@
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/servletsrc" />
 				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>

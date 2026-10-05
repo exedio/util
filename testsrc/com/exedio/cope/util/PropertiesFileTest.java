@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class PropertiesFileTest
 {
-	static class TestProperties extends Properties
+	static class TestProperties extends JunitProperties
 	{
 		final File file = valueFile("file");
 
@@ -40,7 +40,7 @@ public class PropertiesFileTest
 			super(view(source, sourceDescription));
 		}
 
-		final Field<?> fileF = getField("file");
+		final Field<?> fileF = getFielX("file");
 
 
 		void assertIt()

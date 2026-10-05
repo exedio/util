@@ -18,7 +18,7 @@
 
 package com.exedio.cope.util;
 
-public class MyProperties extends Properties
+public class MyProperties extends JunitProperties
 {
 	protected MyProperties(final Source source)
 	{

@@ -110,7 +110,7 @@ public class PropertiesEnumTest
 
 	enum MyEnum { MANDATORY, OPTIONAL, @SuppressWarnings("unused") ALPHA, BETA, GAMMA }
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final MyEnum mandatory = value("mandatory", MyEnum.class);
 		final MyEnum optional  = value("optional" , OPTIONAL);
@@ -120,8 +120,8 @@ public class PropertiesEnumTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> mandatoryF = getField("mandatory");
-		final Field<?> optionalF  = getField("optional");
+		final Field<?> mandatoryF = getFielX("mandatory");
+		final Field<?> optionalF  = getFielX("optional");
 
 
 		void assertIt()

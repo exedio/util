@@ -34,18 +34,18 @@ public class PropertiesNestedTest
 		final int outer1 = value("outer1", 1001, 501);
 		final int outer2 = value("outer2", 1002, 502);
 		final Inner nested = valnp("nestedO", Inner::new);
-		final Field<?> nestedInner1   = getField("nestedO.inner1");
-		final Field<?> nestedInner2   = getField("nestedO.inner2");
-		final Field<?> nestedDrinner1 = getField("nestedO.nestedI.drinner1");
-		final Field<?> nestedDrinner2 = getField("nestedO.nestedI.drinner2");
+		final Field<?> nestedInner1   = getFielX("nestedO.inner1");
+		final Field<?> nestedInner2   = getFielX("nestedO.inner2");
+		final Field<?> nestedDrinner1 = getFielX("nestedO.nestedI.drinner1");
+		final Field<?> nestedDrinner2 = getFielX("nestedO.nestedI.drinner2");
 
 		Outer(final java.util.Properties source)
 		{
 			super(view(source, "someDescription"));
 		}
 
-		final Field<?> outer1F = getField("outer1");
-		final Field<?> outer2F = getField("outer2");
+		final Field<?> outer1F = getFielX("outer1");
+		final Field<?> outer2F = getFielX("outer2");
 		final PropertiesField<Inner> nestedF = forPrefix("nestedO", Inner.class);
 
 		void assertIt()
@@ -96,16 +96,16 @@ public class PropertiesNestedTest
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
 		final Drinner nested = valnp("nestedI", Drinner::new);
-		final Field<?> nestedDrinner1 = getField("nestedI.drinner1");
-		final Field<?> nestedDrinner2 = getField("nestedI.drinner2");
+		final Field<?> nestedDrinner1 = getFielX("nestedI.drinner1");
+		final Field<?> nestedDrinner2 = getFielX("nestedI.drinner2");
 
 		Inner(final Source source)
 		{
 			super(source);
 		}
 
-		final Field<?> inner1F = getField("inner1");
-		final Field<?> inner2F = getField("inner2");
+		final Field<?> inner1F = getFielX("inner1");
+		final Field<?> inner2F = getFielX("inner2");
 		final PropertiesField<Drinner> nestedF = forPrefix("nestedI", Drinner.class);
 
 		void assertIt()
@@ -141,7 +141,7 @@ public class PropertiesNestedTest
 		}
 	}
 
-	static class Drinner extends Properties
+	static class Drinner extends JunitProperties
 	{
 		final int drinner1 = value("drinner1", 11, 1);
 		final int drinner2 = value("drinner2", 12, 2);
@@ -151,8 +151,8 @@ public class PropertiesNestedTest
 			super(source);
 		}
 
-		final Field<?> drinner1F = getField("drinner1");
-		final Field<?> drinner2F = getField("drinner2");
+		final Field<?> drinner1F = getFielX("drinner1");
+		final Field<?> drinner2F = getFielX("drinner2");
 
 		void assertIt()
 		{

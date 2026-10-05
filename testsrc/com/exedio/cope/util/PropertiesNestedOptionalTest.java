@@ -35,10 +35,10 @@ public class PropertiesNestedOptionalTest
 		final InnerProperties nestedFalse = value("nestedFalse", false, InnerProperties::new);
 		final InnerProperties nestedTrue  = value("nestedTrue",  true,  InnerProperties::new);
 
-		final Field<?> nestedFalseEnable = getField("nestedFalse");
+		final Field<?> nestedFalseEnable = getFielX("nestedFalse");
 		final Field<?> nestedFalseInner1 = getField("nestedFalse.inner1");
 		final Field<?> nestedFalseInner2 = getField("nestedFalse.inner2");
-		final Field<?> nestedTrueEnable  = getField("nestedTrue");
+		final Field<?> nestedTrueEnable  = getFielX("nestedTrue");
 		final Field<?> nestedTrueInner1  = getField("nestedTrue.inner1");
 		final Field<?> nestedTrueInner2  = getField("nestedTrue.inner2");
 
@@ -47,7 +47,7 @@ public class PropertiesNestedOptionalTest
 			super(view(source, "someDescription"));
 		}
 
-		final Field<?> outerF = getField("outer");
+		final Field<?> outerF = getFielX("outer");
 		final PropertiesField<InnerProperties> nestedFalseF = forPrefix("nestedFalse", InnerProperties.class);
 		final PropertiesField<InnerProperties> nestedTrueF  = forPrefix("nestedTrue",  InnerProperties.class);
 
@@ -125,7 +125,7 @@ public class PropertiesNestedOptionalTest
 		}
 	}
 
-	static class InnerProperties extends Properties
+	static class InnerProperties extends JunitProperties
 	{
 		final int inner1 = value("inner1", 101, 51);
 		final int inner2 = value("inner2", 102, 52);
@@ -135,8 +135,8 @@ public class PropertiesNestedOptionalTest
 			super(source);
 		}
 
-		final Field<?> inner1F = getField("inner1");
-		final Field<?> inner2F = getField("inner2");
+		final Field<?> inner1F = getFielX("inner1");
+		final Field<?> inner2F = getFielX("inner2");
 
 		void assertIt()
 		{

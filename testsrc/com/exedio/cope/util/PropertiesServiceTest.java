@@ -349,11 +349,11 @@ public class PropertiesServiceTest
 			super(view(source, "sourceDescription"));
 		}
 
-		final Field<?> mandatoryF = getField("mandatory");
-		final Field<?> mandatStrF = getField("mandatStr");
-		final Field<?> mandatClsF = getField("mandatCls");
-		final Field<?> optionalF  = getField("optional");
-		final Field<?> optionClsF = getField("optionCls");
+		final Field<?> mandatoryF = getFielX("mandatory");
+		final Field<?> mandatStrF = getFielX("mandatStr");
+		final Field<?> mandatClsF = getFielX("mandatCls");
+		final Field<?> optionalF  = getFielX("optional");
+		final Field<?> optionClsF = getFielX("optionCls");
 		final Field<?> mandatoryNestedAF = getField("mandatory.nestedA");
 		final Field<?> mandatoryNestedBF = getField("mandatory.nestedB");
 

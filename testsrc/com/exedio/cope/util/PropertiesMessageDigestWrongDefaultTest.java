@@ -51,7 +51,7 @@ public class PropertiesMessageDigestWrongDefaultTest
 
 	private static final MessageDigestFactory SHA_512 = new MessageDigestFactory("SHA-512");
 
-	static class MyProps extends Properties
+	static class MyProps extends JunitProperties
 	{
 		final MessageDigestFactory field =
 				valueMessageDigest("field", "WRONG");
@@ -61,7 +61,7 @@ public class PropertiesMessageDigestWrongDefaultTest
 			super(view(source, "DESC"));
 		}
 
-		final Field<?> fieldF = getField("field");
+		final Field<?> fieldF = getFielX("field");
 
 		void assertIt()
 		{

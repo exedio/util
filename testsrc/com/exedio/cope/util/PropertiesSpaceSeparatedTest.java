@@ -171,7 +171,7 @@ public class PropertiesSpaceSeparatedTest
 	}
 
 
-	private static class Props extends Properties
+	private static class Props extends JunitProperties
 	{
 		final List<String> field =
 				valuesSpaceSeparated("field", "alpha", "beta");
@@ -181,7 +181,7 @@ public class PropertiesSpaceSeparatedTest
 			super(view(source, "DESC"));
 		}
 
-		final Field<?> fieldF = getField("field");
+		final Field<?> fieldF = getFielX("field");
 
 		void assertIt()
 		{
