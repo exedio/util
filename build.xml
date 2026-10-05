@@ -26,7 +26,7 @@
 		<compile srcdir="src">
 			<classpath>
 				<fileset dir="lib/runtime" />
-				<pathelement location="lib/jsr305/jsr305.jar" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -36,7 +36,7 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<fileset dir="lib/servlet" />
-				<pathelement location="lib/jsr305/jsr305.jar" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -158,7 +158,7 @@
 			</src>
 			<myClasspath>
 				<fileset dir="lib/runtime" />
-				<pathelement location="lib/jsr305/jsr305.jar" />
+				<fileset dir="lib/compile-annotations" />
 			</myClasspath>
 		</api>
 	</target>
