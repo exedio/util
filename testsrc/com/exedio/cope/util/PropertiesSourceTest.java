@@ -22,6 +22,7 @@ import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.Sources.view;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -39,7 +40,7 @@ public class PropertiesSourceTest
 		assertEquals(null, s.get("xxx"));
 		assertEquals("testValue", s.get("testKey"));
 		assertEquals(new HashSet<>(asList("testKey")), s.keySet());
-		assertUnmodifiable(s.keySet());
+		assertUnmodifiable(requireNonNull(s.keySet()));
 		assertSame(s, s.reload());
 		assertEquals("testDescription", s.getDescription());
 		assertEquals("testDescription", s.toString());
@@ -47,6 +48,7 @@ public class PropertiesSourceTest
 
 	public static void assertSourceCheckKey(final Properties.Source source)
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> source.get(null),
 				NullPointerException.class,

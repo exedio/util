@@ -310,6 +310,7 @@ public class PropertiesDurationTest
 		PropsMinimumNull()
 		{
 			super(Sources.EMPTY);
+			//noinspection DataFlowIssue OK: testing illegal API usage
 			value("myKey", null, null);
 		}
 	}
@@ -326,6 +327,7 @@ public class PropertiesDurationTest
 		PropsMinimumNullWithMaximum()
 		{
 			super(Sources.EMPTY);
+			//noinspection DataFlowIssue OK: testing illegal API usage
 			value("myKey", null, null, null);
 		}
 	}
@@ -342,6 +344,7 @@ public class PropertiesDurationTest
 		PropsMaximumNull()
 		{
 			super(Sources.EMPTY);
+			//noinspection DataFlowIssue OK: testing illegal API usage
 			value("myKey", null, ofNanos(1), null);
 		}
 	}

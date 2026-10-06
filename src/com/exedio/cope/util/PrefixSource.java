@@ -87,6 +87,7 @@ public final class PrefixSource implements Source
 	public String getDescription()
 	{
 		final String sourceDescription = source.getDescription();
+		//noinspection ConstantValue TODO drop sourceDescription!=null when @NonNull of Source#getDescription() was in effect long enough so any dependency had a chance to adapt
 		return
 			sourceDescription!=null
 			? (sourceDescription + " (prefix " + prefix + ')')

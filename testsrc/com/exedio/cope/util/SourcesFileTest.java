@@ -24,6 +24,7 @@ import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
 import static com.exedio.cope.util.Sources.load;
 import static com.exedio.cope.util.Sources.loadIfExists;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -51,7 +52,7 @@ public class SourcesFileTest
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));
 		assertContains("testKey1", "testKey2", s.keySet());
-		assertUnmodifiable(s.keySet());
+		assertUnmodifiable(requireNonNull(s.keySet()));
 		assertEquals(file.getAbsolutePath(), s.getDescription());
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
@@ -65,7 +66,7 @@ public class SourcesFileTest
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));
 		assertContains("testKey1", "testKey2", s.keySet());
-		assertUnmodifiable(s.keySet());
+		assertUnmodifiable(requireNonNull(s.keySet()));
 		assertEquals(file.getAbsolutePath(), s.getDescription());
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}
@@ -79,7 +80,7 @@ public class SourcesFileTest
 		assertEquals("testValue1", s.get("testKey1"));
 		assertEquals("testValue2", s.get("testKey2"));
 		assertContains("testKey1", "testKey2", s.keySet());
-		assertUnmodifiable(s.keySet());
+		assertUnmodifiable(requireNonNull(s.keySet()));
 		assertEquals(file.getAbsolutePath(), s.getDescription());
 		assertEquals(file.getAbsolutePath(), s.toString());
 	}

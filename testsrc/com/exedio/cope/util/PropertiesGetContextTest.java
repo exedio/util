@@ -54,6 +54,7 @@ public class PropertiesGetContextTest
 		final TestProperties context = new TestProperties(pcontext, "context", null);
 		assertEquals("stringMandatory.minimalValue", context.stringMandatory);
 
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			context.getContext(null),
 			NullPointerException.class, "key");

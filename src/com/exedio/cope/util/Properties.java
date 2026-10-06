@@ -60,11 +60,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@NullMarked
 @SuppressWarnings("AbstractClassWithoutAbstractMethods") // OK: instantiating makes no sense without subclass
 public abstract class Properties
 {
@@ -83,7 +84,7 @@ public abstract class Properties
 		this.sourceDescription = source.getDescription();
 	}
 
-	public final Field<?> getField(final String key)
+	public final @Nullable Field<?> getField(final String key)
 	{
 		Sources.checkKey(key);
 		return fieldsByKey.get(key);
@@ -110,7 +111,7 @@ public abstract class Properties
 		 * @throws RuntimeException if key is null or empty.
 		 * You may want to use {@link Sources#checkKey(String)} for implementations.
 		 */
-		String get(String key);
+		@Nullable String get(String key);
 
 		/**
 		 * Returns all keys, for which {@link #get(String)}
@@ -120,7 +121,7 @@ public abstract class Properties
 		 * it returns null.
 		 * The result is always unmodifiable.
 		 */
-		Collection<String> keySet();
+		@Nullable Collection<String> keySet();
 
 		/**
 		 * Reloads the contents of this source from its origin,
@@ -144,9 +145,9 @@ public abstract class Properties
 	{
 		final String key;
 		private final Class<E> valueClass;
-		private final E minimum;
-		private final E defaultValue;
-		private final String defaultValueFailure;
+		private final @Nullable E minimum;
+		private final @Nullable E defaultValue;
+		private final @Nullable String defaultValueFailure;
 		private final boolean hideValue;
 		private final boolean specified;
 		private final E value;
@@ -156,9 +157,9 @@ public abstract class Properties
 		Field(
 				final String key,
 				final Class<E> valueClass,
-				final E minimum,
-				final E defaultValue,
-				final String defaultValueFailure,
+				final @Nullable E minimum,
+				final @Nullable E defaultValue,
+				final @Nullable String defaultValueFailure,
 				final boolean hideValue,
 				final boolean specified,
 				final E value,
@@ -193,7 +194,6 @@ public abstract class Properties
 					template.getString);
 		}
 
-		@NonNull
 		public String getKey()
 		{
 			return key;
@@ -203,7 +203,7 @@ public abstract class Properties
 		 * Do no apply {@link Object#toString()} to the result,
 		 * but use {@link #getMinimumString()} instead.
 		 */
-		public E getMinimum()
+		public @Nullable E getMinimum()
 		{
 			return minimum;
 		}
@@ -211,7 +211,7 @@ public abstract class Properties
 		/**
 		 * Returns {@link #getString(Object) getString}({@link #getMinimum()}).
 		 */
-		public String getMinimumString()
+		public @Nullable String getMinimumString()
 		{
 			return minimum!=null ? getString.apply(minimum) : null;
 		}
@@ -220,7 +220,7 @@ public abstract class Properties
 		 * Do no apply {@link Object#toString()} to the result,
 		 * but use {@link #getDefaultValueString()} instead.
 		 */
-		public E getDefaultValue()
+		public @Nullable E getDefaultValue()
 		{
 			return defaultValue;
 		}
@@ -228,12 +228,12 @@ public abstract class Properties
 		/**
 		 * Returns {@link #getString(Object) getString}({@link #getDefaultValue()}).
 		 */
-		public String getDefaultValueString()
+		public @Nullable String getDefaultValueString()
 		{
 			return defaultValue!=null ? getString.apply(defaultValue) : null;
 		}
 
-		public String getDefaultValueFailure()
+		public @Nullable String getDefaultValueFailure()
 		{
 			return defaultValueFailure;
 		}
@@ -254,7 +254,6 @@ public abstract class Properties
 		 * Do no apply {@link Object#toString()} to the result,
 		 * but use {@link #getValueString()} instead.
 		 */
-		@NonNull
 		public E getValue()
 		{
 			return value;
@@ -263,7 +262,6 @@ public abstract class Properties
 		/**
 		 * Returns {@link #getString(Object) getString}({@link #getValue()}).
 		 */
-		@NonNull
 		public String getValueString()
 		{
 			return getString.apply(value);
@@ -277,12 +275,11 @@ public abstract class Properties
 		 * @throws ClassCastException
 		 *         if {@code someValue} does not match class of {@link #getValue() value}
 		 */
-		public String getString(final Object someValue)
+		public @Nullable String getString(final @Nullable Object someValue)
 		{
 			return someValue!=null ? getString.apply(valueClass.cast(someValue)) : null;
 		}
 
-		@NonNull
 		public E get()
 		{
 			return value;
@@ -295,23 +292,21 @@ public abstract class Properties
 		}
 	}
 
-	@NonNull
 	private <E> Field<E> parseField(
 			final String key,
 			final Class<E> valueClass,
-			final E minimum,
-			final E defaultValue,
+			final @Nullable E minimum,
+			final @Nullable E defaultValue,
 			final Function<String, E> parser)
 	{
 		return parseField(key, valueClass, minimum, () -> defaultValue, false, parser, Object::toString);
 	}
 
-	@NonNull
 	private <E> Field<E> parseField(
 			final String key,
 			final Class<E> valueClass,
-			final E minimum,
-			final Supplier<E> defaultValueSupplier,
+			final @Nullable E minimum,
+			final Supplier<@Nullable E> defaultValueSupplier,
 			final boolean hideValue,
 			final Function<String, E> parser,
 			final Function<E, String> getString)
@@ -344,7 +339,6 @@ public abstract class Properties
 			specified = true;
 			value = requireNonNull(parser.apply(s), key);
 
-			if(defaultValueSupplier!=null)
 			{
 				E d = null;
 				String f = null;
@@ -362,11 +356,6 @@ public abstract class Properties
 				defaultValue = d;
 				defaultValueFailure = f;
 			}
-			else
-			{
-				defaultValue = null;
-				defaultValueFailure = null;
-			}
 		}
 		return new Field<>(
 				key, valueClass, minimum,
@@ -375,11 +364,10 @@ public abstract class Properties
 				value, getString);
 	}
 
-	@NonNull
 	private <E> Field<E> parseFieldOrDefault(
 			final String key,
 			final Class<E> valueClass,
-			final String defaultValue,
+			final @Nullable String defaultValue,
 			final Function<String, E> parser,
 			final Function<E, String> getString)
 	{
@@ -425,7 +413,6 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, int, int)} instead
 	 */
 	@Deprecated
-	@NonNull
 	protected final Field<Integer> field(final String key, final int defaultValue, final int minimum)
 	{
 		if(defaultValue<minimum)
@@ -465,8 +452,7 @@ public abstract class Properties
 	}
 
 
-	@NonNull
-	protected final LocalDate value(final String key, final LocalDate defaultValue)
+	protected final LocalDate value(final String key, final @Nullable LocalDate defaultValue)
 	{
 		return parseField(key, LocalDate.class, null, defaultValue, (value) ->
 		{
@@ -484,8 +470,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@NonNull
-	protected final Day value(final String key, final Day defaultValue)
+	protected final Day value(final String key, final @Nullable Day defaultValue)
 	{
 		return field(key, defaultValue).get();
 	}
@@ -494,8 +479,7 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, Day)} instead
 	 */
 	@Deprecated
-	@NonNull
-	protected final Field<Day> field(final String key, final Day defaultValue)
+	protected final Field<Day> field(final String key, final @Nullable Day defaultValue)
 	{
 		return parseField(key, Day.class, null, () -> defaultValue, false, (s) ->
 		{
@@ -521,14 +505,12 @@ public abstract class Properties
 	}
 
 
-	@NonNull
-	protected final String value(final String key, final String defaultValue)
+	protected final String value(final String key, final @Nullable String defaultValue)
 	{
 		return field(key, defaultValue).get();
 	}
 
-	@NonNull
-	protected final String valueHidden(final String key, final String defaultValue)
+	protected final String valueHidden(final String key, final @Nullable String defaultValue)
 	{
 		return parseField(key, String.class, null, () -> defaultValue, true, identity(), identity()).get();
 	}
@@ -537,21 +519,18 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, String)} instead
 	 */
 	@Deprecated
-	@NonNull
-	protected final Field<String> field(final String key, final String defaultValue)
+	protected final Field<String> field(final String key, final @Nullable String defaultValue)
 	{
 		return parseField(key, String.class, null, defaultValue, identity());
 	}
 
 
-	@NonNull
 	protected final Path valuePath(final String key)
 	{
 		return parseField(key, Path.class, null, null, Paths::get).get();
 	}
 
 
-	@NonNull
 	protected final File valueFile(final String key)
 	{
 		return fieldFile(key).get();
@@ -561,7 +540,6 @@ public abstract class Properties
 	 * @deprecated Use {@link #valueFile(String)} instead
 	 */
 	@Deprecated
-	@NonNull
 	@SuppressWarnings("DeprecatedIsStillUsed") // OK: rare case where non-deprecated API calls deprecated API
 	protected final Field<File> fieldFile(final String key)
 	{
@@ -569,23 +547,20 @@ public abstract class Properties
 	}
 
 
-	@NonNull
 	protected final <E extends Enum<E>> E value(final String key, final Class<E> valueClass)
 	{
 		return value(key, valueClass, null);
 	}
 
-	@NonNull
 	protected final <E extends Enum<E>> E value(final String key, final E defaultValue)
 	{
 		return value(key, defaultValue.getDeclaringClass(), defaultValue);
 	}
 
-	@NonNull
 	private <E extends Enum<E>> E value(
 			final String key,
 			final Class<E> valueClass,
-			final E defaultValue)
+			final @Nullable E defaultValue)
 	{
 		return parseField(key, valueClass, null, defaultValue, (value) ->
 		{
@@ -598,8 +573,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@NonNull
-	protected final Charset value(final String key, final Charset defaultValue)
+	protected final Charset value(final String key, final @Nullable Charset defaultValue)
 	{
 		return parseField(key, Charset.class, null, defaultValue, (value) ->
 		{
@@ -616,8 +590,7 @@ public abstract class Properties
 		}).get();
 	}
 
-	@NonNull
-	protected final ZoneId value(final String key, final ZoneId defaultValue)
+	protected final ZoneId value(final String key, final @Nullable ZoneId defaultValue)
 	{
 		return parseField(key, ZoneId.class, null, defaultValue, (value) ->
 		{
@@ -634,10 +607,9 @@ public abstract class Properties
 		}).get();
 	}
 
-	@NonNull
 	protected final Duration value(
 			final String key,
-			final Duration defaultValue,
+			final @Nullable Duration defaultValue,
 			final Duration minimum)
 	{
 		return value(key, defaultValue, minimum, DURATION_MAX_VALUE);
@@ -645,10 +617,9 @@ public abstract class Properties
 
 	private static final Duration DURATION_MAX_VALUE = Duration.ofSeconds(Long.MAX_VALUE, 999_999_999);
 
-	@NonNull
 	protected final Duration value(
 			final String key,
-			final Duration defaultValue,
+			final @Nullable Duration defaultValue,
 			final Duration minimum,
 			final Duration maximum)
 	{
@@ -712,8 +683,7 @@ public abstract class Properties
 		return "P" + days + 'D' + withoutDays.toString().substring(1);
 	}
 
-	@NonNull
-	protected final MessageDigestFactory valueMessageDigest(final String key, final String defaultValue)
+	protected final MessageDigestFactory valueMessageDigest(final String key, final @Nullable String defaultValue)
 	{
 		return parseFieldOrDefault(key, MessageDigestFactory.class, defaultValue, (value) ->
 		{
@@ -740,7 +710,6 @@ public abstract class Properties
 	 * Please note that @{@link ServiceProperties} could be
 	 * {@link java.lang.annotation.Inherited inherited} from a superclass.
 	 */
-	@NonNull
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
 			final Class<T> superclass,
@@ -749,10 +718,9 @@ public abstract class Properties
 		return valueService(key, (String)null, superclass, parameterType);
 	}
 
-	@NonNull
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
-			final Class<? extends T> defaultValue,
+			final @Nullable Class<? extends T> defaultValue,
 			final Class<T> superclass,
 			final Class<P> parameterType)
 	{
@@ -761,10 +729,9 @@ public abstract class Properties
 				superclass, parameterType);
 	}
 
-	@NonNull
 	protected final <T,P> ServiceFactory<T,P> valueService(
 			final String key,
-			final String defaultValue,
+			final @Nullable String defaultValue,
 			final Class<T> superclass,
 			final Class<P> parameterType)
 	{
@@ -901,13 +868,13 @@ public abstract class Properties
 				"@ServiceAlias loop for " + clazz.getName() + " aborted after 30 iterations");
 	}
 
-	@NonNull
 	protected final List<String> valuesSpaceSeparated(final String key, final String... defaultValue)
 	{
 		requireNonNull(defaultValue, "defaultValue");
 		for(int i = 0; i<defaultValue.length; i++)
 		{
 			final String s = defaultValue[i];
+			//noinspection ConstantValue OK: testing illegal API usage
 			if(s==null)
 				throw new NullPointerException(
 						"defaultValue[" + i + ']');
@@ -940,7 +907,6 @@ public abstract class Properties
 	 * {@code error: reference to value is ambiguous},
 	 * use {@link #valnp(String, Factory)} instead.
 	 */
-	@NonNull
 	protected final <T extends Properties> T value(final String key, final Factory<T> factory)
 	{
 		return field(key, factory).get();
@@ -953,7 +919,6 @@ public abstract class Properties
 	 * <p>
 	 * <a href="https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8170842">JDK-8170842</a>
 	 */
-	@NonNull
 	protected final <T extends Properties> T valnp(final String key, final Factory<T> factory)
 	{
 		return value(key, factory);
@@ -969,7 +934,6 @@ public abstract class Properties
 	 * @deprecated Use {@link #value(String, Factory)} instead
 	 */
 	@Deprecated
-	@NonNull
 	protected final <T extends Properties> PropertiesField<T> field(final String key, final Factory<T> factory)
 	{
 		final PropertiesField<T> result = new PropertiesField<>(this, key, factory);
@@ -983,7 +947,7 @@ public abstract class Properties
 	 */
 	protected final <T> List<T> valueList(
 			final String key,
-			final BiFunction<String,T,T> valueFunction,
+			final BiFunction<String,@Nullable T,T> valueFunction,
 			final int minSize,
 			@Nullable final List<? extends T> defaultValue)
 	{
@@ -993,6 +957,7 @@ public abstract class Properties
 				throw new IllegalArgumentException(
 						"default of " + key + " must not have size smaller than minSize of " + minSize + ", " +
 						"but was " + defaultValue);
+			//noinspection ConstantValue OK: testing illegal API usage
 			if (defaultValue.stream().anyMatch(Objects::isNull))
 				throw new IllegalArgumentException("default of " + key + " must not contain null");
 		}
@@ -1019,7 +984,7 @@ public abstract class Properties
 		return valueStringList(key, minSize, null);
 	}
 
-	protected final List<String> valueStringList(final String key, final int minSize, final List<String> defaultValues)
+	protected final List<String> valueStringList(final String key, final int minSize, final @Nullable List<String> defaultValues)
 	{
 		return valueList(key, this::value, minSize, defaultValues);
 	}
@@ -1043,7 +1008,6 @@ public abstract class Properties
 
 	private final ArrayList<Callable<Object>> probersNested = new ArrayList<>();
 
-	@NonNull
 	private static Callable<Object> prefix(final Callable<?> prober, final String key)
 	{
 		if(prober instanceof Prober)
@@ -1142,12 +1106,12 @@ public abstract class Properties
 		return newException(key, detail, null);
 	}
 
-	protected final IllegalPropertiesException newException(final String key, final String detail, final Throwable cause)
+	protected final IllegalPropertiesException newException(final String key, final String detail, final @Nullable Throwable cause)
 	{
 		return new IllegalPropertiesException(key, source.getDescription(), detail, cause);
 	}
 
-	public final Set<String> getOrphanedKeys()
+	public final @Nullable Set<String> getOrphanedKeys()
 	{
 		final Collection<String> keySet = source.keySet();
 		if(keySet==null)
@@ -1165,7 +1129,7 @@ public abstract class Properties
 		return Collections.unmodifiableSet(result);
 	}
 
-	public final void ensureValidity(final String... prefixes)
+	public final void ensureValidity(final String @Nullable... prefixes)
 	{
 		final Collection<String> keySet = source.keySet();
 		if(keySet==null)
@@ -1464,7 +1428,7 @@ public abstract class Properties
 	 * Using context is no longer supported.
 	 */
 	@Deprecated
-	protected Properties(final Source source, final Source context)
+	protected Properties(final Source source, final @Nullable Source context)
 	{
 		this(source);
 		//noinspection VariableNotUsedInsideIf OK: context no longer supported
@@ -1491,7 +1455,7 @@ public abstract class Properties
 	 * @deprecated Use {@link #Properties(Source, Source)} instead.
 	 */
 	@Deprecated
-	protected Properties(final java.util.Properties source, final String sourceDescription, final Source context)
+	protected Properties(final java.util.Properties source, final String sourceDescription, final @Nullable Source context)
 	{
 		this(getSource(source, sourceDescription), context);
 	}
