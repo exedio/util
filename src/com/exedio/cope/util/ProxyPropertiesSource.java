@@ -22,6 +22,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties.Source;
 import java.util.Collection;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A proxy implementation of {@link Source}.
@@ -34,6 +36,7 @@ import java.util.Collection;
  * to make your subclass cope with new methods
  * in {@link Source}.
  */
+@NullMarked
 public abstract class ProxyPropertiesSource implements Source
 {
 	private final Source target;
@@ -49,13 +52,13 @@ public abstract class ProxyPropertiesSource implements Source
 	}
 
 	@Override
-	public String get(final String key)
+	public @Nullable String get(final String key)
 	{
 		return target.get(key);
 	}
 
 	@Override
-	public Collection<String> keySet()
+	public @Nullable Collection<String> keySet()
 	{
 		return target.keySet();
 	}
