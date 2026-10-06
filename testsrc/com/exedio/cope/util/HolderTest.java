@@ -41,6 +41,7 @@ public class HolderTest
 	}
 	@Test void testInitialNull()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> new Holder<>(null),
 				NullPointerException.class,
@@ -51,6 +52,7 @@ public class HolderTest
 		final Holder<String> h = new Holder<>("initial");
 		assertEquals("initial", h.get());
 
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> h.override(null),
 				NullPointerException.class,

@@ -20,6 +20,9 @@ package com.exedio.cope.util;
 
 import static java.util.Objects.requireNonNull;
 
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked
 public final class Holder<E>
 {
 	private final E value;
