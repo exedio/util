@@ -24,7 +24,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @SuppressWarnings("TransientFieldNotInitialized") // OK: handled by readResolve
 public final class MessageDigestFactory implements Serializable
 {
@@ -111,7 +113,7 @@ public final class MessageDigestFactory implements Serializable
 	@Serial
 	private Object readResolve()
 	{
-		return new MessageDigestFactory(algorithm);
+		return new MessageDigestFactory(requireNonNull(algorithm));
 	}
 
 	@Override
