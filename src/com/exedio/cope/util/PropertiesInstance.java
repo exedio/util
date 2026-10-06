@@ -23,7 +23,10 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
 import java.io.Serial;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public final class PropertiesInstance<P extends Properties>
 {
 	public static <P extends Properties> PropertiesInstance<P> create(final Factory<P> factory)
@@ -32,7 +35,7 @@ public final class PropertiesInstance<P extends Properties>
 	}
 
 	private final Factory<P> factory;
-	private volatile P value = null;
+	private volatile @Nullable P value = null;
 
 	private PropertiesInstance(final Factory<P> factory)
 	{
