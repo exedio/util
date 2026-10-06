@@ -21,15 +21,18 @@ package com.exedio.cope.util;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Objects;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public final class ServiceFactory<T,P>
 {
 	private final Constructor<? extends T> constructor;
-	private final Properties properties;
+	private final @Nullable Properties properties;
 
 	ServiceFactory(
 			final Constructor<? extends T> constructor,
-			final Properties properties)
+			final @Nullable Properties properties)
 	{
 		this.constructor = constructor;
 		this.properties = properties;
