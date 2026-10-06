@@ -987,12 +987,15 @@ public abstract class Properties
 			final int minSize,
 			@Nullable final List<? extends T> defaultValue)
 	{
-		if (defaultValue!=null && defaultValue.size()<minSize)
-			throw new IllegalArgumentException(
-					"default of " + key + " must not have size smaller than minSize of " + minSize + ", " +
-					"but was " + defaultValue);
-		if (defaultValue!=null && defaultValue.stream().anyMatch(Objects::isNull))
-			throw new IllegalArgumentException("default of " + key + " must not contain null");
+		if (defaultValue!=null)
+		{
+			if (defaultValue.size()<minSize)
+				throw new IllegalArgumentException(
+						"default of " + key + " must not have size smaller than minSize of " + minSize + ", " +
+						"but was " + defaultValue);
+			if (defaultValue.stream().anyMatch(Objects::isNull))
+				throw new IllegalArgumentException("default of " + key + " must not contain null");
+		}
 		final int count = value(key + ".count", defaultValue==null ? minSize : defaultValue.size(), minSize);
 		final List<T> result = new ArrayList<>();
 		for (int i=0; i<count; i++)
