@@ -30,12 +30,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 final class CascadeSource
 {
 	static Source cascade(final Source... sources)
 	{
 		for(final Source source : requireNonNull(sources, "sources"))
+			//noinspection ConstantValue OK: testing illegal API usage
 			if(source==null)
 				throw new NullPointerException();
 
@@ -66,7 +70,7 @@ final class CascadeSource
 		}
 
 		@Override
-		public String get(final String key)
+		public @Nullable String get(final String key)
 		{
 			Sources.checkKey(key);
 
@@ -81,7 +85,7 @@ final class CascadeSource
 		}
 
 		@Override
-		public Collection<String> keySet()
+		public @Nullable Collection<String> keySet()
 		{
 			final LinkedHashSet<String> result = new LinkedHashSet<>();
 			for(final Source source : sources)
