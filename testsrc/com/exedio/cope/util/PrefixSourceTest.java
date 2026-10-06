@@ -115,7 +115,6 @@ public class PrefixSourceTest
 
 	@Test void testFail()
 	{
-		//noinspection DataFlowIssue
 		assertFails(() ->
 			new PrefixSource(null, null),
 			NullPointerException.class, "source");
@@ -124,13 +123,12 @@ public class PrefixSourceTest
 			NullPointerException.class, "source");
 
 		final MockSource ms = new MockSource(false, "description");
-		//noinspection DataFlowIssue
 		assertFails(() ->
 			new PrefixSource(ms, null),
 			NullPointerException.class, "prefix");
 		assertFails(() ->
 			new PrefixSource(ms, ""),
-			IllegalArgumentException.class, "prefix");
+			IllegalArgumentException.class, "prefix must not be empty");
 	}
 
 	@Test void nest()
