@@ -20,6 +20,7 @@ package com.exedio.cope.util.servlet;
 
 import static com.exedio.cope.junit.CopeAssert.assertContainsUnmodifiable;
 import static com.exedio.cope.util.PropertiesSourceTest.assertSourceCheckKey;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static com.exedio.cope.util.servlet.ServletSource.create;
 import static java.util.Locale.ENGLISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,7 +52,9 @@ public class ServletSourceFileTest
 	@BeforeEach
 	final void beforeEach()
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", ENGLISH);
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z", ENGLISH);
+		df.setTimeZone(getTimeZone("UTC"));
+
 		final long reloadMillis = 5555555;
 		reloadDate = df.format(new Date(reloadMillis));
 		Clock.override(() -> reloadMillis);

@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.util.Sources.reloadable;
 import static com.exedio.cope.util.Sources.view;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Arrays.asList;
 import static java.util.Locale.ENGLISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,7 +44,8 @@ public class ReloadableSourceTest
 		properties.setProperty("keyA", "valueA");
 		properties.setProperty("keyB", "valueB");
 		final Source s = view(properties, "description");
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", ENGLISH);
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z", ENGLISH);
+		df.setTimeZone(getTimeZone("UTC"));
 
 		final long reload1Millis = 514857711111L; // 1986-04-26 02:01:51.111 CEST (+0200)
 		clock.override(() -> reload1Millis);
