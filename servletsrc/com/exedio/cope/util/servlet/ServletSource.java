@@ -31,9 +31,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@NullMarked
 public final class ServletSource
 {
 	private ServletSource()
@@ -114,9 +117,9 @@ public final class ServletSource
 
 	private static class ContextPath extends ProxyPropertiesSource
 	{
-		private final String contextPath;
+		private final @Nullable String contextPath;
 
-		ContextPath(final String contextPath, final Source initParam)
+		ContextPath(final @Nullable String contextPath, final Source initParam)
 		{
 			super(initParam);
 			this.contextPath = contextPath;
@@ -125,7 +128,7 @@ public final class ServletSource
 		private static final String KEY = "contextPath";
 
 		@Override
-		public String get(final String key)
+		public @Nullable String get(final String key)
 		{
 			checkKey(key);
 
