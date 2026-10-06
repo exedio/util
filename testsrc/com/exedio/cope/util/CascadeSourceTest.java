@@ -69,6 +69,7 @@ public class CascadeSourceTest
 
 	@Test void nullArray()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			cascade((Source[])null),
 			NullPointerException.class, "sources");
@@ -76,6 +77,7 @@ public class CascadeSourceTest
 
 	@Test void nullElementSingleton()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			cascade(new Source[]{null}),
 			NullPointerException.class, null);
@@ -83,6 +85,7 @@ public class CascadeSourceTest
 
 	@Test void nullElementMultiple()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			cascade(new Source[]{null, null}),
 			NullPointerException.class, null);
@@ -144,6 +147,7 @@ public class CascadeSourceTest
 
 	@Test void testDecascadeNull()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> decascade(null),
 				NullPointerException.class,

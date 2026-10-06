@@ -68,6 +68,7 @@ public class ReloadableSourceTest
 
 	@Test void testSupplierNull()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> reloadable(null),
 				NullPointerException.class,
@@ -77,6 +78,7 @@ public class ReloadableSourceTest
 
 	@Test void testSupplierResultNull()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> reloadable(() -> null),
 				NullPointerException.class, "target");
