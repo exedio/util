@@ -20,6 +20,7 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.Clock.currentTimeMillis;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
@@ -222,8 +223,9 @@ public final class Sources
 		public String getDescription()
 		{
 			final SimpleDateFormat df = new SimpleDateFormat(
-					"(yyyy-MM-dd HH:mm:ss.SSS z (Z)" + (reloadedCount>0 ? (" 'reload' " + reloadedCount) : "") + ")",
+					"(yyyy-MM-dd HH:mm:ss.SSS z" + (reloadedCount>0 ? (" 'reload' " + reloadedCount) : "") + ")",
 					Locale.ROOT);
+			df.setTimeZone(getTimeZone("UTC"));
 			return
 					super.getDescription() +
 					df.format(new Date(reloadedMillis));
