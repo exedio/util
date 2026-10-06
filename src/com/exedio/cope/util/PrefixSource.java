@@ -18,6 +18,9 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.Properties.Source;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,12 +45,8 @@ public final class PrefixSource implements Source
 
 	public PrefixSource(final Source source, final String prefix)
 	{
-		if(source==null)
-			throw new NullPointerException("source");
-		if(prefix==null)
-			throw new NullPointerException("prefix");
-		if(prefix.isEmpty())
-			throw new IllegalArgumentException("prefix");
+		requireNonNull(source, "source");
+		requireNonEmpty(prefix, "prefix");
 		this.source = source;
 		this.prefix = prefix;
 	}
