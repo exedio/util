@@ -35,6 +35,7 @@ public class MessageDigestFactoryTest
 {
 	@Test void algorithmNull()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			new MessageDigestFactory(null),
 			 NullPointerException.class, "algorithm");
