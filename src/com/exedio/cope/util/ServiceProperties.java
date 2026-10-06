@@ -24,10 +24,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import org.jspecify.annotations.NullMarked;
 
 @Target(TYPE)
 @Retention(RUNTIME)
 @Inherited
+@NullMarked
 public @interface ServiceProperties
 {
 	Class<? extends Properties> value();
