@@ -25,10 +25,13 @@ import com.exedio.cope.util.Properties.Source;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public final class PrefixSource implements Source
 {
-	public static Source wrap(final Source source, final String prefix)
+	public static Source wrap(final Source source, @Nullable final String prefix)
 	{
 		if(prefix==null || prefix.isEmpty())
 			return source;
@@ -52,14 +55,14 @@ public final class PrefixSource implements Source
 	}
 
 	@Override
-	public String get(final String key)
+	public @Nullable String get(final String key)
 	{
 		Sources.checkKey(key);
 		return source.get(prefix + key);
 	}
 
 	@Override
-	public Collection<String> keySet()
+	public @Nullable Collection<String> keySet()
 	{
 		final Collection<String> sourceKeySet = source.keySet();
 		if(sourceKeySet==null)
@@ -67,6 +70,7 @@ public final class PrefixSource implements Source
 
 		final ArrayList<String> result = new ArrayList<>();
 		for(final String key : sourceKeySet)
+			//noinspection ConstantValue OK: tolerating illegal API usage
 			if(key!=null && key.startsWith(prefix))
 				result.add(key.substring(prefix.length()));
 		return Collections.unmodifiableList(result);
@@ -97,6 +101,7 @@ public final class PrefixSource implements Source
 	public String toString()
 	{
 		final String sourceResult = source.toString();
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		return
 			sourceResult!=null
 			? (sourceResult + " (prefix " + prefix + ')')

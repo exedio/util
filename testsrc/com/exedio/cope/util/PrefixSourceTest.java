@@ -109,20 +109,24 @@ public class PrefixSourceTest
 		assertEquals("unknown prefix prefix.", ps.getDescription());
 		assertEquals(null, ps.toString());
 
+		//noinspection DataFlowIssue OK: special case when prefix==null
 		assertNull(wrap(null, null));
 		assertNull(wrap(null, ""));
 	}
 
 	@Test void testFail()
 	{
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			new PrefixSource(null, null),
 			NullPointerException.class, "source");
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			wrap(null, "prefix."),
 			NullPointerException.class, "source");
 
 		final MockSource ms = new MockSource(false, "description");
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(() ->
 			new PrefixSource(ms, null),
 			NullPointerException.class, "prefix");
