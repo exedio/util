@@ -21,7 +21,10 @@ package com.exedio.cope.util;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public final class IllegalPropertiesException extends IllegalArgumentException
 {
 	@Serial
@@ -31,7 +34,7 @@ public final class IllegalPropertiesException extends IllegalArgumentException
 	private final String sourceDescription;
 	private final String detail;
 
-	IllegalPropertiesException(final String key, final String sourceDescription, final String detail, final Throwable cause)
+	IllegalPropertiesException(final String key, final String sourceDescription, final String detail, final @Nullable Throwable cause)
 	{
 		// Specifying message==null avoids detailMessage computed from cause in
 		// Throwable constructor, not needed because getMessage is overridden anyway.
