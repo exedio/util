@@ -106,7 +106,7 @@ public class PropertiesInstanceTest
 
 	@Test void testFactoryNull()
 	{
-		//noinspection ResultOfMethodCallIgnored
+		//noinspection ResultOfMethodCallIgnored,DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> create((Factory<?>)null),
 				NullPointerException.class,
@@ -116,6 +116,7 @@ public class PropertiesInstanceTest
 	@Test void testSetSourceNull()
 	{
 		final PropertiesInstance<MyProps> pi = create(myFactory);
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> pi.set((Source)null),
 				NullPointerException.class,
@@ -125,6 +126,7 @@ public class PropertiesInstanceTest
 	@Test void testCreateSourceNull()
 	{
 		final PropertiesInstance<MyProps> pi = create(myFactory);
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> pi.create((Source)null),
 				NullPointerException.class,
@@ -134,6 +136,7 @@ public class PropertiesInstanceTest
 	@Test void testNewValueNull()
 	{
 		final PropertiesInstance<MyProps> pi = create(myFactory);
+		//noinspection DataFlowIssue OK: testing illegal API usage
 		assertFails(
 				() -> pi.set((MyProps)null),
 				NullPointerException.class,
