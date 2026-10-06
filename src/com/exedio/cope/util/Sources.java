@@ -37,7 +37,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.function.Supplier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public final class Sources
 {
 	public static final Source EMPTY = new EmptySource();
@@ -50,7 +53,7 @@ public final class Sources
 		}
 
 		@Override
-		public String get(final String key)
+		public @Nullable String get(final String key)
 		{
 			checkKey(key);
 			return null;
@@ -251,7 +254,7 @@ public final class Sources
 		}
 
 		@Override
-		public Collection<String> keySet()
+		public @Nullable Collection<String> keySet()
 		{
 			return null;
 		}
