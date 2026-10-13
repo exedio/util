@@ -35,7 +35,7 @@ When investigating a surprising result, trace the `Source` chain and the exact f
 
 ## Property field conventions
 
-When adding fields to a `Properties` subclass or its nested property classes, choose defaults conservatively. Defaults are suitable for values shared across production, QA, and developer systems, such as connection timeouts, and for test-mode flags. Minimize both the chance that a default is left in place accidentally and the harm it could cause: enable a payment provider's test mode by default, but leave debugging mode disabled. Host names, IP addresses, user names, and especially passwords are good candidates for required values.
+When adding fields to a `Properties` subclass or its nested property classes, choose defaults conservatively. A shared default is suitable for values expected to be the same across production, QA, and developer systems, such as connection timeouts. Test-mode flags are typically environment-specific, so choose a safe default for them: enable a payment provider's test mode by default, but leave debugging mode disabled. Minimize both the chance that a default is left in place accidentally and the harm it could cause. Host names, IP addresses, user names, and especially passwords are good candidates for required values.
 
 Boolean and integer fields require defaults, strings may be required or defaulted, and `File` fields are required. Add entries with both the `tomcat.` and `test.` prefixes in `project.properties` for every new field without a default.
 
