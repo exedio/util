@@ -33,12 +33,14 @@ Methods annotated with `@Probe` are operational checks exposed through `getProbe
 
 When investigating a surprising result, trace the `Source` chain and the exact field declaration first. The source description is retained for configuration errors, and nested prefixes are added by the framework; manually stripping prefixes or flattening sources can change both accepted keys and diagnostics.
 
-## MainProperties conventions
+## Property field conventions
 
-When adding fields to `MainProperties` or its nested property classes, choose defaults conservatively. Defaults are suitable for values shared across production, QA, and developer systems, such as connection timeouts, and for test-mode flags. Minimize both the chance that a default is left in place accidentally and the harm it could cause: enable a payment provider's test mode by default, but leave debugging mode disabled. Host names, IP addresses, user names, and especially passwords are good candidates for required values.
+When adding fields to a `Properties` subclass or its nested property classes, choose defaults conservatively. Defaults are suitable for values shared across production, QA, and developer systems, such as connection timeouts, and for test-mode flags. Minimize both the chance that a default is left in place accidentally and the harm it could cause: enable a payment provider's test mode by default, but leave debugging mode disabled. Host names, IP addresses, user names, and especially passwords are good candidates for required values.
 
-In the documented `MainProperties` convention, boolean and integer fields require defaults, strings may be required or defaulted, and `File` fields are required. Add entries with both the `tomcat.` and `test.` prefixes in `project.properties` for every new field without a default.
+Boolean and integer fields require defaults, strings may be required or defaulted, and `File` fields are required. Add entries with both the `tomcat.` and `test.` prefixes in `project.properties` for every new field without a default.
 
 Never change the meaning of an existing property. If a timeout changes units or a service URL now targets an incompatible schema, introduce a property with a new key such as `connectionTimeoutMilliseconds` or `rest.urlNew`; do not silently reinterpret the old key. This avoids requiring deployers to guess which installed systems need changes.
+
+## Reusing `MainProperties.get()`
 
 Read `MainProperties.get()` once for a coherent operation and reuse that instance and any values derived from it. Separate calls can return different instances if properties change through `PropertiesServlet`, which can mix values from different configurations. Keep the instance only as long as needed, generally no longer than a request or transaction, and never store it or derived values in static fields; retaining it longer prevents live property changes from taking effect.
