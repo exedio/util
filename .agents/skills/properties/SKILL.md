@@ -41,6 +41,6 @@ Boolean and integer fields require defaults, strings may be required or defaulte
 
 Never change the meaning of an existing property. If a timeout changes units or a service URL now targets an incompatible schema, introduce a property with a new key such as `connectionTimeoutMilliseconds` or `rest.urlNew`; do not silently reinterpret the old key. This avoids requiring deployers to guess which installed systems need changes.
 
-## Reusing `MainProperties.get()`
+## Reusing values returned by `PropertiesInstance.get()`
 
-Read `MainProperties.get()` once for a coherent operation and reuse that instance and any values derived from it. Separate calls can return different instances if properties change through `PropertiesServlet`, which can mix values from different configurations. Keep the instance only as long as needed, generally no longer than a request or transaction, and never store it or derived values in static fields; retaining it longer prevents live property changes from taking effect.
+Read `PropertiesInstance.get()` once for a coherent operation and reuse the returned `Properties` object and any values derived from it. A later call can return a different object after `PropertiesInstance.set(...)` updates the current value, so separate calls can mix configuration snapshots. Keep the returned object only as long as needed, generally no longer than a request or transaction, and never store it or derived values in static fields; retaining it longer prevents property changes from taking effect. Projects often expose this call through a convenience accessor such as `MainProperties.get()`.
